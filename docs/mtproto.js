@@ -2777,6 +2777,7 @@ MtpAuthorizerModule.dependencies = [
 
 function MtpDcConfiguratorModule() {
 	var chosenServers = {};
+	var sslSubdomains = ['pluto', 'venus', 'aurora', 'vesta', 'flora']
 
 	function chooseServer(dcID, upload) {
 		var dcOptions = Config.Modes.test ? Config.Server.Test : Config.Server.Production;
@@ -2784,6 +2785,14 @@ function MtpDcConfiguratorModule() {
 		if (chosenServers[dcID] === undefined) {
 			var chosenServer = false,
 				i, dcOption;
+
+			// HTTPS
+			if (location.protocol.startsWith("https")) {
+				var subdomain = sslSubdomains[dcID - 1] + (upload ? '-1' : '')
+				var path = 'apiw1'
+				chosenServer = 'https://' + subdomain + '.web.telegram.org/' + path
+          		return chosenServer
+          	}
 
 			for (i = 0; i < dcOptions.length; i++) {
 				dcOption = dcOptions[i];
