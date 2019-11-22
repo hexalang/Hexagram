@@ -1,1 +1,487 @@
-hexagram
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Telegram Web</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;display=swap">
+</head>
+
+<body>
+	<style>
+		* {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		-ms-user-select: none !important;
+		user-select: none !important;
+		-webkit-user-select: none !important;
+		-khtml-user-select: none !important;
+		-moz-user-select: none !important;
+		-ms-user-select: none !important;
+		cursor: default !important;
+		-webkit-user-drag: none !important;
+		user-drag: none !important;
+		-moz-user-select: none !important;
+		text-decoration: none !important;
+		/*overflow: hidden;*/
+	}
+
+	html,
+	body {
+		background-color: #E6EBEE;
+		height: 100%;
+		overflow: hidden;
+		font-size: 0;
+
+		font-family: Roboto, sans-serif;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	.rotate {
+		animation: rotation 2s infinite linear;
+	}
+
+	@keyframes rotation {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(359deg);
+		}
+	}
+
+	.loading .sidebar {
+		height: 100%;
+		width: 420px;
+		border: 0px;
+		border-right-width: 1px;
+		border-color: #DADCE0;
+		background-color: #FFFFFF;
+		border-style: solid;
+	}
+
+	.loading .sidebar .animation {
+		padding-top: calc(50% - 26px);
+		padding-left: calc(50% - 26px);
+	}
+
+	.loading {
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+		background-color: #E6EBEE;
+	}
+
+	</style>
+	<link href="ui.css" rel="stylesheet">
+	<div class="loading" id="loading">
+		<div class="sidebar">
+			<div class="animation"><img src="data/loading.png" class="rotate"></div>
+		</div>
+	</div>
+	<div class="all hidden" id="all">
+		<div class="left">
+			<div class="top" style="    padding-top: 8px;padding-left: 0px;">
+				<img class="" src="data/icons/menu_2x.png" style="float: left;filter: opacity(0.5);margin-left: 24px;margin-top: 10px;" width="24px" height="24px" />
+				<div style="margin-left: 72px;border-radius: 22px; height: 44px; background-color: #F4F4F5; width: calc(328px - 15px);padding-left: 15px;">
+					<span class="normal gray" style="padding-top: 12px; display: block;">
+						<img class="" src="data/icons/search_2x.png" style="filter: opacity(0.25) invert(0); float: left;" width="24px" height="24px" /> Search</span>
+				</div>
+			</div>
+			<div id="room-chats" style="overflow-y: scroll;height: calc(100% - 60px);">
+				<!--div class="roomChat">
+					<div class="roomChatWrap" style="float: right;">
+						<div class="roomChatImage" style="">
+							<img class="circle" src="data/icons/avatar_savedmessages_2x.png" style="background-color: #4EA4F6;" width="54px" height="54px" />
+						</div>
+						<div class="roomChatBlock">
+							<div class="roomChatUser normal black bold">Saved Messages
+								<div class="roomChatDate normal">
+									<img class="" src="data/icons/1check_2x.png" style="" width="19px" height="14px" />
+									23:26
+								</div>
+							</div>
+							<div>
+								<div class="normal roomChatText">Thank you for taking part in the contest! Have you already completed the task for this competition?</div>
+								<div>
+									<div class="normal pinneds">
+										<span style="" class="pinned">
+											<img class="circle" src="data/icons/pinnedchat_2x.png" width="24px" height="24px" />
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="" style="background-color: #F4F4F5;margin-left: 8px; border-radius: 9px; width: 404px; height: 72px; /*position: absolute; left: 8px;*/"></div>
+				</div>
+				<div class="roomChat">
+					<div class="roomChatWrap">
+						<div class="roomChatImage" style="position: relative; display: inline-block;">
+							<img class="circle" id="user-picture-current" src="data/logo.svg" width="54px" height="54px" />
+							<div style="border-radius: 100%; background-color: #FFFFFF; width: 14px; height: 14px;
+							position: absolute;left: 41px;top: 41px;
+						"></div>
+							<div style="border-radius: 100%; background-color: #0AC630; width: 10px; height: 10px;
+							position: absolute;left: 43px;top: 43px;
+						"></div>
+						</div>
+						<div class="roomChatBlock">
+							<div class="normal roomChatUser black bold">Deleted Account
+								<div class="normal roomChatDate">19.04.17</div>
+							</div>
+							<div>
+								<div class="normal roomChatText"><span class="black">Denny: </span>Test</div>
+								<div class="normal pinned">1</div>
+							</div>
+						</div>
+					</div>
+				</div-->
+				<div class="roomChatPinndedDivider" style="height: 1px; width: 100%; background-color: #DADCE0;"></div>
+			</div>
+			<!--scrollbar-->
+		</div>
+		<div class="center">
+			<div class="topCenter">
+				<!--Saved Messages S I M-->
+				<img style="margin-left: 19px;
+    margin-top: 8px;float: left;" class="circle" id="user-picture-current" src="data/logo.svg" width="44px" height="44px" />
+				<div style="margin-left: 77px;margin-top: 8px;">
+					<div class="normal black bold" id="user-full-name-current"></div>
+					<div class="normal blue" id="online-current">online</div>
+				</div>
+				<div style="float: right;">
+					<img class="" src="data/icons/search_2x.png" style="top: -22px;position: relative;filter: opacity(0.5) invert(0); float: left;" width="24px" height="24px" />
+					<img class="" src="data/icons/more_2x.png" style="top: -22px;position: relative;filter: opacity(0.5) invert(0); float: left;" width="24px" height="24px" />
+				</div>
+			</div>
+			<div class="normal" id="center-history">
+				<div id="center-history-demo">
+					<!--
+					<div style="border-radius: 10px;overflow: hidden;box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);background-color: white;">
+						<div class="blue">
+							Forwarded message
+						</div>
+						<div class="blue">
+							Interesting Facts
+							<div>
+								When the park opened, admission was $1, according to PBS. It's now $99.
+							</div>
+							<span>16:38</span>
+						</div>
+					</div>
+					<div style="border-radius: 10px;overflow: hidden;background-color: #EEFFDE;box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);">
+						<div>
+							Oh my God <span class="green">16:38</span>
+						</div>
+					</div>
+					<div style="border-radius: 10px;overflow: hidden;box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);background-color: white;">
+						<img src="data/puctur.png" width="45%" height="45%" /><span>16:38</span>
+					</div>
+					<div style="border-radius: 10px;overflow: hidden;">
+						<div style="height: 200px; background-image: url(data/stick.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;">&nbsp;</div><span>16:38</span>
+					</div>
+					<div style="border-radius: 10px;overflow: hidden;box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);background-color: white;"><img src="data/file.png" /><span>DisneylandVisa.pdf</span><span>pdf</span><span>1 MB</span><span>16:38</span>
+					</div>
+					<div style="border-radius: 10px;overflow: hidden;background-color: #EEFFDE;box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);">Wow
+						<div>
+							<div class="green">
+								Forwarded message
+							</div>
+							<div class="green">
+								Interesting Facts
+								<div>
+									London Is The Smallest City In England<br>
+									Yes, you heard that right. What you think of London is actually a small urban area lorem ipsum dolor sit amet
+								</div>
+								<span>16:38</span>
+							</div>
+						</div>
+					</div>
+				-->
+				</div>
+			</div>
+			<div id="out" class="out" onscroll="console.log('dom scroll',this.scrollTop, this.scrollHeight, this.clientHeight)"></div>
+			<!--scrollbar-->
+			<div class="bottom">
+				<div class="" style="height: 1px; width: 100%; text-align: center;margin-left: 8.5%;">
+					<div class="roomChatPinndedDivider" style="height: 1px; width: 83%; background-color: #DADCE0;"></div>
+				</div>
+				<div class="" style="width: 100%; text-align: center;margin-top: 10px;">
+					<div class="" style="height: 54px; border-radius: 10px; width: 80%; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2); background-color: #FFFFFF; position: relative; left: 5px;">
+						<img class="" src="data/icons/smile_2x.png" style="filter: opacity(0.5);position: relative;top: 15px;left: -105px;" width="24px" height="24px" />
+						<span class="normal lightgray" style="position: relative;left: -95px;top: 10px;">
+							<!--span style="position: absolute;top: 0px;left: 0px;">Message</span-->
+							<div id="contenteditable-message" class="black" contenteditable="true" placeholder="Write a message..."></div>
+						</span>
+						<!--span class="normal lightgray" style="position: relative;left: -95px;top: 10px;">Message</span-->
+						<img class="" src="data/icons/attach_2x.png" style="filter: opacity(0.5);position: relative;left: 100px;top: 15px;" width="24px" height="24px" />
+					</div>
+					<div style="position: relative;top: -52px;float: right; border-radius: 100%; background-color: #4EA4F6; width: 54px; height: 54px;">
+						<img class="" src="data/icons/microphone_2x.png" style="position: relative;top: 15px;" width="24px" height="24px" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="right" style="overflow: hidden;">
+			<div style="overflow: scrolls;">
+				<div class="top" style="margin-bottom: 5px;">
+					<span class="normal black bold larger" style="padding-left: 26px;"><img src="data/icons/close_2x.png" width="24px" height="24px" style="opacity: 0.55;padding-top: 12px;" /><span class="black larger" style="
+    position: relative;
+    top: -5px;
+    left: 10px;
+"> Info</span></span>
+					<img src="data/icons/more_2x.png" width="24px" height="24px" style="float: right;padding-right: 24px;
+    padding-top: 17px;opacity: 0.55;" />
+				</div>
+				<!--right-->
+				<div style="text-align: center; width: 100%;">
+					<div class="infoLargeUserpic" style="margin-bottom: 26px;">
+						<img class="circle" id="user-picture-current" src="data/logo.svg" width="120px" height="120px" />
+					</div>
+					<div class="normal black bold verylarge" id="user-full-name-current"></div>
+					<div class="normal blue" id="online-current">online</div>
+				</div>
+				<div style="margin-top: 35px;" id="user-bio-current-block">
+					<img src="data/icons/info_2x.png" width="24px" height="24px" style="float: left; opacity: 0.55; margin-left: 24px; margin-right: 32px;" />
+					<div class="normal black" id="user-bio-current"></div>
+					<div class="normal gray small">Bio</div>
+				</div>
+				<div style="margin-top: 35px;" id="user-username-current-block">
+					<img src="data/icons/username_2x.png" width="24px" height="24px" style="float: left; opacity: 0.55; margin-left: 24px; margin-right: 32px;" />
+					<div class="normal black" id="user-username-current"></div>
+					<div class="normal gray small">username</div>
+				</div>
+				<div style="margin-top: 35px;" id="user-phone-current-block">
+					<img src="data/icons/phone_2x.png" width="24px" height="24px" style="float: left; opacity: 0.55; margin-left: 24px; margin-right: 32px;" />
+					<div class="normal black" id="user-phone-current"></div>
+					<div class="normal gray small">Phone</div>
+				</div>
+				<div style="margin-top: 35px; margin-bottom: 52px;">
+					<img src="data/icons/checkboxon_2x.png" width="24px" height="24px" style="float: left; opacity: 1.00; margin-left: 24px; margin-right: 32px;" />
+					<div class="normal black">Notifications</div>
+					<div class="normal gray small">Enabled</div>
+				</div>
+				<div style="margin-bottom: 9px;">
+					<div style="width: 25%; text-align: center; float: left;">
+						<span class="normal gray bold blue">Media</span>
+						<div style="height: 4px; width: 48px; background-color: #4EA4F6; position: relative; left: 30px; border-top-left-radius: 2px; border-top-right-radius: 2px;top: 10px;"></div>
+					</div>
+					<div style="width: 25%; text-align: center; float: left;">
+						<span class="normal gray bold">Docs</span>
+					</div>
+					<div style="width: 25%; text-align: center; float: left;">
+						<span class="normal gray bold">Links</span>
+					</div>
+					<div style="width: 25%; text-align: center; float: left;">
+						<span class="normal gray bold">Audio</span>
+					</div>
+					<div style="
+    /* float: none; */
+    clear: left;
+">.</div>
+				</div>
+				<div style="
+    padding-left: 6px;
+    padding-top: 6px;
+    border-top: 1px;
+    border-style: solid;
+    border-color: #DADCE0;
+">
+					<div style="">
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+					</div>
+					<div>
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+						<span style="">
+							<img class="media-img" src="data/blow.jpg" width="132px" height="132px" style="xfloat: right;" />
+							<!--span style="border-radius: 3px; height: 18px;background-color: rgba(0,0,0,0.5);width: 64px;    font-size: 0pt;position: absolute;margin-left: 5px;
+    margin-top: 5px;">
+								0:25
+							</span-->
+							<!--div class="" style="clear: both;"></div-->
+						</span>
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+					</div>
+					<div class="">
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+					</div>
+					<div>
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+						<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+						<span style="position: relative; display: inline-block;">
+							<img class="media-img" src="data/blow.jpg" width="132px" height="132px" />
+							<span style="font-size: 10pt;padding-left:4px;padding-right:4px;color:white;border-radius: 3px; height: 18px;position: absolute;background-color: rgba(0,0,0,0.4);/* top: -103px; */left: 6px;top: 6px;"> 0:25 </span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="scrollbar" style="left: calc(100% - 421px - 6px - 8px); top: 542px; height: 200px;"></div>
+		<div class="scrollbar" style="left: 407px; top: 642px; height: 100px;"></div>
+	</div>
+	<div id="login" class="login hidden">
+		<div class="login-screen" id="login-sign-in">
+			<a href="https://hexalang.github.io"><img class="" src="data/logo.svg" style="
+    width: 160px;
+    height: 160px;
+"></a>
+			<div class="login-title">
+				Sign in to Telegram
+			</div>
+			<div class="login-block">
+				<div class="login-description lightgray">Firefox & Chrome</div>
+				<div class="login-description gray">Please confirm your country and</div>
+				<div class="login-description gray">enter your phone number.</div>
+			</div>
+			<div class="login-block">&nbsp;</div>
+			<div class="login-block">
+				<div class="login-input" id="login-countries-block">
+					<div style="margin-left: 16px;">
+						<div class="login-inputs"><input style="/*margin-left: 16px;*/width: 90%;color: black;" type="text" name="country" id="country" placeholder="Country"><img id="login-country-show-list" src="data/icons/down_2x.png" width="24px" height="24px" style="opacity: 0.55;margin-right: 10px;float: right;
+    margin-top: 16px;" />
+						</div>
+					</div>
+					<div id="login-country-list" class="hidden" style="position: relative;display: nonse;z-index: 1;">
+						<div id="login-countries" style="border-radius: 10px;left: calc(50% - 181px);position: absolute; top: 12px; width: 362px; background-color: white; box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.2);height: 376px;overflow-x: hidden;overflow-y: scroll;">
+						</div>
+					</div>
+				</div>
+				<div class="login-block">
+					<div class="login-input" id="login-phone-block"><input style="margin-left: 16px;width: 90%;color: black;" type="tel" name="phone" id="phone" placeholder="Phone Number"></div>
+				</div>
+				<div class="login-block" style="margin-right: 200px;">
+					<div class="">
+						<div class="login-description black" style="display: inline-block;">
+							<img id="login-keep" src="data/icons/checkboxon_2x.png" width="24px" height="24px" style="float: left;margin-right: 25px;" />
+							<div style="" class="black"> Keep me signed in</div>
+						</div>
+					</div>
+				</div>
+				<div class="login-block">&nbsp;</div>
+				<div class="login-block">
+					<div class="login-button rp" id="login-screen-phone-next">NEXT</div>
+				</div>
+				<div class="login-block">
+					<div class="login-button rp" id="login-screen-phone-wait">PLEASE WAIT...<img src="data/white.png" width="29" height="29" style="
+    position: relative;
+    top: 9px;
+    left: 84px;
+" class="rotate"></div>
+				</div>
+			</div>
+		</div>
+		<div class="login-screen" id="login-sms">
+			<div id="login-monkey-sms" style="max-width: 180px; max-height: 180px; display: inline-block;">
+				<!--img class="" src="data/mokeyhi.png"-->
+			</div>
+			<div class="login-title" style="cursor: pointer !important;"><span id="login-screen-code-phone" class="black" style="cursor: pointer !important;">+33 1 23 45 67 89</span> <img src="data/icons/edit_2x.png" width="24px" height="24px" style="opacity: 0.55;cursor: pointer !important;" />
+			</div>
+			<div class="normal gray">We have sent you an SMS</div>
+			<div class="normal gray">with the code.</div>
+			<div class="login-block">&nbsp;</div>
+			<div class="login-block">
+				<div class="login-input" id="login-code-block"><input style="
+    margin-left: 16px;width: 90%;color: black;
+" type="tel" name="code" id="code" placeholder="Code"></div>
+			</div>
+			Invalid Code
+		</div>
+		<div class="login-screen" id="login-password">
+			<div id="login-monkey-password" style="max-width: 180px; max-height: 180px; display: inline-block;">
+				<!--img class="" src="data/monkeynonono.png"-->
+			</div>
+			<div class="login-title">
+				Enter a Password
+			</div>
+			<div class="normal gray">Your account is protected with</div>
+			<div class="normal gray">an additional password.</div>
+			<div class="login-block">&nbsp;</div>
+			<div class="login-block">
+				<div class="login-input" id="login-password-block">
+					<div style="margin-left: 16px;">
+						<div class="login-inputs"><input style="/*margin-left: 16px;*/width: 90%;color: black;" type="text" name="password" id="password" placeholder="Password"><img src="data/icons/eye1_2x.png" width="24px" height="24px" style="opacity: 0.55;margin-right: 15px;float: right;
+    margin-top: -33px;cursor: pointer !important;" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--Password<img src="data/icons/eye1_2x.png" width="24px" height="24px" style="opacity: 0.55;" />-->
+			Invalid Password
+			<div class="login-block">
+				<div>
+					<div class="login-button rp" id="login-screen-password-next">NEXT</div>
+				</div>
+			</div>
+			<div class="login-block">
+				<div>
+					<div class="login-button rp" id="login-screen-password-wait">PLEASE WAIT...<img src="data/white.png" width="29" height="29" style="
+    position: relative;
+    top: 9px;
+    left: 84px;
+" class="rotate"></div>
+				</div>
+			</div>
+		</div>
+		<div class="login-screen" id="login-name">
+			<div id="login-name-photo" class="login-hover rp" style="display: inline-block; background-color: #4EA4F6; width: 160px; height: 160px; border-radius: 100%; text-align: left;">
+				<img id="login-name-photo-img" class="" src="data/icons/cameraadd_2x.png" style="margin-top: calc(80px - 24px);margin-left: calc(80px - 22px);">
+			</div>
+			<div class="login-title">
+				Your Name
+			</div>
+			<div class="normal gray">Enter your name and add</div>
+			<div class="normal gray">a profile picture</div>
+			<div class="login-block">&nbsp;</div>
+			<div class="login-block">
+				<div class="login-input" id="login-name-block"><input style="margin-left: 16px;width: 90%;color: black;" type="text" name="name" id="name" placeholder="Name"></div>
+			</div>
+			<div class="login-block">
+				<div class="login-input"><input style="margin-left: 16px;width: 90%;color: black;" type="text" name="surname" id="surname" placeholder="Last Name (optional)"></div>
+			</div>
+			<div class="login-block">
+				<div>
+					<div class="login-button rp" id="login-screen-name-next">START MESSAGING</div>
+				</div>
+			</div>
+			<div class="login-block">
+				<div>
+					<div class="login-button rp" id="login-screen-name-wait">PLEASE WAIT...<img src="data/white.png" width="29" height="29" style="
+    position: relative;
+    top: 9px;
+    left: 84px;
+" class="rotate"></div>
+				</div>
+			</div>
+		</div>
+		<div class="login-reposition">
+			<img src="data/icons/close_2x.png" width="24px" height="24px" style="opacity: 0.55;" />
+			<div class="normal black">Drag to Reposition</div>
+			<img src="data/icons/1check_2x.png" width="24px" height="24px" style="opacity: 0.55;" />
+		</div>
+	</div>
+	<script src="pako_inflate.min.js"></script>
+	<script src="lottie.min.js" type="text/javascript"></script>
+	<script src="ripple.js"></script>
+	<script src="emoji.js"></script>
+	<script src="mtproto.js"></script>
+	<script src="config.js"></script>
+	<script src="login.js"></script>
+	<script src="index.js"></script>
+</body>
+
+</html>
