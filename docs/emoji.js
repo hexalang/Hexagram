@@ -1991,7 +1991,7 @@
 		//		 }
 		//
 		//		return text.join('');
-		{
+		if (false) {
 			const codes = []
 			let i = 0
 			while (i < text.length) {
@@ -2104,17 +2104,5 @@
 
 		return out.join('')
 	}
-
-	let test = '<'
-	let ii = 0
-	for (var i = 0; i < flags.length; i++) {
-		test += String.fromCharCode.apply(null, flags[i])
-		if (ii == 54) {
-			test = test + '>\n<'
-			ii = 0
-		}
-		ii++
-	}
-	console.log(test+'>')
 
 })();
