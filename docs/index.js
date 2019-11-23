@@ -481,7 +481,7 @@
 
 				const now = new Date()
 				for (let message of result.messages) {
-					let text = messageText(message)
+					let text = unicodeEmoji(messageText(message))
 					let time = ''
 					let date = new Date(message.date * 1000)
 					let diff = now.getTime() - date.getTime()
@@ -630,7 +630,7 @@
 							(room.peer.user_id && (room.peer.user_id == message.to_id.user_id)) ||
 							(room.peer.user_id && (room.peer.user_id == message.from_id && message.to_id._ == "peerUser"))
 						) {
-							text = messageText(message)
+							text = unicodeEmoji(messageText(message))
 							let date = new Date(message.date * 1000)
 							let diff = now.getTime() - date.getTime()
 							if (diff >= week) {
@@ -811,7 +811,10 @@
 
 	telegram.subscribe('Update', function(message) {
 		if (message._ == "msgs_ack") return;
+		if (message._ == "rpc_result") return;
 		if (message._ == "msg_container") return;
+		if (message._ == "msg_detailed_info") return;
+		if (message._ == "msgs_state_info") return;
 		console.log('Update', message);
 		if (message._ == "updateShort") {
 			updateHandle(message.update)
