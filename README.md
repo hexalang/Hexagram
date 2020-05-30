@@ -6,6 +6,8 @@ Telegram client
 
 > It is not best but it's just fine
 
+[Visit our Telegram group to discuss Hexagram!](https://t.me/joinchat/JFOrZFNUdU9V2AMksky8pA)
+
 ![GUI](screenshots/login.jpg?raw=true)
 
 
