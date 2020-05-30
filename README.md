@@ -10,3 +10,24 @@ Telegram client
 
 
 ![GUI](screenshots/gui.jpg?raw=true)
+
+
+## How to build
+
+To test in browser with localhost (recommended way!):
+
+```sh
+cd hexagram-react
+yarn install --frozen-lockfile
+yarn start
+```
+
+To release:
+
+```sh
+cd hexagram-react
+yarn install --frozen-lockfile
+yarn build
+copy ./build folder to /docs in repo root
+node fix-scss-root.js
+```
