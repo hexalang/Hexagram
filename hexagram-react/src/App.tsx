@@ -90,6 +90,7 @@ const options: TdOptions = {
 	 * If mode == 'auto' WebAbassembly will be used if supported by browser, asm.js otherwise.
 	 */
 	mode: 'wasm'
+import preview from './preview.svg'
 }
 
 const td = new TdClient(options)
