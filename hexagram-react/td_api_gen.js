@@ -13,6 +13,26 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+const header =
+`// Hexagram
+// Copyright (C) 2020  Oleg Petrenko
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, version 3 of the License.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+import TdClient, { TdObject } from 'tdweb'
+
+`
+
 const fs = require('fs')
 const path = require('path')
 console.log('start...')
@@ -44,6 +64,10 @@ let enumName = null
 
 function toTitleCase(named) {
 	return named[0].toUpperCase() + named.substr(1)
+}
+
+function toCamelCase(named) {
+	return named[0].toLowerCase() + named.substr(1)
 }
 
 function toType(typea) {
@@ -112,8 +136,8 @@ while (lines.length > 0) {
 // Functions
 
 out.push(`export class TD {
-	public readonly client: any
-	public constructor(client: any) {
+	public readonly client: TdClient
+	public constructor(client: TdClient) {
 		this.client = client
 	}`)
 
@@ -136,16 +160,17 @@ while (lines.length > 0) {
 		args.push(arg)
 	}
 
-	out.push(`\tpublic async ${named}(${args.join(', ')}): Promise<TL${typed}> {`)
+	let namedTitle = toTitleCase(typed)
+	out.push(`\n\tpublic async ${named}(${args.join(', ')}): Promise<TL${typed}> {`)
 
-	out.push(`\t\treturn await this.client.send({`)
+	out.push(`\t\treturn (await this.client.send({`)
 	out.push(`\t\t\t"@type": "${named}",`)
 	for (const param of params) {
 		const namea = param.split(':')[0]
 		out.push(`\t\t\t"${namea}": ${namea},`)
 	}
-	out.push(`\t\t})`)
-	out.push(`}`)
+	out.push(`\t\t} as any as TdObject)) as any as TL${namedTitle}`)
+	out.push(`\t}`)
 }
 
 out.push(`}\n`)
@@ -154,5 +179,5 @@ out.unshift('}')
 out.unshift(`	readonly "@type": "${typesAll.join('" |\n\t"')}"`)
 out.unshift('export interface TLObject {')
 
-fs.writeFileSync('./hexagram-react/src/tdlib/tdapi.ts', out.join('\n'))
+fs.writeFileSync('./hexagram-react/src/tdlib/tdapi.ts', header + out.join('\n'))
 console.log('done.')
