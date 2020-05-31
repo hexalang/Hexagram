@@ -16,6 +16,8 @@ Telegram client
 
 ## How to build
 
+Set your [API keys](https://core.telegram.org/api/obtaining_api_id) in `hexagram-react\src\tdlib\tdlib.ts`
+
 To test in browser with localhost (recommended way!):
 
 ```sh

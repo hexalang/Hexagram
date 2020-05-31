@@ -13,24 +13,28 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.scss'
-import App from './components/App'
-import * as serviceWorker from './serviceWorker'
-import { Provider } from 'react-redux'
-import store from './redux/store'
+// Shows XX:XX or XX.XX.XX
+export function formatTime(dateTime: number): string {
+	const now = new Date()
+	const day = (60 * 60 * 24 * 1000)
+	const week = day * 7
+	const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
-ReactDOM.render(
-	<React.StrictMode>
-		<Provider store={store}>
-			<App />
-		</Provider>
-	</React.StrictMode>,
-	document.getElementById('root')
-);
+	const date = new Date(dateTime * 1000)
+	const diff = now.getTime() - date.getTime()
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+	if (diff >= week) {
+		return date.toLocaleDateString(navigator.language, {
+			dateStyle: 'short'
+		} as any)
+	}
+
+	if (diff >= day) {
+		return days[date.getDay()]
+	}
+
+	return date.toLocaleTimeString(navigator.language, {
+		hour: '2-digit',
+		minute: '2-digit'
+	}).replace(/^0/, "") /* remove leading zero */
+}

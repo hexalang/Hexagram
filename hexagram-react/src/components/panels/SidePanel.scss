@@ -1,0 +1,77 @@
+.sidePanel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	flex-direction: row;
+}
+
+.sideBar {
+	display: flex;
+	flex-grow: 0;
+	background-color: white;
+	width: 260px;
+	flex-direction: column;
+
+	& .sideInfo {
+		width: 260px;
+		height: 134px;
+		margin-bottom: 13px;
+
+		background-color: gray;
+		background-image: url(/flowers.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+		align-items: center;
+
+		& .sideInfoName {
+			display: flex;
+			color: white;
+			font-size: 11pt;
+			text-shadow: 0px 0px 5px #000000;
+			padding: 8px;
+		}
+	}
+
+	& .button {
+		font-size: 11pt;
+		color: black;
+		width: 260px;
+		height: 44px;
+		text-align: left;
+		padding-left: 24px;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	& .button span {
+		font-size: 11pt;
+	}
+
+	& .button:hover {
+		background-color: #F1F1F1;
+	}
+
+	& .button:hover:active {
+		background-color: #E5E5E5;
+	}
+
+	& .patreon {
+		color: #F96854;
+	}
+}
+
+.fade {
+	display: flex;
+	background-color: rgba(0, 0, 0, 0.3);
+	flex-grow: 1;
+}

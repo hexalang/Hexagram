@@ -1,7 +1,3 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
-import TdClient, { TdOptions, TdObject } from 'tdweb';
 // Hexagram
 // Copyright (C) 2020  Oleg Petrenko
 //
@@ -17,13 +13,28 @@ import TdClient, { TdOptions, TdObject } from 'tdweb';
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import TdClient, { TdOptions, TdObject } from 'tdweb'
+import * as TL from './tdapi'
+
+export const dispatchTelegramEventHandler = { handle: null as any }
+export const downloadFileHandler = { handle: null as any }
+
+const apiId = '111111'
+const apiHash = 'd1111111111111111111111dddd1111d'
+const instanceName = 'user0'
+
 const options: TdOptions = {
 	/**
 	 * Callback for all incoming updates.
 	 */
 	onUpdate: async (update: TdObject) => {
-		console.log('receive update', update)
+		const dispatchTelegramEvent = dispatchTelegramEventHandler.handle
+		const downloadFile = downloadFileHandler.handle
+
+		console.log('receive update!', update)
+
 		switch (update['@type']) {
+			case "ok": break; // Just Ok
 			case "updateAuthorizationState":
 				switch ((update as any).authorization_state['@type']) {
 					case "authorizationStateWaitTdlibParameters":
@@ -53,21 +64,41 @@ const options: TdOptions = {
 						})
 						break;
 
-					case "authorizationStateWaitPhoneNumber":
-						await td.send({
-							'@type': 'checkAuthenticationBotToken',
-							token
-						})
-						break;
-
 					default:
-						// code...
+						dispatchTelegramEvent(update)
 						break;
 				}
 				break;
 
+			case "updateFile":
+				const updateFile = TL.updateFile(update as any)
+				if (updateFile.file.local.is_downloading_completed) downloadFile(updateFile.file.id)
+				return;
+				break;
+
+			case "updateOption":
+				if ((update as any).name == "my_id") { // Ready
+					// Avoid rendering before dialogs loaded
+					dispatchTelegramEvent(update)
+
+					// Trigger TDLib to load dialogs
+					const CHAT_SLICE_LIMIT = 25
+					const chats = await td.send({
+						'@type': 'getChats',
+						chat_list: { '@type': 'chatListMain' },
+						offset_chat_id: 0,
+						offset_order: '9223372036854775807',
+						limit: CHAT_SLICE_LIMIT
+					}) as any
+
+					console.warn('chatListMain', chats)
+					dispatchTelegramEvent(chats)
+				} else dispatchTelegramEvent(update)
+
+				break;
+
 			default:
-				// code...
+				dispatchTelegramEvent(update)
 				break;
 		}
 	},
@@ -76,7 +107,7 @@ const options: TdOptions = {
 	 * All but one instances with the same name will be automatically closed. Usually, the newest non-background instance is kept alive.
 	 * Files will be stored in an IndexedDb table with the same name.
 	 */
-	instanceName: 'test',
+	instanceName: instanceName,
 	/**
 	 * Pass true, if the instance is opened from the background.
 	 */
@@ -104,30 +135,7 @@ const options: TdOptions = {
 	 * If mode == 'auto' WebAbassembly will be used if supported by browser, asm.js otherwise.
 	 */
 	mode: 'wasm'
-import preview from './preview.svg'
 }
 
-const td = new TdClient(options)
-
-function App() {
-	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
-	);
-}
-
-export default App;
+export const td:TdClient = new TdClient(options)
+export const tg:TL.TD = new TL.TD(td)
