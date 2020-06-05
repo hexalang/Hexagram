@@ -35,7 +35,7 @@ const dispatchTelegramEventFunction = (update: TL.TLObject) => async (dispatch: 
 	})
 }
 
-function App({dispatchTelegramEventFunction, state}: {dispatchTelegramEventFunction: Function, state: State}) {
+function App({dispatchTelegramEventFunction}: {dispatchTelegramEventFunction: Function}) {
 	dispatchTelegramEventHandler.handle = dispatchTelegramEventFunction
 
 	const loaded = useSelector((state: State) => state.loaded)
@@ -47,8 +47,8 @@ function App({dispatchTelegramEventFunction, state}: {dispatchTelegramEventFunct
 
 	if (loginState == LoginState.Ready) return (
 		<div className="App">
-			<ChatsPanel state={state}/>
-			<CurrentChatPanel state={state}/>
+			<ChatsPanel />
+			<CurrentChatPanel />
 			{showSideBar && <SidePanel/>}
 		</div>
 	);
@@ -56,7 +56,7 @@ function App({dispatchTelegramEventFunction, state}: {dispatchTelegramEventFunct
 	return <div className="App"><LoginForm/></div>
 }
 
-const mapStateToProps = (state: State, ownProps: any) => ({ state })
+const mapStateToProps = (state: State, ownProps: any) => ({ })
 
 const mapDispatchToProps = { dispatchTelegramEventFunction }
 
