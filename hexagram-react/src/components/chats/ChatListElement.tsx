@@ -75,6 +75,7 @@ export function ChatListElement({state, chatId, selectChat, downloadFile}:{state
 	) name = 'Deleted Account'
 
 	const unread = chat? chat.unreadCount : 0
+	const mentioned = chat? chat.mentions : 0
 	const date = message? formatTime(message.date)  : ''
 	const dateHint = message? new Date(message.date * 1000).toLocaleDateString() : ''
 
@@ -168,6 +169,7 @@ export function ChatListElement({state, chatId, selectChat, downloadFile}:{state
 				<span className="light text"><div className="draft">{'Draft:'}</div><div title={draftText}>{draftText}</div></span>
 				}
 				<div className="counter">
+				{(mentioned > 0 && unread > 0) && <span className="mentioned" title={`You have been mentioned ${mentioned} times in this chat`}><div>@</div></span>}
 				{unread == 0 && pinned && <span className="light pinned" title={"You pinned this chat for quick access\n\nOnly 5 chats may be pinned"}><img src="icons/dialogs_pinned.png"/></span>}
 				{unread > 0 && <span className="light unread" title="You have unread messages in this chat"><div>{unread}</div></span>}
 				</div>

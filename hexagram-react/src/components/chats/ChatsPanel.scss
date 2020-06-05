@@ -241,6 +241,30 @@
 	min-width: 10px;
 }
 
+.chatListElement .textcounter .mentioned {
+	flex-shrink: 0;
+	display: flex;
+	background-color: #DD4B39;
+	width: 17px;
+	height: 17px;
+	border-radius: 100%;
+	margin: 0;
+	flex-direction: column;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+	margin-left: 4px;
+
+	& div {
+		font-size: 10pt;
+		display: flex;
+		color: white;
+		flex-shrink: 0;
+		width: 12px;
+		height: 18.5px;
+	}
+}
+
 .chatListElement .textcounter .pinned {
 	flex-shrink: 0;
 }
@@ -328,6 +352,9 @@
 	justify-content: center;
 	align-content: center;
 	flex-direction: row;
+
+	background-color: rgba(0,0,0,0);
+	transition: background-color 0.15s ease-in-out;
 }
 
 .chatListElement__active {

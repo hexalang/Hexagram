@@ -23,6 +23,7 @@ export function chatToState(tl: TL.TLChat): Chat {
 		order: tl.order,
 		isPinned: tl.is_pinned,
 		unreadCount: tl.unread_count,
+		mentions: tl.unread_mention_count,
 		photo: tl.photo,
 		lastMessage: 0,
 		onlineMemberCount: 0,

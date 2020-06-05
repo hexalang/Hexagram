@@ -50,6 +50,7 @@ export interface Chat {
 	readonly photo: TL.TLChatPhoto | null
 	readonly lastMessage: number // "updateChatLastMessage" - TODO
 	readonly type: TL.TLChatType
+	readonly mentions: number
 	readonly onlineMemberCount: number
 	readonly order: string
 

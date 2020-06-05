@@ -301,6 +301,45 @@ const reducer = (state: State = initialState, action: ActionTypes): State => {
 					}
 					break;
 
+				case "updateChatUnreadMentionCount":
+					{
+						const updateChatUnreadMentionCount = TL.updateChatUnreadMentionCount(update)
+						const chat_id = updateChatUnreadMentionCount.chat_id
+						let chat = state.chats[chat_id]// ?? emptyChat(chat_id)
+						if (chat == null) {
+							console.warn('updateChatUnreadMentionCount for not yet loaded object')
+							return state
+						}
+						return {
+							...state,
+							chats: {...state.chats, [chat_id]: {
+								...chat,
+								mentions: updateChatUnreadMentionCount.unread_mention_count,
+							}},
+						}
+					}
+					break;
+
+				case "updateMessageMentionRead":
+					{
+						// TODO message_id
+						const updateMessageMentionRead = TL.updateMessageMentionRead(update)
+						const chat_id = updateMessageMentionRead.chat_id
+						let chat = state.chats[chat_id]// ?? emptyChat(chat_id)
+						if (chat == null) {
+							console.warn('updateMessageMentionRead for not yet loaded object')
+							return state
+						}
+						return {
+							...state,
+							chats: {...state.chats, [chat_id]: {
+								...chat,
+								mentions: updateMessageMentionRead.unread_mention_count,
+							}},
+						}
+					}
+					break;
+
 				case "updateNewMessage":
 					{
 						const updateNewMessage = TL.updateNewMessage(update)
