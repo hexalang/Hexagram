@@ -38,8 +38,8 @@ function isCorrectPhoneNumber(text: string): boolean {
 	return true
 }
 
-function LoginForm({state, setAuthenticationPhoneNumber, checkAuthenticationCode, checkAuthenticationPassword}: {
-	state: State,
+function LoginForm({loginState, setAuthenticationPhoneNumber, checkAuthenticationCode, checkAuthenticationPassword}: {
+	loginState: LoginState,
 	setAuthenticationPhoneNumber: Function,
 	checkAuthenticationCode: Function,
 	checkAuthenticationPassword: Function
@@ -52,24 +52,24 @@ function LoginForm({state, setAuthenticationPhoneNumber, checkAuthenticationCode
 		let password = secret.trim()
 		setSecret('')
 
-		if (state.loginState == LoginState.WaitPhoneNumber && isCorrectPhoneNumber(phone)) {
+		if (loginState == LoginState.WaitPhoneNumber && isCorrectPhoneNumber(phone)) {
 			setAuthenticationPhoneNumber(cleanPhoneNumber(phone))
 		}
 
-		if (state.loginState == LoginState.WaitCode && isCorrectPhoneNumber(code)) {
+		if (loginState == LoginState.WaitCode && isCorrectPhoneNumber(code)) {
 			checkAuthenticationCode(cleanPhoneNumber(code))
 		}
 
-		if (state.loginState == LoginState.WaitPassword && password != '') {
+		if (loginState == LoginState.WaitPassword && password != '') {
 			checkAuthenticationPassword(password)
 		}
 
-		if (state.loginState == LoginState.WaitRegistration) {
+		if (loginState == LoginState.WaitRegistration) {
 			// TODO
 		}
 	}
 
-	const blur = (state.loginState != LoginState.WaitPhoneNumber) || (phone != '')
+	const blur = (loginState != LoginState.WaitPhoneNumber) || (phone != '')
 
 	return <>
 	<div className="centerBackgroundBefore"></div>
@@ -79,7 +79,7 @@ function LoginForm({state, setAuthenticationPhoneNumber, checkAuthenticationCode
 		<div className="title">Hexagram</div>
 		<div className="sign">Sign in to Telegram</div>
 
-		{ state.loginState == LoginState.WaitPhoneNumber && <>
+		{ loginState == LoginState.WaitPhoneNumber && <>
 			<div className="hint">Enter your phone number to log in</div>
 			<div className="phone"><input
 				className={isCorrectPhoneNumber(phone)? '' : 'error'}
@@ -89,7 +89,7 @@ function LoginForm({state, setAuthenticationPhoneNumber, checkAuthenticationCode
 			/></div>
 		</> }
 
-		{ state.loginState == LoginState.WaitCode && <>
+		{ loginState == LoginState.WaitCode && <>
 			<div className="hint">Enter authentication code to log in</div>
 			<div className="code"><input
 				className={isCorrectPhoneNumber(code)? '' : 'error'}
@@ -98,11 +98,11 @@ function LoginForm({state, setAuthenticationPhoneNumber, checkAuthenticationCode
 				placeholder="Code from SMS or message"/></div>
 		</> }
 
-		{ state.loginState == LoginState.WaitRegistration /* TODO > show TOS */ && <>
+		{ loginState == LoginState.WaitRegistration /* TODO > show TOS */ && <>
 			<div className="hint">Registration is not yet implemented, sorry</div>
 		</> }
 
-		{ state.loginState == LoginState.WaitPassword /* TODO > password hint */ && <>
+		{ loginState == LoginState.WaitPassword /* TODO > password hint */ && <>
 			<div className="hint">Enter your phone 2FA password to log in</div>
 			<div className="secret"><input
 				className={true? '' : 'error'}
@@ -113,10 +113,10 @@ function LoginForm({state, setAuthenticationPhoneNumber, checkAuthenticationCode
 
 		<div className="next" onClick={next}>NEXT</div>
 
-		{ state.loginState == LoginState.WaitPhoneNumber && <div className="hint">You will receive SMS</div> }
-		{ state.loginState == LoginState.WaitCode && <div className="hint">Check your SMS inbox or other devices</div> }
-		{ state.loginState == LoginState.WaitRegistration && <div className="hint">You accept Telegram terms of service</div> }
-		{ state.loginState == LoginState.WaitPassword && <div className="hint">You have set 2FA in your profile</div> }
+		{ loginState == LoginState.WaitPhoneNumber && <div className="hint">You will receive SMS</div> }
+		{ loginState == LoginState.WaitCode && <div className="hint">Check your SMS inbox or other devices</div> }
+		{ loginState == LoginState.WaitRegistration && <div className="hint">You accept Telegram terms of service</div> }
+		{ loginState == LoginState.WaitPassword && <div className="hint">You have set 2FA in your profile</div> }
 
 		{ false && <div className="hint">Wrong phone number</div> }
 		{ false && <div className="hint">Wrong secret code</div> }
@@ -125,7 +125,7 @@ function LoginForm({state, setAuthenticationPhoneNumber, checkAuthenticationCode
 	</>
 }
 
-const mapStateToProps = (state: State, ownProps: any) => ({ state })
+const mapStateToProps = (state: State, ownProps: any) => ({ loginState: state.loginState })
 
 function setAuthenticationPhoneNumber(value: string) {
 	return async (dispatch:Dispatch, getState: () => State) => {
