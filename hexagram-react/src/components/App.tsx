@@ -26,6 +26,7 @@ import * as TL from '../tdlib/tdapi'
 import { downloadFile as downloadFile } from '../tdlib/loader'
 import { LoginForm } from '../components/login/LoginForm'
 import preview from './preview.svg'
+import { useSelector, useDispatch } from 'react-redux'
 
 const dispatchTelegramEventFunction = (update: TL.TLObject) => async (dispatch: any) => {
 	dispatch({
@@ -34,17 +35,21 @@ const dispatchTelegramEventFunction = (update: TL.TLObject) => async (dispatch: 
 	})
 }
 
-function App({dispatchTelegramEventFunction, downloadFile, state}: {dispatchTelegramEventFunction: any, downloadFile: any, state: State}) {
+function App({dispatchTelegramEventFunction, state}: {dispatchTelegramEventFunction: Function, state: State}) {
 	dispatchTelegramEventHandler.handle = dispatchTelegramEventFunction
 
-	if (state.loaded == false) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Updating Hexagram...</div></div>
-	if (state.loginState == LoginState.WaitTDLib) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Logging in...</div></div>
+	const loaded = useSelector((state: State) => state.loaded)
+	const loginState = useSelector((state: State) => state.loginState)
+	const showSideBar = useSelector((state: State) => state.showSideBar)
 
-	if (state.loginState == LoginState.Ready) return (
+	if (loaded == false) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Updating Hexagram...</div></div>
+	if (loginState == LoginState.WaitTDLib) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Logging in...</div></div>
+
+	if (loginState == LoginState.Ready) return (
 		<div className="App">
 			<ChatsPanel state={state}/>
 			<CurrentChatPanel state={state}/>
-			{state.showSideBar && <SidePanel/>}
+			{showSideBar && <SidePanel/>}
 		</div>
 	);
 
@@ -53,6 +58,6 @@ function App({dispatchTelegramEventFunction, downloadFile, state}: {dispatchTele
 
 const mapStateToProps = (state: State, ownProps: any) => ({ state })
 
-const mapDispatchToProps = { dispatchTelegramEventFunction, downloadFile }
+const mapDispatchToProps = { dispatchTelegramEventFunction }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
