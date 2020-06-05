@@ -72,7 +72,26 @@ export default function Top({state}:{state: State}) {
 		name = (user.firstName + ' ' + user.lastName).trim()
 		if (user.status['@type'] == 'userStatusEmpty') summary = 'service notifications'
 		if (user.status['@type'] == 'userStatusOnline') summary = 'online'
-		if (user.status['@type'] == 'userStatusOffline') summary = 'offline'
+		if (user.status['@type'] == 'userStatusOffline') {
+			const was_online: number = TL.userStatusOffline(user.status).was_online * 1000
+			const second = 1
+			const minute = 60 * second
+			const hour = 60 * minute
+			const day = hour * 24
+			const week = day * 7
+			const moth = week * 4
+			const now: number = Date.now()
+			const diff: number = (now - was_online) / 1000
+
+			if (diff < 10) summary = 'last seen right now'
+			else if (diff < minute) summary = Math.round(diff) + ' seconds ago'
+			else if (diff < hour) summary = Math.round(diff / minute) + ' minutes ago'
+			else if (diff < day) summary = Math.round(diff / hour) + ' hours ago'
+			else if (diff < week) summary = Math.round(diff / day) + ' days ago'
+			else if (diff < moth) summary = Math.round(diff / week) + ' weeks ago'
+			else if (diff < moth * 2) summary = 'last seen a month ago'
+			else summary = 'last seen a long time ago'
+		}
 		if (user.status['@type'] == 'userStatusRecently') summary = 'last seen recently'
 		if (user.status['@type'] == 'userStatusLastWeek') summary = 'last seen within a week'
 		if (user.status['@type'] == 'userStatusLastMonth') summary = 'last seen within a month'
