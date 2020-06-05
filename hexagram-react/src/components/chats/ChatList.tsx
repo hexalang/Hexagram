@@ -18,7 +18,7 @@ import { ChatListElement } from './ChatListElement'
 import { State } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 
-export function ChatList({state, selectChat, downloadFile}:{state: State, selectChat: (id: number) => void, downloadFile: Function}) {
+export function ChatList({selectChat, downloadFile}:{selectChat: (id: number) => void, downloadFile: Function}) {
 	const [dragging, setDragging] = useState(false)
 	const [position, setPosition] = useState({left: 0, top: 0})
 	const [lastPosition, setLastPosition] = useState({left: 0, top: 0})
@@ -26,6 +26,7 @@ export function ChatList({state, selectChat, downloadFile}:{state: State, select
 	const chatListScrollBar = useRef(null)
 	const chatListScrollPane = useRef(null)
 
+	const state = useSelector((state: State) => state)
 	const chatIds = useSelector((state: State) => state.chatIds)
 	const chats = useSelector((state: State) => state.chats)
 

@@ -25,15 +25,15 @@ import { Header } from './Header'
 import { ChatList } from './ChatList'
 import './ChatsPanel.scss'
 
-const ChatsPanel = ({state, selectChat, downloadFile, showSidePanel}:{state: State, showSidePanel: any, selectChat: (id: number) => void, downloadFile: Function}) => (
+const ChatsPanel = ({selectChat, downloadFile, showSidePanel}:{showSidePanel: any, selectChat: (id: number) => void, downloadFile: Function}) => (
 	<div className="chatList">
 		<Header showSidePanel={showSidePanel}/>
-		<ChatList state={state} selectChat={selectChat} downloadFile={downloadFile}/>
+		<ChatList selectChat={selectChat} downloadFile={downloadFile}/>
 		<Footer/>
 	</div>
 )
 
-const mapStateToProps = (state: State, ownProps: any) => ({ state })
+const mapStateToProps = (state: State, ownProps: any) => ({ })
 
 const mapDispatchToProps = (dispatch:Dispatch) => {
 	return {
