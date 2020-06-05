@@ -404,6 +404,14 @@ const reducer = (state: State = initialState, action: ActionTypes): State => {
 				case "updateFile":
 					{
 						const updateFile = TL.updateFile(update)
+						const file = state.files[updateFile.file.id]
+						if (file != null) {
+							if (
+								file.local.is_downloading_completed == updateFile.file.local.is_downloading_completed
+								&&
+								file.local.is_downloading_active == updateFile.file.local.is_downloading_active
+							) return state
+						}
 						return {
 							...state,
 							files: {...state.files, [updateFile.file.id]: updateFile.file}
