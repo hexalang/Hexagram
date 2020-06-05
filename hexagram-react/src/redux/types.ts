@@ -51,6 +51,7 @@ export interface Chat {
 	readonly lastMessage: number // "updateChatLastMessage" - TODO
 	readonly type: TL.TLChatType
 	readonly onlineMemberCount: number
+	readonly order: string
 
 	readonly replyToMessageIdDraft: number // No considered if draft == null
 	readonly draft: TL.TLInputMessageContent | null

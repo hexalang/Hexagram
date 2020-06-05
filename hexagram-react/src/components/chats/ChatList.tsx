@@ -67,10 +67,18 @@ export function ChatList({state, selectChat, downloadFile}:{state: State, select
 		setPosition({...position, top: Math.min(Math.max(0, position.top + e.deltaY * 0.5), sliderMaxY - sliderHeight)})
 	}
 
+	const sortedChats: number[] = [...state.chatIds].sort((a: number, b: number): number => {
+		const ordera: BigInt = BigInt(state.chats[a].order)
+		const orderb: BigInt = BigInt(state.chats[b].order)
+		if (ordera > orderb) return -1
+		if (ordera < orderb) return +1
+		return 0
+	})
+
 	return <div className="chats" onWheel={onWheel}>
 		<div className="chatListScrollPane" ref={chatListScrollPane} style={{top: paneY + 'px'}}>
 		{
-		state.chatIds.map(chatId => <ChatListElement downloadFile={downloadFile} key={chatId} chatId={chatId} state={state} selectChat={selectChat}/>)
+		sortedChats.map(chatId => <ChatListElement downloadFile={downloadFile} key={chatId} chatId={chatId} state={state} selectChat={selectChat}/>)
 		}
 		</div>
 		<div className="chatListScrollBar" onMouseDown={onMouseClick} ref={chatListScrollBar}></div>

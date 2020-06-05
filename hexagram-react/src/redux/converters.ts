@@ -20,6 +20,7 @@ export function chatToState(tl: TL.TLChat): Chat {
 	return {
 		title: tl.title,
 		id: tl.id,
+		order: tl.order,
 		isPinned: tl.is_pinned,
 		unreadCount: tl.unread_count,
 		photo: tl.photo,

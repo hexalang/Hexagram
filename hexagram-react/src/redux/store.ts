@@ -250,12 +250,33 @@ const reducer = (state: State = initialState, action: ActionTypes): State => {
 							console.warn('updateChatLastMessage for not yet loaded object')
 							return state
 						}
-						if (state.chats[chat_id].lastMessage == message.id) return state
 						return {
 							...state,
 							messages: {...state.messages, [chat_id]: {...state.messages[chat_id], [message.id]: message}},
-							chats: {...state.chats, [chat_id]: {...chat, lastMessage: message.id}},
+							chats: {...state.chats, [chat_id]: {
+								...chat,
+								order: updateChatLastMessage.order,
+								lastMessage: message.id
+							}},
+						}
+					}
+					break;
 
+				case "updateChatOrder":
+					{
+						const updateChatOrder = TL.updateChatOrder(update)
+						const chat_id = updateChatOrder.chat_id
+						let chat = state.chats[chat_id]// ?? emptyChat(chat_id)
+						if (chat == null) {
+							console.warn('updateChatOrder for not yet loaded object')
+							return state
+						}
+						return {
+							...state,
+							chats: {...state.chats, [chat_id]: {
+								...chat,
+								order: updateChatOrder.order,
+							}},
 						}
 					}
 					break;
