@@ -281,6 +281,26 @@ const reducer = (state: State = initialState, action: ActionTypes): State => {
 					}
 					break;
 
+					case "updateChatIsPinned":
+					{
+						const updateChatIsPinned = TL.updateChatIsPinned(update)
+						const chat_id = updateChatIsPinned.chat_id
+						let chat = state.chats[chat_id]// ?? emptyChat(chat_id)
+						if (chat == null) {
+							console.warn('updateChatIsPinned for not yet loaded object')
+							return state
+						}
+						return {
+							...state,
+							chats: {...state.chats, [chat_id]: {
+								...chat,
+								order: updateChatIsPinned.order,
+								isPinned: updateChatIsPinned.is_pinned
+							}},
+						}
+					}
+					break;
+
 				case "updateNewMessage":
 					{
 						const updateNewMessage = TL.updateNewMessage(update)
