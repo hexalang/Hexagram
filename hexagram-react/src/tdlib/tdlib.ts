@@ -16,6 +16,7 @@
 import TdClient, { TdOptions, TdObject } from 'tdweb'
 import * as TL from './tdapi'
 
+// 'cause you cannot reassign `import {let}`
 export const dispatchTelegramEventHandler = { handle: null as unknown as Function }
 
 const apiId = '111111'
@@ -28,8 +29,6 @@ const options: TdOptions = {
 	 */
 	onUpdate: async (update: TdObject) => {
 		const dispatchTelegramEvent = dispatchTelegramEventHandler.handle
-
-		console.log('receive update!', update)
 
 		switch (update['@type']) {
 			case "ok": break; // Just Ok
