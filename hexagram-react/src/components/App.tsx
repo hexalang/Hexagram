@@ -15,7 +15,7 @@
 
 import React, { useState } from 'react'
 import './App.scss'
-import { td, dispatchTelegramEventHandler, downloadFileHandler } from '../tdlib/tdlib'
+import { td, dispatchTelegramEventHandler } from '../tdlib/tdlib'
 import * as TD from '../tdlib/tdlib'
 import { CurrentChatPanel } from '../components/history/CurrentChatPanel'
 import { ChatsPanel } from '../components/chats/ChatsPanel'
@@ -36,7 +36,6 @@ const dispatchTelegramEventFunction = (update: TL.TLObject) => async (dispatch: 
 
 function App({dispatchTelegramEventFunction, downloadFile, state}: {dispatchTelegramEventFunction: any, downloadFile: any, state: State}) {
 	dispatchTelegramEventHandler.handle = dispatchTelegramEventFunction
-	downloadFileHandler.handle = downloadFile
 
 	if (state.loaded == false) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Updating Hexagram...</div></div>
 	if (state.loginState == LoginState.WaitTDLib) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Logging in...</div></div>

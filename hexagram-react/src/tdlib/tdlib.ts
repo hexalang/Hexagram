@@ -16,8 +16,7 @@
 import TdClient, { TdOptions, TdObject } from 'tdweb'
 import * as TL from './tdapi'
 
-export const dispatchTelegramEventHandler = { handle: null as any }
-export const downloadFileHandler = { handle: null as any }
+export const dispatchTelegramEventHandler = { handle: null as unknown as Function }
 
 const apiId = '111111'
 const apiHash = 'd1111111111111111111111dddd1111d'
@@ -29,7 +28,6 @@ const options: TdOptions = {
 	 */
 	onUpdate: async (update: TdObject) => {
 		const dispatchTelegramEvent = dispatchTelegramEventHandler.handle
-		const downloadFile = downloadFileHandler.handle
 
 		console.log('receive update!', update)
 
