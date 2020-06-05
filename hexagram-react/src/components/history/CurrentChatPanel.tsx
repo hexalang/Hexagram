@@ -42,6 +42,7 @@ function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: Sta
 	const sliderY = Math.min(Math.max(position, 0), sliderMaxY - sliderHeight)
 
 	useEffect(() => {
+
 		const onMouseMove = (e: any) => {
 			const positionNew = Math.max(0, position + e.pageY - lastPosition)
 			setPosition(positionNew)
@@ -419,7 +420,7 @@ const CurrentChatPanel = ({state, saveChatHistory, saveFileUrl, downloadFile}:{s
 		{
 			chatSelected?
 				<>
-					<Top state={state}/>
+					<Top />
 					<History state={state} saveChatHistory={saveChatHistory} {...{downloadFile}} saveFileUrl={saveFileUrl}/>
 					<Input state={state}/>
 				</>

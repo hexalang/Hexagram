@@ -18,6 +18,7 @@ import { State } from '../../redux/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
 import './Input.scss'
+import { useSelector, useDispatch } from 'react-redux'
 
 function replaceCaret(el: HTMLElement) {
 	// Place the caret at the end of the element
@@ -98,7 +99,7 @@ export default function Input({state}:{state: State}) {
 		}
 	}
 
-	const chat = state.chats[state.currentChatId]
+	const chat = useSelector((state: State) => state.chats[state.currentChatId])
 
 	if (chat == null) return null
 

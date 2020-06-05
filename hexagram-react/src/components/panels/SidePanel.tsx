@@ -17,18 +17,24 @@ import React from 'react'
 import { State } from '../../redux/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
-import { connect } from 'react-redux'
 import { Dispatch, AnyAction } from 'redux'
+import { useSelector, useDispatch } from 'react-redux'
 import './SidePanel.scss'
 
-const SidePanel = ({state, hideSidePanel, logOut}:{state: State, hideSidePanel: (e: unknown) => void, logOut: Function}) => {
-	const user = state.users[state.myId]
+const SidePanel = () => {
+	const user = useSelector((state: State) => state.users[state.myId])
+	const dispatch: Dispatch = useDispatch()
+
+	const hideSidePanel = (e: unknown) => {
+		return dispatch({ type: 'SET_SIDEBAR_VISIBILITY', payload: { showSideBar: false } })
+	}
+
 	const name = user? (user.firstName + ' ' + user.lastName).trim() : 'Hexagram'
 	const phone = '+' + (user? user.phone : '')
 
 	const askLogout = () => {
 		if (window.confirm("Log out?") == true) {
-			logOut()
+			dispatch(logOut() as any as AnyAction)
 		}
 	}
 
@@ -39,15 +45,13 @@ const SidePanel = ({state, hideSidePanel, logOut}:{state: State, hideSidePanel: 
 				<div className="sideInfoName">{phone}</div>
 			</div>
 			<div className="button" onClick={_ => askLogout()}><span>Log out</span></div>
-			<div className="button patreon" onClick={_ => window.open('https://www.patreon.com/PeyTy', '_blank')}><span>Patreon</span></div>
+			<div className="button patreon" onClick={_ => window.open('https://www.patreon.com/PeyTy', '_blank')}><span>Donate on Patreon</span></div>
 			<div className="button github" onClick={_ => window.open('https://github.com/hexalang/hexagram', '_blank')}><span>Source code on GitHub</span></div>
 		</div>
 		<div className="fade" onClick={hideSidePanel}>
 		</div>
 	</div>
 }
-
-const mapStateToProps = (state: State, ownProps: any) => ({ state })
 
 function logOut() {
 	return async (dispatch:Dispatch<AnyAction>, getState: () => State): Promise<void> => {
@@ -58,17 +62,4 @@ function logOut() {
 	}
 }
 
-const mapDispatchToProps = (dispatch:Dispatch) => {
-	return {
-		logOut: () => {
-			return dispatch(logOut() as any as AnyAction)
-		},
-		hideSidePanel: (e: unknown) => {
-			return dispatch({ type: 'SET_SIDEBAR_VISIBILITY', payload: { showSideBar: false } })
-		},
-	}
-}
-
-const SidePanelConnected = connect(mapStateToProps, mapDispatchToProps)(SidePanel)
-
-export { SidePanelConnected as SidePanel }
+export { SidePanel }

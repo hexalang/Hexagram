@@ -17,9 +17,11 @@ import React, { useState, useEffect, useRef } from 'react'
 import { State } from '../../redux/store'
 import * as TL from '../../tdlib/tdapi'
 import './Top.scss'
+import { useSelector, useDispatch } from 'react-redux'
 
-export default function Top({state}:{state: State}) {
-	const chat = state.chats[state.currentChatId]
+export default function Top() {
+	const state: State = useSelector((state: State) => state)
+	const chat = useSelector((state: State) => state.chats[state.currentChatId])
 	const savedMessages = state.myId == chat.id
 	let larger = savedMessages
 

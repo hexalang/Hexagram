@@ -18,6 +18,7 @@ import * as TL from '../../tdlib/tdapi'
 import { State } from '../../redux/store'
 import { formatTime } from '../../utils/Time'
 import { nameToInitials } from '../../utils/UserInfo'
+import { useSelector, useDispatch } from 'react-redux'
 
 function messageContentToPreview(tl: TL.TLMessageContent): {textPreview:string, systemPreview?:string} {
 	switch (tl['@type']) {

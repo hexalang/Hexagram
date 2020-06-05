@@ -16,6 +16,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { ChatListElement } from './ChatListElement'
 import { State } from '../../redux/store'
+import { useSelector, useDispatch } from 'react-redux'
 
 export function ChatList({state, selectChat, downloadFile}:{state: State, selectChat: (id: number) => void, downloadFile: Function}) {
 	const [dragging, setDragging] = useState(false)
@@ -25,7 +26,11 @@ export function ChatList({state, selectChat, downloadFile}:{state: State, select
 	const chatListScrollBar = useRef(null)
 	const chatListScrollPane = useRef(null)
 
+	const chatIds = useSelector((state: State) => state.chatIds)
+	const chats = useSelector((state: State) => state.chats)
+
 	useEffect(() => {
+
 		const onMouseMove = (e: any) => {
 			setPosition({
 				left: position.left + e.pageX - lastPosition.left,
@@ -67,9 +72,9 @@ export function ChatList({state, selectChat, downloadFile}:{state: State, select
 		setPosition({...position, top: Math.min(Math.max(0, position.top + e.deltaY * 0.5), sliderMaxY - sliderHeight)})
 	}
 
-	const sortedChats: number[] = [...state.chatIds].sort((a: number, b: number): number => {
-		const ordera: BigInt = BigInt(state.chats[a].order)
-		const orderb: BigInt = BigInt(state.chats[b].order)
+	const sortedChats: number[] = [...chatIds].sort((a: number, b: number): number => {
+		const ordera: BigInt = BigInt(chats[a].order)
+		const orderb: BigInt = BigInt(chats[b].order)
 		if (ordera > orderb) return -1
 		if (ordera < orderb) return +1
 		return 0
