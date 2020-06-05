@@ -18,21 +18,19 @@ import { Dispatch } from 'redux'
 import { State } from '../redux/store'
 import { tg } from '../tdlib/tdlib'
 
-let busy = false
+let busyConverting = false
 export function downloadFile(idOrFile: number | TL.TLFile) {
 	return async (dispatch:Dispatch, getState: () => State) => {
-		if (busy) return;
 		const id = typeof(idOrFile) == 'number'? idOrFile as number : (idOrFile as TL.TLFile).id
 		const state = getState()
 
 		const file: TL.TLFile | null = state.files[id] ?? ((typeof(idOrFile) != 'number') && (idOrFile as TL.TLFile))
 
-		if (file == null) return console.warn('downloadFile->state.files[id] == null')
+		if (file == null) return
 		if (state.fileURL[id] != null) return
 
 		if (
 			state.fileLoads[id] == null &&
-			file &&
 			file.local.can_be_downloaded == true &&
 			file.local.is_downloading_completed == false &&
 			file.local.is_downloading_active == false
@@ -44,18 +42,16 @@ export function downloadFile(idOrFile: number | TL.TLFile) {
 
 		if (
 			(state.fileLoads[id] == null || state.fileLoads[id] == 1) &&
-
-			file &&
 			file.local.is_downloading_completed == true
 		) {
-			if (busy) return;
-			busy = true
+			if (busyConverting) return
+			busyConverting = true
 			dispatch({ type: 'SAVE_FILE_LOADS', payload: { id, loads: 2 } })
 			const filePart = await tg.readFilePart(id, 0, 0)
-			await new Promise(resolve => setTimeout(resolve, 16))
-			let blobURL = (window as any).blobURL || window.URL.createObjectURL(filePart.data)
-			busy = false
+			let blobURL = window.URL.createObjectURL(filePart.data)
+			busyConverting = false
 			dispatch({ type: 'SAVE_FILE_URL', payload: { id, url: blobURL } })
+			return
 		}
 	}
 }

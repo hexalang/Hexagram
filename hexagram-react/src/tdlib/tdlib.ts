@@ -71,9 +71,7 @@ const options: TdOptions = {
 				break;
 
 			case "updateFile":
-				const updateFile = TL.updateFile(update as any)
-				if (updateFile.file.local.is_downloading_completed) downloadFile(updateFile.file.id)
-				return;
+				dispatchTelegramEvent(update)
 				break;
 
 			case "updateOption":
@@ -91,9 +89,9 @@ const options: TdOptions = {
 						limit: CHAT_SLICE_LIMIT
 					}) as any
 
-					console.warn('chatListMain', chats)
-					dispatchTelegramEvent(chats)
-				} else dispatchTelegramEvent(update)
+				}
+
+				dispatchTelegramEvent(update)
 
 				break;
 
