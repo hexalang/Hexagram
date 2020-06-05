@@ -160,14 +160,16 @@ export function ChatListElement({state, chatId, selectChat, downloadFile}:{state
 				<span className="light date" title={dateHint}>{date}</span>
 			</div>
 			<div className="textcounter">
-			{
+				{
 				draft == null?
 				<span className="light text">{who && <div className="who">{who}</div>}{system && <div className="who">{system}</div>}<div title={text}>{text}</div></span>
 				:
 				<span className="light text"><div className="draft">{'Draft:'}</div><div title={draftText}>{draftText}</div></span>
-			}
+				}
+				<div className="counter">
 				{unread == 0 && pinned && <span className="light pinned" title={"You pinned this chat for quick access\n\nOnly 5 chats may be pinned"}><img src="icons/dialogs_pinned.png"/></span>}
 				{unread > 0 && <span className="light unread" title="You have unread messages in this chat"><div>{unread}</div></span>}
+				</div>
 			</div>
 		</div>
 	</div>
