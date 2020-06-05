@@ -48,30 +48,38 @@ function messageContentToPreview(tl: TL.TLMessageContent): {textPreview:string, 
 	}
 }
 
-export function ChatListElement({state, chatId, selectChat, downloadFile}:{state: State, chatId: number, selectChat: (id: number) => void, downloadFile: Function}) {
-	const current = state.currentChatId == chatId //false
-	const chat = state.chats[chatId]
-	const srcAva: string | null = (chatId == state.myId && 'SM.png') || (chat && chat.photo && state.fileURL[chat.photo.small.id])
+export function ChatListElement({chatId, selectChat, downloadFile}:{chatId: number, selectChat: (id: number) => void, downloadFile: Function}) {
+	const currentChatId = useSelector((state: State) => state.currentChatId)
+	const myId = useSelector((state: State) => state.myId)
+	const chats = useSelector((state: State) => state.chats)
+	const fileURL = useSelector((state: State) => state.fileURL)
+	const supergroups = useSelector((state: State) => state.supergroups)
+	const users = useSelector((state: State) => state.users)
+	const messages = useSelector((state: State) => state.messages)
+
+	const current = currentChatId == chatId //false
+	const chat = chats[chatId]
+	const srcAva: string | null = (chatId == myId && 'SM.png') || (chat && chat.photo && fileURL[chat.photo.small.id])
 
 	if (
 		chat &&
 		chat.type['@type'] == 'chatTypeSupergroup' &&
-		state.supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id] &&
-		state.supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id].chatMemberStatus['@type'] == 'chatMemberStatusLeft'
+		supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id] &&
+		supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id].chatMemberStatus['@type'] == 'chatMemberStatusLeft'
 	) return null
 
-	const message = (state.messages[chat.id] ?? {})[chat.lastMessage] ?? null
+	const message = (messages[chat.id] ?? {})[chat.lastMessage] ?? null
 
 	// Ignore inactive chats
 	if (message == null) return null
 
-	let name = chat? (state.myId == chat.id? 'Saved Messages' : chat.title) : ''
+	let name = chat? (myId == chat.id? 'Saved Messages' : chat.title) : ''
 
 	if (
 		chat &&
 		chat.type['@type'] == 'chatTypePrivate' &&
-		state.users[TL.chatTypePrivate(chat.type).user_id] &&
-		state.users[TL.chatTypePrivate(chat.type).user_id].type['@type'] == 'userTypeDeleted'
+		users[TL.chatTypePrivate(chat.type).user_id] &&
+		users[TL.chatTypePrivate(chat.type).user_id].type['@type'] == 'userTypeDeleted'
 	) name = 'Deleted Account'
 
 	const unread = chat? chat.unreadCount : 0
@@ -88,14 +96,14 @@ export function ChatListElement({state, chatId, selectChat, downloadFile}:{state
 
 	if (chat && message) {
 		// Works for any chat type
-		if (state.myId == message.senderUserId) who = 'You: '
+		if (myId == message.senderUserId) who = 'You: '
 		else
 		if (chat.type['@type'] == 'chatTypePrivate') {
 			// Just empty
 		}
 		else
 		if (chat.type['@type'] == 'chatTypeSupergroup' && TL.chatTypeSupergroup(chat.type).is_channel == false) {
-			const sender = state.users[message.senderUserId]
+			const sender = users[message.senderUserId]
 			if (sender) who = sender.firstName + ': '
 			if (sender && sender.type['@type'] == 'userTypeDeleted') who = 'Deleted: '
 			// If senderUserId == 0 then it's a channel
@@ -107,16 +115,16 @@ export function ChatListElement({state, chatId, selectChat, downloadFile}:{state
 	const verified = (
 		chat &&
 		chat.type['@type'] == 'chatTypePrivate' &&
-		state.users[TL.chatTypePrivate(chat.type).user_id] &&
-		state.users[TL.chatTypePrivate(chat.type).user_id].verified
+		users[TL.chatTypePrivate(chat.type).user_id] &&
+		users[TL.chatTypePrivate(chat.type).user_id].verified
 	)
 	const channel = (chat && chat.type['@type'] == 'chatTypeSupergroup' && TL.chatTypeSupergroup(chat.type).is_channel == true)
 	const supergroup = (chat && chat.type['@type'] == 'chatTypeSupergroup' && channel == false)
 	const bot = (
 		chat &&
 		chat.type['@type'] == 'chatTypePrivate' &&
-		state.users[TL.chatTypePrivate(chat.type).user_id] &&
-		state.users[TL.chatTypePrivate(chat.type).user_id].type['@type'] == 'userTypeBot'
+		users[TL.chatTypePrivate(chat.type).user_id] &&
+		users[TL.chatTypePrivate(chat.type).user_id].type['@type'] == 'userTypeBot'
 	)
 
 	const active = current? "chatListElement chatListElement__active" : "chatListElement"

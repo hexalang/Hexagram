@@ -26,7 +26,6 @@ export function ChatList({selectChat, downloadFile}:{selectChat: (id: number) =>
 	const chatListScrollBar = useRef(null)
 	const chatListScrollPane = useRef(null)
 
-	const state = useSelector((state: State) => state)
 	const chatIds = useSelector((state: State) => state.chatIds)
 	const chats = useSelector((state: State) => state.chats)
 
@@ -84,7 +83,7 @@ export function ChatList({selectChat, downloadFile}:{selectChat: (id: number) =>
 	return <div className="chats" onWheel={onWheel}>
 		<div className="chatListScrollPane" ref={chatListScrollPane} style={{top: paneY + 'px'}}>
 		{
-		sortedChats.map(chatId => <ChatListElement downloadFile={downloadFile} key={chatId} chatId={chatId} state={state} selectChat={selectChat}/>)
+		sortedChats.map(chatId => <ChatListElement downloadFile={downloadFile} key={chatId} chatId={chatId} selectChat={selectChat}/>)
 		}
 		</div>
 		<div className="chatListScrollBar" onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
