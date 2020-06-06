@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import * as TL from '../../tdlib/tdapi'
 import { State } from '../../redux/store'
 import { formatTime } from '../../utils/Time'
@@ -48,7 +48,7 @@ function messageContentToPreview(tl: TL.TLMessageContent): {textPreview:string, 
 	}
 }
 
-export function ChatListElement({chatId, selectChat, downloadFile}:{chatId: number, selectChat: (id: number) => void, downloadFile: Function}) {
+export const ChatListElement = memo(function ChatListElement({chatId, selectChat, downloadFile}:{chatId: number, selectChat: (id: number) => void, downloadFile: Function}) {
 	const currentChatId = useSelector((state: State) => state.currentChatId)
 	const myId = useSelector((state: State) => state.myId)
 	const chats = useSelector((state: State) => state.chats)
@@ -185,4 +185,4 @@ export function ChatListElement({chatId, selectChat, downloadFile}:{chatId: numb
 		</div>
 	</div>
 	</div>
-}
+})

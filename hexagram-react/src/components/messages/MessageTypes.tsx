@@ -111,13 +111,13 @@ export const MessageTheirs = memo(function MessageTheirs({text, time, date, auth
 	</div>
 })
 
-export function MessageSameSender({children}: any) {
+export const MessageSameSender = memo(function MessageSameSender({children}: any) {
 	return <div className="messageSameSender">
 		{children}
 	</div>
-}
+})
 
-export function MessageSameSenderTheirs({children, state, senderUserId, saveFileUrl, downloadFile}: any) {
+export const MessageSameSenderTheirs = memo(function MessageSameSenderTheirs({children, state, senderUserId, saveFileUrl, downloadFile}: any) {
 	const user = state.users[senderUserId]
 	const chat = state.chats[state.currentChatId]
 
@@ -146,7 +146,7 @@ export function MessageSameSenderTheirs({children, state, senderUserId, saveFile
 		{ srcAva == null && <span className="messageAvatarPlaceholder" key={senderUserId}>{nameToInitials(name)}</span>}
 		{children}
 	</div>
-}
+})
 
 export function MessagePhotoTheirs({sized, downloadFile, text, time, date, author, views}: any) {
 	const file: TL.TLFile = sized
