@@ -23,6 +23,9 @@ import { State } from '../../redux/store'
 import { inflate } from 'pako'
 import Lottie from 'react-lottie'
 
+const dateTemp = new Date()
+const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as const
+
 export const LottieSticker = memo(function LottieSticker({time, state, downloadFile, sticker}: any) {
 	const file: TL.TLFile = sticker
 
@@ -65,7 +68,7 @@ function CenterSystemMessageGroupPic({src}: {src: string}) {
 	</div>
 }
 
-export function StickerMy({src, time, state, downloadFile, sticker}: any) {
+export function StickerMy({time, state, downloadFile, sticker}: any) {
 	const file: TL.TLFile = sticker
 
 	const srcAva: string | null = state.fileURL[file.id]
@@ -78,18 +81,20 @@ export function StickerMy({src, time, state, downloadFile, sticker}: any) {
 	</div>
 }
 
-export function MessageMy({text, time, reactions}: {text: any, time: string, reactions?: any[]}) {
-	const timeTitle = 'Wednesday' // TODO
+export const MessageMy = memo(function MessageMy({text, time, date, reactions}: {text: any, time: string, date: number, reactions?: any[]}) {
+	dateTemp.setTime(date * 1000)
+	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
 	return <div className="messageMy">
 		{text}
 		<div className="text">&nbsp;&nbsp;&nbsp;</div>
 		{reactions}
 		<div className="time" title={timeTitle}>{time}</div>
 	</div>
-}
+})
 
-export function MessageTheirs({text, time, author, avatar, views, reactions}: any) {
-	const timeTitle = 'Wednesday' // TODO
+export const MessageTheirs = memo(function MessageTheirs({text, time, date, author, avatar, views, reactions}: any) {
+	dateTemp.setTime(date * 1000)
+	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
 	return <div>
 		{ null &&  avatar && <img className="messageAvatar" src={avatar} /> }
 		<div className="messageTheirs">
@@ -104,7 +109,7 @@ export function MessageTheirs({text, time, author, avatar, views, reactions}: an
 			</div>
 		</div>
 	</div>
-}
+})
 
 export function MessageSameSender({children}: any) {
 	return <div className="messageSameSender">
@@ -143,7 +148,7 @@ export function MessageSameSenderTheirs({children, state, senderUserId, saveFile
 	</div>
 }
 
-export function MessagePhotoTheirs({state, sized, downloadFile, text, time, author, views}: any) {
+export function MessagePhotoTheirs({sized, downloadFile, text, time, date, author, views}: any) {
 	const file: TL.TLFile = sized
 	const fileURL = useSelector((state: State) => state.fileURL[file.id])
 
@@ -151,7 +156,8 @@ export function MessagePhotoTheirs({state, sized, downloadFile, text, time, auth
 
 	if (srcAva == null) downloadFile(file)
 
-	const timeTitle = 'Wednesday' // TODO
+	dateTemp.setTime(date * 1000)
+	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
 
 	return <div>
 		<div className={text.length != 0? "messageTheirs messageTheirsPhoto" : "messageTheirs messageTheirsPhoto messageTheirsPhotoNoCaption"}>

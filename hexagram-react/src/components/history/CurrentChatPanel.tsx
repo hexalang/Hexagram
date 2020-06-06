@@ -187,7 +187,7 @@ function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: Sta
 						const sized: TL.TLFile = photo.sizes.reduce((prev, curr) => prev.height > curr.height? prev : curr).photo
 						updateDestination(messageState.senderUserId)
 						const senderName = destination.length == 0 && state.users[messageState.senderUserId]? state.users[messageState.senderUserId].firstName : null
-						destination.push(<MessagePhotoTheirs key={key} state={state} sized={sized} downloadFile={downloadFile} author={senderName} text={text} time={time}/>)
+						destination.push(<MessagePhotoTheirs key={key} state={state} sized={sized} downloadFile={downloadFile} author={senderName} text={text} time={time} date={messageState.date} />)
 					}
 					break;
 
@@ -369,9 +369,9 @@ function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: Sta
 
 					destination.push(
 						lastSender == state.myId?
-						<MessageMy key={key} text={text} time={time} reactions={reactions}/>
+						<MessageMy key={key} text={text} time={time} date={messageState.date} reactions={reactions}/>
 						:
-						<MessageTheirs key={key} author={senderName} text={text} time={time} reactions={reactions}/>
+						<MessageTheirs key={key} author={senderName} text={text} time={time} date={messageState.date} reactions={reactions}/>
 					)
 
 					break;
