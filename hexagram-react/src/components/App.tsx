@@ -28,9 +28,9 @@ import { LoginForm } from '../components/login/LoginForm'
 import preview from './preview.svg'
 import { useSelector, useDispatch } from 'react-redux'
 
-const dispatchTelegramEventFunction = (update: TL.TLObject) => async (dispatch: any) => {
+const dispatchTelegramEventFunction = (update: TL.TLObject[]) => async (dispatch: any) => {
 	dispatch({
-		type: 'TDLIB_UPDATE',
+		type: 'TDLIB_QUEUE',
 		payload: update
 	})
 }

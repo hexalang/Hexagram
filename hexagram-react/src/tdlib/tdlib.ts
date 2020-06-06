@@ -23,12 +23,30 @@ const apiId = '111111'
 const apiHash = 'd1111111111111111111111dddd1111d'
 const instanceName = 'user0'
 
+let queue: TdObject[] = []
+let timeOut = true
+
+function dequeue() {
+	timeOut = true
+	if (queue.length == 0) return
+	dispatchTelegramEventHandler.handle(queue)
+	queue = []
+}
+
+function dispatchTelegramEvent(update: TdObject) {
+	queue.push(update)
+	if (timeOut) {
+		dequeue()
+		timeOut = false
+		setTimeout(dequeue, 123)
+	}
+}
+
 const options: TdOptions = {
 	/**
 	 * Callback for all incoming updates.
 	 */
 	onUpdate: async (update: TdObject) => {
-		const dispatchTelegramEvent = dispatchTelegramEventHandler.handle
 
 		switch (update['@type']) {
 			case "ok": break; // Just Ok

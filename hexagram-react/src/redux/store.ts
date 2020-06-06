@@ -75,6 +75,11 @@ export interface TDLIB_UPDATE {
 	readonly payload: TL.TLObject
 }
 
+export interface TDLIB_QUEUE {
+	readonly type: 'TDLIB_QUEUE'
+	readonly payload: TL.TLObject[]
+}
+
 export interface TDLIB_MANUAL_UPDATE {
 	readonly type: 'TDLIB_MANUAL_UPDATE'
 	readonly payload: TL.TLObject | null
@@ -123,6 +128,7 @@ interface INIT {
 export type ActionTypes =
 	INIT |
 	TDLIB_UPDATE |
+	TDLIB_QUEUE |
 	SELECT_CHAT |
 	SAVE_CHAT_HISTORY |
 	SAVE_FILE_URL |
@@ -184,8 +190,21 @@ const reducer = (state: State = initialState, action: ActionTypes): State => {
 		}
 		break;
 
+		case "TDLIB_QUEUE": {
+			let restate = state
+			const event = {
+				type: 'TDLIB_UPDATE',
+				payload: null as unknown as TL.TLObject
+			}
+			for (const payload of action.payload) {
+				event.payload = payload
+				restate = reducer(restate, event as ActionTypes)
+			}
+			return restate
+		}
+		break;
+
 		case "TDLIB_UPDATE":
-			console.log('Receive update', action.payload)
 			const update: TL.TLObject = action.payload
 			switch (update['@type']) {
 				case "updateAuthorizationState":
@@ -222,7 +241,6 @@ const reducer = (state: State = initialState, action: ActionTypes): State => {
 				case "updateNewChat":
 					{
 						const updateNewChat = TL.updateNewChat(update)
-						console.warn('updateNewChat', updateNewChat.chat.title)
 						if (state.chatIds.includes(updateNewChat.chat.id)) return state
 						return {
 							...reducer(state, {
