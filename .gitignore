@@ -42,3 +42,5 @@ $RECYCLE.BIN/
 .directory
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
+*.chunk.js.map
+*.chunk.css.map
