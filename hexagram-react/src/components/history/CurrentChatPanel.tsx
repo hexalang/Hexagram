@@ -20,7 +20,7 @@ import { tg } from '../../tdlib/tdlib'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { MessageSameSender, MessageSameSenderTheirs, CenterSystemMessage, MessagePhotoTheirs } from '../messages/MessageTypes'
-import { StickerMy, StickerOnMessage, MessageMy, MessageTheirs } from '../messages/MessageTypes'
+import { StickerMy, StickerOnMessage, MessageMy, MessageTheirs, LottieSticker } from '../messages/MessageTypes'
 import Input from './Input'
 import Top from './Top'
 import { downloadFile as downloadFile } from '../../tdlib/loader'
@@ -155,12 +155,10 @@ function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: Sta
 			if (messageState == null) continue
 			const key = messageState.id
 			lastMessageId = key
-			const time = (date => {
-				return new Date(date * 1000).toLocaleTimeString(navigator.language, {
-					hour: '2-digit',
-					minute: '2-digit'
-				})
-			})(messageState.date)
+			const time = new Date(messageState.date * 1000).toLocaleTimeString(navigator.language, {
+				hour: '2-digit',
+				minute: '2-digit'
+			})
 			switch (messageState.content['@type']) {
 				case "messageChatUpgradeFrom":
 					let messageChatUpgradeFrom = TL.messageChatUpgradeFrom(messageState.content)
@@ -196,9 +194,18 @@ function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: Sta
 				case "messageSticker":
 					{
 						const messageSticker = TL.messageSticker(messageState.content)
+
+						if (messageSticker.sticker.is_animated) {
+						const sticker: TL.TLFile = messageSticker.sticker.sticker
+						updateDestination(messageState.senderUserId)
+						destination.push(<LottieSticker key={key} state={state} downloadFile={downloadFile} sticker={sticker} time={time}/>)
+
+						} else {
+
 						const sticker: TL.TLFile = messageSticker.sticker.is_animated? messageSticker.sticker.thumbnail.photo : messageSticker.sticker.sticker
 						updateDestination(messageState.senderUserId)
-						destination.push(<StickerMy key={key} state={state} src="sticker.webp" downloadFile={downloadFile} sticker={sticker} time={time}/>)
+						destination.push(<StickerMy key={key} state={state} downloadFile={downloadFile} sticker={sticker} time={time}/>)
+						}
 					}
 					break;
 

@@ -13,11 +13,45 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, memo } from 'react'
 import * as TL from '../../tdlib/tdapi'
+import { fileParts } from '../../tdlib/loader'
 import { nameToInitials } from '../../utils/UserInfo'
 import './MessageTypes.scss'
 import { useSelector, useDispatch } from 'react-redux'
+import { State } from '../../redux/store'
+import { inflate } from 'pako'
+import Lottie from 'react-lottie'
+
+export const LottieSticker = memo(function LottieSticker({time, state, downloadFile, sticker}: any) {
+	const file: TL.TLFile = sticker
+
+	const srcAva: string | null = state.fileURL[file.id]
+
+	if (srcAva == null) downloadFile(file, true)
+
+	const filePart = fileParts.get(file.id)
+	const animationData: ArrayBuffer = filePart? inflate(filePart) : null as unknown as ArrayBuffer
+
+	const defaultOptions = {
+		loop: true,
+		autoplay: true,
+		animationData: animationData? JSON.parse(new TextDecoder("utf-8").decode(animationData)) : {},
+		rendererSettings: {
+			preserveAspectRatio: 'xMidYMid slice'
+		}
+	}
+
+	return <div className="stickerMy">
+		{
+			srcAva == null?
+			<div className="webp" style={{backgroundImage: 'url(blur.png)' }}>{' '}</div>
+			:
+			<div className="webp"><Lottie options={defaultOptions} height={256} width={256} /></div>
+		}
+		<div className="time">{time}</div>
+	</div>
+})
 
 export function CenterSystemMessage({text}: {text: string}) {
 	return <div className="centerSystemMessage">

@@ -19,7 +19,9 @@ import { State } from '../redux/store'
 import { tg } from '../tdlib/tdlib'
 
 let busyConverting = false
-export function downloadFile(idOrFile: number | TL.TLFile) {
+export const fileParts: Map<number, Uint8Array> = new Map()
+export function downloadFile(idOrFile: number | TL.TLFile, preserveFileParts = false) {
+	var preserveFilePart = preserveFileParts
 	return async (dispatch:Dispatch, getState: () => State) => {
 		const id = typeof(idOrFile) == 'number'? idOrFile as number : (idOrFile as TL.TLFile).id
 		const state = getState()
@@ -47,8 +49,14 @@ export function downloadFile(idOrFile: number | TL.TLFile) {
 			if (busyConverting) return
 			busyConverting = true
 			dispatch({ type: 'SAVE_FILE_LOADS', payload: { id, loads: 2 } })
-			const filePart = await tg.readFilePart(id, 0, 0)
-			let blobURL = window.URL.createObjectURL(filePart.data)
+			const filePart: Uint8Array = (await tg.readFilePart(id, 0, 0)).data
+			// Actually a Blob
+			if (preserveFilePart == true) {
+				fileParts.set(id, (await (new Response(filePart as unknown as Blob)).arrayBuffer()) as Uint8Array)
+			}
+
+			await new Promise(resolve => setTimeout(resolve, 33))
+			let blobURL = window.URL.createObjectURL(filePart)
 			busyConverting = false
 			dispatch({ type: 'SAVE_FILE_URL', payload: { id, url: blobURL } })
 			return
