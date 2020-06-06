@@ -39,7 +39,9 @@ function replaceCaret(el: HTMLElement) {
 	}
 }
 
-export default function Input({state}:{state: State}) {
+export default function Input() {
+	const state = useSelector((state: State) => state)
+
 	const [value, setValue] = useState('')
 	const messagesEndRef = useRef(null)
 
@@ -121,8 +123,11 @@ export default function Input({state}:{state: State}) {
 
 	return <div className="bottom">
 		<div className="input">
-			{(value == '') && <div className="placeholder">Write a message...</div>}
+			{(value == '') && false && <div className="placeholder">Write a message...</div>}
+			{false&&
 			<div ref={messagesEndRef} className="editor" contentEditable={true} onKeyDown={onKeyDown} onInput={e => updateValue((e.target as any).innerHTML)} dangerouslySetInnerHTML={{__html:value}}></div>
+			}
+			<input type="text" className="editor" id="textName" maxLength={90} placeholder="Write a message..." onKeyDown={onKeyDown} value={value} onChange={e => updateValue(e.target.value)} required/>
 		</div>
 
 		<div className="thinVerticalLine"/>

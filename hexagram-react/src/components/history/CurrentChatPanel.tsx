@@ -429,7 +429,7 @@ const CurrentChatPanel = ({state, saveChatHistory, saveFileUrl, downloadFile}:{s
 				<>
 					<Top />
 					<History state={state} saveChatHistory={saveChatHistory} {...{downloadFile}} saveFileUrl={saveFileUrl}/>
-					<Input state={state}/>
+					<Input />
 				</>
 			:
 				<>
