@@ -453,8 +453,8 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
 		saveFileUrl: (id: number, url: string) => {
 			return dispatch(saveFileUrl(id, url) as any)
 		},
-		downloadFile: (id: number) => {
-			return dispatch(downloadFile(id) as any)
+		downloadFile: (id: number, preserve = false) => {
+			return dispatch(downloadFile(id, preserve) as any)
 		},
 	}
 }

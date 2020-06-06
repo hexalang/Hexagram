@@ -17,6 +17,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import * as TL from '../../tdlib/tdapi'
 import { nameToInitials } from '../../utils/UserInfo'
 import './MessageTypes.scss'
+import { useSelector, useDispatch } from 'react-redux'
 
 export function CenterSystemMessage({text}: {text: string}) {
 	return <div className="centerSystemMessage">
@@ -110,8 +111,9 @@ export function MessageSameSenderTheirs({children, state, senderUserId, saveFile
 
 export function MessagePhotoTheirs({state, sized, downloadFile, text, time, author, views}: any) {
 	const file: TL.TLFile = sized
+	const fileURL = useSelector((state: State) => state.fileURL[file.id])
 
-	const srcAva: string | null = state.fileURL[file.id]
+	const srcAva: string | null = fileURL // state.fileURL[file.id]
 
 	if (srcAva == null) downloadFile(file)
 

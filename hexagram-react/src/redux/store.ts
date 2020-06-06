@@ -491,6 +491,7 @@ const reducer = (state: State = initialState, action: ActionTypes): State => {
 						}
 						return {
 							...state,
+							fileURL: {...state.fileURL}, // Trigger chat list re-paint
 							files: {...state.files, [updateFile.file.id]: updateFile.file}
 						}
 					}
