@@ -16,6 +16,16 @@
 	}
 }
 
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: unset !important;
+	}
+}
+
+*::-webkit-scrollbar {
+	display: none;
+}
+
 .App-header {
 	background-color: #4C5463;
 	min-height: 100vh;
