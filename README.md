@@ -2,11 +2,13 @@
 
 Telegram client
 
-[Play now in your browser (instead of playing your free GTA V copy)](https://hexalang.github.io/hexagram/)
+[Play now in your browser (instead of playing your free GTA V copy)](https://hexalang.github.io/hexagram/) :arrow_upper_right:
 
 > It is not best but it's just fine
 
-[Visit our Telegram group to discuss Hexagram!](https://t.me/joinchat/JFOrZFNUdU9V2AMksky8pA)
+[Visit our Telegram group to discuss Hexagram!](https://t.me/joinchat/JFOrZFNUdU9V2AMksky8pA) :arrow_upper_right:
+
+[Support development on Patreon!](https://www.patreon.com/PeyTy) :arrow_upper_right:
 
 ![GUI](screenshots/login.jpg?raw=true)
 
