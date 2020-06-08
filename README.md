@@ -1,6 +1,6 @@
 # Hexagram
 
-Telegram client
+Community-driven Telegram client
 
 [Play now in your browser (instead of playing your free GTA V copy)](https://hexalang.github.io/hexagram/) :arrow_upper_right:
 
