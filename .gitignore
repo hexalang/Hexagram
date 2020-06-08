@@ -45,3 +45,4 @@ $RECYCLE.BIN/
 *.chunk.js.map
 *.js.map
 *.chunk.css.map
+node_modules
