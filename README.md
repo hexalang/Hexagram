@@ -10,6 +10,8 @@ Community-driven Telegram client
 
 [Support development on Patreon!](https://www.patreon.com/PeyTy) :arrow_upper_right:
 
+Also check [Greentea OS](https://github.com/GreenteaOS) :arrow_upper_right: and [Hexa](https://github.com/hexalang) :arrow_upper_right:
+
 ![GUI](screenshots/login.jpg?raw=true)
 
 
