@@ -31,6 +31,8 @@ export interface User {
 // "updateChatLastMessage" - TODO
 // "updateNewMessage" - TODO
 export interface Message {
+	//readonly textPreview: string // Like "Xxx joined this channel" or "Hello!"
+	//readonly systemPreview?: string // Like "Photo" or "You joined this channel"
 	readonly id: number
 	readonly date: number
 	readonly senderUserId: number
