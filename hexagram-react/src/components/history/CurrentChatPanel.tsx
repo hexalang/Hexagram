@@ -25,9 +25,11 @@ import Input from './Input'
 import Top from './Top'
 import { downloadFile as downloadFile } from '../../tdlib/loader'
 import './CurrentChatPanel.scss'
+import { useSelector, useDispatch } from 'react-redux'
 
-function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: State, saveChatHistory: SaveChatHistory, saveFileUrl: SaveFileUrl, downloadFile: any}) {
+function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: SaveChatHistory, saveFileUrl: SaveFileUrl, downloadFile: any}) {
 	const messagesEndRef = useRef(null)
+	const state: State = useSelector((state: State) => state)
 
 	const [dragging, setDragging] = useState(false)
 	const [position, setPosition] = useState(0)
@@ -74,6 +76,7 @@ function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: Sta
 	const chat = state.chats[state.currentChatId]
 
 	const scrollToBottom = () => {
+		// TODO remember scroll position for each chat separately
 		setTimeout( () => {
 			setProgress(Math.min(1.0, (1.0 - 0.00001) + Math.random() * 0.00001))
 			const sliderMaxY = chatListScrollBar.current != null? (chatListScrollBar.current as any).offsetHeight : 0
@@ -88,7 +91,9 @@ function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: Sta
 			chat &&
 			(state.history[state.currentChatId] == null || state.history[state.currentChatId].length < 10)
 		) {
+			// Fix race condition
 			const currentChatId = state.currentChatId
+			// Avoid repeating of getChatHistory
 			saveChatHistory(currentChatId, [])
 			const howMuch = 25
 			tg.getChatHistory(
@@ -211,6 +216,8 @@ function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: Sta
 
 				case "messageText":
 					updateDestination(messageState.senderUserId)
+
+					// TODO no sender name for private chats
 					const senderName = destination.length == 0 && state.users[messageState.senderUserId]? state.users[messageState.senderUserId].firstName : null
 					let lines = TL.messageText(messageState.content).text.text//.trim()
 					let text = [<div className="text">{lines}</div>]
@@ -411,6 +418,7 @@ function History({state, saveChatHistory, saveFileUrl, downloadFile}:{state: Sta
 	const paneH = chatListScrollPane.current != null? (chatListScrollPane.current as any).offsetHeight : 0
 	const paneY = -Math.round(_progress * (paneH - sliderMaxY))
 
+	// TODO use return (<>) everywhere
 	return <div className="history" key={state.currentChatId}>
 		<div className="historyView" onWheel={onWheel} key={state.currentChatId} ref={chatListScrollPane} style={{top: paneY + 'px'}}>
 			{messages}
@@ -425,6 +433,7 @@ const CurrentChatPanel = ({state, saveChatHistory, saveFileUrl, downloadFile}:{s
 	return <>
 		<div className="blow center">
 		{
+			// TODO handle status . left the group
 			chatSelected?
 				<>
 					<Top />
@@ -444,7 +453,7 @@ const CurrentChatPanel = ({state, saveChatHistory, saveFileUrl, downloadFile}:{s
 type SaveChatHistory = (id: number, messages: ReadonlyArray<TL.TLMessage>) => void
 type SaveFileUrl = (id: number, url: string) => void
 
-const mapStateToProps = (state: State, ownProps: any) => ({ state })
+const mapStateToProps = (state: State, ownProps: any) => ({ })
 
 function saveFileUrl(id: number, url: string) {
 	return async (dispatch:Dispatch, getState: () => State) => {
