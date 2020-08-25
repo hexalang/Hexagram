@@ -16,12 +16,12 @@
 const day = (60 * 60 * 24 * 1000)
 const week = day * 7
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+const date = new Date()
 
 // Shows XX:XX or XX.XX.XX
 export function formatTime(dateTime: number): string {
-	const now = new Date()
-	const date = new Date(dateTime * 1000)
-	const diff = now.getTime() - date.getTime()
+	date.setTime(dateTime * 1000)
+	const diff = Date.now() - (dateTime * 1000)
 
 	if (diff >= week) {
 		return date.toLocaleDateString(navigator.language, {
