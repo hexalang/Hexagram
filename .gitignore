@@ -46,3 +46,4 @@ $RECYCLE.BIN/
 *.js.map
 *.chunk.css.map
 node_modules
+hexagram-react/src/tdlib/id.json

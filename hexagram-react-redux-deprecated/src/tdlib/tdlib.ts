@@ -15,13 +15,12 @@
 
 import TdClient, { TdOptions, TdObject } from 'tdweb'
 import * as TL from './tdapi'
-import ids from './id.json'
 
 // 'cause you cannot reassign `import {let}`
 export const dispatchTelegramEventHandler = { handle: null as unknown as Function }
 
-const apiId = ids.apiId
-const apiHash = ids.apiHash
+const apiId = '111111'
+const apiHash = 'd1111111111111111111111dddd1111d'
 const instanceName = 'user0'
 
 let queue: TdObject[] = []
@@ -50,7 +49,7 @@ const options: TdOptions = {
 	onUpdate: async (update: TdObject) => {
 
 		switch (update['@type']) {
-			case "ok": break // Just Ok
+			case "ok": break; // Just Ok
 			case "updateAuthorizationState":
 				switch ((update as any).authorization_state['@type']) {
 					case "authorizationStateWaitTdlibParameters":
@@ -72,23 +71,23 @@ const options: TdOptions = {
 								files_directory: '/'
 							}
 						})
-						break
+						break;
 
 					case "authorizationStateWaitEncryptionKey":
 						await td.send({
 							'@type': 'checkDatabaseEncryptionKey',
 						})
-						break
+						break;
 
 					default:
 						dispatchTelegramEvent(update)
-						break
+						break;
 				}
-				break
+				break;
 
 			case "updateFile":
 				dispatchTelegramEvent(update)
-				break
+				break;
 
 			case "updateOption":
 				if ((update as any).name == "my_id") { // Ready
@@ -109,11 +108,11 @@ const options: TdOptions = {
 
 				dispatchTelegramEvent(update)
 
-				break
+				break;
 
 			default:
 				dispatchTelegramEvent(update)
-				break
+				break;
 		}
 	},
 	/**
@@ -151,5 +150,5 @@ const options: TdOptions = {
 	mode: 'wasm'
 }
 
-export const td: TdClient = new TdClient(options)
-export const tg: TL.TD = new TL.TD(td)
+export const td:TdClient = new TdClient(options)
+export const tg:TL.TD = new TL.TD(td)
