@@ -13,13 +13,13 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+const day = (60 * 60 * 24 * 1000)
+const week = day * 7
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
 // Shows XX:XX or XX.XX.XX
 export function formatTime(dateTime: number): string {
 	const now = new Date()
-	const day = (60 * 60 * 24 * 1000)
-	const week = day * 7
-	const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-
 	const date = new Date(dateTime * 1000)
 	const diff = now.getTime() - date.getTime()
 
