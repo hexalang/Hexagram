@@ -202,6 +202,10 @@
 	white-space: nowrap;
 	overflow: hidden;
 	display: inline-flex;
+
+	justify-content: flex-end;
+	flex-direction: row;
+	align-items: flex-end;
 }
 
 .chatListElement .textcounter .text div {
@@ -324,7 +328,6 @@
 		margin-right: 4px;
 		flex-shrink: 0;
 	}
-	//    hue-rotate(90deg);
 }
 
 .chatListElement .wrap {
