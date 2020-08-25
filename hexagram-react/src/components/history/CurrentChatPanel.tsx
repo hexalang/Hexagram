@@ -428,8 +428,8 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 	</div>
 };
 
-const CurrentChatPanel = ({state, saveChatHistory, saveFileUrl, downloadFile}:{state: State, saveChatHistory: SaveChatHistory, saveFileUrl: SaveFileUrl, downloadFile: any}) => {
-	const chatSelected = state.chats[state.currentChatId] && state.chatIds.includes(state.currentChatId)
+const CurrentChatPanel = ({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: SaveChatHistory, saveFileUrl: SaveFileUrl, downloadFile: any}) => {
+	const chatSelected = useSelector((state: State) => state.chats[state.currentChatId] && state.chatIds.includes(state.currentChatId))
 	return <>
 		<div className="blow center">
 		{
@@ -437,7 +437,7 @@ const CurrentChatPanel = ({state, saveChatHistory, saveFileUrl, downloadFile}:{s
 			chatSelected?
 				<>
 					<Top />
-					<History state={state} saveChatHistory={saveChatHistory} {...{downloadFile}} saveFileUrl={saveFileUrl}/>
+					<History saveChatHistory={saveChatHistory} {...{downloadFile}} saveFileUrl={saveFileUrl}/>
 					<Input />
 				</>
 			:
