@@ -42,7 +42,7 @@ function App({dispatchTelegramEventFunction}: {dispatchTelegramEventFunction: Fu
 	const loginState = useSelector((state: State) => state.loginState)
 	const showSideBar = useSelector((state: State) => state.showSideBar)
 
-	if (loaded == false) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Updating Hexagram...</div></div>
+	if (loaded == false) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Loading Hexagram...</div></div>
 	if (loginState == LoginState.WaitTDLib) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Logging in...</div></div>
 
 	if (loginState == LoginState.Ready) return (
