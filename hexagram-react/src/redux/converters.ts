@@ -37,6 +37,8 @@ export function userToState(tl: TL.TLUser): User {
 	return {
 		id: tl.id,
 		firstName: tl.first_name, // TODO .trim()
+		// TODO combinedName = +' '+
+		// TODO Dell Acc name
 		lastName: tl.last_name ?? '',
 		username: tl.username,
 		phone: tl.phone_number ?? '',
