@@ -81,6 +81,7 @@
 	width: 28px;
 	height: 28px;
 	cursor: pointer; // TODO open sticker pack on click
+	// TODO RMB to show reaction message itself
 }
 
 .messageMy {
@@ -131,6 +132,7 @@
 }
 
 .textEntityTypeCode {
+	//font-variant-numeric: tabular-nums;
 	font-family: monospace, monospace;
 }
 
@@ -214,6 +216,7 @@
 	& div.textLine {
 		flex-basis: 100%;
 	}
+}
 
 .messageAvatar {
 	width: 33px;
