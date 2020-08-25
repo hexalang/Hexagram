@@ -80,13 +80,13 @@ export function ChatList({selectChat, downloadFile}:{selectChat: (id: number) =>
 		return 0
 	})
 
-	return <div className="chats" onWheel={onWheel}>
-		<div className="chatListScrollPane" ref={chatListScrollPane} style={{top: paneY + 'px'}}>
+	return <div key="chats" className="chats" onWheel={onWheel}>
+		<div key="chatListScrollPane" className="chatListScrollPane" ref={chatListScrollPane} style={{top: paneY + 'px'}}>
 		{
 		sortedChats.map(chatId => <ChatListElement downloadFile={downloadFile} key={chatId} chatId={chatId} selectChat={selectChat}/>)
 		}
 		</div>
-		<div className="chatListScrollBar" onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
-		<div className="chatListScrollBarSlider" onMouseDown={onMouseDown} style={{top: sliderY + 3+ 'px'}}></div>
+		<div key="chatListScrollBar" className="chatListScrollBar" onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
+		<div key="chatListScrollBarSlider" className="chatListScrollBarSlider" onMouseDown={onMouseDown} style={{top: sliderY + 3+ 'px'}}></div>
 	</div>
 }
