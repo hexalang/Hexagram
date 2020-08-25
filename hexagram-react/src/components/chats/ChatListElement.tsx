@@ -67,6 +67,7 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 
 	if (
 		chat &&
+		// TODO if(let TL.chatTypeSupergroup(chat.type)) i.e. func does @type check or ret null
 		chat.type['@type'] == 'chatTypeSupergroup' &&
 		supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id] &&
 		supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id].chatMemberStatus['@type'] == 'chatMemberStatusLeft'
