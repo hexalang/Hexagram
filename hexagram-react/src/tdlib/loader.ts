@@ -20,6 +20,8 @@ import { tg } from '../tdlib/tdlib'
 
 let busyConverting = false
 export const fileParts: Map<number, Uint8Array> = new Map()
+// TODO rename to downloadPhoto cause it creates blob URL?
+// TODO Take TLFile instead of raw id
 export function downloadFile(idOrFile: number | TL.TLFile, preserveFileParts = false) {
 	var preserveFilePart = preserveFileParts
 	return async (dispatch:Dispatch, getState: () => State) => {
