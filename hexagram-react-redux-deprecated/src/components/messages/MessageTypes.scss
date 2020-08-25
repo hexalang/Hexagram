@@ -1,0 +1,345 @@
+.centerSystemMessage {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 8px;
+	margin-bottom: 4px;
+	& div {
+		display: flex;
+		color: white;
+		font-size: 10.5pt;
+		background-color: rgba(0, 0, 0, 0.2);
+		border-radius: 12px;
+		padding: 4px 12px;
+	}
+}
+
+.centerSystemMessageGroupPic {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 8px;
+	margin-bottom: 4px;
+	& div {
+		display: flex;
+		width: 100px;
+		height: 100px;
+		border-radius: 100%;
+		background-size: contain;
+		background-color: transparent;
+		background-repeat: no-repeat;
+		background-position: center;
+		cursor: pointer;
+	}
+}
+
+.stickerMy {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-top: 8px;
+	margin-bottom: 4px;
+	margin-right: 16px;
+	position: relative;
+
+	& div.webp {
+		display: flex;
+		width: 256px;
+		height: 256px;
+		background-color: transparent;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		cursor: pointer;
+	}
+
+	& div.time {
+		position: absolute;
+		pointer-events: none;
+		font-size: 11pt;
+		color: white;
+		border-radius: 10px;
+		height: 22px;
+		background-color: rgba(0, 0, 0, 0.2);
+		width: auto;
+		bottom: 0px;
+		right: 0px;
+		padding-bottom: 20px;
+		padding-top: 4px;
+		padding-left: 7px;
+		padding-right: 7px;
+
+		display: none;
+	}
+
+	&:hover div.time {
+		display: block;
+	}
+}
+
+.stickerOnMessage {
+	width: 28px;
+	height: 28px;
+	cursor: pointer; // TODO open sticker pack on click
+	// TODO RMB to show reaction message itself
+}
+
+.messageMy {
+	display: flex;
+	background-color: #EFFDDE;
+	border-radius: 6px;
+	max-width: 430px;
+	min-height: 33px;
+	padding: 11px;
+	flex-shrink: 0;
+	flex-direction: row;
+	flex-wrap: wrap;
+	flex-grow: 1;
+	position: relative;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+
+	& div.time {
+		display: flex;
+		font-size: 11pt;
+		color: #6CC264;
+		white-space: nowrap;
+		align-self: flex-end;
+		flex-grow: 0;
+		margin-left: auto;
+	}
+
+	& div.text {
+		font-size: 11pt;
+		display: flex;
+		color: black;
+		white-space: normal;
+		cursor: text;
+		white-space: normal;
+		flex-grow: 1;
+		height: auto;
+		word-break: break-word;
+		text-align: left;
+	}
+}
+
+.textEntityTypeBold {
+	font-weight: 600;
+}
+
+.textEntityTypeItalic {
+	font-style: italic;
+	padding-right: 2px; // Fix overflowing
+}
+
+.textEntityTypeCode {
+	//font-variant-numeric: tabular-nums;
+	font-family: monospace, monospace;
+}
+
+.textEntityTypeStrikethrough {
+	text-decoration: line-through;
+}
+
+.textEntityTypeUnderline {
+	text-decoration: underline;
+}
+
+.textEntityTypeUrl {
+	cursor: pointer !important;
+	color: #168ACD !important;
+}
+
+.textEntityTypeUrl:hover {
+	text-decoration: underline;
+}
+
+.messageTheirs {
+	display: flex;
+	background-color: white;
+	border-radius: 6px;
+	max-width: 430px;
+	min-height: 33px;
+	padding: 11px;
+	flex-shrink: 0;
+	flex-direction: row;
+	flex-wrap: wrap;
+	flex-grow: 1;
+	position: relative;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+
+	& div.right {
+		display: flex;
+		align-self: flex-end;
+		margin-left: auto;
+	}
+
+	& div.time {
+		display: flex;
+		font-size: 11pt;
+		color: #A0ACB6;
+		white-space: nowrap;
+		flex-grow: 0;
+		margin-left: auto;
+	}
+
+	& div.views {
+		display: flex;
+		font-size: 11pt;
+		color: #A0ACB6;
+		white-space: nowrap;
+		flex-grow: 0;
+		margin-left: auto;
+	}
+
+	& div.author {
+		flex-basis: 100%;
+		text-align: left;
+		font-size: 11pt;
+		color: #16B4EF;
+		font-weight: bold;
+		cursor: pointer;
+	}
+
+	& div.text {
+		font-size: 11pt;
+		display: flex;
+		color: black;
+		white-space: normal;
+		cursor: text;
+		white-space: normal;
+		flex-grow: 1;
+		height: auto;
+		word-break: break-word;
+		text-align: left;
+	}
+
+	& div.textLine {
+		flex-basis: 100%;
+	}
+}
+
+.messageAvatar {
+	width: 33px;
+	height: 33px;
+	border-radius: 100%;
+	position: absolute;
+	left: 13px;
+	top: calc(100% - 34px);
+	cursor: pointer;
+}
+
+.messageAvatarPlaceholder {
+	width: 33px;
+	height: 33px;
+	border-radius: 100%;
+	position: absolute;
+	left: 13px;
+	top: calc(100% - 34px);
+	display: block;
+	font-size: 13px;
+	background-color: #7BC862;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	color: white;
+	flex-shrink: 0;
+	cursor: pointer;
+}
+
+.messagePhoto {
+	flex-basis: 100%;
+	max-width: 430px;
+	max-height: 240px;
+
+	background-image: url(/bg_initial.jpg);
+	background-repeat: repeat;
+
+
+	& img {
+		height: auto;
+		width: auto;
+		max-width: 430px;
+		max-height: 240px;
+	}
+}
+
+.messageTheirsPhoto {
+	padding-right: 0px;
+	padding-left: 0px;
+	padding-top: 0px;
+	position: relative;
+
+	& .author {
+		padding: 8px;
+		padding-left: 14px;
+	}
+
+	& .right {
+		padding-right: 8px;
+		padding-top: 8px;
+	}
+	& .text {
+		padding-left: 8px;
+		padding-top: 8px;
+	}
+}
+
+.messageTheirsPhotoNoCaption {
+	padding: 0px;
+
+	& .right {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		visibility: hidden;
+
+		& .time {
+			color: white !important;
+			background-color: rgba(0, 0, 0, 0.2);
+			border-radius: 8px;
+			padding-bottom: 3px;
+			padding-top: 4px;
+			padding-left: 7px;
+			padding-right: 7px;
+		}
+	}
+
+	&:hover .right {
+		visibility: visible;
+	}
+
+	& .text {
+		display: none !important;
+	}
+}
+
+.messagePrivateOrChannel {
+
+}
+
+.messageSameSender > div {
+	margin-top: 1px;
+	margin-bottom: 2px;
+	margin-right: 16px;
+}
+
+.messageSameSender {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-bottom: 10px;
+}
+
+.messageSameSenderTheirs > div {
+	margin-top: 1px;
+	margin-bottom: 2px;
+	margin-left: 55px;
+}
+
+.messageSameSenderTheirs {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 10px;
+	position: relative;
+}
