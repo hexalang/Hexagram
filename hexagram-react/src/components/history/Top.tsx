@@ -19,6 +19,7 @@ import * as TL from '../../tdlib/tdapi'
 import './Top.scss'
 import { useSelector, useDispatch } from 'react-redux'
 
+// TODO .FC
 export default function Top() {
 	const state: State = useSelector((state: State) => state)
 	const chat = useSelector((state: State) => state.chats[state.currentChatId])
@@ -46,6 +47,8 @@ export default function Top() {
 		chat &&
 		chat.type['@type'] == 'chatTypePrivate' &&
 		state.users[TL.chatTypePrivate(chat.type).user_id] &&
+		// TODO TL.userTypeBot(...) != null
+		// ^ or better isUserTypeBot
 		state.users[TL.chatTypePrivate(chat.type).user_id].type['@type'] == 'userTypeBot'
 	)
 
@@ -81,17 +84,18 @@ export default function Top() {
 			const hour = 60 * minute
 			const day = hour * 24
 			const week = day * 7
-			const moth = week * 4
+			const month = week * 4
 			const now: number = Date.now()
 			const diff: number = (now - was_online) / 1000
 
 			if (diff < 10) summary = 'last seen right now'
 			else if (diff < minute) summary = Math.round(diff) + ' seconds ago'
 			else if (diff < hour) summary = Math.round(diff / minute) + ' minutes ago'
+			// TODO 1 hour ago, not hours
 			else if (diff < day) summary = Math.round(diff / hour) + ' hours ago'
 			else if (diff < week) summary = Math.round(diff / day) + ' days ago'
-			else if (diff < moth) summary = Math.round(diff / week) + ' weeks ago'
-			else if (diff < moth * 2) summary = 'last seen a month ago'
+			else if (diff < month) summary = Math.round(diff / week) + ' weeks ago'
+			else if (diff < month * 2) summary = 'last seen a month ago'
 			else summary = 'last seen a long time ago'
 		}
 		if (user.status['@type'] == 'userStatusRecently') summary = 'last seen recently'
