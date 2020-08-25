@@ -20,6 +20,7 @@
 			font-size: 11pt;
 			margin-left: 14px;
 		}
+		// TODO flex-grow: 1;
 	}
 
 	& .burger {
@@ -39,6 +40,7 @@
 // LEFT
 
 .thinVerticalLine {
+	//background-clip: content-box;
 	width: 1px;
 	height: 100%;
 	margin: 0;
