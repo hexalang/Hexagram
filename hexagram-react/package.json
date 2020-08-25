@@ -15,6 +15,9 @@
     "@types/react-lottie": "^1.2.5",
     "@types/react-redux": "^7.1.7",
     "@types/tdweb": "^1.4.0",
+    "@types/uuid": "^8.3.0",
+    "mobx": "^5.15.6",
+    "mobx-react-lite": "^2.0.7",
     "node-sass": "^4.13.1",
     "pako": "^1.0.11",
     "react": "^16.13.1",
@@ -25,7 +28,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "tdweb": "^1.6.0",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "uuid": "^8.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
