@@ -1,0 +1,8 @@
+{
+	"editor.formatOnSave": true,
+	"html.format.endWithNewline": true,
+	"typescript.format.semicolons": "remove",
+	"editor.detectIndentation": false,
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false
+}
