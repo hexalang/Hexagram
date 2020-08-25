@@ -164,7 +164,7 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 	return <div className={active} onClick={e => selectChat(chatId)}>
 		<div className="wrap">
 
-		{ srcAva && <img className="avatar" src={srcAva || 'blur.jpg'}/> || <div className="avatarEmpty">{
+		{ srcAva && <img title={'Click to show user picture (TODO)'} className="avatar" src={srcAva || 'blur.jpg'}/> || <div className="avatarEmpty">{
 			nameToInitials(name)
 		}</div> }
 		<div className="namedatetext">
