@@ -34,6 +34,7 @@
 		& .editor {
 			width: 2048px; // TODO
 			text-align: left;
+			outline: none !important;
 
 			& *, & > *, &, & *[style], & > *[style], & > a[style], & a[style] {
 				color: black !important;
