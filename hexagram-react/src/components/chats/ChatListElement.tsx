@@ -34,6 +34,7 @@ function messageContentToPreview(tl: TL.TLMessageContent): {textPreview:string, 
 			break;
 
 		case "messageChatJoinByLink":
+			// TODO should not have "Sender:"
 			return {textPreview:'', systemPreview: "joined the group via invite link"}
 			break;
 
@@ -43,6 +44,7 @@ function messageContentToPreview(tl: TL.TLMessageContent): {textPreview:string, 
 			break;
 
 		default:
+			//console.warn(`Unsupported message type ${tl['@type']}`, tl)
 			return {textPreview:`Unsupported message type ${tl['@type']}`}
 			break;
 	}
@@ -59,6 +61,8 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 
 	const current = currentChatId == chatId //false
 	const chat = chats[chatId]
+
+	// TODO 'SM.png' to constant somewhere?
 	const srcAva: string | null = (chatId == myId && 'SM.png') || (chat && chat.photo && fileURL[chat.photo.small.id])
 
 	if (
@@ -71,6 +75,7 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 	const message = (messages[chat.id] ?? {})[chat.lastMessage] ?? null
 
 	// Ignore inactive chats
+	// TODO they may have drafts!
 	if (message == null) return null
 
 	let name = chat? (myId == chat.id? 'Saved Messages' : chat.title) : ''
@@ -88,6 +93,8 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 	const dateHint = message? new Date(message.date * 1000).toLocaleDateString() : ''
 
 	const preview = message? messageContentToPreview(message.content) : null
+
+	// TODO hexa switch (chat, message, user) case null, null, null:
 
 	const text = preview? preview.textPreview : ''
 	const system = preview? preview.systemPreview : null
@@ -133,6 +140,7 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 
 	const draft = chat && chat.draft
 	let draftText = ''
+	// TODO handle only-reply no-text drafts as "(reply)"
 
 	if (chat && chat.draft) switch (chat.draft['@type']) {
 		case 'inputMessageText': {
