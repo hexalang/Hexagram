@@ -25,6 +25,7 @@ Set your [API keys](https://core.telegram.org/api/obtaining_api_id) in `hexagram
 To test in browser with localhost (recommended way!):
 
 ```sh
+node hexagram-react/td_api_gen.js
 cd hexagram-react
 yarn install --frozen-lockfile
 yarn start
@@ -33,6 +34,7 @@ yarn start
 To release:
 
 ```sh
+node hexagram-react/td_api_gen.js
 cd hexagram-react
 yarn install --frozen-lockfile
 yarn build
