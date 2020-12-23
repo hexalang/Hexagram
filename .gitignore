@@ -47,3 +47,4 @@ $RECYCLE.BIN/
 *.chunk.css.map
 node_modules
 hexagram-react/src/tdlib/id.json
+hexagram-react/.eslintcache
