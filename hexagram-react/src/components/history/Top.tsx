@@ -14,16 +14,13 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React, { useState, useEffect, useRef } from 'react'
-import { State } from '../../redux/store'
 import * as TL from '../../tdlib/tdapi'
 import './Top.scss'
-import { useSelector, useDispatch } from 'react-redux'
 
 // TODO .FC
 export default function Top() {
-	const state: State = useSelector((state: State) => state)
-	const chat = useSelector((state: State) => state.chats[state.currentChatId])
 	const savedMessages = state.myId == chat.id
+	const chat = state.chats[state.currentChatId]
 	let larger = savedMessages
 
 	let name = chat? (savedMessages? 'Saved Messages' : chat.title) : ''

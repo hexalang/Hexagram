@@ -13,13 +13,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState, useEffect, useRef } from 'react'
-import { State } from '../../redux/store'
-import * as TL from '../../tdlib/tdapi'
-import { tg } from '../../tdlib/tdlib'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import { downloadFile as $downloadFile } from '../../tdlib/loader'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { ChatList } from './ChatList'
@@ -33,7 +26,6 @@ const ChatsPanel = ({selectChat, downloadFile, showSidePanel}:{showSidePanel: an
 	</div>
 )
 
-const mapStateToProps = (state: State, ownProps: any) => ({ })
 
 const mapDispatchToProps = (dispatch:Dispatch) => {
 	return {
@@ -50,6 +42,5 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
 	}
 }
 
-const ChatsPanelConnected = connect(mapStateToProps, mapDispatchToProps)(ChatsPanel)
 
-export { ChatsPanelConnected as ChatsPanel }
+export { ChatsPanel }

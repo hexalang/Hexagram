@@ -20,13 +20,10 @@ import * as TD from '../tdlib/tdlib'
 import { CurrentChatPanel } from '../components/history/CurrentChatPanel'
 import { ChatsPanel } from '../components/chats/ChatsPanel'
 import { SidePanel } from '../components/panels/SidePanel'
-import { connect } from 'react-redux'
-import { State, LoginState } from '../redux/store'
 import * as TL from '../tdlib/tdapi'
 import { downloadFile as downloadFile } from '../tdlib/loader'
 import { LoginForm } from '../components/login/LoginForm'
 import preview from './preview.svg'
-import { useSelector, useDispatch } from 'react-redux'
 
 const dispatchTelegramEventFunction = (update: TL.TLObject[]) => async (dispatch: any) => {
 	dispatch({
@@ -55,9 +52,3 @@ function App({dispatchTelegramEventFunction}: {dispatchTelegramEventFunction: Fu
 
 	return <div className="App"><LoginForm/></div>
 }
-
-const mapStateToProps = (state: State, ownProps: any) => ({ })
-
-const mapDispatchToProps = { dispatchTelegramEventFunction }
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)

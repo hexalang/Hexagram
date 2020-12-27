@@ -15,12 +15,7 @@
 
 import React, { useState } from 'react'
 import './LoginForm.scss'
-import { State, LoginState } from '../../redux/store'
-import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
-import { downloadFile as $downloadFile } from '../../tdlib/loader'
 import { nameToInitials } from '../../utils/UserInfo'
 
 function cleanPhoneNumber(text: string): string {
@@ -125,8 +120,6 @@ function LoginForm({loginState, setAuthenticationPhoneNumber, checkAuthenticatio
 	</>
 }
 
-const mapStateToProps = (state: State, ownProps: any) => ({ loginState: state.loginState })
-
 function setAuthenticationPhoneNumber(value: string) {
 	return async (dispatch:Dispatch, getState: () => State) => {
 		await tg.setAuthenticationPhoneNumber(value, {
@@ -163,7 +156,6 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
 		},
 	}
 }
-
-const LoginFormConnected = connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+const LoginFormConnected = observer(LoginForm)
 
 export { LoginFormConnected as LoginForm }

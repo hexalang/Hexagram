@@ -13,12 +13,9 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState, memo } from 'react'
 import * as TL from '../../tdlib/tdapi'
-import { State } from '../../redux/store'
 import { formatTime } from '../../utils/Time'
 import { nameToInitials } from '../../utils/UserInfo'
-import { useSelector, useDispatch } from 'react-redux'
 
 function messageContentToPreview(tl: TL.TLMessageContent): {textPreview:string, systemPreview?:string} {
 	switch (tl['@type']) {
@@ -51,13 +48,12 @@ function messageContentToPreview(tl: TL.TLMessageContent): {textPreview:string, 
 }
 
 export const ChatListElement = memo(function ChatListElement({chatId, selectChat, downloadFile}:{chatId: number, selectChat: (id: number) => void, downloadFile: Function}) {
-	const currentChatId = useSelector((state: State) => state.currentChatId)
-	const myId = useSelector((state: State) => state.myId)
-	const chats = useSelector((state: State) => state.chats)
-	const fileURL = useSelector((state: State) => state.fileURL)
-	const supergroups = useSelector((state: State) => state.supergroups)
-	const users = useSelector((state: State) => state.users)
-	const messages = useSelector((state: State) => state.messages)
+	const currentChatId = state.currentChatId
+	const myId = state.myId
+	const chats = state.chats
+	const supergroups = state.supergroups
+	const users = state.users
+	const messages = state.messages
 
 	const current = currentChatId == chatId //false
 	const chat = chats[chatId]

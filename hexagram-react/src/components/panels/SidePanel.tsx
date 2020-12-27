@@ -14,16 +14,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from 'react'
-import { State } from '../../redux/store'
-import * as TL from '../../tdlib/tdapi'
-import { tg } from '../../tdlib/tdlib'
-import { Dispatch, AnyAction } from 'redux'
-import { useSelector, useDispatch } from 'react-redux'
 import './SidePanel.scss'
 
 const SidePanel = () => {
-	const user = useSelector((state: State) => state.users[state.myId])
-	const dispatch: Dispatch = useDispatch()
+	const user = state.users[state.myId]
 
 	const hideSidePanel = (e: unknown) => {
 		return dispatch({ type: 'SET_SIDEBAR_VISIBILITY', payload: { showSideBar: false } })

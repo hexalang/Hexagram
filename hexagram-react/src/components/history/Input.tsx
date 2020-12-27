@@ -14,11 +14,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React, { useState, useEffect, useRef } from 'react'
-import { State } from '../../redux/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
 import './Input.scss'
-import { useSelector, useDispatch } from 'react-redux'
 
 function replaceCaret(el: HTMLElement) {
 	// Place the caret at the end of the element
@@ -40,8 +38,6 @@ function replaceCaret(el: HTMLElement) {
 }
 
 export default function Input() {
-	const state = useSelector((state: State) => state)
-
 	const [value, setValue] = useState('')
 	const messagesEndRef = useRef(null)
 
@@ -101,7 +97,7 @@ export default function Input() {
 		}
 	}
 
-	const chat = useSelector((state: State) => state.chats[state.currentChatId])
+	const chat = state.chats[state.currentChatId]
 
 	if (chat == null) return null
 

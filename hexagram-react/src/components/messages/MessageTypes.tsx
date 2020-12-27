@@ -15,11 +15,8 @@
 
 import React, { useState, useEffect, useRef, memo } from 'react'
 import * as TL from '../../tdlib/tdapi'
-import { fileParts } from '../../tdlib/loader'
 import { nameToInitials } from '../../utils/UserInfo'
 import './MessageTypes.scss'
-import { useSelector, useDispatch } from 'react-redux'
-import { State } from '../../redux/store'
 import { inflate } from 'pako'
 import Lottie from 'react-lottie'
 

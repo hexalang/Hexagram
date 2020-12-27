@@ -14,18 +14,13 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React, { useState, useEffect, useRef } from 'react'
-import { State } from '../../redux/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
-import { connect } from 'react-redux'
-import { Dispatch } from 'redux'
 import { MessageSameSender, MessageSameSenderTheirs, CenterSystemMessage, MessagePhotoTheirs } from '../messages/MessageTypes'
 import { StickerMy, StickerOnMessage, MessageMy, MessageTheirs, LottieSticker } from '../messages/MessageTypes'
 import Input from './Input'
 import Top from './Top'
-import { downloadFile as downloadFile } from '../../tdlib/loader'
 import './CurrentChatPanel.scss'
-import { useSelector, useDispatch } from 'react-redux'
 
 function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: SaveChatHistory, saveFileUrl: SaveFileUrl, downloadFile: any}) {
 	const messagesEndRef = useRef(null)
@@ -450,11 +445,6 @@ const CurrentChatPanel = ({saveChatHistory, saveFileUrl, downloadFile}:{saveChat
 	</>
 }
 
-type SaveChatHistory = (id: number, messages: ReadonlyArray<TL.TLMessage>) => void
-type SaveFileUrl = (id: number, url: string) => void
-
-const mapStateToProps = (state: State, ownProps: any) => ({ })
-
 function saveFileUrl(id: number, url: string) {
 	return async (dispatch:Dispatch, getState: () => State) => {
 		dispatch({ type: 'SAVE_FILE_URL', payload: { id, url } })
@@ -475,6 +465,5 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
 	}
 }
 
-const CurrentChatPanelConnected = connect(mapStateToProps, mapDispatchToProps)(CurrentChatPanel)
 
-export { CurrentChatPanelConnected as CurrentChatPanel }
+export { CurrentChatPanel }
