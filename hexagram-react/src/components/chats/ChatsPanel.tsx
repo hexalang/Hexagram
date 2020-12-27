@@ -21,29 +21,20 @@ import { ChatList } from './ChatList'
 import './ChatsPanel.scss'
 import { observer } from 'mobx-react-lite'
 
-const ChatsPanel = ({selectChat, downloadFile, showSidePanel}:{showSidePanel: any, selectChat: (id: number) => void, downloadFile: Function}) => (
-		<Header showSidePanel={showSidePanel}/>
-		<ChatList selectChat={selectChat} downloadFile={downloadFile}/>
-)
-
-
-const mapDispatchToProps = (dispatch:Dispatch) => {
-	return {
-		selectChat: (id: number) => {
-			tg.openChat(id)
-			return dispatch({ type: 'SELECT_CHAT', payload: id })
-		},
-		showSidePanel: (id: number) => {
-			return dispatch({ type: 'SET_SIDEBAR_VISIBILITY', payload: { showSideBar: true } })
-		},
-		downloadFile: (id: number) => {
-			return dispatch($downloadFile(id) as any)
-		},
+const ChatsPanel = observer(({ state }: { state: State }) => {
+	const selectChat = (id: number): void => {
+		state.selectChat(id)
 	}
-}
+
+	const showSidePanel = (): void => {
+		state.showSideBar = true
+	}
 
 	return <div className="chatList">
+		<Header showSidePanel={showSidePanel} />
+		<ChatList state={state} selectChat={selectChat} />
 		<Footer />
 	</div>
+})
 
 export { ChatsPanel }

@@ -24,7 +24,7 @@ import Top from './Top'
 import './CurrentChatPanel.scss'
 import { observer } from 'mobx-react-lite'
 
-function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: SaveChatHistory, saveFileUrl: SaveFileUrl, downloadFile: any}) {
+const History = observer(({ state }: { state: State }) => {
 	const [dragging, setDragging] = useState(false)
 	const [position, setPosition] = useState(0)
 	const [lastPosition, setLastPosition] = useState(0)
@@ -88,7 +88,7 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 			// Fix race condition
 			const currentChatId = state.currentChatId
 			// Avoid repeating of getChatHistory
-			saveChatHistory(currentChatId, [])
+			state.saveChatHistory(currentChatId, [])
 			const howMuch = 25
 			tg.getChatHistory(
 				currentChatId,
@@ -104,7 +104,7 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 					howMuch,
 					false
 				).then(messages => {
-					saveChatHistory(currentChatId, messages.messages)
+					state.saveChatHistory(currentChatId, messages.messages)
 				})
 			})
 		}
@@ -126,8 +126,6 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 				messages.push(<>{destination}</>)
 			// Note: for channels and auto-forward from channels `lastSender == 0`!
 			else messages.push(<MessageSameSenderTheirs
-					downloadFile={downloadFile}
-					saveFileUrl={saveFileUrl}
 				senderUserId={lastSender}
 				state={state}
 				key={'~' + lastSender + '~' + state.currentChatId + '~' + lastMessageId}>
@@ -185,8 +183,8 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 						const text = caption.text !== "" ? [<div className="text">{caption.text}</div>] : []
 						const sized: TL.TLFile = photo.sizes.reduce((prev, curr) => prev.height > curr.height ? prev : curr).photo
 						updateDestination(messageState.senderUserId)
-						destination.push(<MessagePhotoTheirs key={key} state={state} sized={sized} downloadFile={downloadFile} author={senderName} text={text} time={time} date={messageState.date} />)
 						const senderName = destination.length === 0 && state.users[messageState.senderUserId] ? state.users[messageState.senderUserId].firstName : null
+						destination.push(<MessagePhotoTheirs key={key} state={state} sized={sized} author={senderName} text={text} time={time} date={messageState.date} />)
 					}
 					break
 
@@ -195,15 +193,15 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 						const messageSticker = TL.messageSticker(messageState.content)
 
 						if (messageSticker.sticker.is_animated) {
-						destination.push(<LottieSticker key={key} state={state} downloadFile={downloadFile} sticker={sticker} time={time}/>)
 							const sticker: TL.TLFile = messageSticker.sticker.sticker
 							updateDestination(messageState.senderUserId)
+							destination.push(<LottieSticker key={key} state={state} sticker={sticker} time={time} />)
 
 						} else {
 
-						destination.push(<StickerMy key={key} state={state} downloadFile={downloadFile} sticker={sticker} time={time}/>)
 							const sticker: TL.TLFile = messageSticker.sticker.is_animated ? messageSticker.sticker.thumbnail.photo : messageSticker.sticker.sticker
 							updateDestination(messageState.senderUserId)
+							destination.push(<StickerMy key={key} state={state} sticker={sticker} time={time} />)
 						}
 					}
 					break
@@ -354,7 +352,6 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 						}
 					}
 
-					let pos = 0
 					const reactions = []
 					for (const messageId of state.history[chat.id]) {
 						const message = state.messages[chat.id][messageId]
@@ -363,15 +360,15 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 							const sticker: TL.TLFile = messageSticker.sticker.thumbnail.photo
 							const senderName = state.users[message.senderUserId] ? state.users[message.senderUserId].firstName : 'Someone'
 
-							reactions.push(<StickerOnMessage senderName={senderName} state={state} key={key} pos={pos++} downloadFile={downloadFile} sticker={sticker} />)
+							reactions.push(<StickerOnMessage senderName={senderName} state={state} key={key} sticker={sticker} />)
 						}
 					}
 
 					destination.push(
-						<MessageMy key={key} text={text} time={time} date={messageState.date} reactions={reactions}/>
-						<MessageTheirs key={key} author={senderName} text={text} time={time} date={messageState.date} reactions={reactions}/>
 						lastSender === state.myId ?
+							<MessageMy key={key} text={text} time={time} date={messageState.date} reactions={reactions} />
 							:
+							<MessageTheirs key={key} author={senderName} text={text} time={time} date={messageState.date} reactions={reactions} />
 					)
 
 					break
@@ -419,49 +416,29 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 		<div className="chatListScrollBar" onWheel={onWheel} onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
 		<div className="chatListScrollBarSlider" onWheel={onWheel} onMouseDown={onMouseDown} style={{ top: sliderY + 3 + 'px' }}></div>
 	</div>
-};
+})
 
-const CurrentChatPanel = ({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: SaveChatHistory, saveFileUrl: SaveFileUrl, downloadFile: any}) => {
-	const chatSelected = useSelector((state: State) => state.chats[state.currentChatId] && state.chatIds.includes(state.currentChatId))
+const CurrentChatPanel = observer(({ state }: { state: State }) => {
+	const chatSelected = state.chats[state.currentChatId] && state.chatIds.includes(state.currentChatId)
+
 	return <>
 		<div className="blow center">
-		{
-			// TODO handle status . left the group
-			chatSelected?
-				<>
-					<Top />
-					<History saveChatHistory={saveChatHistory} {...{downloadFile}} saveFileUrl={saveFileUrl}/>
-					<Input />
-				</>
-			:
-				<>
-					<div className="pleaseSelectChat "><div>Please select a chat to start messaging</div></div>
-					<div className="pleaseSelectChat "><a href="https://www.patreon.com/PeyTy">Made for you by PeyTy</a></div>
-				</>
-		}
+			{
+				// TODO handle status . left the group
+				chatSelected ?
+					<>
+						<Top state={state} />
+						<History state={state} />
+						<Input state={state} />
+					</>
+					:
+					<>
+						<div className="pleaseSelectChat "><div>Please select a chat to start messaging</div></div>
+						<div className="pleaseSelectChat "><a href="https://www.patreon.com/PeyTy">Made for you by PeyTy</a></div>
+					</>
+			}
 		</div>
 	</>
-}
-
-function saveFileUrl(id: number, url: string) {
-	return async (dispatch:Dispatch, getState: () => State) => {
-		dispatch({ type: 'SAVE_FILE_URL', payload: { id, url } })
-	}
-}
-
-const mapDispatchToProps = (dispatch:Dispatch) => {
-	return {
-		saveChatHistory: (id: number, messages: ReadonlyArray<TL.TLMessage>) => {
-			return dispatch({ type: 'SAVE_CHAT_HISTORY', payload: { chat_id: id, messages } })
-		},
-		saveFileUrl: (id: number, url: string) => {
-			return dispatch(saveFileUrl(id, url) as any)
-		},
-		downloadFile: (id: number, preserve = false) => {
-			return dispatch(downloadFile(id, preserve) as any)
-		},
-	}
-}
-
+})
 
 export { CurrentChatPanel }

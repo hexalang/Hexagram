@@ -18,7 +18,7 @@ import { ChatListElement } from './ChatListElement'
 import { State } from '../../mobx/store'
 import { observer } from 'mobx-react-lite'
 
-export function ChatList({selectChat, downloadFile}:{selectChat: (id: number) => void, downloadFile: Function}) {
+export const ChatList = observer(({ selectChat, state }: { selectChat: (id: number) => void, state: State }) => {
 	const [dragging, setDragging] = useState(false)
 	const [position, setPosition] = useState({ left: 0, top: 0 })
 	const [lastPosition, setLastPosition] = useState({ left: 0, top: 0 })
@@ -81,12 +81,12 @@ export function ChatList({selectChat, downloadFile}:{selectChat: (id: number) =>
 	})
 
 	return <div key="chats" className="chats" onWheel={onWheel}>
-		sortedChats.map(chatId => <ChatListElement downloadFile={downloadFile} key={chatId} chatId={chatId} selectChat={selectChat}/>)
 		<div key="chatListScrollPane" className="chatListScrollPane" ref={chatListScrollPane} style={{ top: paneY + 'px' }}>
 			{
+				sortedChats.map(chatId => <ChatListElement state={state} key={chatId} chatId={chatId} selectChat={selectChat} />)
 			}
 		</div>
 		<div key="chatListScrollBar" className="chatListScrollBar" onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
 		<div key="chatListScrollBarSlider" className="chatListScrollBarSlider" onMouseDown={onMouseDown} style={{ top: sliderY + 3 + 'px' }}></div>
 	</div>
-}
+})

@@ -44,7 +44,7 @@ function messageContentToPreview(tl: TL.TLMessageContent): { textPreview: string
 	}
 }
 
-export const ChatListElement = memo(function ChatListElement({chatId, selectChat, downloadFile}:{chatId: number, selectChat: (id: number) => void, downloadFile: Function}) {
+export const ChatListElement = observer(({ chatId, selectChat, state }: { chatId: number, selectChat: (id: number) => void, state: State }) => {
 	const currentChatId = state.currentChatId
 	const myId = state.myId
 	const chats = state.chats
@@ -56,7 +56,7 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 	const chat = chats[chatId]
 
 	// TODO 'SM.png' to constant somewhere?
-	const srcAva: string | null = (chatId == myId && 'SM.png') || (chat && chat.photo && fileURL[chat.photo.small.id])
+	const srcAva: string | null = (chatId === myId && 'SM.png') || (chat && chat.photo && state.fileURL(chat.photo.small))
 
 	if (
 		chat &&
@@ -130,7 +130,7 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 
 	const active = current ? "chatListElement chatListElement__active" : "chatListElement"
 
-	if (srcAva == null && chat && chat.photo) downloadFile(chat.photo.small.id)
+	if (srcAva == null && chat && chat.photo) state.downloadFile(chat.photo.small, true)
 
 	const draft = chat && chat.draft
 	let draftText = ''
@@ -160,31 +160,31 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 					{channel && <img className="channel" title="This is a news channel or blog" src="icons/dialogs_channel.png"/>}
 					{supergroup && <img className="supergroup" title="This is a group chat" src="icons/dialogs_chat.png"/>}
 					{bot && <img className="bot" title="This is a bot, not a human" src="icons/dialogs_bot.png"/>}
-					<div title={name}>{name}</div>
 					{verified && <img className="verified" title="Account verified by Telegram team" src="icons/dialogs_verified_star.png"/>}
-				</span>
-				<span className="light date" title={dateHint}>{date}</span>
-			</div>
-			<div className="textcounter">
-				{
-				draft == null?
-				<span className="light text">{who && <div className="who">{who}</div>}{system && <div className="who">{system}</div>}<div title={text}>{text}</div></span>
-				:
-				<span className="light text"><div className="draft">{'Draft:'}</div><div title={draftText}>{draftText}</div></span>
-				}
-				<div className="counter">
-				{(mentioned > 0 && unread > 0) && <span className="mentioned" title={`You have been mentioned ${mentioned} times in this chat`}><div>@</div></span>}
 				{unread == 0 && pinned && <span className="light pinned" title={"You pinned this chat for quick access\n\nOnly 5 chats may be pinned"}><img src="icons/dialogs_pinned.png"/></span>}
-				{unread > 0 && <span className="light unread" title="You have unread messages in this chat"><div>{unread}</div></span>}
 			{srcAva ? <img title={'Click to show user picture (TODO)'} className="avatar" src={srcAva || 'blur.jpg'} alt="Avatar" /> : <div className="avatarEmpty">{
 				nameToInitials(name)
 			}</div>}
 			<div className="namedatetext">
 				<div className="namedate">
 					<span className="bold name">
+						<div title={name}>{name}</div>
+					</span>
+					<span className="light date" title={dateHint}>{date}</span>
+				</div>
+				<div className="textcounter">
+					{
+						draft == null ?
+							<span className="light text">{who && <div className="who">{who}</div>}{system && <div className="who">{system}</div>}<div title={text}>{text}</div></span>
+							:
+							<span className="light text"><div className="draft">{'Draft:'}</div><div title={draftText}>{draftText}</div></span>
+					}
+					<div className="counter">
+						{(mentioned > 0 && unread > 0) && <span className="mentioned" title={`You have been mentioned ${mentioned} times in this chat`}><div>@</div></span>}
+						{unread > 0 && <span className="light unread" title="You have unread messages in this chat"><div>{unread}</div></span>}
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 })

@@ -17,19 +17,19 @@ import { observer } from 'mobx-react-lite'
 import { State } from '../../mobx/store'
 import './SidePanel.scss'
 
-const SidePanel = () => {
+const SidePanel = observer(({ state }: { state: State }) => {
 	const user = state.users[state.myId]
 
 	const hideSidePanel = (e: unknown) => {
-		return dispatch({ type: 'SET_SIDEBAR_VISIBILITY', payload: { showSideBar: false } })
+		state.showSideBar = false
 	}
 
 	const name = user ? (user.firstName + ' ' + user.lastName).trim() : 'Hexagram'
 	const phone = '+' + (user ? user.phone : '')
 
 	const askLogout = () => {
-			dispatch(logOut() as any as AnyAction)
 		if (window.confirm("Log out?") === true) {
+			state.logOut()
 		}
 	}
 
@@ -46,15 +46,6 @@ const SidePanel = () => {
 		<div className="fade" onClick={hideSidePanel}>
 		</div>
 	</div>
-}
-
-function logOut() {
-	return async (dispatch:Dispatch<AnyAction>, getState: () => State): Promise<void> => {
-		await tg.logOut()
-		setTimeout(() => {
-			window.location.reload()
-		}, 1000);
-	}
-}
+})
 
 export { SidePanel }

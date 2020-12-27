@@ -24,15 +24,20 @@ import { observer } from "mobx-react-lite"
 const dateTemp = new Date()
 const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as const
 
-export const LottieSticker = memo(function LottieSticker({time, state, downloadFile, sticker}: any) {
+export const LottieSticker = observer(({
+	time, state, sticker
+}: {
+	state: State, sticker: TL.TLFile, time: string
+
+}) => {
 	const file: TL.TLFile = sticker
 
-	const srcAva: string | null = state.fileURL[file.id]
+	const srcAva: string | null = state.fileURL(file)
 
-	if (srcAva == null) downloadFile(file, true)
+	if (srcAva == null) state.downloadFile(file, true)
 
-	const filePart = fileParts.get(file.id)
-	const animationData: ArrayBuffer = filePart? inflate(filePart) : null as unknown as ArrayBuffer
+	const filePart = state.fileParts(file)
+	const animationData: ArrayBuffer = filePart ? inflate(filePart) : null as unknown as ArrayBuffer
 
 	const defaultOptions = {
 		loop: true,
@@ -66,20 +71,29 @@ function CenterSystemMessageGroupPic({ src }: { src: string }) {
 	</div>
 }
 
-export function StickerMy({time, state, downloadFile, sticker}: any) {
+export const StickerMy = observer(({
+	time, state, sticker }: {
+		state: State,
+		sticker: TL.TLFile, time: string
+	}) => {
 	const file: TL.TLFile = sticker
 
-	const srcAva: string | null = state.fileURL[file.id]
+	const srcAva: string | null = state.fileURL(file)
 
-	if (srcAva == null) downloadFile(file)
+	if (srcAva == null) state.downloadFile(file, true)
 
 	return <div className="stickerMy">
 		<div className="webp" style={{ backgroundImage: 'url(' + (srcAva || 'blur.png') + ')' }}>{' '}</div>
 		<div className="time">{time}</div>
 	</div>
-}
+})
 
-export const MessageMy = memo(function MessageMy({text, time, date, reactions}: {text: any, time: string, date: number, reactions?: any[]}) {
+export const MessageMy = observer(({
+	text, time, date, reactions
+}: {
+	// TODO use props. and interfaces
+	text: any, time: string, date: number, reactions?: any[]
+}) => {
 	dateTemp.setTime(date * 1000)
 	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
 	return <div className="messageMy">
@@ -90,7 +104,11 @@ export const MessageMy = memo(function MessageMy({text, time, date, reactions}: 
 	</div>
 })
 
-export const MessageTheirs = memo(function MessageTheirs({text, time, date, author, avatar, views, reactions}: any) {
+export const MessageTheirs = observer(({
+	text, time, date, author, avatar, views, reactions
+}: {
+	text: React.ReactNode, time: string, date: number, author: string | null, avatar?: string, views?: React.ReactNode, reactions: React.ReactNode
+}) => {
 	dateTemp.setTime(date * 1000)
 	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
 	return <div>
@@ -109,24 +127,27 @@ export const MessageTheirs = memo(function MessageTheirs({text, time, date, auth
 	</div>
 })
 
-export const MessageSameSender = memo(function MessageSameSender({children}: any) {
+export const MessageSameSender = observer(({ children }: any) => {
 	return <div className="messageSameSender">
 		{children}
 	</div>
 })
 
-export const MessageSameSenderTheirs = memo(function MessageSameSenderTheirs({children, state, senderUserId, saveFileUrl, downloadFile}: any) {
+export const MessageSameSenderTheirs = observer(({ children, state, senderUserId }: {
+	state: State, senderUserId: number, children: React.ReactNode
+}) => {
 	const user = state.users[senderUserId]
 	const chat = state.chats[state.currentChatId]
 
 	const srcAva: string | null =
-		(user && user.photo && state.fileURL[user.photo.small.id])
-		(chat && chat.photo && state.fileURL[chat.photo.small.id])
 		user ?
+			(user && user.photo && state.fileURL(user.photo.small))
 			:
+			(chat && chat.photo && state.fileURL(chat.photo.small))
 
-		if (srcAva == null && user && user.photo) downloadFile(user.photo.small.id)
-		if (srcAva == null && chat && chat.photo) downloadFile(chat.photo.small.id)
+	// TODO useEffect
+	if (srcAva == null && user && user.photo) state.downloadFile(user.photo.small, true)
+	if (srcAva == null && chat && chat.photo) state.downloadFile(chat.photo.small, true)
 
 	let name: string =
 		user ?
@@ -146,13 +167,16 @@ export const MessageSameSenderTheirs = memo(function MessageSameSenderTheirs({ch
 	</div>
 })
 
-export function MessagePhotoTheirs({sized, downloadFile, text, time, date, author, views}: any) {
+export const MessagePhotoTheirs = observer(({ sized, text, time, date, author, views, state }: {
+	state: State,
+	sized: TL.TLFile, text: React.ReactNode[], time: string | null, date: number, author: string | null, views?: string
+}) => {
 	const file: TL.TLFile = sized
-	const fileURL = useSelector((state: State) => state.fileURL[file.id])
+	const fileURL = state.fileURL(file)
 
 	const srcAva: string | null = fileURL // state.fileURL[file.id]
 
-	if (srcAva == null) downloadFile(file)
+	if (srcAva == null) state.downloadFile(file, true)
 
 	dateTemp.setTime(date * 1000)
 	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
@@ -169,12 +193,12 @@ export function MessagePhotoTheirs({sized, downloadFile, text, time, date, autho
 			</div>
 		</div>
 	</div>
-}
+})
 
-export function StickerOnMessage({state, sticker, downloadFile, pos, senderName}: any) {
-	const file: TL.TLFile = sticker
-
-	const srcAva: string | null = state.fileURL[file.id]
-	if (srcAva == null) downloadFile(file)
-}
+export const StickerOnMessage = observer(({ state, sticker, senderName }: {
+	state: State, senderName: string, sticker: TL.TLFile
+}) => {
+	const srcAva: string | null = state.fileURL(sticker)
+	if (srcAva == null) state.downloadFile(sticker, true)
 	return <img src={srcAva || 'blur.png'} className="stickerOnMessage" title={`${senderName} reacted with sticker`} alt="Sticker" />
+})

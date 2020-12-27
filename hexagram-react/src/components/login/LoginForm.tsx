@@ -34,15 +34,30 @@ function isCorrectPhoneNumber(text: string): boolean {
 	return true
 }
 
-function LoginForm({loginState, setAuthenticationPhoneNumber, checkAuthenticationCode, checkAuthenticationPassword}: {
-	loginState: LoginState,
-	setAuthenticationPhoneNumber: Function,
-	checkAuthenticationCode: Function,
-	checkAuthenticationPassword: Function
+function LoginForm({ state }: {
+	state: State
 }) {
 	const [phone, setPhone] = useState('')
 	const [code, setCode] = useState('')
 	const [secret, setSecret] = useState('')
+	const { loginState } = state
+
+	async function setAuthenticationPhoneNumber(value: string) {
+		await tg.setAuthenticationPhoneNumber(value, {
+			"@type": "phoneNumberAuthenticationSettings",
+			allow_flash_call: false,
+			is_current_phone_number: false,
+			allow_sms_retriever_api: false,
+		})
+	}
+
+	async function checkAuthenticationCode(value: string) {
+		await tg.checkAuthenticationCode(value)
+	}
+
+	async function checkAuthenticationPassword(value: string) {
+		await tg.checkAuthenticationPassword(value)
+	}
 
 	const next = () => {
 		let password = secret.trim()
@@ -68,95 +83,59 @@ function LoginForm({loginState, setAuthenticationPhoneNumber, checkAuthenticatio
 	const blur = (loginState !== LoginState.WaitPhoneNumber) || (phone !== '')
 
 	return <>
-	<div className="centerBackgroundBefore"></div>
-	<div className="centerBackground" style={blur? {filter: 'blur(30px)', transform: 'scale(1.1)'} : {filter: 'blur(10px)', transform: 'scale(1.0)'}}></div>
-	<div className="loginForm">
-		<img src="logo.svg"/>
-		<div className="title">Hexagram</div>
-		<div className="sign">Sign in to Telegram</div>
+		<div className="centerBackgroundBefore"></div>
+		<div className="centerBackground" style={blur ? { filter: 'blur(30px)', transform: 'scale(1.1)' } : { filter: 'blur(10px)', transform: 'scale(1.0)' }}></div>
+		<div className="loginForm">
+			<img src="logo.svg" alt="Logo" />
+			<div className="title">Hexagram</div>
+			<div className="sign">Sign in to Telegram</div>
 
-		{ loginState == LoginState.WaitPhoneNumber && <>
-			<div className="hint">Enter your phone number to log in</div>
-			<div className="phone"><input
-				className={isCorrectPhoneNumber(phone)? '' : 'error'}
-				value={phone} onChange={e => setPhone(e.target.value)}
-				type="tel" name="phoneInput" id="phoneInput"
-				placeholder="Your phone number"
-			/></div>
-		</> }
+			{loginState === LoginState.WaitPhoneNumber && <>
+				<div className="hint">Enter your phone number to log in</div>
+				<div className="phone"><input
+					className={isCorrectPhoneNumber(phone) ? '' : 'error'}
+					value={phone} onChange={e => setPhone(e.target.value)}
+					type="tel" name="phoneInput" id="phoneInput"
+					placeholder="Your phone number"
+				/></div>
+			</>}
 
-		{ loginState == LoginState.WaitCode && <>
-			<div className="hint">Enter authentication code to log in</div>
-			<div className="code"><input
-				className={isCorrectPhoneNumber(code)? '' : 'error'}
-				value={code} onChange={e => setCode(e.target.value)}
-				type="tel" name="codeInput" id="codeInput"
-				placeholder="Code from SMS or message"/></div>
-		</> }
+			{loginState === LoginState.WaitCode && <>
+				<div className="hint">Enter authentication code to log in</div>
+				<div className="code"><input
+					className={isCorrectPhoneNumber(code) ? '' : 'error'}
+					value={code} onChange={e => setCode(e.target.value)}
+					type="tel" name="codeInput" id="codeInput"
+					placeholder="Code from SMS or message" /></div>
+			</>}
 
-		{ loginState == LoginState.WaitRegistration /* TODO > show TOS */ && <>
-			<div className="hint">Registration is not yet implemented, sorry</div>
-		</> }
+			{loginState === LoginState.WaitRegistration /* TODO > show TOS */ && <>
+				<div className="hint">Registration is not yet implemented, sorry</div>
+			</>}
 
-		{ loginState == LoginState.WaitPassword /* TODO > password hint */ && <>
-			<div className="hint">Enter your phone 2FA password to log in</div>
-			<div className="secret"><input
-				className={true? '' : 'error'}
-				value={secret} onChange={e => setSecret(e.target.value)}
-				type="password" name="secretInput" id="secretInput"
-				placeholder="Your password"/></div>
-		</> }
+			{loginState === LoginState.WaitPassword /* TODO > password hint */ && <>
+				<div className="hint">Enter your phone 2FA password to log in</div>
+				<div className="secret"><input
+					className={true ? '' : 'error'}
+					value={secret} onChange={e => setSecret(e.target.value)}
+					type="password" name="secretInput" id="secretInput"
+					placeholder="Your password" /></div>
+			</>}
 
-		<div className="next" onClick={next}>NEXT</div>
+			<div className="next" onClick={next}>NEXT</div>
 
-		{ loginState == LoginState.WaitPhoneNumber && <div className="hint">You will receive SMS</div> }
-		{ loginState == LoginState.WaitCode && <div className="hint">Check your SMS inbox or other devices</div> }
-		{ loginState == LoginState.WaitRegistration && <div className="hint">You accept Telegram terms of service</div> }
-		{ loginState == LoginState.WaitPassword && <div className="hint">You have set 2FA in your profile</div> }
+			{loginState === LoginState.WaitPhoneNumber && <div className="hint">You will receive SMS</div>}
+			{loginState === LoginState.WaitCode && <div className="hint">Check your SMS inbox or other devices</div>}
+			{loginState === LoginState.WaitRegistration && <div className="hint">You accept Telegram terms of service</div>}
+			{loginState === LoginState.WaitPassword && <div className="hint">You have set 2FA in your profile</div>}
 
-		{ false && <div className="hint">Wrong phone number</div> }
-		{ false && <div className="hint">Wrong secret code</div> }
-		{ false && <div className="hint">Wrong 2FA password</div> }
-	</div>
+			{false && <div className="hint">Wrong phone number</div>}
+			{false && <div className="hint">Wrong secret code</div>}
+			{false && <div className="hint">Wrong 2FA password</div>}
+		</div>
 	</>
 }
 
-function setAuthenticationPhoneNumber(value: string) {
-	return async (dispatch:Dispatch, getState: () => State) => {
-		await tg.setAuthenticationPhoneNumber(value, {
-			"@type": "phoneNumberAuthenticationSettings",
-			allow_flash_call: false,
-			is_current_phone_number: false,
-			allow_sms_retriever_api: false,
-		})
-	}
-}
-
-function checkAuthenticationCode(value: string) {
-	return async (dispatch:Dispatch, getState: () => State) => {
-		await tg.checkAuthenticationCode(value)
-	}
-}
-
-function checkAuthenticationPassword(value: string) {
-	return async (dispatch:Dispatch, getState: () => State) => {
-		await tg.checkAuthenticationPassword(value)
-	}
-}
-
-const mapDispatchToProps = (dispatch:Dispatch) => {
-	return {
-		setAuthenticationPhoneNumber: (value: string) => {
-			return dispatch(setAuthenticationPhoneNumber(value) as any)
-		},
-		checkAuthenticationCode: (value: string) => {
-			return dispatch(checkAuthenticationCode(value) as any)
-		},
-		checkAuthenticationPassword: (value: string) => {
-			return dispatch(checkAuthenticationPassword(value) as any)
-		},
-	}
-}
 const LoginFormConnected = observer(LoginForm)
 
 export { LoginFormConnected as LoginForm }

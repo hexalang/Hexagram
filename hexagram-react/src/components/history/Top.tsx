@@ -18,7 +18,7 @@ import * as TL from '../../tdlib/tdapi'
 import './Top.scss'
 
 // TODO .FC
-export default function Top() {
+export default function Top({ state }: { state: State }) {
 	const chat = state.chats[state.currentChatId]
 	const savedMessages = state.myId === chat.id
 	let larger = savedMessages
