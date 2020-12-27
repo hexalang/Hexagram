@@ -27,14 +27,14 @@ const instanceName = 'user0'
 let queue: TdObject[] = []
 let timeOut = true
 
-function dequeue() {
+const dequeue = () => {
 	timeOut = true
 	if (queue.length === 0) return
 	dispatchTelegramEventHandler.handle(queue)
 	queue = []
 }
 
-function dispatchTelegramEvent(update: TdObject) {
+const dispatchTelegramEvent = (update: TdObject) => {
 	queue.push(update)
 	if (timeOut) {
 		dequeue()

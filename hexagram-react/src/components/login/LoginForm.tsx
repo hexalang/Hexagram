@@ -19,14 +19,14 @@ import { State, LoginState } from '../../mobx/store'
 import { tg } from '../../tdlib/tdlib'
 import { observer } from 'mobx-react-lite'
 
-function cleanPhoneNumber(text: string): string {
+const cleanPhoneNumber = (text: string): string => {
 	text = text.trim()
 	if (text.startsWith('+')) text = text.substr(1).trim()
 	text = text.split('-').join('').split(' ').join('')
 	return text
 }
 
-function isCorrectPhoneNumber(text: string): boolean {
+const isCorrectPhoneNumber = (text: string): boolean => {
 	text = cleanPhoneNumber(text)
 	for (const char of text.split('')) {
 		if (!'0123456789'.includes(char)) return false
@@ -34,15 +34,15 @@ function isCorrectPhoneNumber(text: string): boolean {
 	return true
 }
 
-function LoginForm({ state }: {
+export const LoginForm = observer(({ state }: {
 	state: State
-}) {
+}) => {
 	const [phone, setPhone] = useState('')
 	const [code, setCode] = useState('')
 	const [secret, setSecret] = useState('')
 	const { loginState } = state
 
-	async function setAuthenticationPhoneNumber(value: string) {
+	const setAuthenticationPhoneNumber = async (value: string) => {
 		await tg.setAuthenticationPhoneNumber(value, {
 			"@type": "phoneNumberAuthenticationSettings",
 			allow_flash_call: false,
@@ -51,11 +51,11 @@ function LoginForm({ state }: {
 		})
 	}
 
-	async function checkAuthenticationCode(value: string) {
+	const checkAuthenticationCode = async (value: string) => {
 		await tg.checkAuthenticationCode(value)
 	}
 
-	async function checkAuthenticationPassword(value: string) {
+	const checkAuthenticationPassword = async (value: string) => {
 		await tg.checkAuthenticationPassword(value)
 	}
 
@@ -134,8 +134,4 @@ function LoginForm({ state }: {
 			{false && <div className="hint">Wrong 2FA password</div>}
 		</div>
 	</>
-}
-
-const LoginFormConnected = observer(LoginForm)
-
-export { LoginFormConnected as LoginForm }
+})

@@ -13,13 +13,14 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { observer } from 'mobx-react-lite'
 import { useState, useEffect, useRef } from 'react'
 import { State } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
 import './Input.scss'
 
-function replaceCaret(el: HTMLElement) {
+const replaceCaret = (el: HTMLElement) => {
 	// Place the caret at the end of the element
 	const target = document.createTextNode('')
 	el.appendChild(target)
@@ -38,7 +39,7 @@ function replaceCaret(el: HTMLElement) {
 	}
 }
 
-export default function Input({ state }: { state: State }) {
+export const Input = observer(({ state }: { state: State }) => {
 	const [value, setValue] = useState('')
 	const messagesEndRef = useRef(null)
 
@@ -62,11 +63,11 @@ export default function Input({ state }: { state: State }) {
 
 	}, [state.currentChatId])
 
-	function updateValue(text: string) {
+	const updateValue = (text: string) => {
 		setValue(text.trim())
 	}
 
-	function onKeyDown(e: any) {
+	const onKeyDown = (e: any) => {
 		if (e.key === 'Enter') {
 			tg.parseTextEntities(
 				value,
@@ -129,4 +130,4 @@ export default function Input({ state }: { state: State }) {
 
 		<div className="thinVerticalLine" />
 	</div>
-}
+})

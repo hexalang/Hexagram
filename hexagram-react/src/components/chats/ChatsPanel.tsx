@@ -21,7 +21,7 @@ import { ChatList } from './ChatList'
 import './ChatsPanel.scss'
 import { observer } from 'mobx-react-lite'
 
-const ChatsPanel = observer(({ state }: { state: State }) => {
+export const ChatsPanel = observer(({ state }: { state: State }) => {
 	const selectChat = (id: number): void => {
 		state.selectChat(id)
 	}
@@ -36,5 +36,3 @@ const ChatsPanel = observer(({ state }: { state: State }) => {
 		<Footer />
 	</div>
 })
-
-export { ChatsPanel }

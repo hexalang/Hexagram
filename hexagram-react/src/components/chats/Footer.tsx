@@ -13,6 +13,8 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-export function Footer() {
+import { observer } from "mobx-react-lite"
+
+export const Footer = observer(() => {
 	return <> </> // TODO Loading, Proxy, etc
-}
+})

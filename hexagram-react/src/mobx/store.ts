@@ -27,7 +27,7 @@ export enum LoginState {
 	Ready
 }
 
-function createIfNone<T>(map: { [id: number]: T }, id: number, Type: { new(id: number): T }): T {
+const createIfNone = <T>(map: { [id: number]: T }, id: number, Type: { new(id: number): T }): T => {
 	const value = map[id]
 
 	if (value) {

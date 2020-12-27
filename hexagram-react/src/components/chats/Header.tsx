@@ -13,7 +13,9 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-export function Header({ showSidePanel }: { showSidePanel: (event: unknown) => void }) {
+import { observer } from "mobx-react-lite"
+
+export const Header = observer(({ showSidePanel }: { showSidePanel: (event: unknown) => void }) => {
 	return <div className="header">
 		<div className="burger" onClick={showSidePanel}>
 			<div></div>
@@ -22,4 +24,4 @@ export function Header({ showSidePanel }: { showSidePanel: (event: unknown) => v
 		</div>
 		<div className="search" title="Not yet implemented"><span>Search</span></div>
 	</div> // TODO Search, etc
-}
+})

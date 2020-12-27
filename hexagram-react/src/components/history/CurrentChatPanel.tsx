@@ -19,8 +19,8 @@ import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
 import { MessageSameSender, MessageSameSenderTheirs, CenterSystemMessage, MessagePhotoTheirs } from '../messages/MessageTypes'
 import { StickerMy, StickerOnMessage, MessageMy, MessageTheirs, LottieSticker } from '../messages/MessageTypes'
-import Input from './Input'
-import Top from './Top'
+import { Input } from './Input'
+import { Top } from './Top'
 import './CurrentChatPanel.scss'
 import { observer } from 'mobx-react-lite'
 
@@ -374,7 +374,7 @@ const History = observer(({ state }: { state: State }) => {
 					break
 
 				default:
-					console.warn(`Unsupported message history type ${messageState.content['@type']}`, messageState.content)
+					console.log(`Unsupported message history type ${messageState.content['@type']}`)
 					destination.push(<CenterSystemMessage key={key} text={`Unsupported message type ${messageState.content['@type']}`} />)
 					break
 			}
@@ -418,7 +418,7 @@ const History = observer(({ state }: { state: State }) => {
 	</div>
 })
 
-const CurrentChatPanel = observer(({ state }: { state: State }) => {
+export const CurrentChatPanel = observer(({ state }: { state: State }) => {
 	const chatSelected = state.chats[state.currentChatId] && state.chatIds.includes(state.currentChatId)
 
 	return <>
@@ -440,5 +440,3 @@ const CurrentChatPanel = observer(({ state }: { state: State }) => {
 		</div>
 	</>
 })
-
-export { CurrentChatPanel }

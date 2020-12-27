@@ -59,13 +59,13 @@ export const LottieSticker = observer(({
 	</div>
 })
 
-export function CenterSystemMessage({ text }: { text: string }) {
+export const CenterSystemMessage = observer(({ text }: { text: string }) => {
 	return <div className="centerSystemMessage">
 		<div>{text}</div>
 	</div>
-}
+})
 
-function CenterSystemMessageGroupPic({ src }: { src: string }) {
+const CenterSystemMessageGroupPic = ({ src }: { src: string }) => {
 	return <div className="centerSystemMessageGroupPic">
 		<div style={{ backgroundImage: 'url(' + src + ')' }}>{' '}</div>
 	</div>

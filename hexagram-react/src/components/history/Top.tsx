@@ -13,12 +13,12 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { observer } from 'mobx-react-lite'
 import { State } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import './Top.scss'
 
-// TODO .FC
-export default function Top({ state }: { state: State }) {
+export const Top = observer(({ state }: { state: State }) => {
 	const chat = state.chats[state.currentChatId]
 	const savedMessages = state.myId === chat.id
 	let larger = savedMessages
@@ -108,4 +108,4 @@ export default function Top({ state }: { state: State }) {
 
 		<div className="thinVerticalLine" />
 	</div>
-}
+})

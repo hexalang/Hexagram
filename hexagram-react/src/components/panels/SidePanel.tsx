@@ -17,7 +17,7 @@ import { observer } from 'mobx-react-lite'
 import { State } from '../../mobx/store'
 import './SidePanel.scss'
 
-const SidePanel = observer(({ state }: { state: State }) => {
+export const SidePanel = observer(({ state }: { state: State }) => {
 	const user = state.users[state.myId]
 
 	const hideSidePanel = (e: unknown) => {
@@ -47,5 +47,3 @@ const SidePanel = observer(({ state }: { state: State }) => {
 		</div>
 	</div>
 })
-
-export { SidePanel }

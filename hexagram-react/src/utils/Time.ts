@@ -19,7 +19,7 @@ const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 const date = new Date()
 
 // Shows XX:XX or XX.XX.XX
-export function formatTime(dateTime: number): string {
+export const formatTime = (dateTime: number): string => {
 	date.setTime(dateTime * 1000)
 	const diff = Date.now() - (dateTime * 1000)
 

@@ -19,7 +19,7 @@ import { formatTime } from '../../utils/Time'
 import { nameToInitials } from '../../utils/UserInfo'
 import { observer } from "mobx-react-lite"
 
-function messageContentToPreview(tl: TL.TLMessageContent): { textPreview: string, systemPreview?: string } {
+const messageContentToPreview = (tl: TL.TLMessageContent): { textPreview: string, systemPreview?: string } => {
 	switch (tl['@type']) {
 		case "messageText":
 			return {
