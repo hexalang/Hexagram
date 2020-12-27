@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { State } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import './Top.scss'
 
@@ -93,11 +94,11 @@ export default function Top() {
 				else if (diff < month) summary = Math.round(diff / week) + ' weeks ago'
 				else if (diff < month * 2) summary = 'last seen a month ago'
 				else summary = 'last seen a long time ago'
+			}
 			if (user.status['@type'] === 'userStatusRecently') summary = 'last seen recently'
 			if (user.status['@type'] === 'userStatusLastWeek') summary = 'last seen within a week'
 			if (user.status['@type'] === 'userStatusLastMonth') summary = 'last seen within a month'
 		}
-	}
 
 	return <div className="top">
 		<div className="about">

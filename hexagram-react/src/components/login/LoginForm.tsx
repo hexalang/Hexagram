@@ -15,7 +15,9 @@
 
 import React, { useState } from 'react'
 import './LoginForm.scss'
+import { State, LoginState } from '../../mobx/store'
 import { tg } from '../../tdlib/tdlib'
+import { observer } from 'mobx-react-lite'
 
 function cleanPhoneNumber(text: string): string {
 	text = text.trim()

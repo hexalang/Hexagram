@@ -13,6 +13,8 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { useState, useEffect, useRef } from 'react'
+import { State } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
 import './Input.scss'

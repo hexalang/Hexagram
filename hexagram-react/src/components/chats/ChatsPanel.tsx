@@ -14,10 +14,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from 'react'
+import { State } from '../../mobx/store'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { ChatList } from './ChatList'
 import './ChatsPanel.scss'
+import { observer } from 'mobx-react-lite'
 
 const ChatsPanel = ({selectChat, downloadFile, showSidePanel}:{showSidePanel: any, selectChat: (id: number) => void, downloadFile: Function}) => (
 		<Header showSidePanel={showSidePanel}/>

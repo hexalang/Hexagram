@@ -15,6 +15,8 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { ChatListElement } from './ChatListElement'
+import { State } from '../../mobx/store'
+import { observer } from 'mobx-react-lite'
 
 export function ChatList({selectChat, downloadFile}:{selectChat: (id: number) => void, downloadFile: Function}) {
 	const [dragging, setDragging] = useState(false)

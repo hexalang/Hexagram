@@ -14,6 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React, { useState, useEffect, useRef } from 'react'
+import { State } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
 import { MessageSameSender, MessageSameSenderTheirs, CenterSystemMessage, MessagePhotoTheirs } from '../messages/MessageTypes'
@@ -21,6 +22,7 @@ import { StickerMy, StickerOnMessage, MessageMy, MessageTheirs, LottieSticker } 
 import Input from './Input'
 import Top from './Top'
 import './CurrentChatPanel.scss'
+import { observer } from 'mobx-react-lite'
 
 function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: SaveChatHistory, saveFileUrl: SaveFileUrl, downloadFile: any}) {
 	const [dragging, setDragging] = useState(false)

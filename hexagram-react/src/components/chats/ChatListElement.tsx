@@ -14,8 +14,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import * as TL from '../../tdlib/tdapi'
+import { State } from '../../mobx/store'
 import { formatTime } from '../../utils/Time'
 import { nameToInitials } from '../../utils/UserInfo'
+import { observer } from "mobx-react-lite"
 
 function messageContentToPreview(tl: TL.TLMessageContent): { textPreview: string, systemPreview?: string } {
 	switch (tl['@type']) {

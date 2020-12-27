@@ -16,8 +16,10 @@
 import * as TL from '../../tdlib/tdapi'
 import { nameToInitials } from '../../utils/UserInfo'
 import './MessageTypes.scss'
+import { State } from '../../mobx/store'
 import { inflate } from 'pako'
 import Lottie from 'react-lottie'
+import { observer } from "mobx-react-lite"
 
 const dateTemp = new Date()
 const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as const
