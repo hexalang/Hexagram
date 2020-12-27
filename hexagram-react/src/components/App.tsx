@@ -16,12 +16,10 @@
 import React, { useState } from 'react'
 import './App.scss'
 import { td, dispatchTelegramEventHandler } from '../tdlib/tdlib'
-import * as TD from '../tdlib/tdlib'
 import { CurrentChatPanel } from '../components/history/CurrentChatPanel'
 import { ChatsPanel } from '../components/chats/ChatsPanel'
 import { SidePanel } from '../components/panels/SidePanel'
 import * as TL from '../tdlib/tdapi'
-import { downloadFile as downloadFile } from '../tdlib/loader'
 import { LoginForm } from '../components/login/LoginForm'
 import preview from './preview.svg'
 
@@ -39,16 +37,16 @@ function App({dispatchTelegramEventFunction}: {dispatchTelegramEventFunction: Fu
 	const loginState = useSelector((state: State) => state.loginState)
 	const showSideBar = useSelector((state: State) => state.showSideBar)
 
-	if (loaded == false) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Loading Hexagram...</div></div>
-	if (loginState == LoginState.WaitTDLib) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Logging in...</div></div>
+	if (loaded === false) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Loading Hexagram...</div></div>
+	if (loginState === LoginState.WaitTDLib) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Logging in...</div></div>
 
-	if (loginState == LoginState.Ready) return (
+	if (loginState === LoginState.Ready) return (
 		<div className="App">
 			<ChatsPanel />
 			<CurrentChatPanel />
 			{showSideBar && <SidePanel/>}
 		</div>
-	);
+	)
 
 	return <div className="App"><LoginForm/></div>
 }

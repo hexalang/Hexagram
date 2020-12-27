@@ -13,8 +13,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState } from 'react'
-
 export function Footer() {
 	return <> </> // TODO Loading, Proxy, etc
 }

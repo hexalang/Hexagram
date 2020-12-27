@@ -23,9 +23,6 @@ import Top from './Top'
 import './CurrentChatPanel.scss'
 
 function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: SaveChatHistory, saveFileUrl: SaveFileUrl, downloadFile: any}) {
-	const messagesEndRef = useRef(null)
-	const state: State = useSelector((state: State) => state)
-
 	const [dragging, setDragging] = useState(false)
 	const [position, setPosition] = useState(0)
 	const [lastPosition, setLastPosition] = useState(0)
@@ -34,7 +31,7 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 	const chatListScrollBar = useRef(null)
 	const chatListScrollPane = useRef(null)
 
-	const sliderMaxY = chatListScrollBar.current != null? (chatListScrollBar.current as any).offsetHeight : 0
+	const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
 	const sliderHeight = 100 // TODO
 	const sliderY = Math.min(Math.max(position, 0), sliderMaxY - sliderHeight)
 
@@ -45,7 +42,7 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 			setPosition(positionNew)
 			setLastPosition(e.pageY)
 
-			const sliderMaxY = chatListScrollBar.current != null? (chatListScrollBar.current as any).offsetHeight : 0
+			const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
 			const sliderY = Math.min(Math.max(positionNew, 0), sliderMaxY - sliderHeight)
 			const progressNew = Math.min(sliderY / (sliderMaxY - sliderHeight), 1.0)
 			setProgress(progressNew)
@@ -72,14 +69,14 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 
 	const scrollToBottom = () => {
 		// TODO remember scroll position for each chat separately
-		setTimeout( () => {
+		setTimeout(() => {
 			setProgress(Math.min(1.0, (1.0 - 0.00001) + Math.random() * 0.00001))
-			const sliderMaxY = chatListScrollBar.current != null? (chatListScrollBar.current as any).offsetHeight : 0
+			const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
 			setPosition(sliderMaxY - sliderHeight)
 		}, 100)
 	}
 
-	useEffect(scrollToBottom, [chatListScrollPane.current, state.currentChatId, messages.length, chat && chat.lastMessage]);
+	useEffect(scrollToBottom, [chatListScrollPane.current, state.currentChatId, messages.length, chat && chat.lastMessage])
 
 	useEffect(() => {
 		if (
@@ -121,28 +118,28 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 		let lastMessageId = 0
 
 		const mergeDestination = () => {
-			if (lastSender == state.myId)
+			if (lastSender === state.myId)
 				messages.push(<MessageSameSender key={lastMessageId}>{destination}</MessageSameSender>)
-			else if (lastSender == -1) // System message
+			else if (lastSender === -1) // System message
 				messages.push(<>{destination}</>)
 			// Note: for channels and auto-forward from channels `lastSender == 0`!
 			else messages.push(<MessageSameSenderTheirs
 					downloadFile={downloadFile}
 					saveFileUrl={saveFileUrl}
-					senderUserId={lastSender}
-					state={state}
-					key={'~' + lastSender + '~' + state.currentChatId + '~' + lastMessageId}>
-					{destination}
-				</MessageSameSenderTheirs>
+				senderUserId={lastSender}
+				state={state}
+				key={'~' + lastSender + '~' + state.currentChatId + '~' + lastMessageId}>
+				{destination}
+			</MessageSameSenderTheirs>
 			)
 		}
 
 		const updateDestination = (senderUserId: number) => {
-			if (destination == messages) {
+			if (destination === messages) {
 				destination = []
 				lastSender = senderUserId
 			} else {
-				if (lastSender != senderUserId) {
+				if (lastSender !== senderUserId) {
 					mergeDestination()
 					destination = []
 					lastSender = senderUserId
@@ -163,57 +160,57 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 				case "messageChatUpgradeFrom":
 					let messageChatUpgradeFrom = TL.messageChatUpgradeFrom(messageState.content)
 					updateDestination(-1)
-					destination.push(<CenterSystemMessage key={key} text={`Group ${messageChatUpgradeFrom.title} upgraded to supergroup`}/>)
-					break;
+					destination.push(<CenterSystemMessage key={key} text={`Group ${messageChatUpgradeFrom.title} upgraded to supergroup`} />)
+					break
 
 				case "messageChatJoinByLink":
 					{
 						updateDestination(-1)
 						let messageChatJoinByLink = TL.messageChatJoinByLink(messageState.content)
-						const senderName = state.users[messageState.senderUserId]?
+						const senderName = state.users[messageState.senderUserId] ?
 							(state.users[messageState.senderUserId].firstName + ' ' + state.users[messageState.senderUserId].lastName).trim()
-						: 'User'
+							: 'User'
 						const text = `${senderName} joined the group via invite link`
-						destination.push(<CenterSystemMessage key={key} text={text}/>)
+						destination.push(<CenterSystemMessage key={key} text={text} />)
 					}
-					break;
+					break
 
 				case "messagePhoto":
 					{
 						const messagePhoto = TL.messagePhoto(messageState.content)
 						const photo = messagePhoto.photo
 						const caption: TL.TLFormattedText = messagePhoto.caption
-						const text = caption.text != ""? [<div className="text">{caption.text}</div>] : []
-						const sized: TL.TLFile = photo.sizes.reduce((prev, curr) => prev.height > curr.height? prev : curr).photo
+						const text = caption.text !== "" ? [<div className="text">{caption.text}</div>] : []
+						const sized: TL.TLFile = photo.sizes.reduce((prev, curr) => prev.height > curr.height ? prev : curr).photo
 						updateDestination(messageState.senderUserId)
-						const senderName = destination.length == 0 && state.users[messageState.senderUserId]? state.users[messageState.senderUserId].firstName : null
 						destination.push(<MessagePhotoTheirs key={key} state={state} sized={sized} downloadFile={downloadFile} author={senderName} text={text} time={time} date={messageState.date} />)
+						const senderName = destination.length === 0 && state.users[messageState.senderUserId] ? state.users[messageState.senderUserId].firstName : null
 					}
-					break;
+					break
 
 				case "messageSticker":
 					{
 						const messageSticker = TL.messageSticker(messageState.content)
 
 						if (messageSticker.sticker.is_animated) {
-						const sticker: TL.TLFile = messageSticker.sticker.sticker
-						updateDestination(messageState.senderUserId)
 						destination.push(<LottieSticker key={key} state={state} downloadFile={downloadFile} sticker={sticker} time={time}/>)
+							const sticker: TL.TLFile = messageSticker.sticker.sticker
+							updateDestination(messageState.senderUserId)
 
 						} else {
 
-						const sticker: TL.TLFile = messageSticker.sticker.is_animated? messageSticker.sticker.thumbnail.photo : messageSticker.sticker.sticker
-						updateDestination(messageState.senderUserId)
 						destination.push(<StickerMy key={key} state={state} downloadFile={downloadFile} sticker={sticker} time={time}/>)
+							const sticker: TL.TLFile = messageSticker.sticker.is_animated ? messageSticker.sticker.thumbnail.photo : messageSticker.sticker.sticker
+							updateDestination(messageState.senderUserId)
 						}
 					}
-					break;
+					break
 
 				case "messageText":
 					updateDestination(messageState.senderUserId)
 
 					// TODO no sender name for private chats
-					const senderName = destination.length == 0 && state.users[messageState.senderUserId]? state.users[messageState.senderUserId].firstName : null
+					const senderName = destination.length === 0 && state.users[messageState.senderUserId] ? state.users[messageState.senderUserId].firstName : null
 					let lines = TL.messageText(messageState.content).text.text//.trim()
 					let text = [<div className="text">{lines}</div>]
 
@@ -224,11 +221,11 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 						for (let line of parts) {
 							let className = "text"
 
-							if (text.length != (parts.length - 1)) {
+							if (text.length !== (parts.length - 1)) {
 								className = "text textLine"
 							}
 
-							if (line == '') {
+							if (line === '') {
 								line = <>&nbsp;</> as any
 							}
 
@@ -348,7 +345,7 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 							}
 						}
 
-						if (lastOffset + lastLength != lines.length) {
+						if (lastOffset + lastLength !== lines.length) {
 							const string = lines.substr(lastOffset + lastLength)
 							const what = <div key={lastOffset} className="text">{'' + string + ''}</div>
 							text.push(what)
@@ -359,33 +356,32 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 					const reactions = []
 					for (const messageId of state.history[chat.id]) {
 						const message = state.messages[chat.id][messageId]
-						if (message.replyToMessageId == messageState.id && message.content['@type'] == "messageSticker")
-						{
+						if (message.replyToMessageId === messageState.id && message.content['@type'] === "messageSticker") {
 							const messageSticker = TL.messageSticker(message.content)
 							const sticker: TL.TLFile = messageSticker.sticker.thumbnail.photo
-							const senderName = state.users[message.senderUserId] && state.users[message.senderUserId].firstName || 'Someone'
+							const senderName = state.users[message.senderUserId] ? state.users[message.senderUserId].firstName : 'Someone'
 
 							reactions.push(<StickerOnMessage senderName={senderName} state={state} key={key} pos={pos++} downloadFile={downloadFile} sticker={sticker} />)
 						}
 					}
 
 					destination.push(
-						lastSender == state.myId?
 						<MessageMy key={key} text={text} time={time} date={messageState.date} reactions={reactions}/>
-						:
 						<MessageTheirs key={key} author={senderName} text={text} time={time} date={messageState.date} reactions={reactions}/>
+						lastSender === state.myId ?
+							:
 					)
 
-					break;
+					break
 
 				default:
 					console.warn(`Unsupported message history type ${messageState.content['@type']}`, messageState.content)
-					destination.push(<CenterSystemMessage key={key} text={`Unsupported message type ${messageState.content['@type']}`}/>)
-					break;
+					destination.push(<CenterSystemMessage key={key} text={`Unsupported message type ${messageState.content['@type']}`} />)
+					break
 			}
 		}
 
-		if (destination != messages && destination.length > 0) mergeDestination()
+		if (destination !== messages && destination.length > 0) mergeDestination()
 	}
 
 	const onMouseDown = (e: any) => {
@@ -403,23 +399,23 @@ function History({saveChatHistory, saveFileUrl, downloadFile}:{saveChatHistory: 
 		const progressClamp = Math.max(Math.min(1.0, progressNew), 0.0)
 		setProgress(progressClamp)
 
-		const sliderMaxY = chatListScrollBar.current != null? (chatListScrollBar.current as any).offsetHeight : 0
+		const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
 		const sliderY = (sliderMaxY - sliderHeight) * progressClamp
 		setPosition(sliderY)
 		setLastPosition(sliderY)
 	}
 
 	const _progress = progress
-	const paneH = chatListScrollPane.current != null? (chatListScrollPane.current as any).offsetHeight : 0
+	const paneH = chatListScrollPane.current != null ? (chatListScrollPane.current as any).offsetHeight : 0
 	const paneY = -Math.round(_progress * (paneH - sliderMaxY))
 
 	// TODO use return (<>) everywhere
 	return <div className="history" key={state.currentChatId}>
-		<div className="historyView" onWheel={onWheel} key={state.currentChatId} ref={chatListScrollPane} style={{top: paneY + 'px'}}>
+		<div className="historyView" onWheel={onWheel} key={state.currentChatId} ref={chatListScrollPane} style={{ top: paneY + 'px' }}>
 			{messages}
 		</div>
 		<div className="chatListScrollBar" onWheel={onWheel} onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
-		<div className="chatListScrollBarSlider" onWheel={onWheel} onMouseDown={onMouseDown} style={{top: sliderY + 3 + 'px'}}></div>
+		<div className="chatListScrollBarSlider" onWheel={onWheel} onMouseDown={onMouseDown} style={{ top: sliderY + 3 + 'px' }}></div>
 	</div>
 };
 

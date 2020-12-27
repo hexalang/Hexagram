@@ -16,5 +16,5 @@
 // First Last => FL
 export function nameToInitials(nameCombined: string): string {
 	if (nameCombined.length < 2) return nameCombined.toUpperCase()
-	return nameCombined.indexOf(' ') != -1? (nameCombined.split(' ')[0][0] + nameCombined.split(' ')[1][0]).substr(0, 2).toUpperCase() : nameCombined.substr(0, 2).toUpperCase()
+	return nameCombined.indexOf(' ') !== -1 ? (nameCombined.split(' ')[0][0] + nameCombined.split(' ')[1][0]).substr(0, 2).toUpperCase() : nameCombined.substr(0, 2).toUpperCase()
 }

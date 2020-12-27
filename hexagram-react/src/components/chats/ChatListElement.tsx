@@ -17,33 +17,28 @@ import * as TL from '../../tdlib/tdapi'
 import { formatTime } from '../../utils/Time'
 import { nameToInitials } from '../../utils/UserInfo'
 
-function messageContentToPreview(tl: TL.TLMessageContent): {textPreview:string, systemPreview?:string} {
+function messageContentToPreview(tl: TL.TLMessageContent): { textPreview: string, systemPreview?: string } {
 	switch (tl['@type']) {
 		case "messageText":
 			return {
 				textPreview: TL.messageText(tl).text.text,
 			}
-			break;
 
 		case "messagePhoto":
 			const caption = TL.messagePhoto(tl).caption.text
-			return {textPreview:caption, systemPreview: caption == ''? "Photo" : "Photo, "}
-			break;
+			return { textPreview: caption, systemPreview: caption === '' ? "Photo" : "Photo, " }
 
 		case "messageChatJoinByLink":
 			// TODO should not have "Sender:"
-			return {textPreview:'', systemPreview: "joined the group via invite link"}
-			break;
+			return { textPreview: '', systemPreview: "joined the group via invite link" }
 
 		case "messageSticker":
 			const messageSticker = TL.messageSticker(tl)
-			return {textPreview: messageSticker.sticker.emoji, systemPreview: "Sticker "}
-			break;
+			return { textPreview: messageSticker.sticker.emoji, systemPreview: "Sticker " }
 
 		default:
 			//console.warn(`Unsupported message type ${tl['@type']}`, tl)
-			return {textPreview:`Unsupported message type ${tl['@type']}`}
-			break;
+			return { textPreview: `Unsupported message type ${tl['@type']}` }
 	}
 }
 
@@ -55,7 +50,7 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 	const users = state.users
 	const messages = state.messages
 
-	const current = currentChatId == chatId //false
+	const current = currentChatId === chatId //false
 	const chat = chats[chatId]
 
 	// TODO 'SM.png' to constant somewhere?
@@ -64,9 +59,9 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 	if (
 		chat &&
 		// TODO if(let TL.chatTypeSupergroup(chat.type)) i.e. func does @type check or ret null
-		chat.type['@type'] == 'chatTypeSupergroup' &&
+		chat.type['@type'] === 'chatTypeSupergroup' &&
 		supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id] &&
-		supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id].chatMemberStatus['@type'] == 'chatMemberStatusLeft'
+		supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id].chatMemberStatus['@type'] === 'chatMemberStatusLeft'
 	) return null
 
 	const message = (messages[chat.id] ?? {})[chat.lastMessage] ?? null
@@ -75,63 +70,63 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 	// TODO they may have drafts!
 	if (message == null) return null
 
-	let name = chat? (myId == chat.id? 'Saved Messages' : chat.title) : ''
+	let name = chat ? (myId === chat.id ? 'Saved Messages' : chat.title) : ''
 
 	if (
 		chat &&
-		chat.type['@type'] == 'chatTypePrivate' &&
+		chat.type['@type'] === 'chatTypePrivate' &&
 		users[TL.chatTypePrivate(chat.type).user_id] &&
-		users[TL.chatTypePrivate(chat.type).user_id].type['@type'] == 'userTypeDeleted'
+		users[TL.chatTypePrivate(chat.type).user_id].type['@type'] === 'userTypeDeleted'
 	) name = 'Deleted Account'
 
-	const unread = chat? chat.unreadCount : 0
-	const mentioned = chat? chat.mentions : 0
-	const date = message? formatTime(message.date)  : ''
-	const dateHint = message? new Date(message.date * 1000).toLocaleDateString() : ''
+	const unread = chat ? chat.unreadCount : 0
+	const mentioned = chat ? chat.mentions : 0
+	const date = message ? formatTime(message.date) : ''
+	const dateHint = message ? new Date(message.date * 1000).toLocaleDateString() : ''
 
-	const preview = message? messageContentToPreview(message.content) : null
+	const preview = message ? messageContentToPreview(message.content) : null
 
 	// TODO hexa switch (chat, message, user) case null, null, null:
 
-	const text = preview? preview.textPreview : ''
-	const system = preview? preview.systemPreview : null
+	const text = preview ? preview.textPreview : ''
+	const system = preview ? preview.systemPreview : null
 
 	let who = ''
 
 	if (chat && message) {
 		// Works for any chat type
-		if (myId == message.senderUserId) who = 'You: '
+		if (myId === message.senderUserId) who = 'You: '
 		else
-		if (chat.type['@type'] == 'chatTypePrivate') {
-			// Just empty
-		}
-		else
-		if (chat.type['@type'] == 'chatTypeSupergroup' && TL.chatTypeSupergroup(chat.type).is_channel == false) {
-			const sender = users[message.senderUserId]
-			if (sender) who = sender.firstName + ': '
-			if (sender && sender.type['@type'] == 'userTypeDeleted') who = 'Deleted: '
-			// If senderUserId == 0 then it's a channel
-			// If sender == null then it's service messages
-		}
+			if (chat.type['@type'] === 'chatTypePrivate') {
+				// Just empty
+			}
+			else
+				if (chat.type['@type'] === 'chatTypeSupergroup' && TL.chatTypeSupergroup(chat.type).is_channel === false) {
+					const sender = users[message.senderUserId]
+					if (sender) who = sender.firstName + ': '
+					if (sender && sender.type['@type'] === 'userTypeDeleted') who = 'Deleted: '
+					// If senderUserId == 0 then it's a channel
+					// If sender == null then it's service messages
+				}
 	}
 
 	const pinned = chat && chat.isPinned
 	const verified = (
 		chat &&
-		chat.type['@type'] == 'chatTypePrivate' &&
+		chat.type['@type'] === 'chatTypePrivate' &&
 		users[TL.chatTypePrivate(chat.type).user_id] &&
 		users[TL.chatTypePrivate(chat.type).user_id].verified
 	)
-	const channel = (chat && chat.type['@type'] == 'chatTypeSupergroup' && TL.chatTypeSupergroup(chat.type).is_channel == true)
-	const supergroup = (chat && chat.type['@type'] == 'chatTypeSupergroup' && channel == false)
+	const channel = (chat && chat.type['@type'] === 'chatTypeSupergroup' && TL.chatTypeSupergroup(chat.type).is_channel === true)
+	const supergroup = (chat && chat.type['@type'] === 'chatTypeSupergroup' && channel === false)
 	const bot = (
 		chat &&
-		chat.type['@type'] == 'chatTypePrivate' &&
+		chat.type['@type'] === 'chatTypePrivate' &&
 		users[TL.chatTypePrivate(chat.type).user_id] &&
-		users[TL.chatTypePrivate(chat.type).user_id].type['@type'] == 'userTypeBot'
+		users[TL.chatTypePrivate(chat.type).user_id].type['@type'] === 'userTypeBot'
 	)
 
-	const active = current? "chatListElement chatListElement__active" : "chatListElement"
+	const active = current ? "chatListElement chatListElement__active" : "chatListElement"
 
 	if (srcAva == null && chat && chat.photo) downloadFile(chat.photo.small.id)
 
@@ -144,13 +139,13 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 			switch (TL.inputMessageText(chat.draft).text['@type']) {
 				case 'formattedText': {
 					draftText = TL.formattedText(TL.inputMessageText(chat.draft).text).text
-					break;
+					break
 				}
 				default:
 					console.warn('Unknown draft type ' + TL.inputMessageText(chat.draft).text['@type'])
 					draftText = TL.inputMessageText(chat.draft).text['@type']
 			}
-			break;
+			break
 		}
 		default:
 			console.warn('Unknown draft type ' + chat.draft['@type'])
@@ -160,12 +155,6 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 	return <div className={active} onClick={e => selectChat(chatId)}>
 		<div className="wrap">
 
-		{ srcAva && <img title={'Click to show user picture (TODO)'} className="avatar" src={srcAva || 'blur.jpg'}/> || <div className="avatarEmpty">{
-			nameToInitials(name)
-		}</div> }
-		<div className="namedatetext">
-			<div className="namedate">
-				<span className="bold name">
 					{channel && <img className="channel" title="This is a news channel or blog" src="icons/dialogs_channel.png"/>}
 					{supergroup && <img className="supergroup" title="This is a group chat" src="icons/dialogs_chat.png"/>}
 					{bot && <img className="bot" title="This is a bot, not a human" src="icons/dialogs_bot.png"/>}
@@ -185,6 +174,12 @@ export const ChatListElement = memo(function ChatListElement({chatId, selectChat
 				{(mentioned > 0 && unread > 0) && <span className="mentioned" title={`You have been mentioned ${mentioned} times in this chat`}><div>@</div></span>}
 				{unread == 0 && pinned && <span className="light pinned" title={"You pinned this chat for quick access\n\nOnly 5 chats may be pinned"}><img src="icons/dialogs_pinned.png"/></span>}
 				{unread > 0 && <span className="light unread" title="You have unread messages in this chat"><div>{unread}</div></span>}
+			{srcAva ? <img title={'Click to show user picture (TODO)'} className="avatar" src={srcAva || 'blur.jpg'} alt="Avatar" /> : <div className="avatarEmpty">{
+				nameToInitials(name)
+			}</div>}
+			<div className="namedatetext">
+				<div className="namedate">
+					<span className="bold name">
 				</div>
 			</div>
 		</div>

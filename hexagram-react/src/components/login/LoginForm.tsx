@@ -16,7 +16,6 @@
 import React, { useState } from 'react'
 import './LoginForm.scss'
 import { tg } from '../../tdlib/tdlib'
-import { nameToInitials } from '../../utils/UserInfo'
 
 function cleanPhoneNumber(text: string): string {
 	text = text.trim()
@@ -47,24 +46,24 @@ function LoginForm({loginState, setAuthenticationPhoneNumber, checkAuthenticatio
 		let password = secret.trim()
 		setSecret('')
 
-		if (loginState == LoginState.WaitPhoneNumber && isCorrectPhoneNumber(phone)) {
+		if (loginState === LoginState.WaitPhoneNumber && isCorrectPhoneNumber(phone)) {
 			setAuthenticationPhoneNumber(cleanPhoneNumber(phone))
 		}
 
-		if (loginState == LoginState.WaitCode && isCorrectPhoneNumber(code)) {
+		if (loginState === LoginState.WaitCode && isCorrectPhoneNumber(code)) {
 			checkAuthenticationCode(cleanPhoneNumber(code))
 		}
 
-		if (loginState == LoginState.WaitPassword && password != '') {
+		if (loginState === LoginState.WaitPassword && password !== '') {
 			checkAuthenticationPassword(password)
 		}
 
-		if (loginState == LoginState.WaitRegistration) {
+		if (loginState === LoginState.WaitRegistration) {
 			// TODO
 		}
 	}
 
-	const blur = (loginState != LoginState.WaitPhoneNumber) || (phone != '')
+	const blur = (loginState !== LoginState.WaitPhoneNumber) || (phone !== '')
 
 	return <>
 	<div className="centerBackgroundBefore"></div>

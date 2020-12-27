@@ -29,7 +29,7 @@ let timeOut = true
 
 function dequeue() {
 	timeOut = true
-	if (queue.length == 0) return
+	if (queue.length === 0) return
 	dispatchTelegramEventHandler.handle(queue)
 	queue = []
 }
@@ -91,20 +91,19 @@ const options: TdOptions = {
 				break
 
 			case "updateOption":
-				if ((update as any).name == "my_id") { // Ready
+				if ((update as any).name === "my_id") { // Ready
 					// Avoid rendering before dialogs loaded
 					dispatchTelegramEvent(update)
 
 					// Trigger TDLib to load dialogs
 					const CHAT_SLICE_LIMIT = 25
-					const chats = await td.send({
+					await td.send({
 						'@type': 'getChats',
 						chat_list: { '@type': 'chatListMain' },
 						offset_chat_id: 0,
 						offset_order: '9223372036854775807',
 						limit: CHAT_SLICE_LIMIT
 					}) as any
-
 				}
 
 				dispatchTelegramEvent(update)

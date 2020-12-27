@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState, useEffect, useRef } from 'react'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
 import './Input.scss'
@@ -52,8 +51,8 @@ export default function Input() {
 		const draft = chat && chat.draft
 		if (
 			draft &&
-			draft['@type'] == 'inputMessageText' &&
-			TL.inputMessageText(draft).text['@type'] == 'formattedText'
+			draft['@type'] === 'inputMessageText' &&
+			TL.inputMessageText(draft).text['@type'] === 'formattedText'
 		) {
 			const draftText: string = TL.formattedText(TL.inputMessageText(draft).text).text
 			setValue(draftText.trim())
@@ -66,7 +65,7 @@ export default function Input() {
 	}
 
 	function onKeyDown(e: any) {
-		if (e.key == 'Enter') {
+		if (e.key === 'Enter') {
 			tg.parseTextEntities(
 				value,
 				{ '@type': 'textParseModeMarkdown', version: 1 }
@@ -102,30 +101,30 @@ export default function Input() {
 	if (chat == null) return null
 
 	if (
-		chat.type['@type'] == 'chatTypePrivate' &&
+		chat.type['@type'] === 'chatTypePrivate' &&
 		state.users[TL.chatTypePrivate(chat.type).user_id] &&
-		state.users[TL.chatTypePrivate(chat.type).user_id].type['@type'] == 'userTypeDeleted'
+		state.users[TL.chatTypePrivate(chat.type).user_id].type['@type'] === 'userTypeDeleted'
 	) {
 		return null
 	}
 
 	if (
-		chat.type['@type'] == 'chatTypeSupergroup' &&
+		chat.type['@type'] === 'chatTypeSupergroup' &&
 		state.supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id]
 	) {
 		const supergroup = state.supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id]
-		if (supergroup.isChannel == true) return null
+		if (supergroup.isChannel === true) return null
 	}
 
 	return <div className="bottom">
 		<div className="input">
-			{(value == '') && false && <div className="placeholder">Write a message...</div>}
-			{false&&
 			<div ref={messagesEndRef} className="editor" contentEditable={true} onKeyDown={onKeyDown} onInput={e => updateValue((e.target as any).innerHTML)} dangerouslySetInnerHTML={{__html:value}}></div>
+			{(value === '') && false && <div className="placeholder">Write a message...</div>}
+			{false &&
 			}
-			<input type="text" className="editor" id="textName" maxLength={90} placeholder="Write a message..." onKeyDown={onKeyDown} value={value} onChange={e => updateValue(e.target.value)} required/>
+			<input type="text" className="editor" id="textName" maxLength={90} placeholder="Write a message..." onKeyDown={onKeyDown} value={value} onChange={e => updateValue(e.target.value)} required />
 		</div>
 
-		<div className="thinVerticalLine"/>
+		<div className="thinVerticalLine" />
 	</div>
 }

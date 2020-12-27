@@ -13,17 +13,15 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import React from 'react'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { ChatList } from './ChatList'
 import './ChatsPanel.scss'
 
 const ChatsPanel = ({selectChat, downloadFile, showSidePanel}:{showSidePanel: any, selectChat: (id: number) => void, downloadFile: Function}) => (
-	<div className="chatList">
 		<Header showSidePanel={showSidePanel}/>
 		<ChatList selectChat={selectChat} downloadFile={downloadFile}/>
-		<Footer/>
-	</div>
 )
 
 
@@ -42,5 +40,8 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
 	}
 }
 
+	return <div className="chatList">
+		<Footer />
+	</div>
 
 export { ChatsPanel }

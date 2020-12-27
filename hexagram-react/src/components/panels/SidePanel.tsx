@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React from 'react'
 import './SidePanel.scss'
 
 const SidePanel = () => {
@@ -23,12 +22,12 @@ const SidePanel = () => {
 		return dispatch({ type: 'SET_SIDEBAR_VISIBILITY', payload: { showSideBar: false } })
 	}
 
-	const name = user? (user.firstName + ' ' + user.lastName).trim() : 'Hexagram'
-	const phone = '+' + (user? user.phone : '')
+	const name = user ? (user.firstName + ' ' + user.lastName).trim() : 'Hexagram'
+	const phone = '+' + (user ? user.phone : '')
 
 	const askLogout = () => {
-		if (window.confirm("Log out?") == true) {
 			dispatch(logOut() as any as AnyAction)
+		if (window.confirm("Log out?") === true) {
 		}
 	}
 
