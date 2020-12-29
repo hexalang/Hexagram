@@ -93,6 +93,11 @@ export class State {
 		return result
 	}
 
+	getOrCreateMessage(chatId: number, messageId: number): Message {
+		const messages = this.getOrCreateMessages(chatId)
+		return createIfNone(messages, messageId, Message)
+	}
+
 	getOrCreateHistory(chatId: number): number[] {
 		const history = this.history[chatId]
 		if (history) {

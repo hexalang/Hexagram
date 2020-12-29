@@ -18,29 +18,60 @@ import { State } from '../../mobx/store'
 import { formatTime } from '../../utils/Time'
 import { nameToInitials } from '../../utils/UserInfo'
 import { observer } from "mobx-react-lite"
+import { Message } from '../../mobx/types'
 
-const messageContentToPreview = (tl: TL.TLMessageContent): { textPreview: string, systemPreview?: string } => {
-	switch (tl['@type']) {
+const messageContentToPreview = (message: Message, chatId: number, state: State): { textPreview: string, systemPreview?: string } => {
+	const content = message.content
+
+	// TODO pre-load messages, also proper nullability
+	if (!content) return {
+		textPreview: '...'
+	}
+
+	switch (content['@type']) {
 		case "messageText":
 			return {
-				textPreview: TL.messageText(tl).text.text,
+				textPreview: TL.messageText(content).text.text,
 			}
 
 		case "messagePhoto":
-			const caption = TL.messagePhoto(tl).caption.text
+			const caption = TL.messagePhoto(content).caption.text
+			if (message.media_album_id != '0') {
+				return { textPreview: caption, systemPreview: caption === '' ? "Album" : "Album, " }
+			}
 			return { textPreview: caption, systemPreview: caption === '' ? "Photo" : "Photo, " }
 
 		case "messageChatJoinByLink":
 			// TODO should not have "Sender:"
 			return { textPreview: '', systemPreview: "joined the group via invite link" }
 
+		case "messagePinMessage":
+			const messagePinMessage = TL.messagePinMessage(content).message_id
+			const preview = messageContentToPreview(state.getOrCreateMessage(chatId, messagePinMessage), chatId, state)
+			// TODO elipsis: via , systemNested: + no '\n'
+			return { textPreview: '', systemPreview: "pinned «" + (preview.textPreview || preview.systemPreview) + "»" }
+
+		case "messageCall":
+			const messageCall = TL.messageCall(content)
+			switch (messageCall.discard_reason['@type']) {
+				case 'callDiscardReasonEmpty':
+					return { textPreview: '', systemPreview: messageCall.is_video ? "Video call" : "Call" }
+
+				case 'callDiscardReasonMissed':
+					return { textPreview: '', systemPreview: messageCall.is_video ? "Missed video call" : "Missed call" }
+
+				default:
+					console.warn(`Unsupported messageCall type ${content['@type']}`, content)
+					return { textPreview: '', systemPreview: messageCall.is_video ? "Video call" : "Call" }
+			}
+
 		case "messageSticker":
-			const messageSticker = TL.messageSticker(tl)
+			const messageSticker = TL.messageSticker(content)
 			return { textPreview: messageSticker.sticker.emoji, systemPreview: "Sticker " }
 
 		default:
-			//console.warn(`Unsupported message type ${tl['@type']}`, tl)
-			return { textPreview: `Unsupported message type ${tl['@type']}` }
+			console.warn(`Unsupported message type ${content['@type']}`, content)
+			return { textPreview: `Unsupported message type ${content['@type']}` }
 	}
 }
 
@@ -86,7 +117,7 @@ export const ChatListElement = observer(({ chatId, selectChat, state }: { chatId
 	const date = message ? formatTime(message.date) : ''
 	const dateHint = message ? new Date(message.date * 1000).toLocaleDateString() : ''
 
-	const preview = message ? messageContentToPreview(message.content) : null
+	const preview = message ? messageContentToPreview(message, chatId, state) : null
 
 	// TODO hexa switch (chat, message, user) case null, null, null:
 
@@ -174,9 +205,16 @@ export const ChatListElement = observer(({ chatId, selectChat, state }: { chatId
 				<div className="textcounter">
 					{
 						draft == null ?
-							<span className="light text">{who && <div className="who">{who}</div>}{system && <div className="who">{system}</div>}<div title={text}>{text}</div></span>
+							<span className="light text">
+								{who && <div className="who" title={who}>{who}</div>}
+								{system && <div className="who" title={text ? system + text : system}>{system}</div>}
+								<div title={text}>{text}</div>
+							</span>
 							:
-							<span className="light text"><div className="draft">{'Draft:'}</div><div title={'Draft: ' + draftText + '\n\n' + (who || system || (name + ': ')) + text}>{draftText}</div></span>
+							<span className="light text">
+								<div className="draft">{'Draft:'}</div>
+								<div title={'Draft: ' + draftText + '\n\n' + (who || (name + ': ')) + (text || system)}>{draftText}</div>
+							</span>
 					}
 					<div className="counter">
 						{(mentioned > 0 && unread > 0) && <span className="mentioned" title={`You have been mentioned ${mentioned} times in this chat`}><div>@</div></span>}

@@ -56,6 +56,7 @@ export class Message {
 	@observable senderChatId!: number
 	@observable replyToMessageId!: number
 	@observable content!: TL.TLMessageContent
+	@observable media_album_id!: string
 
 	constructor(id: number) {
 		this.id = id
@@ -75,6 +76,7 @@ export class Message {
 		}
 		this.replyToMessageId = tl.reply_to_message_id
 		this.content = tl.content
+		this.media_album_id = tl.media_album_id
 
 		return this
 	}
