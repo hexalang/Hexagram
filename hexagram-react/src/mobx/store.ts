@@ -15,7 +15,7 @@
 
 import * as TL from '../tdlib/tdapi'
 import { Chat, User, Message, Supergroup, File } from './types'
-import { action, observable } from "mobx"
+import { action, computed, keys, observable } from "mobx"
 import { tg } from '../tdlib/tdlib'
 
 export enum LoginState {
@@ -49,8 +49,7 @@ export class State {
 	@observable currentChatId: number
 
 	// Opened dialogs
-	readonly chatIds: number[]
-	readonly chats: { readonly [chatId: number]: Chat }
+	@observable readonly chats: { readonly [chatId: number]: Chat }
 	readonly users: { readonly [userId: number]: User }
 	readonly messages: {
 		[chatId: number]: { [messageId: number]: Message }
@@ -63,13 +62,23 @@ export class State {
 	readonly filesQueue: number[]
 	filesQueueBusy = false
 
+	@computed get chatIds(): number[] {
+		const result: number[] = []
+
+		for (const key of keys(this.chats)) {
+			const chat = this.chats[key as any as number]
+			if (chat.order) result.push(chat.id)
+		}
+
+		return result
+	}
+
 	constructor() {
 		this.loaded = false
 		this.loginState = LoginState.WaitTDLib
 		this.showSideBar = false
 		this.myId = 0
 		this.currentChatId = 0
-		this.chatIds = observable([])
 		this.chats = {}
 		this.users = {}
 		this.messages = {}
@@ -248,7 +257,6 @@ export class State {
 					const chat_id = updateNewChat.chat.id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					chat.merge(updateNewChat.chat)
-					if (!this.chatIds.includes(chat_id)) this.chatIds.push(chat_id)
 				}
 				break
 
