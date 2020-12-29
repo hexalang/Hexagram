@@ -176,7 +176,7 @@ export const ChatListElement = observer(({ chatId, selectChat, state }: { chatId
 						draft == null ?
 							<span className="light text">{who && <div className="who">{who}</div>}{system && <div className="who">{system}</div>}<div title={text}>{text}</div></span>
 							:
-							<span className="light text"><div className="draft">{'Draft:'}</div><div title={draftText}>{draftText}</div></span>
+							<span className="light text"><div className="draft">{'Draft:'}</div><div title={'Draft: ' + draftText + '\n\n' + (who || system || (name + ': ')) + text}>{draftText}</div></span>
 					}
 					<div className="counter">
 						{(mentioned > 0 && unread > 0) && <span className="mentioned" title={`You have been mentioned ${mentioned} times in this chat`}><div>@</div></span>}
