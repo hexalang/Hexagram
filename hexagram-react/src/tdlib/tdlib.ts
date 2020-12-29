@@ -47,14 +47,14 @@ const options: TdOptions = {
 	/**
 	 * Callback for all incoming updates.
 	 */
-	onUpdate: async (update: TdObject) => {
+	onUpdate: (update: TdObject) => {
 
 		switch (update['@type']) {
 			case "ok": break // Just Ok
 			case "updateAuthorizationState":
 				switch ((update as any).authorization_state['@type']) {
 					case "authorizationStateWaitTdlibParameters":
-						await td.send({
+						td.send({
 							'@type': 'setTdlibParameters',
 							parameters: {
 								'@type': 'tdParameters',
@@ -67,7 +67,7 @@ const options: TdOptions = {
 								application_version: '1.0.0',
 								use_secret_chats: true,
 								use_message_database: true,
-								use_file_database: false,
+								use_file_database: true,
 								database_directory: '/db',
 								files_directory: '/'
 							}
@@ -75,7 +75,7 @@ const options: TdOptions = {
 						break
 
 					case "authorizationStateWaitEncryptionKey":
-						await td.send({
+						td.send({
 							'@type': 'checkDatabaseEncryptionKey',
 						})
 						break
@@ -86,24 +86,21 @@ const options: TdOptions = {
 				}
 				break
 
-			case "updateFile":
-				dispatchTelegramEvent(update)
-				break
-
+			//			case "updateFile":
+			//				dispatchTelegramEvent(update)
+			//				break
+			//
 			case "updateOption":
 				if ((update as any).name === "my_id") { // Ready
-					// Avoid rendering before dialogs loaded
-					dispatchTelegramEvent(update)
-
 					// Trigger TDLib to load dialogs
 					const CHAT_SLICE_LIMIT = 25
-					await td.send({
+					td.send({
 						'@type': 'getChats',
 						chat_list: { '@type': 'chatListMain' },
 						offset_chat_id: 0,
 						offset_order: '9223372036854775807',
 						limit: CHAT_SLICE_LIMIT
-					}) as any
+					})
 				}
 
 				dispatchTelegramEvent(update)
@@ -128,7 +125,7 @@ const options: TdOptions = {
 	/**
 	 * The initial verbosity level for the TDLib internal logging (0-1023).
 	 */
-	logVerbosityLevel: 1,
+	logVerbosityLevel: 0,
 	/**
 	 * The initial verbosity level of the JavaScript part of the code (one of 'error', 'warning', 'info', 'log', 'debug').
 	 */
@@ -138,8 +135,7 @@ const options: TdOptions = {
 	 */
 	useDatabase: true,
 	/**
-	 * For debug only. PaPass false to use TDLib without database and secret chats.
-	 * It will significantly improve loading time, but some functionality will be unavailable.ss true
+	 * For debug only. Pass true
 	 * to open TDLib database in read-only mode
 	 */
 	readOnly: false,

@@ -64,7 +64,7 @@ export const Input = observer(({ state }: { state: State }) => {
 	}, [state.currentChatId])
 
 	const updateValue = (text: string) => {
-		setValue(text.trim())
+		setValue(text)
 	}
 
 	const onKeyDown = (e: any) => {
@@ -75,14 +75,14 @@ export const Input = observer(({ state }: { state: State }) => {
 			).then(text => {
 				tg.sendMessage(
 					state.currentChatId, // chat_id
+					0, // message_thread_id
 					0, // reply_to_message_id
 					{
-						"@type": "sendMessageOptions",
+						"@type": "messageSendOptions",
 						disable_notification: false,
 						from_background: false,
-						// TODO
 						scheduling_state: null as any
-					},// options
+					}, // options
 					null as any,// reply_markup
 					{
 						'@type': 'inputMessageText',

@@ -1,5 +1,4 @@
 {
-	"editor.formatOnSave": true,
 	"html.format.endWithNewline": true,
 	"typescript.format.semicolons": "remove",
 	"editor.detectIndentation": false,
@@ -8,5 +7,6 @@
 	"files.exclude": {
 		".vscode": true,
 		"hexagram-react-redux-deprecated": true
-	}
+	},
+	"editor.formatOnSave": true
 }

@@ -113,13 +113,13 @@ export const LoginForm = observer(({ state }: {
 				<div className="hint">Registration is not yet implemented, sorry</div>
 			</>}
 
-			{loginState === LoginState.WaitPassword /* TODO > password hint */ && <>
+			{loginState === LoginState.WaitPassword && <>
 				<div className="hint">Enter your phone 2FA password to log in</div>
 				<div className="secret"><input
 					className={true ? '' : 'error'}
 					value={secret} onChange={e => setSecret(e.target.value)}
 					type="password" name="secretInput" id="secretInput"
-					placeholder="Your password" /></div>
+					placeholder={state.hint ? state.hint : "Your password"} /></div>
 			</>}
 
 			<div className="next" onClick={next}>NEXT</div>

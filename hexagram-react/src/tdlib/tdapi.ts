@@ -52,6 +52,13 @@ export interface TLObject {
 	"inputFileGenerated" |
 	"photoSize" |
 	"minithumbnail" |
+	"thumbnailFormatJpeg" |
+	"thumbnailFormatPng" |
+	"thumbnailFormatWebp" |
+	"thumbnailFormatGif" |
+	"thumbnailFormatTgs" |
+	"thumbnailFormatMpeg4" |
+	"thumbnail" |
 	"maskPointForehead" |
 	"maskPointEyes" |
 	"maskPointMouth" |
@@ -74,7 +81,7 @@ export interface TLObject {
 	"game" |
 	"poll" |
 	"profilePhoto" |
-	"chatPhoto" |
+	"chatPhotoInfo" |
 	"userTypeRegular" |
 	"userTypeDeleted" |
 	"userTypeBot" |
@@ -82,10 +89,14 @@ export interface TLObject {
 	"botCommand" |
 	"botInfo" |
 	"chatLocation" |
+	"animatedChatPhoto" |
+	"chatPhoto" |
+	"chatPhotos" |
+	"inputChatPhotoPrevious" |
+	"inputChatPhotoStatic" |
+	"inputChatPhotoAnimation" |
 	"user" |
 	"userFullInfo" |
-	"userProfilePhoto" |
-	"userProfilePhotos" |
 	"users" |
 	"chatAdministrator" |
 	"chatAdministrators" |
@@ -101,6 +112,7 @@ export interface TLObject {
 	"chatMembersFilterContacts" |
 	"chatMembersFilterAdministrators" |
 	"chatMembersFilterMembers" |
+	"chatMembersFilterMention" |
 	"chatMembersFilterRestricted" |
 	"chatMembersFilterBanned" |
 	"chatMembersFilterBots" |
@@ -110,6 +122,7 @@ export interface TLObject {
 	"supergroupMembersFilterSearch" |
 	"supergroupMembersFilterRestricted" |
 	"supergroupMembersFilterBanned" |
+	"supergroupMembersFilterMention" |
 	"supergroupMembersFilterBots" |
 	"basicGroup" |
 	"basicGroupFullInfo" |
@@ -119,10 +132,16 @@ export interface TLObject {
 	"secretChatStateReady" |
 	"secretChatStateClosed" |
 	"secretChat" |
+	"messageSenderUser" |
+	"messageSenderChat" |
+	"messageSenders" |
 	"messageForwardOriginUser" |
+	"messageForwardOriginChat" |
 	"messageForwardOriginHiddenUser" |
 	"messageForwardOriginChannel" |
 	"messageForwardInfo" |
+	"messageReplyInfo" |
+	"messageInteractionInfo" |
 	"messageSendingStatePending" |
 	"messageSendingStateFailed" |
 	"message" |
@@ -138,8 +157,17 @@ export interface TLObject {
 	"chatTypeBasicGroup" |
 	"chatTypeSupergroup" |
 	"chatTypeSecret" |
+	"chatFilter" |
+	"chatFilterInfo" |
+	"recommendedChatFilter" |
+	"recommendedChatFilters" |
 	"chatListMain" |
 	"chatListArchive" |
+	"chatListFilter" |
+	"chatLists" |
+	"chatSourceMtprotoProxy" |
+	"chatSourcePublicServiceAnnouncement" |
+	"chatPosition" |
 	"chat" |
 	"chats" |
 	"chatNearby" |
@@ -161,6 +189,7 @@ export interface TLObject {
 	"inlineKeyboardButtonTypeUrl" |
 	"inlineKeyboardButtonTypeLoginUrl" |
 	"inlineKeyboardButtonTypeCallback" |
+	"inlineKeyboardButtonTypeCallbackWithPassword" |
 	"inlineKeyboardButtonTypeCallbackGame" |
 	"inlineKeyboardButtonTypeSwitchInline" |
 	"inlineKeyboardButtonTypeBuy" |
@@ -171,6 +200,7 @@ export interface TLObject {
 	"replyMarkupInlineKeyboard" |
 	"loginUrlInfoOpen" |
 	"loginUrlInfoRequestConfirmation" |
+	"messageThreadInfo" |
 	"richTextPlain" |
 	"richTextBold" |
 	"richTextItalic" |
@@ -184,7 +214,9 @@ export interface TLObject {
 	"richTextMarked" |
 	"richTextPhoneNumber" |
 	"richTextIcon" |
+	"richTextReference" |
 	"richTextAnchor" |
+	"richTextAnchorLink" |
 	"richTexts" |
 	"pageBlockCaption" |
 	"pageBlockListItem" |
@@ -227,6 +259,11 @@ export interface TLObject {
 	"pageBlockMap" |
 	"webPageInstantView" |
 	"webPage" |
+	"countryInfo" |
+	"countries" |
+	"phoneNumberInfo" |
+	"bankCardActionOpenUrl" |
+	"bankCardInfo" |
 	"address" |
 	"labeledPricePart" |
 	"invoice" |
@@ -329,6 +366,7 @@ export interface TLObject {
 	"messageLocation" |
 	"messageVenue" |
 	"messageContact" |
+	"messageDice" |
 	"messageGame" |
 	"messagePoll" |
 	"messageInvoice" |
@@ -354,6 +392,7 @@ export interface TLObject {
 	"messageWebsiteConnected" |
 	"messagePassportDataSent" |
 	"messagePassportDataReceived" |
+	"messageProximityAlertTriggered" |
 	"messageUnsupported" |
 	"textEntityTypeMention" |
 	"textEntityTypeHashtag" |
@@ -362,6 +401,7 @@ export interface TLObject {
 	"textEntityTypeUrl" |
 	"textEntityTypeEmailAddress" |
 	"textEntityTypePhoneNumber" |
+	"textEntityTypeBankCardNumber" |
 	"textEntityTypeBold" |
 	"textEntityTypeItalic" |
 	"textEntityTypeUnderline" |
@@ -374,7 +414,8 @@ export interface TLObject {
 	"inputThumbnail" |
 	"messageSchedulingStateSendAtDate" |
 	"messageSchedulingStateSendWhenOnline" |
-	"sendMessageOptions" |
+	"messageSendOptions" |
+	"messageCopyOptions" |
 	"inputMessageText" |
 	"inputMessageAnimation" |
 	"inputMessageAudio" |
@@ -387,6 +428,7 @@ export interface TLObject {
 	"inputMessageLocation" |
 	"inputMessageVenue" |
 	"inputMessageContact" |
+	"inputMessageDice" |
 	"inputMessageGame" |
 	"inputMessageInvoice" |
 	"inputMessagePoll" |
@@ -407,6 +449,8 @@ export interface TLObject {
 	"searchMessagesFilterVoiceAndVideoNote" |
 	"searchMessagesFilterMention" |
 	"searchMessagesFilterUnreadMention" |
+	"searchMessagesFilterFailedToSend" |
+	"searchMessagesFilterPinned" |
 	"chatActionTyping" |
 	"chatActionRecordingVideo" |
 	"chatActionUploadingVideo" |
@@ -437,7 +481,9 @@ export interface TLObject {
 	"callDiscardReasonDisconnected" |
 	"callDiscardReasonHungUp" |
 	"callProtocol" |
-	"callConnection" |
+	"callServerTypeTelegramReflector" |
+	"callServerTypeWebrtc" |
+	"callServer" |
 	"callId" |
 	"callStatePending" |
 	"callStateExchangingKeys" |
@@ -452,13 +498,16 @@ export interface TLObject {
 	"callProblemSilentLocal" |
 	"callProblemSilentRemote" |
 	"callProblemDropped" |
+	"callProblemDistortedVideo" |
+	"callProblemPixelatedVideo" |
 	"call" |
 	"phoneNumberAuthenticationSettings" |
 	"animations" |
+	"diceStickersRegular" |
+	"diceStickersSlotMachine" |
 	"importedContacts" |
 	"httpUrl" |
-	"inputInlineQueryResultAnimatedGif" |
-	"inputInlineQueryResultAnimatedMpeg4" |
+	"inputInlineQueryResultAnimation" |
 	"inputInlineQueryResultArticle" |
 	"inputInlineQueryResultAudio" |
 	"inputInlineQueryResultContact" |
@@ -484,6 +533,7 @@ export interface TLObject {
 	"inlineQueryResultVoiceNote" |
 	"inlineQueryResults" |
 	"callbackQueryPayloadData" |
+	"callbackQueryPayloadDataWithPassword" |
 	"callbackQueryPayloadGame" |
 	"callbackQueryAnswer" |
 	"customRequestResult" |
@@ -628,7 +678,7 @@ export interface TLObject {
 	"chatReportReasonCopyright" |
 	"chatReportReasonUnrelatedLocation" |
 	"chatReportReasonCustom" |
-	"publicMessageLink" |
+	"messageLink" |
 	"messageLinkInfo" |
 	"filePart" |
 	"fileTypeNone" |
@@ -680,6 +730,8 @@ export interface TLObject {
 	"tMeUrlTypeStickerSet" |
 	"tMeUrl" |
 	"tMeUrls" |
+	"suggestedActionEnableArchiveAndMuteNewChats" |
+	"suggestedActionCheckPhoneNumber" |
 	"count" |
 	"text" |
 	"seconds" |
@@ -691,7 +743,20 @@ export interface TLObject {
 	"proxyTypeMtproto" |
 	"proxy" |
 	"proxies" |
-	"inputSticker" |
+	"inputStickerStatic" |
+	"inputStickerAnimated" |
+	"dateRange" |
+	"statisticsValue" |
+	"statisticsGraphData" |
+	"statisticsGraphAsync" |
+	"statisticsGraphError" |
+	"chatStatisticsMessageInteractionInfo" |
+	"chatStatisticsMessageSenderInfo" |
+	"chatStatisticsAdministratorActionsInfo" |
+	"chatStatisticsInviterInfo" |
+	"chatStatisticsSupergroup" |
+	"chatStatisticsChannel" |
+	"messageStatistics" |
 	"updateAuthorizationState" |
 	"updateNewMessage" |
 	"updateMessageSendAcknowledged" |
@@ -699,20 +764,19 @@ export interface TLObject {
 	"updateMessageSendFailed" |
 	"updateMessageContent" |
 	"updateMessageEdited" |
-	"updateMessageViews" |
+	"updateMessageIsPinned" |
+	"updateMessageInteractionInfo" |
 	"updateMessageContentOpened" |
 	"updateMessageMentionRead" |
 	"updateMessageLiveLocationViewed" |
 	"updateNewChat" |
-	"updateChatChatList" |
 	"updateChatTitle" |
 	"updateChatPhoto" |
 	"updateChatPermissions" |
 	"updateChatLastMessage" |
-	"updateChatOrder" |
-	"updateChatIsPinned" |
+	"updateChatPosition" |
 	"updateChatIsMarkedAsUnread" |
-	"updateChatIsSponsored" |
+	"updateChatIsBlocked" |
 	"updateChatHasScheduledMessages" |
 	"updateChatDefaultDisableNotification" |
 	"updateChatReadInbox" |
@@ -721,9 +785,9 @@ export interface TLObject {
 	"updateChatNotificationSettings" |
 	"updateScopeNotificationSettings" |
 	"updateChatActionBar" |
-	"updateChatPinnedMessage" |
 	"updateChatReplyMarkup" |
 	"updateChatDraftMessage" |
+	"updateChatFilters" |
 	"updateChatOnlineMemberCount" |
 	"updateNotification" |
 	"updateNotificationGroup" |
@@ -744,10 +808,12 @@ export interface TLObject {
 	"updateFileGenerationStart" |
 	"updateFileGenerationStop" |
 	"updateCall" |
+	"updateNewCallSignalingData" |
 	"updateUserPrivacySettingRules" |
 	"updateUnreadMessageCount" |
 	"updateUnreadChatCount" |
 	"updateOption" |
+	"updateStickerSet" |
 	"updateInstalledStickerSets" |
 	"updateTrendingStickerSets" |
 	"updateRecentStickers" |
@@ -758,6 +824,9 @@ export interface TLObject {
 	"updateConnectionState" |
 	"updateTermsOfService" |
 	"updateUsersNearby" |
+	"updateDiceEmojis" |
+	"updateAnimationSearchParameters" |
+	"updateSuggestedActions" |
 	"updateNewInlineQuery" |
 	"updateNewChosenInlineResult" |
 	"updateNewCallbackQuery" |
@@ -1003,6 +1072,7 @@ export interface TLPhotoSize extends TLObject {
 	readonly photo: TLFile
 	readonly width: number
 	readonly height: number
+	readonly progressive_sizes: ReadonlyArray<number>
 }
 export function photoSize(object: TLObject): TLPhotoSize { return object as TLPhotoSize }
 export interface TLMinithumbnail extends TLObject {
@@ -1012,6 +1082,39 @@ export interface TLMinithumbnail extends TLObject {
 	readonly data: Uint8Array
 }
 export function minithumbnail(object: TLObject): TLMinithumbnail { return object as TLMinithumbnail }
+export interface TLThumbnailFormatJpeg extends TLObject {
+	readonly "@type": "thumbnailFormatJpeg"
+}
+export function thumbnailFormatJpeg(object: TLObject): TLThumbnailFormatJpeg { return object as TLThumbnailFormatJpeg }
+export interface TLThumbnailFormatPng extends TLObject {
+	readonly "@type": "thumbnailFormatPng"
+}
+export function thumbnailFormatPng(object: TLObject): TLThumbnailFormatPng { return object as TLThumbnailFormatPng }
+export interface TLThumbnailFormatWebp extends TLObject {
+	readonly "@type": "thumbnailFormatWebp"
+}
+export function thumbnailFormatWebp(object: TLObject): TLThumbnailFormatWebp { return object as TLThumbnailFormatWebp }
+export interface TLThumbnailFormatGif extends TLObject {
+	readonly "@type": "thumbnailFormatGif"
+}
+export function thumbnailFormatGif(object: TLObject): TLThumbnailFormatGif { return object as TLThumbnailFormatGif }
+export interface TLThumbnailFormatTgs extends TLObject {
+	readonly "@type": "thumbnailFormatTgs"
+}
+export function thumbnailFormatTgs(object: TLObject): TLThumbnailFormatTgs { return object as TLThumbnailFormatTgs }
+export interface TLThumbnailFormatMpeg4 extends TLObject {
+	readonly "@type": "thumbnailFormatMpeg4"
+}
+export function thumbnailFormatMpeg4(object: TLObject): TLThumbnailFormatMpeg4 { return object as TLThumbnailFormatMpeg4 }
+export type TLThumbnailFormat = TLThumbnailFormatJpeg | TLThumbnailFormatPng | TLThumbnailFormatWebp | TLThumbnailFormatGif | TLThumbnailFormatTgs | TLThumbnailFormatMpeg4
+export interface TLThumbnail extends TLObject {
+	readonly "@type": "thumbnail"
+	readonly format: TLThumbnailFormat
+	readonly width: number
+	readonly height: number
+	readonly file: TLFile
+}
+export function thumbnail(object: TLObject): TLThumbnail { return object as TLThumbnail }
 export interface TLMaskPointForehead extends TLObject {
 	readonly "@type": "maskPointForehead"
 }
@@ -1054,6 +1157,7 @@ export function pollTypeRegular(object: TLObject): TLPollTypeRegular { return ob
 export interface TLPollTypeQuiz extends TLObject {
 	readonly "@type": "pollTypeQuiz"
 	readonly correct_option_id: number
+	readonly explanation: TLFormattedText
 }
 export function pollTypeQuiz(object: TLObject): TLPollTypeQuiz { return object as TLPollTypeQuiz }
 export type TLPollType = TLPollTypeRegular | TLPollTypeQuiz
@@ -1064,8 +1168,9 @@ export interface TLAnimation extends TLObject {
 	readonly height: number
 	readonly file_name: string
 	readonly mime_type: string
+	readonly has_stickers: boolean
 	readonly minithumbnail: TLMinithumbnail
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 	readonly animation: TLFile
 }
 export function animation(object: TLObject): TLAnimation { return object as TLAnimation }
@@ -1077,7 +1182,7 @@ export interface TLAudio extends TLObject {
 	readonly file_name: string
 	readonly mime_type: string
 	readonly album_cover_minithumbnail: TLMinithumbnail
-	readonly album_cover_thumbnail: TLPhotoSize
+	readonly album_cover_thumbnail: TLThumbnail
 	readonly audio: TLFile
 }
 export function audio(object: TLObject): TLAudio { return object as TLAudio }
@@ -1086,7 +1191,7 @@ export interface TLDocument extends TLObject {
 	readonly file_name: string
 	readonly mime_type: string
 	readonly minithumbnail: TLMinithumbnail
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 	readonly document: TLFile
 }
 export function document(object: TLObject): TLDocument { return object as TLDocument }
@@ -1106,7 +1211,7 @@ export interface TLSticker extends TLObject {
 	readonly is_animated: boolean
 	readonly is_mask: boolean
 	readonly mask_position: TLMaskPosition
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 	readonly sticker: TLFile
 }
 export function sticker(object: TLObject): TLSticker { return object as TLSticker }
@@ -1120,7 +1225,7 @@ export interface TLVideo extends TLObject {
 	readonly has_stickers: boolean
 	readonly supports_streaming: boolean
 	readonly minithumbnail: TLMinithumbnail
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 	readonly video: TLFile
 }
 export function video(object: TLObject): TLVideo { return object as TLVideo }
@@ -1129,7 +1234,7 @@ export interface TLVideoNote extends TLObject {
 	readonly duration: number
 	readonly length: number
 	readonly minithumbnail: TLMinithumbnail
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 	readonly video: TLFile
 }
 export function videoNote(object: TLObject): TLVideoNote { return object as TLVideoNote }
@@ -1154,6 +1259,7 @@ export interface TLLocation extends TLObject {
 	readonly "@type": "location"
 	readonly latitude: number
 	readonly longitude: number
+	readonly horizontal_accuracy: number
 }
 export function location(object: TLObject): TLLocation { return object as TLLocation }
 export interface TLVenue extends TLObject {
@@ -1186,6 +1292,8 @@ export interface TLPoll extends TLObject {
 	readonly recent_voter_user_ids: ReadonlyArray<number>
 	readonly is_anonymous: boolean
 	readonly type: TLPollType
+	readonly open_period: number
+	readonly close_date: number
 	readonly is_closed: boolean
 }
 export function poll(object: TLObject): TLPoll { return object as TLPoll }
@@ -1194,14 +1302,16 @@ export interface TLProfilePhoto extends TLObject {
 	readonly id: string
 	readonly small: TLFile
 	readonly big: TLFile
+	readonly has_animation: boolean
 }
 export function profilePhoto(object: TLObject): TLProfilePhoto { return object as TLProfilePhoto }
-export interface TLChatPhoto extends TLObject {
-	readonly "@type": "chatPhoto"
+export interface TLChatPhotoInfo extends TLObject {
+	readonly "@type": "chatPhotoInfo"
 	readonly small: TLFile
 	readonly big: TLFile
+	readonly has_animation: boolean
 }
-export function chatPhoto(object: TLObject): TLChatPhoto { return object as TLChatPhoto }
+export function chatPhotoInfo(object: TLObject): TLChatPhotoInfo { return object as TLChatPhotoInfo }
 export interface TLUserTypeRegular extends TLObject {
 	readonly "@type": "userTypeRegular"
 }
@@ -1242,6 +1352,45 @@ export interface TLChatLocation extends TLObject {
 	readonly address: string
 }
 export function chatLocation(object: TLObject): TLChatLocation { return object as TLChatLocation }
+export interface TLAnimatedChatPhoto extends TLObject {
+	readonly "@type": "animatedChatPhoto"
+	readonly length: number
+	readonly file: TLFile
+	readonly main_frame_timestamp: number
+}
+export function animatedChatPhoto(object: TLObject): TLAnimatedChatPhoto { return object as TLAnimatedChatPhoto }
+export interface TLChatPhoto extends TLObject {
+	readonly "@type": "chatPhoto"
+	readonly id: string
+	readonly added_date: number
+	readonly minithumbnail: TLMinithumbnail
+	readonly sizes: ReadonlyArray<TLPhotoSize>
+	readonly animation: TLAnimatedChatPhoto
+}
+export function chatPhoto(object: TLObject): TLChatPhoto { return object as TLChatPhoto }
+export interface TLChatPhotos extends TLObject {
+	readonly "@type": "chatPhotos"
+	readonly total_count: number
+	readonly photos: ReadonlyArray<TLChatPhoto>
+}
+export function chatPhotos(object: TLObject): TLChatPhotos { return object as TLChatPhotos }
+export interface TLInputChatPhotoPrevious extends TLObject {
+	readonly "@type": "inputChatPhotoPrevious"
+	readonly chat_photo_id: string
+}
+export function inputChatPhotoPrevious(object: TLObject): TLInputChatPhotoPrevious { return object as TLInputChatPhotoPrevious }
+export interface TLInputChatPhotoStatic extends TLObject {
+	readonly "@type": "inputChatPhotoStatic"
+	readonly photo: TLInputFile
+}
+export function inputChatPhotoStatic(object: TLObject): TLInputChatPhotoStatic { return object as TLInputChatPhotoStatic }
+export interface TLInputChatPhotoAnimation extends TLObject {
+	readonly "@type": "inputChatPhotoAnimation"
+	readonly animation: TLInputFile
+	readonly main_frame_timestamp: number
+}
+export function inputChatPhotoAnimation(object: TLObject): TLInputChatPhotoAnimation { return object as TLInputChatPhotoAnimation }
+export type TLInputChatPhoto = TLInputChatPhotoPrevious | TLInputChatPhotoStatic | TLInputChatPhotoAnimation
 export interface TLUser extends TLObject {
 	readonly "@type": "user"
 	readonly id: number
@@ -1264,8 +1413,10 @@ export interface TLUser extends TLObject {
 export function user(object: TLObject): TLUser { return object as TLUser }
 export interface TLUserFullInfo extends TLObject {
 	readonly "@type": "userFullInfo"
+	readonly photo: TLChatPhoto
 	readonly is_blocked: boolean
 	readonly can_be_called: boolean
+	readonly supports_video_calls: boolean
 	readonly has_private_calls: boolean
 	readonly need_phone_number_privacy_exception: boolean
 	readonly bio: string
@@ -1274,19 +1425,6 @@ export interface TLUserFullInfo extends TLObject {
 	readonly bot_info: TLBotInfo
 }
 export function userFullInfo(object: TLObject): TLUserFullInfo { return object as TLUserFullInfo }
-export interface TLUserProfilePhoto extends TLObject {
-	readonly "@type": "userProfilePhoto"
-	readonly id: string
-	readonly added_date: number
-	readonly sizes: ReadonlyArray<TLPhotoSize>
-}
-export function userProfilePhoto(object: TLObject): TLUserProfilePhoto { return object as TLUserProfilePhoto }
-export interface TLUserProfilePhotos extends TLObject {
-	readonly "@type": "userProfilePhotos"
-	readonly total_count: number
-	readonly photos: ReadonlyArray<TLUserProfilePhoto>
-}
-export function userProfilePhotos(object: TLObject): TLUserProfilePhotos { return object as TLUserProfilePhotos }
 export interface TLUsers extends TLObject {
 	readonly "@type": "users"
 	readonly total_count: number
@@ -1320,6 +1458,7 @@ export function chatPermissions(object: TLObject): TLChatPermissions { return ob
 export interface TLChatMemberStatusCreator extends TLObject {
 	readonly "@type": "chatMemberStatusCreator"
 	readonly custom_title: string
+	readonly is_anonymous: boolean
 	readonly is_member: boolean
 }
 export function chatMemberStatusCreator(object: TLObject): TLChatMemberStatusCreator { return object as TLChatMemberStatusCreator }
@@ -1335,6 +1474,7 @@ export interface TLChatMemberStatusAdministrator extends TLObject {
 	readonly can_restrict_members: boolean
 	readonly can_pin_messages: boolean
 	readonly can_promote_members: boolean
+	readonly is_anonymous: boolean
 }
 export function chatMemberStatusAdministrator(object: TLObject): TLChatMemberStatusAdministrator { return object as TLChatMemberStatusAdministrator }
 export interface TLChatMemberStatusMember extends TLObject {
@@ -1385,6 +1525,11 @@ export interface TLChatMembersFilterMembers extends TLObject {
 	readonly "@type": "chatMembersFilterMembers"
 }
 export function chatMembersFilterMembers(object: TLObject): TLChatMembersFilterMembers { return object as TLChatMembersFilterMembers }
+export interface TLChatMembersFilterMention extends TLObject {
+	readonly "@type": "chatMembersFilterMention"
+	readonly message_thread_id: number
+}
+export function chatMembersFilterMention(object: TLObject): TLChatMembersFilterMention { return object as TLChatMembersFilterMention }
 export interface TLChatMembersFilterRestricted extends TLObject {
 	readonly "@type": "chatMembersFilterRestricted"
 }
@@ -1397,7 +1542,7 @@ export interface TLChatMembersFilterBots extends TLObject {
 	readonly "@type": "chatMembersFilterBots"
 }
 export function chatMembersFilterBots(object: TLObject): TLChatMembersFilterBots { return object as TLChatMembersFilterBots }
-export type TLChatMembersFilter = TLChatMembersFilterContacts | TLChatMembersFilterAdministrators | TLChatMembersFilterMembers | TLChatMembersFilterRestricted | TLChatMembersFilterBanned | TLChatMembersFilterBots
+export type TLChatMembersFilter = TLChatMembersFilterContacts | TLChatMembersFilterAdministrators | TLChatMembersFilterMembers | TLChatMembersFilterMention | TLChatMembersFilterRestricted | TLChatMembersFilterBanned | TLChatMembersFilterBots
 export interface TLSupergroupMembersFilterRecent extends TLObject {
 	readonly "@type": "supergroupMembersFilterRecent"
 }
@@ -1426,11 +1571,17 @@ export interface TLSupergroupMembersFilterBanned extends TLObject {
 	readonly query: string
 }
 export function supergroupMembersFilterBanned(object: TLObject): TLSupergroupMembersFilterBanned { return object as TLSupergroupMembersFilterBanned }
+export interface TLSupergroupMembersFilterMention extends TLObject {
+	readonly "@type": "supergroupMembersFilterMention"
+	readonly query: string
+	readonly message_thread_id: number
+}
+export function supergroupMembersFilterMention(object: TLObject): TLSupergroupMembersFilterMention { return object as TLSupergroupMembersFilterMention }
 export interface TLSupergroupMembersFilterBots extends TLObject {
 	readonly "@type": "supergroupMembersFilterBots"
 }
 export function supergroupMembersFilterBots(object: TLObject): TLSupergroupMembersFilterBots { return object as TLSupergroupMembersFilterBots }
-export type TLSupergroupMembersFilter = TLSupergroupMembersFilterRecent | TLSupergroupMembersFilterContacts | TLSupergroupMembersFilterAdministrators | TLSupergroupMembersFilterSearch | TLSupergroupMembersFilterRestricted | TLSupergroupMembersFilterBanned | TLSupergroupMembersFilterBots
+export type TLSupergroupMembersFilter = TLSupergroupMembersFilterRecent | TLSupergroupMembersFilterContacts | TLSupergroupMembersFilterAdministrators | TLSupergroupMembersFilterSearch | TLSupergroupMembersFilterRestricted | TLSupergroupMembersFilterBanned | TLSupergroupMembersFilterMention | TLSupergroupMembersFilterBots
 export interface TLBasicGroup extends TLObject {
 	readonly "@type": "basicGroup"
 	readonly id: number
@@ -1442,6 +1593,7 @@ export interface TLBasicGroup extends TLObject {
 export function basicGroup(object: TLObject): TLBasicGroup { return object as TLBasicGroup }
 export interface TLBasicGroupFullInfo extends TLObject {
 	readonly "@type": "basicGroupFullInfo"
+	readonly photo: TLChatPhoto
 	readonly description: string
 	readonly creator_user_id: number
 	readonly members: ReadonlyArray<TLChatMember>
@@ -1467,6 +1619,7 @@ export interface TLSupergroup extends TLObject {
 export function supergroup(object: TLObject): TLSupergroup { return object as TLSupergroup }
 export interface TLSupergroupFullInfo extends TLObject {
 	readonly "@type": "supergroupFullInfo"
+	readonly photo: TLChatPhoto
 	readonly description: string
 	readonly member_count: number
 	readonly administrator_count: number
@@ -1479,7 +1632,7 @@ export interface TLSupergroupFullInfo extends TLObject {
 	readonly can_set_username: boolean
 	readonly can_set_sticker_set: boolean
 	readonly can_set_location: boolean
-	readonly can_view_statistics: boolean
+	readonly can_get_statistics: boolean
 	readonly is_all_history_available: boolean
 	readonly sticker_set_id: string
 	readonly location: TLChatLocation
@@ -1512,11 +1665,34 @@ export interface TLSecretChat extends TLObject {
 	readonly layer: number
 }
 export function secretChat(object: TLObject): TLSecretChat { return object as TLSecretChat }
+export interface TLMessageSenderUser extends TLObject {
+	readonly "@type": "messageSenderUser"
+	readonly user_id: number
+}
+export function messageSenderUser(object: TLObject): TLMessageSenderUser { return object as TLMessageSenderUser }
+export interface TLMessageSenderChat extends TLObject {
+	readonly "@type": "messageSenderChat"
+	readonly chat_id: number
+}
+export function messageSenderChat(object: TLObject): TLMessageSenderChat { return object as TLMessageSenderChat }
+export type TLMessageSender = TLMessageSenderUser | TLMessageSenderChat
+export interface TLMessageSenders extends TLObject {
+	readonly "@type": "messageSenders"
+	readonly total_count: number
+	readonly senders: ReadonlyArray<TLMessageSender>
+}
+export function messageSenders(object: TLObject): TLMessageSenders { return object as TLMessageSenders }
 export interface TLMessageForwardOriginUser extends TLObject {
 	readonly "@type": "messageForwardOriginUser"
 	readonly sender_user_id: number
 }
 export function messageForwardOriginUser(object: TLObject): TLMessageForwardOriginUser { return object as TLMessageForwardOriginUser }
+export interface TLMessageForwardOriginChat extends TLObject {
+	readonly "@type": "messageForwardOriginChat"
+	readonly sender_chat_id: number
+	readonly author_signature: string
+}
+export function messageForwardOriginChat(object: TLObject): TLMessageForwardOriginChat { return object as TLMessageForwardOriginChat }
 export interface TLMessageForwardOriginHiddenUser extends TLObject {
 	readonly "@type": "messageForwardOriginHiddenUser"
 	readonly sender_name: string
@@ -1529,15 +1705,32 @@ export interface TLMessageForwardOriginChannel extends TLObject {
 	readonly author_signature: string
 }
 export function messageForwardOriginChannel(object: TLObject): TLMessageForwardOriginChannel { return object as TLMessageForwardOriginChannel }
-export type TLMessageForwardOrigin = TLMessageForwardOriginUser | TLMessageForwardOriginHiddenUser | TLMessageForwardOriginChannel
+export type TLMessageForwardOrigin = TLMessageForwardOriginUser | TLMessageForwardOriginChat | TLMessageForwardOriginHiddenUser | TLMessageForwardOriginChannel
 export interface TLMessageForwardInfo extends TLObject {
 	readonly "@type": "messageForwardInfo"
 	readonly origin: TLMessageForwardOrigin
 	readonly date: number
+	readonly public_service_announcement_type: string
 	readonly from_chat_id: number
 	readonly from_message_id: number
 }
 export function messageForwardInfo(object: TLObject): TLMessageForwardInfo { return object as TLMessageForwardInfo }
+export interface TLMessageReplyInfo extends TLObject {
+	readonly "@type": "messageReplyInfo"
+	readonly reply_count: number
+	readonly recent_repliers: ReadonlyArray<TLMessageSender>
+	readonly last_read_inbox_message_id: number
+	readonly last_read_outbox_message_id: number
+	readonly last_message_id: number
+}
+export function messageReplyInfo(object: TLObject): TLMessageReplyInfo { return object as TLMessageReplyInfo }
+export interface TLMessageInteractionInfo extends TLObject {
+	readonly "@type": "messageInteractionInfo"
+	readonly view_count: number
+	readonly forward_count: number
+	readonly reply_info: TLMessageReplyInfo
+}
+export function messageInteractionInfo(object: TLObject): TLMessageInteractionInfo { return object as TLMessageInteractionInfo }
 export interface TLMessageSendingStatePending extends TLObject {
 	readonly "@type": "messageSendingStatePending"
 }
@@ -1554,26 +1747,31 @@ export type TLMessageSendingState = TLMessageSendingStatePending | TLMessageSend
 export interface TLMessage extends TLObject {
 	readonly "@type": "message"
 	readonly id: number
-	readonly sender_user_id: number
+	readonly sender: TLMessageSender
 	readonly chat_id: number
 	readonly sending_state: TLMessageSendingState
 	readonly scheduling_state: TLMessageSchedulingState
 	readonly is_outgoing: boolean
+	readonly is_pinned: boolean
 	readonly can_be_edited: boolean
 	readonly can_be_forwarded: boolean
 	readonly can_be_deleted_only_for_self: boolean
 	readonly can_be_deleted_for_all_users: boolean
+	readonly can_get_statistics: boolean
+	readonly can_get_message_thread: boolean
 	readonly is_channel_post: boolean
 	readonly contains_unread_mention: boolean
 	readonly date: number
 	readonly edit_date: number
 	readonly forward_info: TLMessageForwardInfo
+	readonly interaction_info: TLMessageInteractionInfo
+	readonly reply_in_chat_id: number
 	readonly reply_to_message_id: number
+	readonly message_thread_id: number
 	readonly ttl: number
 	readonly ttl_expires_in: number
 	readonly via_bot_user_id: number
 	readonly author_signature: string
-	readonly views: number
 	readonly media_album_id: string
 	readonly restriction_reason: string
 	readonly content: TLMessageContent
@@ -1588,8 +1786,9 @@ export interface TLMessages extends TLObject {
 export function messages(object: TLObject): TLMessages { return object as TLMessages }
 export interface TLFoundMessages extends TLObject {
 	readonly "@type": "foundMessages"
+	readonly total_count: number
 	readonly messages: ReadonlyArray<TLMessage>
-	readonly next_from_search_id: string
+	readonly next_offset: string
 }
 export function foundMessages(object: TLObject): TLFoundMessages { return object as TLFoundMessages }
 export interface TLNotificationSettingsScopePrivateChats extends TLObject {
@@ -1631,6 +1830,7 @@ export function scopeNotificationSettings(object: TLObject): TLScopeNotification
 export interface TLDraftMessage extends TLObject {
 	readonly "@type": "draftMessage"
 	readonly reply_to_message_id: number
+	readonly date: number
 	readonly input_message_text: TLInputMessageContent
 }
 export function draftMessage(object: TLObject): TLDraftMessage { return object as TLDraftMessage }
@@ -1657,6 +1857,41 @@ export interface TLChatTypeSecret extends TLObject {
 }
 export function chatTypeSecret(object: TLObject): TLChatTypeSecret { return object as TLChatTypeSecret }
 export type TLChatType = TLChatTypePrivate | TLChatTypeBasicGroup | TLChatTypeSupergroup | TLChatTypeSecret
+export interface TLChatFilter extends TLObject {
+	readonly "@type": "chatFilter"
+	readonly title: string
+	readonly icon_name: string
+	readonly pinned_chat_ids: ReadonlyArray<number>
+	readonly included_chat_ids: ReadonlyArray<number>
+	readonly excluded_chat_ids: ReadonlyArray<number>
+	readonly exclude_muted: boolean
+	readonly exclude_read: boolean
+	readonly exclude_archived: boolean
+	readonly include_contacts: boolean
+	readonly include_non_contacts: boolean
+	readonly include_bots: boolean
+	readonly include_groups: boolean
+	readonly include_channels: boolean
+}
+export function chatFilter(object: TLObject): TLChatFilter { return object as TLChatFilter }
+export interface TLChatFilterInfo extends TLObject {
+	readonly "@type": "chatFilterInfo"
+	readonly id: number
+	readonly title: string
+	readonly icon_name: string
+}
+export function chatFilterInfo(object: TLObject): TLChatFilterInfo { return object as TLChatFilterInfo }
+export interface TLRecommendedChatFilter extends TLObject {
+	readonly "@type": "recommendedChatFilter"
+	readonly filter: TLChatFilter
+	readonly description: string
+}
+export function recommendedChatFilter(object: TLObject): TLRecommendedChatFilter { return object as TLRecommendedChatFilter }
+export interface TLRecommendedChatFilters extends TLObject {
+	readonly "@type": "recommendedChatFilters"
+	readonly chat_filters: ReadonlyArray<TLRecommendedChatFilter>
+}
+export function recommendedChatFilters(object: TLObject): TLRecommendedChatFilters { return object as TLRecommendedChatFilters }
 export interface TLChatListMain extends TLObject {
 	readonly "@type": "chatListMain"
 }
@@ -1665,20 +1900,47 @@ export interface TLChatListArchive extends TLObject {
 	readonly "@type": "chatListArchive"
 }
 export function chatListArchive(object: TLObject): TLChatListArchive { return object as TLChatListArchive }
-export type TLChatList = TLChatListMain | TLChatListArchive
+export interface TLChatListFilter extends TLObject {
+	readonly "@type": "chatListFilter"
+	readonly chat_filter_id: number
+}
+export function chatListFilter(object: TLObject): TLChatListFilter { return object as TLChatListFilter }
+export type TLChatList = TLChatListMain | TLChatListArchive | TLChatListFilter
+export interface TLChatLists extends TLObject {
+	readonly "@type": "chatLists"
+	readonly chat_lists: ReadonlyArray<TLChatList>
+}
+export function chatLists(object: TLObject): TLChatLists { return object as TLChatLists }
+export interface TLChatSourceMtprotoProxy extends TLObject {
+	readonly "@type": "chatSourceMtprotoProxy"
+}
+export function chatSourceMtprotoProxy(object: TLObject): TLChatSourceMtprotoProxy { return object as TLChatSourceMtprotoProxy }
+export interface TLChatSourcePublicServiceAnnouncement extends TLObject {
+	readonly "@type": "chatSourcePublicServiceAnnouncement"
+	readonly type: string
+	readonly text: string
+}
+export function chatSourcePublicServiceAnnouncement(object: TLObject): TLChatSourcePublicServiceAnnouncement { return object as TLChatSourcePublicServiceAnnouncement }
+export type TLChatSource = TLChatSourceMtprotoProxy | TLChatSourcePublicServiceAnnouncement
+export interface TLChatPosition extends TLObject {
+	readonly "@type": "chatPosition"
+	readonly list: TLChatList
+	readonly order: string
+	readonly is_pinned: boolean
+	readonly source: TLChatSource
+}
+export function chatPosition(object: TLObject): TLChatPosition { return object as TLChatPosition }
 export interface TLChat extends TLObject {
 	readonly "@type": "chat"
 	readonly id: number
 	readonly type: TLChatType
-	readonly chat_list: TLChatList
 	readonly title: string
-	readonly photo: TLChatPhoto
+	readonly photo: TLChatPhotoInfo
 	readonly permissions: TLChatPermissions
 	readonly last_message: TLMessage
-	readonly order: string
-	readonly is_pinned: boolean
+	readonly positions: ReadonlyArray<TLChatPosition>
 	readonly is_marked_as_unread: boolean
-	readonly is_sponsored: boolean
+	readonly is_blocked: boolean
 	readonly has_scheduled_messages: boolean
 	readonly can_be_deleted_only_for_self: boolean
 	readonly can_be_deleted_for_all_users: boolean
@@ -1690,7 +1952,6 @@ export interface TLChat extends TLObject {
 	readonly unread_mention_count: number
 	readonly notification_settings: TLChatNotificationSettings
 	readonly action_bar: TLChatActionBar
-	readonly pinned_message_id: number
 	readonly reply_markup_message_id: number
 	readonly draft_message: TLDraftMessage
 	readonly client_data: string
@@ -1698,6 +1959,7 @@ export interface TLChat extends TLObject {
 export function chat(object: TLObject): TLChat { return object as TLChat }
 export interface TLChats extends TLObject {
 	readonly "@type": "chats"
+	readonly total_count: number
 	readonly chat_ids: ReadonlyArray<number>
 }
 export function chats(object: TLObject): TLChats { return object as TLChats }
@@ -1721,9 +1983,10 @@ export function chatInviteLink(object: TLObject): TLChatInviteLink { return obje
 export interface TLChatInviteLinkInfo extends TLObject {
 	readonly "@type": "chatInviteLinkInfo"
 	readonly chat_id: number
+	readonly accessible_for: number
 	readonly type: TLChatType
 	readonly title: string
-	readonly photo: TLChatPhoto
+	readonly photo: TLChatPhotoInfo
 	readonly member_count: number
 	readonly member_user_ids: ReadonlyArray<number>
 	readonly is_public: boolean
@@ -1740,6 +2003,7 @@ export function publicChatTypeIsLocationBased(object: TLObject): TLPublicChatTyp
 export type TLPublicChatType = TLPublicChatTypeHasUsername | TLPublicChatTypeIsLocationBased
 export interface TLChatActionBarReportSpam extends TLObject {
 	readonly "@type": "chatActionBarReportSpam"
+	readonly can_unarchive: boolean
 }
 export function chatActionBarReportSpam(object: TLObject): TLChatActionBarReportSpam { return object as TLChatActionBarReportSpam }
 export interface TLChatActionBarReportUnrelatedLocation extends TLObject {
@@ -1748,6 +2012,8 @@ export interface TLChatActionBarReportUnrelatedLocation extends TLObject {
 export function chatActionBarReportUnrelatedLocation(object: TLObject): TLChatActionBarReportUnrelatedLocation { return object as TLChatActionBarReportUnrelatedLocation }
 export interface TLChatActionBarReportAddBlock extends TLObject {
 	readonly "@type": "chatActionBarReportAddBlock"
+	readonly can_unarchive: boolean
+	readonly distance: number
 }
 export function chatActionBarReportAddBlock(object: TLObject): TLChatActionBarReportAddBlock { return object as TLChatActionBarReportAddBlock }
 export interface TLChatActionBarAddContact extends TLObject {
@@ -1801,6 +2067,11 @@ export interface TLInlineKeyboardButtonTypeCallback extends TLObject {
 	readonly data: Uint8Array
 }
 export function inlineKeyboardButtonTypeCallback(object: TLObject): TLInlineKeyboardButtonTypeCallback { return object as TLInlineKeyboardButtonTypeCallback }
+export interface TLInlineKeyboardButtonTypeCallbackWithPassword extends TLObject {
+	readonly "@type": "inlineKeyboardButtonTypeCallbackWithPassword"
+	readonly data: Uint8Array
+}
+export function inlineKeyboardButtonTypeCallbackWithPassword(object: TLObject): TLInlineKeyboardButtonTypeCallbackWithPassword { return object as TLInlineKeyboardButtonTypeCallbackWithPassword }
 export interface TLInlineKeyboardButtonTypeCallbackGame extends TLObject {
 	readonly "@type": "inlineKeyboardButtonTypeCallbackGame"
 }
@@ -1815,7 +2086,7 @@ export interface TLInlineKeyboardButtonTypeBuy extends TLObject {
 	readonly "@type": "inlineKeyboardButtonTypeBuy"
 }
 export function inlineKeyboardButtonTypeBuy(object: TLObject): TLInlineKeyboardButtonTypeBuy { return object as TLInlineKeyboardButtonTypeBuy }
-export type TLInlineKeyboardButtonType = TLInlineKeyboardButtonTypeUrl | TLInlineKeyboardButtonTypeLoginUrl | TLInlineKeyboardButtonTypeCallback | TLInlineKeyboardButtonTypeCallbackGame | TLInlineKeyboardButtonTypeSwitchInline | TLInlineKeyboardButtonTypeBuy
+export type TLInlineKeyboardButtonType = TLInlineKeyboardButtonTypeUrl | TLInlineKeyboardButtonTypeLoginUrl | TLInlineKeyboardButtonTypeCallback | TLInlineKeyboardButtonTypeCallbackWithPassword | TLInlineKeyboardButtonTypeCallbackGame | TLInlineKeyboardButtonTypeSwitchInline | TLInlineKeyboardButtonTypeBuy
 export interface TLInlineKeyboardButton extends TLObject {
 	readonly "@type": "inlineKeyboardButton"
 	readonly text: string
@@ -1861,6 +2132,15 @@ export interface TLLoginUrlInfoRequestConfirmation extends TLObject {
 }
 export function loginUrlInfoRequestConfirmation(object: TLObject): TLLoginUrlInfoRequestConfirmation { return object as TLLoginUrlInfoRequestConfirmation }
 export type TLLoginUrlInfo = TLLoginUrlInfoOpen | TLLoginUrlInfoRequestConfirmation
+export interface TLMessageThreadInfo extends TLObject {
+	readonly "@type": "messageThreadInfo"
+	readonly chat_id: number
+	readonly message_thread_id: number
+	readonly reply_info: TLMessageReplyInfo
+	readonly messages: ReadonlyArray<TLMessage>
+	readonly draft_message: TLDraftMessage
+}
+export function messageThreadInfo(object: TLObject): TLMessageThreadInfo { return object as TLMessageThreadInfo }
 export interface TLRichTextPlain extends TLObject {
 	readonly "@type": "richTextPlain"
 	readonly text: string
@@ -1932,18 +2212,31 @@ export interface TLRichTextIcon extends TLObject {
 	readonly height: number
 }
 export function richTextIcon(object: TLObject): TLRichTextIcon { return object as TLRichTextIcon }
+export interface TLRichTextReference extends TLObject {
+	readonly "@type": "richTextReference"
+	readonly text: TLRichText
+	readonly reference_text: TLRichText
+	readonly url: string
+}
+export function richTextReference(object: TLObject): TLRichTextReference { return object as TLRichTextReference }
 export interface TLRichTextAnchor extends TLObject {
 	readonly "@type": "richTextAnchor"
-	readonly text: TLRichText
 	readonly name: string
 }
 export function richTextAnchor(object: TLObject): TLRichTextAnchor { return object as TLRichTextAnchor }
+export interface TLRichTextAnchorLink extends TLObject {
+	readonly "@type": "richTextAnchorLink"
+	readonly text: TLRichText
+	readonly name: string
+	readonly url: string
+}
+export function richTextAnchorLink(object: TLObject): TLRichTextAnchorLink { return object as TLRichTextAnchorLink }
 export interface TLRichTexts extends TLObject {
 	readonly "@type": "richTexts"
 	readonly texts: ReadonlyArray<TLRichText>
 }
 export function richTexts(object: TLObject): TLRichTexts { return object as TLRichTexts }
-export type TLRichText = TLRichTextPlain | TLRichTextBold | TLRichTextItalic | TLRichTextUnderline | TLRichTextStrikethrough | TLRichTextFixed | TLRichTextUrl | TLRichTextEmailAddress | TLRichTextSubscript | TLRichTextSuperscript | TLRichTextMarked | TLRichTextPhoneNumber | TLRichTextIcon | TLRichTextAnchor | TLRichTexts
+export type TLRichText = TLRichTextPlain | TLRichTextBold | TLRichTextItalic | TLRichTextUnderline | TLRichTextStrikethrough | TLRichTextFixed | TLRichTextUrl | TLRichTextEmailAddress | TLRichTextSubscript | TLRichTextSuperscript | TLRichTextMarked | TLRichTextPhoneNumber | TLRichTextIcon | TLRichTextReference | TLRichTextAnchor | TLRichTextAnchorLink | TLRichTexts
 export interface TLPageBlockCaption extends TLObject {
 	readonly "@type": "pageBlockCaption"
 	readonly text: TLRichText
@@ -2151,7 +2444,7 @@ export function pageBlockSlideshow(object: TLObject): TLPageBlockSlideshow { ret
 export interface TLPageBlockChatLink extends TLObject {
 	readonly "@type": "pageBlockChatLink"
 	readonly title: string
-	readonly photo: TLChatPhoto
+	readonly photo: TLChatPhotoInfo
 	readonly username: string
 }
 export function pageBlockChatLink(object: TLObject): TLPageBlockChatLink { return object as TLPageBlockChatLink }
@@ -2189,8 +2482,8 @@ export type TLPageBlock = TLPageBlockTitle | TLPageBlockSubtitle | TLPageBlockAu
 export interface TLWebPageInstantView extends TLObject {
 	readonly "@type": "webPageInstantView"
 	readonly page_blocks: ReadonlyArray<TLPageBlock>
+	readonly view_count: number
 	readonly version: number
-	readonly url: string
 	readonly is_rtl: boolean
 	readonly is_full: boolean
 }
@@ -2202,7 +2495,7 @@ export interface TLWebPage extends TLObject {
 	readonly type: string
 	readonly site_name: string
 	readonly title: string
-	readonly description: string
+	readonly description: TLFormattedText
 	readonly photo: TLPhoto
 	readonly embed_url: string
 	readonly embed_type: string
@@ -2220,6 +2513,39 @@ export interface TLWebPage extends TLObject {
 	readonly instant_view_version: number
 }
 export function webPage(object: TLObject): TLWebPage { return object as TLWebPage }
+export interface TLCountryInfo extends TLObject {
+	readonly "@type": "countryInfo"
+	readonly country_code: string
+	readonly name: string
+	readonly english_name: string
+	readonly is_hidden: boolean
+	readonly calling_codes: ReadonlyArray<string>
+}
+export function countryInfo(object: TLObject): TLCountryInfo { return object as TLCountryInfo }
+export interface TLCountries extends TLObject {
+	readonly "@type": "countries"
+	readonly countries: ReadonlyArray<TLCountryInfo>
+}
+export function countries(object: TLObject): TLCountries { return object as TLCountries }
+export interface TLPhoneNumberInfo extends TLObject {
+	readonly "@type": "phoneNumberInfo"
+	readonly country: TLCountryInfo
+	readonly country_calling_code: string
+	readonly formatted_phone_number: string
+}
+export function phoneNumberInfo(object: TLObject): TLPhoneNumberInfo { return object as TLPhoneNumberInfo }
+export interface TLBankCardActionOpenUrl extends TLObject {
+	readonly "@type": "bankCardActionOpenUrl"
+	readonly text: string
+	readonly url: string
+}
+export function bankCardActionOpenUrl(object: TLObject): TLBankCardActionOpenUrl { return object as TLBankCardActionOpenUrl }
+export interface TLBankCardInfo extends TLObject {
+	readonly "@type": "bankCardInfo"
+	readonly title: string
+	readonly actions: ReadonlyArray<TLBankCardActionOpenUrl>
+}
+export function bankCardInfo(object: TLObject): TLBankCardInfo { return object as TLBankCardInfo }
 export interface TLAddress extends TLObject {
 	readonly "@type": "address"
 	readonly country_code: string
@@ -2801,6 +3127,8 @@ export interface TLMessageLocation extends TLObject {
 	readonly location: TLLocation
 	readonly live_period: number
 	readonly expires_in: number
+	readonly heading: number
+	readonly proximity_alert_radius: number
 }
 export function messageLocation(object: TLObject): TLMessageLocation { return object as TLMessageLocation }
 export interface TLMessageVenue extends TLObject {
@@ -2813,6 +3141,15 @@ export interface TLMessageContact extends TLObject {
 	readonly contact: TLContact
 }
 export function messageContact(object: TLObject): TLMessageContact { return object as TLMessageContact }
+export interface TLMessageDice extends TLObject {
+	readonly "@type": "messageDice"
+	readonly initial_state: TLDiceStickers
+	readonly final_state: TLDiceStickers
+	readonly emoji: string
+	readonly value: number
+	readonly success_animation_frame_number: number
+}
+export function messageDice(object: TLObject): TLMessageDice { return object as TLMessageDice }
 export interface TLMessageGame extends TLObject {
 	readonly "@type": "messageGame"
 	readonly game: TLGame
@@ -2838,6 +3175,7 @@ export interface TLMessageInvoice extends TLObject {
 export function messageInvoice(object: TLObject): TLMessageInvoice { return object as TLMessageInvoice }
 export interface TLMessageCall extends TLObject {
 	readonly "@type": "messageCall"
+	readonly is_video: boolean
 	readonly discard_reason: TLCallDiscardReason
 	readonly duration: number
 }
@@ -2860,7 +3198,7 @@ export interface TLMessageChatChangeTitle extends TLObject {
 export function messageChatChangeTitle(object: TLObject): TLMessageChatChangeTitle { return object as TLMessageChatChangeTitle }
 export interface TLMessageChatChangePhoto extends TLObject {
 	readonly "@type": "messageChatChangePhoto"
-	readonly photo: TLPhoto
+	readonly photo: TLChatPhoto
 }
 export function messageChatChangePhoto(object: TLObject): TLMessageChatChangePhoto { return object as TLMessageChatChangePhoto }
 export interface TLMessageChatDeletePhoto extends TLObject {
@@ -2957,11 +3295,18 @@ export interface TLMessagePassportDataReceived extends TLObject {
 	readonly credentials: TLEncryptedCredentials
 }
 export function messagePassportDataReceived(object: TLObject): TLMessagePassportDataReceived { return object as TLMessagePassportDataReceived }
+export interface TLMessageProximityAlertTriggered extends TLObject {
+	readonly "@type": "messageProximityAlertTriggered"
+	readonly approacher: TLMessageSender
+	readonly observer: TLMessageSender
+	readonly distance: number
+}
+export function messageProximityAlertTriggered(object: TLObject): TLMessageProximityAlertTriggered { return object as TLMessageProximityAlertTriggered }
 export interface TLMessageUnsupported extends TLObject {
 	readonly "@type": "messageUnsupported"
 }
 export function messageUnsupported(object: TLObject): TLMessageUnsupported { return object as TLMessageUnsupported }
-export type TLMessageContent = TLMessageText | TLMessageAnimation | TLMessageAudio | TLMessageDocument | TLMessagePhoto | TLMessageExpiredPhoto | TLMessageSticker | TLMessageVideo | TLMessageExpiredVideo | TLMessageVideoNote | TLMessageVoiceNote | TLMessageLocation | TLMessageVenue | TLMessageContact | TLMessageGame | TLMessagePoll | TLMessageInvoice | TLMessageCall | TLMessageBasicGroupChatCreate | TLMessageSupergroupChatCreate | TLMessageChatChangeTitle | TLMessageChatChangePhoto | TLMessageChatDeletePhoto | TLMessageChatAddMembers | TLMessageChatJoinByLink | TLMessageChatDeleteMember | TLMessageChatUpgradeTo | TLMessageChatUpgradeFrom | TLMessagePinMessage | TLMessageScreenshotTaken | TLMessageChatSetTtl | TLMessageCustomServiceAction | TLMessageGameScore | TLMessagePaymentSuccessful | TLMessagePaymentSuccessfulBot | TLMessageContactRegistered | TLMessageWebsiteConnected | TLMessagePassportDataSent | TLMessagePassportDataReceived | TLMessageUnsupported
+export type TLMessageContent = TLMessageText | TLMessageAnimation | TLMessageAudio | TLMessageDocument | TLMessagePhoto | TLMessageExpiredPhoto | TLMessageSticker | TLMessageVideo | TLMessageExpiredVideo | TLMessageVideoNote | TLMessageVoiceNote | TLMessageLocation | TLMessageVenue | TLMessageContact | TLMessageDice | TLMessageGame | TLMessagePoll | TLMessageInvoice | TLMessageCall | TLMessageBasicGroupChatCreate | TLMessageSupergroupChatCreate | TLMessageChatChangeTitle | TLMessageChatChangePhoto | TLMessageChatDeletePhoto | TLMessageChatAddMembers | TLMessageChatJoinByLink | TLMessageChatDeleteMember | TLMessageChatUpgradeTo | TLMessageChatUpgradeFrom | TLMessagePinMessage | TLMessageScreenshotTaken | TLMessageChatSetTtl | TLMessageCustomServiceAction | TLMessageGameScore | TLMessagePaymentSuccessful | TLMessagePaymentSuccessfulBot | TLMessageContactRegistered | TLMessageWebsiteConnected | TLMessagePassportDataSent | TLMessagePassportDataReceived | TLMessageProximityAlertTriggered | TLMessageUnsupported
 export interface TLTextEntityTypeMention extends TLObject {
 	readonly "@type": "textEntityTypeMention"
 }
@@ -2990,6 +3335,10 @@ export interface TLTextEntityTypePhoneNumber extends TLObject {
 	readonly "@type": "textEntityTypePhoneNumber"
 }
 export function textEntityTypePhoneNumber(object: TLObject): TLTextEntityTypePhoneNumber { return object as TLTextEntityTypePhoneNumber }
+export interface TLTextEntityTypeBankCardNumber extends TLObject {
+	readonly "@type": "textEntityTypeBankCardNumber"
+}
+export function textEntityTypeBankCardNumber(object: TLObject): TLTextEntityTypeBankCardNumber { return object as TLTextEntityTypeBankCardNumber }
 export interface TLTextEntityTypeBold extends TLObject {
 	readonly "@type": "textEntityTypeBold"
 }
@@ -3029,7 +3378,7 @@ export interface TLTextEntityTypeMentionName extends TLObject {
 	readonly user_id: number
 }
 export function textEntityTypeMentionName(object: TLObject): TLTextEntityTypeMentionName { return object as TLTextEntityTypeMentionName }
-export type TLTextEntityType = TLTextEntityTypeMention | TLTextEntityTypeHashtag | TLTextEntityTypeCashtag | TLTextEntityTypeBotCommand | TLTextEntityTypeUrl | TLTextEntityTypeEmailAddress | TLTextEntityTypePhoneNumber | TLTextEntityTypeBold | TLTextEntityTypeItalic | TLTextEntityTypeUnderline | TLTextEntityTypeStrikethrough | TLTextEntityTypeCode | TLTextEntityTypePre | TLTextEntityTypePreCode | TLTextEntityTypeTextUrl | TLTextEntityTypeMentionName
+export type TLTextEntityType = TLTextEntityTypeMention | TLTextEntityTypeHashtag | TLTextEntityTypeCashtag | TLTextEntityTypeBotCommand | TLTextEntityTypeUrl | TLTextEntityTypeEmailAddress | TLTextEntityTypePhoneNumber | TLTextEntityTypeBankCardNumber | TLTextEntityTypeBold | TLTextEntityTypeItalic | TLTextEntityTypeUnderline | TLTextEntityTypeStrikethrough | TLTextEntityTypeCode | TLTextEntityTypePre | TLTextEntityTypePreCode | TLTextEntityTypeTextUrl | TLTextEntityTypeMentionName
 export interface TLInputThumbnail extends TLObject {
 	readonly "@type": "inputThumbnail"
 	readonly thumbnail: TLInputFile
@@ -3047,13 +3396,20 @@ export interface TLMessageSchedulingStateSendWhenOnline extends TLObject {
 }
 export function messageSchedulingStateSendWhenOnline(object: TLObject): TLMessageSchedulingStateSendWhenOnline { return object as TLMessageSchedulingStateSendWhenOnline }
 export type TLMessageSchedulingState = TLMessageSchedulingStateSendAtDate | TLMessageSchedulingStateSendWhenOnline
-export interface TLSendMessageOptions extends TLObject {
-	readonly "@type": "sendMessageOptions"
+export interface TLMessageSendOptions extends TLObject {
+	readonly "@type": "messageSendOptions"
 	readonly disable_notification: boolean
 	readonly from_background: boolean
 	readonly scheduling_state: TLMessageSchedulingState
 }
-export function sendMessageOptions(object: TLObject): TLSendMessageOptions { return object as TLSendMessageOptions }
+export function messageSendOptions(object: TLObject): TLMessageSendOptions { return object as TLMessageSendOptions }
+export interface TLMessageCopyOptions extends TLObject {
+	readonly "@type": "messageCopyOptions"
+	readonly send_copy: boolean
+	readonly replace_caption: boolean
+	readonly new_caption: TLFormattedText
+}
+export function messageCopyOptions(object: TLObject): TLMessageCopyOptions { return object as TLMessageCopyOptions }
 export interface TLInputMessageText extends TLObject {
 	readonly "@type": "inputMessageText"
 	readonly text: TLFormattedText
@@ -3065,6 +3421,7 @@ export interface TLInputMessageAnimation extends TLObject {
 	readonly "@type": "inputMessageAnimation"
 	readonly animation: TLInputFile
 	readonly thumbnail: TLInputThumbnail
+	readonly added_sticker_file_ids: ReadonlyArray<number>
 	readonly duration: number
 	readonly width: number
 	readonly height: number
@@ -3085,6 +3442,7 @@ export interface TLInputMessageDocument extends TLObject {
 	readonly "@type": "inputMessageDocument"
 	readonly document: TLInputFile
 	readonly thumbnail: TLInputThumbnail
+	readonly disable_content_type_detection: boolean
 	readonly caption: TLFormattedText
 }
 export function inputMessageDocument(object: TLObject): TLInputMessageDocument { return object as TLInputMessageDocument }
@@ -3140,6 +3498,8 @@ export interface TLInputMessageLocation extends TLObject {
 	readonly "@type": "inputMessageLocation"
 	readonly location: TLLocation
 	readonly live_period: number
+	readonly heading: number
+	readonly proximity_alert_radius: number
 }
 export function inputMessageLocation(object: TLObject): TLInputMessageLocation { return object as TLInputMessageLocation }
 export interface TLInputMessageVenue extends TLObject {
@@ -3152,6 +3512,12 @@ export interface TLInputMessageContact extends TLObject {
 	readonly contact: TLContact
 }
 export function inputMessageContact(object: TLObject): TLInputMessageContact { return object as TLInputMessageContact }
+export interface TLInputMessageDice extends TLObject {
+	readonly "@type": "inputMessageDice"
+	readonly emoji: string
+	readonly clear_draft: boolean
+}
+export function inputMessageDice(object: TLObject): TLInputMessageDice { return object as TLInputMessageDice }
 export interface TLInputMessageGame extends TLObject {
 	readonly "@type": "inputMessageGame"
 	readonly bot_user_id: number
@@ -3179,6 +3545,8 @@ export interface TLInputMessagePoll extends TLObject {
 	readonly options: ReadonlyArray<string>
 	readonly is_anonymous: boolean
 	readonly type: TLPollType
+	readonly open_period: number
+	readonly close_date: number
 	readonly is_closed: boolean
 }
 export function inputMessagePoll(object: TLObject): TLInputMessagePoll { return object as TLInputMessagePoll }
@@ -3187,11 +3555,10 @@ export interface TLInputMessageForwarded extends TLObject {
 	readonly from_chat_id: number
 	readonly message_id: number
 	readonly in_game_share: boolean
-	readonly send_copy: boolean
-	readonly remove_caption: boolean
+	readonly copy_options: TLMessageCopyOptions
 }
 export function inputMessageForwarded(object: TLObject): TLInputMessageForwarded { return object as TLInputMessageForwarded }
-export type TLInputMessageContent = TLInputMessageText | TLInputMessageAnimation | TLInputMessageAudio | TLInputMessageDocument | TLInputMessagePhoto | TLInputMessageSticker | TLInputMessageVideo | TLInputMessageVideoNote | TLInputMessageVoiceNote | TLInputMessageLocation | TLInputMessageVenue | TLInputMessageContact | TLInputMessageGame | TLInputMessageInvoice | TLInputMessagePoll | TLInputMessageForwarded
+export type TLInputMessageContent = TLInputMessageText | TLInputMessageAnimation | TLInputMessageAudio | TLInputMessageDocument | TLInputMessagePhoto | TLInputMessageSticker | TLInputMessageVideo | TLInputMessageVideoNote | TLInputMessageVoiceNote | TLInputMessageLocation | TLInputMessageVenue | TLInputMessageContact | TLInputMessageDice | TLInputMessageGame | TLInputMessageInvoice | TLInputMessagePoll | TLInputMessageForwarded
 export interface TLSearchMessagesFilterEmpty extends TLObject {
 	readonly "@type": "searchMessagesFilterEmpty"
 }
@@ -3256,7 +3623,15 @@ export interface TLSearchMessagesFilterUnreadMention extends TLObject {
 	readonly "@type": "searchMessagesFilterUnreadMention"
 }
 export function searchMessagesFilterUnreadMention(object: TLObject): TLSearchMessagesFilterUnreadMention { return object as TLSearchMessagesFilterUnreadMention }
-export type TLSearchMessagesFilter = TLSearchMessagesFilterEmpty | TLSearchMessagesFilterAnimation | TLSearchMessagesFilterAudio | TLSearchMessagesFilterDocument | TLSearchMessagesFilterPhoto | TLSearchMessagesFilterVideo | TLSearchMessagesFilterVoiceNote | TLSearchMessagesFilterPhotoAndVideo | TLSearchMessagesFilterUrl | TLSearchMessagesFilterChatPhoto | TLSearchMessagesFilterCall | TLSearchMessagesFilterMissedCall | TLSearchMessagesFilterVideoNote | TLSearchMessagesFilterVoiceAndVideoNote | TLSearchMessagesFilterMention | TLSearchMessagesFilterUnreadMention
+export interface TLSearchMessagesFilterFailedToSend extends TLObject {
+	readonly "@type": "searchMessagesFilterFailedToSend"
+}
+export function searchMessagesFilterFailedToSend(object: TLObject): TLSearchMessagesFilterFailedToSend { return object as TLSearchMessagesFilterFailedToSend }
+export interface TLSearchMessagesFilterPinned extends TLObject {
+	readonly "@type": "searchMessagesFilterPinned"
+}
+export function searchMessagesFilterPinned(object: TLObject): TLSearchMessagesFilterPinned { return object as TLSearchMessagesFilterPinned }
+export type TLSearchMessagesFilter = TLSearchMessagesFilterEmpty | TLSearchMessagesFilterAnimation | TLSearchMessagesFilterAudio | TLSearchMessagesFilterDocument | TLSearchMessagesFilterPhoto | TLSearchMessagesFilterVideo | TLSearchMessagesFilterVoiceNote | TLSearchMessagesFilterPhotoAndVideo | TLSearchMessagesFilterUrl | TLSearchMessagesFilterChatPhoto | TLSearchMessagesFilterCall | TLSearchMessagesFilterMissedCall | TLSearchMessagesFilterVideoNote | TLSearchMessagesFilterVoiceAndVideoNote | TLSearchMessagesFilterMention | TLSearchMessagesFilterUnreadMention | TLSearchMessagesFilterFailedToSend | TLSearchMessagesFilterPinned
 export interface TLChatActionTyping extends TLObject {
 	readonly "@type": "chatActionTyping"
 }
@@ -3357,7 +3732,7 @@ export interface TLStickerSet extends TLObject {
 	readonly id: string
 	readonly title: string
 	readonly name: string
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 	readonly is_installed: boolean
 	readonly is_archived: boolean
 	readonly is_official: boolean
@@ -3373,7 +3748,7 @@ export interface TLStickerSetInfo extends TLObject {
 	readonly id: string
 	readonly title: string
 	readonly name: string
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 	readonly is_installed: boolean
 	readonly is_archived: boolean
 	readonly is_official: boolean
@@ -3417,17 +3792,32 @@ export interface TLCallProtocol extends TLObject {
 	readonly udp_reflector: boolean
 	readonly min_layer: number
 	readonly max_layer: number
+	readonly library_versions: ReadonlyArray<string>
 }
 export function callProtocol(object: TLObject): TLCallProtocol { return object as TLCallProtocol }
-export interface TLCallConnection extends TLObject {
-	readonly "@type": "callConnection"
-	readonly id: string
-	readonly ip: string
-	readonly ipv6: string
-	readonly port: number
+export interface TLCallServerTypeTelegramReflector extends TLObject {
+	readonly "@type": "callServerTypeTelegramReflector"
 	readonly peer_tag: Uint8Array
 }
-export function callConnection(object: TLObject): TLCallConnection { return object as TLCallConnection }
+export function callServerTypeTelegramReflector(object: TLObject): TLCallServerTypeTelegramReflector { return object as TLCallServerTypeTelegramReflector }
+export interface TLCallServerTypeWebrtc extends TLObject {
+	readonly "@type": "callServerTypeWebrtc"
+	readonly username: string
+	readonly password: string
+	readonly supports_turn: boolean
+	readonly supports_stun: boolean
+}
+export function callServerTypeWebrtc(object: TLObject): TLCallServerTypeWebrtc { return object as TLCallServerTypeWebrtc }
+export type TLCallServerType = TLCallServerTypeTelegramReflector | TLCallServerTypeWebrtc
+export interface TLCallServer extends TLObject {
+	readonly "@type": "callServer"
+	readonly id: string
+	readonly ip_address: string
+	readonly ipv6_address: string
+	readonly port: number
+	readonly type: TLCallServerType
+}
+export function callServer(object: TLObject): TLCallServer { return object as TLCallServer }
 export interface TLCallId extends TLObject {
 	readonly "@type": "callId"
 	readonly id: number
@@ -3446,7 +3836,7 @@ export function callStateExchangingKeys(object: TLObject): TLCallStateExchanging
 export interface TLCallStateReady extends TLObject {
 	readonly "@type": "callStateReady"
 	readonly protocol: TLCallProtocol
-	readonly connections: ReadonlyArray<TLCallConnection>
+	readonly servers: ReadonlyArray<TLCallServer>
 	readonly config: string
 	readonly encryption_key: Uint8Array
 	readonly emojis: ReadonlyArray<string>
@@ -3498,12 +3888,21 @@ export interface TLCallProblemDropped extends TLObject {
 	readonly "@type": "callProblemDropped"
 }
 export function callProblemDropped(object: TLObject): TLCallProblemDropped { return object as TLCallProblemDropped }
-export type TLCallProblem = TLCallProblemEcho | TLCallProblemNoise | TLCallProblemInterruptions | TLCallProblemDistortedSpeech | TLCallProblemSilentLocal | TLCallProblemSilentRemote | TLCallProblemDropped
+export interface TLCallProblemDistortedVideo extends TLObject {
+	readonly "@type": "callProblemDistortedVideo"
+}
+export function callProblemDistortedVideo(object: TLObject): TLCallProblemDistortedVideo { return object as TLCallProblemDistortedVideo }
+export interface TLCallProblemPixelatedVideo extends TLObject {
+	readonly "@type": "callProblemPixelatedVideo"
+}
+export function callProblemPixelatedVideo(object: TLObject): TLCallProblemPixelatedVideo { return object as TLCallProblemPixelatedVideo }
+export type TLCallProblem = TLCallProblemEcho | TLCallProblemNoise | TLCallProblemInterruptions | TLCallProblemDistortedSpeech | TLCallProblemSilentLocal | TLCallProblemSilentRemote | TLCallProblemDropped | TLCallProblemDistortedVideo | TLCallProblemPixelatedVideo
 export interface TLCall extends TLObject {
 	readonly "@type": "call"
 	readonly id: number
 	readonly user_id: number
 	readonly is_outgoing: boolean
+	readonly is_video: boolean
 	readonly state: TLCallState
 }
 export function call(object: TLObject): TLCall { return object as TLCall }
@@ -3519,6 +3918,21 @@ export interface TLAnimations extends TLObject {
 	readonly animations: ReadonlyArray<TLAnimation>
 }
 export function animations(object: TLObject): TLAnimations { return object as TLAnimations }
+export interface TLDiceStickersRegular extends TLObject {
+	readonly "@type": "diceStickersRegular"
+	readonly sticker: TLSticker
+}
+export function diceStickersRegular(object: TLObject): TLDiceStickersRegular { return object as TLDiceStickersRegular }
+export interface TLDiceStickersSlotMachine extends TLObject {
+	readonly "@type": "diceStickersSlotMachine"
+	readonly background: TLSticker
+	readonly lever: TLSticker
+	readonly left_reel: TLSticker
+	readonly center_reel: TLSticker
+	readonly right_reel: TLSticker
+}
+export function diceStickersSlotMachine(object: TLObject): TLDiceStickersSlotMachine { return object as TLDiceStickersSlotMachine }
+export type TLDiceStickers = TLDiceStickersRegular | TLDiceStickersSlotMachine
 export interface TLImportedContacts extends TLObject {
 	readonly "@type": "importedContacts"
 	readonly user_ids: ReadonlyArray<number>
@@ -3530,32 +3944,21 @@ export interface TLHttpUrl extends TLObject {
 	readonly url: string
 }
 export function httpUrl(object: TLObject): TLHttpUrl { return object as TLHttpUrl }
-export interface TLInputInlineQueryResultAnimatedGif extends TLObject {
-	readonly "@type": "inputInlineQueryResultAnimatedGif"
+export interface TLInputInlineQueryResultAnimation extends TLObject {
+	readonly "@type": "inputInlineQueryResultAnimation"
 	readonly id: string
 	readonly title: string
 	readonly thumbnail_url: string
-	readonly gif_url: string
-	readonly gif_duration: number
-	readonly gif_width: number
-	readonly gif_height: number
+	readonly thumbnail_mime_type: string
+	readonly video_url: string
+	readonly video_mime_type: string
+	readonly video_duration: number
+	readonly video_width: number
+	readonly video_height: number
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export function inputInlineQueryResultAnimatedGif(object: TLObject): TLInputInlineQueryResultAnimatedGif { return object as TLInputInlineQueryResultAnimatedGif }
-export interface TLInputInlineQueryResultAnimatedMpeg4 extends TLObject {
-	readonly "@type": "inputInlineQueryResultAnimatedMpeg4"
-	readonly id: string
-	readonly title: string
-	readonly thumbnail_url: string
-	readonly mpeg4_url: string
-	readonly mpeg4_duration: number
-	readonly mpeg4_width: number
-	readonly mpeg4_height: number
-	readonly reply_markup: TLReplyMarkup
-	readonly input_message_content: TLInputMessageContent
-}
-export function inputInlineQueryResultAnimatedMpeg4(object: TLObject): TLInputInlineQueryResultAnimatedMpeg4 { return object as TLInputInlineQueryResultAnimatedMpeg4 }
+export function inputInlineQueryResultAnimation(object: TLObject): TLInputInlineQueryResultAnimation { return object as TLInputInlineQueryResultAnimation }
 export interface TLInputInlineQueryResultArticle extends TLObject {
 	readonly "@type": "inputInlineQueryResultArticle"
 	readonly id: string
@@ -3686,7 +4089,7 @@ export interface TLInputInlineQueryResultVoiceNote extends TLObject {
 	readonly input_message_content: TLInputMessageContent
 }
 export function inputInlineQueryResultVoiceNote(object: TLObject): TLInputInlineQueryResultVoiceNote { return object as TLInputInlineQueryResultVoiceNote }
-export type TLInputInlineQueryResult = TLInputInlineQueryResultAnimatedGif | TLInputInlineQueryResultAnimatedMpeg4 | TLInputInlineQueryResultArticle | TLInputInlineQueryResultAudio | TLInputInlineQueryResultContact | TLInputInlineQueryResultDocument | TLInputInlineQueryResultGame | TLInputInlineQueryResultLocation | TLInputInlineQueryResultPhoto | TLInputInlineQueryResultSticker | TLInputInlineQueryResultVenue | TLInputInlineQueryResultVideo | TLInputInlineQueryResultVoiceNote
+export type TLInputInlineQueryResult = TLInputInlineQueryResultAnimation | TLInputInlineQueryResultArticle | TLInputInlineQueryResultAudio | TLInputInlineQueryResultContact | TLInputInlineQueryResultDocument | TLInputInlineQueryResultGame | TLInputInlineQueryResultLocation | TLInputInlineQueryResultPhoto | TLInputInlineQueryResultSticker | TLInputInlineQueryResultVenue | TLInputInlineQueryResultVideo | TLInputInlineQueryResultVoiceNote
 export interface TLInlineQueryResultArticle extends TLObject {
 	readonly "@type": "inlineQueryResultArticle"
 	readonly id: string
@@ -3694,14 +4097,14 @@ export interface TLInlineQueryResultArticle extends TLObject {
 	readonly hide_url: boolean
 	readonly title: string
 	readonly description: string
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 }
 export function inlineQueryResultArticle(object: TLObject): TLInlineQueryResultArticle { return object as TLInlineQueryResultArticle }
 export interface TLInlineQueryResultContact extends TLObject {
 	readonly "@type": "inlineQueryResultContact"
 	readonly id: string
 	readonly contact: TLContact
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 }
 export function inlineQueryResultContact(object: TLObject): TLInlineQueryResultContact { return object as TLInlineQueryResultContact }
 export interface TLInlineQueryResultLocation extends TLObject {
@@ -3709,14 +4112,14 @@ export interface TLInlineQueryResultLocation extends TLObject {
 	readonly id: string
 	readonly location: TLLocation
 	readonly title: string
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 }
 export function inlineQueryResultLocation(object: TLObject): TLInlineQueryResultLocation { return object as TLInlineQueryResultLocation }
 export interface TLInlineQueryResultVenue extends TLObject {
 	readonly "@type": "inlineQueryResultVenue"
 	readonly id: string
 	readonly venue: TLVenue
-	readonly thumbnail: TLPhotoSize
+	readonly thumbnail: TLThumbnail
 }
 export function inlineQueryResultVenue(object: TLObject): TLInlineQueryResultVenue { return object as TLInlineQueryResultVenue }
 export interface TLInlineQueryResultGame extends TLObject {
@@ -3790,12 +4193,18 @@ export interface TLCallbackQueryPayloadData extends TLObject {
 	readonly data: Uint8Array
 }
 export function callbackQueryPayloadData(object: TLObject): TLCallbackQueryPayloadData { return object as TLCallbackQueryPayloadData }
+export interface TLCallbackQueryPayloadDataWithPassword extends TLObject {
+	readonly "@type": "callbackQueryPayloadDataWithPassword"
+	readonly password: string
+	readonly data: Uint8Array
+}
+export function callbackQueryPayloadDataWithPassword(object: TLObject): TLCallbackQueryPayloadDataWithPassword { return object as TLCallbackQueryPayloadDataWithPassword }
 export interface TLCallbackQueryPayloadGame extends TLObject {
 	readonly "@type": "callbackQueryPayloadGame"
 	readonly game_short_name: string
 }
 export function callbackQueryPayloadGame(object: TLObject): TLCallbackQueryPayloadGame { return object as TLCallbackQueryPayloadGame }
-export type TLCallbackQueryPayload = TLCallbackQueryPayloadData | TLCallbackQueryPayloadGame
+export type TLCallbackQueryPayload = TLCallbackQueryPayloadData | TLCallbackQueryPayloadDataWithPassword | TLCallbackQueryPayloadGame
 export interface TLCallbackQueryAnswer extends TLObject {
 	readonly "@type": "callbackQueryAnswer"
 	readonly text: string
@@ -3843,6 +4252,7 @@ export interface TLChatEventMessagePinned extends TLObject {
 export function chatEventMessagePinned(object: TLObject): TLChatEventMessagePinned { return object as TLChatEventMessagePinned }
 export interface TLChatEventMessageUnpinned extends TLObject {
 	readonly "@type": "chatEventMessageUnpinned"
+	readonly message: TLMessage
 }
 export function chatEventMessageUnpinned(object: TLObject): TLChatEventMessageUnpinned { return object as TLChatEventMessageUnpinned }
 export interface TLChatEventMemberJoined extends TLObject {
@@ -3899,8 +4309,8 @@ export interface TLChatEventUsernameChanged extends TLObject {
 export function chatEventUsernameChanged(object: TLObject): TLChatEventUsernameChanged { return object as TLChatEventUsernameChanged }
 export interface TLChatEventPhotoChanged extends TLObject {
 	readonly "@type": "chatEventPhotoChanged"
-	readonly old_photo: TLPhoto
-	readonly new_photo: TLPhoto
+	readonly old_photo: TLChatPhoto
+	readonly new_photo: TLChatPhoto
 }
 export function chatEventPhotoChanged(object: TLObject): TLChatEventPhotoChanged { return object as TLChatEventPhotoChanged }
 export interface TLChatEventInvitesToggled extends TLObject {
@@ -4345,6 +4755,8 @@ export interface TLPushMessageContentMediaAlbum extends TLObject {
 	readonly total_count: number
 	readonly has_photos: boolean
 	readonly has_videos: boolean
+	readonly has_audios: boolean
+	readonly has_documents: boolean
 }
 export function pushMessageContentMediaAlbum(object: TLObject): TLPushMessageContentMediaAlbum { return object as TLPushMessageContentMediaAlbum }
 export type TLPushMessageContent = TLPushMessageContentHidden | TLPushMessageContentAnimation | TLPushMessageContentAudio | TLPushMessageContentContact | TLPushMessageContentContactRegistered | TLPushMessageContentDocument | TLPushMessageContentGame | TLPushMessageContentGameScore | TLPushMessageContentInvoice | TLPushMessageContentLocation | TLPushMessageContentPhoto | TLPushMessageContentPoll | TLPushMessageContentScreenshotTaken | TLPushMessageContentSticker | TLPushMessageContentText | TLPushMessageContentVideo | TLPushMessageContentVideoNote | TLPushMessageContentVoiceNote | TLPushMessageContentBasicGroupChatCreate | TLPushMessageContentChatAddMembers | TLPushMessageContentChatChangePhoto | TLPushMessageContentChatChangeTitle | TLPushMessageContentChatDeleteMember | TLPushMessageContentChatJoinByLink | TLPushMessageContentMessageForwards | TLPushMessageContentMediaAlbum
@@ -4365,7 +4777,9 @@ export function notificationTypeNewCall(object: TLObject): TLNotificationTypeNew
 export interface TLNotificationTypeNewPushMessage extends TLObject {
 	readonly "@type": "notificationTypeNewPushMessage"
 	readonly message_id: number
-	readonly sender_user_id: number
+	readonly sender: TLMessageSender
+	readonly sender_name: string
+	readonly is_outgoing: boolean
 	readonly content: TLPushMessageContent
 }
 export function notificationTypeNewPushMessage(object: TLObject): TLNotificationTypeNewPushMessage { return object as TLNotificationTypeNewPushMessage }
@@ -4415,7 +4829,7 @@ export interface TLOptionValueEmpty extends TLObject {
 export function optionValueEmpty(object: TLObject): TLOptionValueEmpty { return object as TLOptionValueEmpty }
 export interface TLOptionValueInteger extends TLObject {
 	readonly "@type": "optionValueInteger"
-	readonly value: number
+	readonly value: string
 }
 export function optionValueInteger(object: TLObject): TLOptionValueInteger { return object as TLOptionValueInteger }
 export interface TLOptionValueString extends TLObject {
@@ -4612,18 +5026,19 @@ export interface TLChatReportReasonCustom extends TLObject {
 }
 export function chatReportReasonCustom(object: TLObject): TLChatReportReasonCustom { return object as TLChatReportReasonCustom }
 export type TLChatReportReason = TLChatReportReasonSpam | TLChatReportReasonViolence | TLChatReportReasonPornography | TLChatReportReasonChildAbuse | TLChatReportReasonCopyright | TLChatReportReasonUnrelatedLocation | TLChatReportReasonCustom
-export interface TLPublicMessageLink extends TLObject {
-	readonly "@type": "publicMessageLink"
+export interface TLMessageLink extends TLObject {
+	readonly "@type": "messageLink"
 	readonly link: string
-	readonly html: string
+	readonly is_public: boolean
 }
-export function publicMessageLink(object: TLObject): TLPublicMessageLink { return object as TLPublicMessageLink }
+export function messageLink(object: TLObject): TLMessageLink { return object as TLMessageLink }
 export interface TLMessageLinkInfo extends TLObject {
 	readonly "@type": "messageLinkInfo"
 	readonly is_public: boolean
 	readonly chat_id: number
 	readonly message: TLMessage
 	readonly for_album: boolean
+	readonly for_comment: boolean
 }
 export function messageLinkInfo(object: TLObject): TLMessageLinkInfo { return object as TLMessageLinkInfo }
 export interface TLFilePart extends TLObject {
@@ -4877,6 +5292,15 @@ export interface TLTMeUrls extends TLObject {
 	readonly urls: ReadonlyArray<TLTMeUrl>
 }
 export function tMeUrls(object: TLObject): TLTMeUrls { return object as TLTMeUrls }
+export interface TLSuggestedActionEnableArchiveAndMuteNewChats extends TLObject {
+	readonly "@type": "suggestedActionEnableArchiveAndMuteNewChats"
+}
+export function suggestedActionEnableArchiveAndMuteNewChats(object: TLObject): TLSuggestedActionEnableArchiveAndMuteNewChats { return object as TLSuggestedActionEnableArchiveAndMuteNewChats }
+export interface TLSuggestedActionCheckPhoneNumber extends TLObject {
+	readonly "@type": "suggestedActionCheckPhoneNumber"
+}
+export function suggestedActionCheckPhoneNumber(object: TLObject): TLSuggestedActionCheckPhoneNumber { return object as TLSuggestedActionCheckPhoneNumber }
+export type TLSuggestedAction = TLSuggestedActionEnableArchiveAndMuteNewChats | TLSuggestedActionCheckPhoneNumber
 export interface TLCount extends TLObject {
 	readonly "@type": "count"
 	readonly count: number
@@ -4942,13 +5366,123 @@ export interface TLProxies extends TLObject {
 	readonly proxies: ReadonlyArray<TLProxy>
 }
 export function proxies(object: TLObject): TLProxies { return object as TLProxies }
-export interface TLInputSticker extends TLObject {
-	readonly "@type": "inputSticker"
-	readonly png_sticker: TLInputFile
+export interface TLInputStickerStatic extends TLObject {
+	readonly "@type": "inputStickerStatic"
+	readonly sticker: TLInputFile
 	readonly emojis: string
 	readonly mask_position: TLMaskPosition
 }
-export function inputSticker(object: TLObject): TLInputSticker { return object as TLInputSticker }
+export function inputStickerStatic(object: TLObject): TLInputStickerStatic { return object as TLInputStickerStatic }
+export interface TLInputStickerAnimated extends TLObject {
+	readonly "@type": "inputStickerAnimated"
+	readonly sticker: TLInputFile
+	readonly emojis: string
+}
+export function inputStickerAnimated(object: TLObject): TLInputStickerAnimated { return object as TLInputStickerAnimated }
+export type TLInputSticker = TLInputStickerStatic | TLInputStickerAnimated
+export interface TLDateRange extends TLObject {
+	readonly "@type": "dateRange"
+	readonly start_date: number
+	readonly end_date: number
+}
+export function dateRange(object: TLObject): TLDateRange { return object as TLDateRange }
+export interface TLStatisticsValue extends TLObject {
+	readonly "@type": "statisticsValue"
+	readonly value: number
+	readonly previous_value: number
+	readonly growth_rate_percentage: number
+}
+export function statisticsValue(object: TLObject): TLStatisticsValue { return object as TLStatisticsValue }
+export interface TLStatisticsGraphData extends TLObject {
+	readonly "@type": "statisticsGraphData"
+	readonly json_data: string
+	readonly zoom_token: string
+}
+export function statisticsGraphData(object: TLObject): TLStatisticsGraphData { return object as TLStatisticsGraphData }
+export interface TLStatisticsGraphAsync extends TLObject {
+	readonly "@type": "statisticsGraphAsync"
+	readonly token: string
+}
+export function statisticsGraphAsync(object: TLObject): TLStatisticsGraphAsync { return object as TLStatisticsGraphAsync }
+export interface TLStatisticsGraphError extends TLObject {
+	readonly "@type": "statisticsGraphError"
+	readonly error_message: string
+}
+export function statisticsGraphError(object: TLObject): TLStatisticsGraphError { return object as TLStatisticsGraphError }
+export type TLStatisticsGraph = TLStatisticsGraphData | TLStatisticsGraphAsync | TLStatisticsGraphError
+export interface TLChatStatisticsMessageInteractionInfo extends TLObject {
+	readonly "@type": "chatStatisticsMessageInteractionInfo"
+	readonly message_id: number
+	readonly view_count: number
+	readonly forward_count: number
+}
+export function chatStatisticsMessageInteractionInfo(object: TLObject): TLChatStatisticsMessageInteractionInfo { return object as TLChatStatisticsMessageInteractionInfo }
+export interface TLChatStatisticsMessageSenderInfo extends TLObject {
+	readonly "@type": "chatStatisticsMessageSenderInfo"
+	readonly user_id: number
+	readonly sent_message_count: number
+	readonly average_character_count: number
+}
+export function chatStatisticsMessageSenderInfo(object: TLObject): TLChatStatisticsMessageSenderInfo { return object as TLChatStatisticsMessageSenderInfo }
+export interface TLChatStatisticsAdministratorActionsInfo extends TLObject {
+	readonly "@type": "chatStatisticsAdministratorActionsInfo"
+	readonly user_id: number
+	readonly deleted_message_count: number
+	readonly banned_user_count: number
+	readonly restricted_user_count: number
+}
+export function chatStatisticsAdministratorActionsInfo(object: TLObject): TLChatStatisticsAdministratorActionsInfo { return object as TLChatStatisticsAdministratorActionsInfo }
+export interface TLChatStatisticsInviterInfo extends TLObject {
+	readonly "@type": "chatStatisticsInviterInfo"
+	readonly user_id: number
+	readonly added_member_count: number
+}
+export function chatStatisticsInviterInfo(object: TLObject): TLChatStatisticsInviterInfo { return object as TLChatStatisticsInviterInfo }
+export interface TLChatStatisticsSupergroup extends TLObject {
+	readonly "@type": "chatStatisticsSupergroup"
+	readonly period: TLDateRange
+	readonly member_count: TLStatisticsValue
+	readonly message_count: TLStatisticsValue
+	readonly viewer_count: TLStatisticsValue
+	readonly sender_count: TLStatisticsValue
+	readonly member_count_graph: TLStatisticsGraph
+	readonly join_graph: TLStatisticsGraph
+	readonly join_by_source_graph: TLStatisticsGraph
+	readonly language_graph: TLStatisticsGraph
+	readonly message_content_graph: TLStatisticsGraph
+	readonly action_graph: TLStatisticsGraph
+	readonly day_graph: TLStatisticsGraph
+	readonly week_graph: TLStatisticsGraph
+	readonly top_senders: ReadonlyArray<TLChatStatisticsMessageSenderInfo>
+	readonly top_administrators: ReadonlyArray<TLChatStatisticsAdministratorActionsInfo>
+	readonly top_inviters: ReadonlyArray<TLChatStatisticsInviterInfo>
+}
+export function chatStatisticsSupergroup(object: TLObject): TLChatStatisticsSupergroup { return object as TLChatStatisticsSupergroup }
+export interface TLChatStatisticsChannel extends TLObject {
+	readonly "@type": "chatStatisticsChannel"
+	readonly period: TLDateRange
+	readonly member_count: TLStatisticsValue
+	readonly mean_view_count: TLStatisticsValue
+	readonly mean_share_count: TLStatisticsValue
+	readonly enabled_notifications_percentage: number
+	readonly member_count_graph: TLStatisticsGraph
+	readonly join_graph: TLStatisticsGraph
+	readonly mute_graph: TLStatisticsGraph
+	readonly view_count_by_hour_graph: TLStatisticsGraph
+	readonly view_count_by_source_graph: TLStatisticsGraph
+	readonly join_by_source_graph: TLStatisticsGraph
+	readonly language_graph: TLStatisticsGraph
+	readonly message_interaction_graph: TLStatisticsGraph
+	readonly instant_view_interaction_graph: TLStatisticsGraph
+	readonly recent_message_interactions: ReadonlyArray<TLChatStatisticsMessageInteractionInfo>
+}
+export function chatStatisticsChannel(object: TLObject): TLChatStatisticsChannel { return object as TLChatStatisticsChannel }
+export type TLChatStatistics = TLChatStatisticsSupergroup | TLChatStatisticsChannel
+export interface TLMessageStatistics extends TLObject {
+	readonly "@type": "messageStatistics"
+	readonly message_interaction_graph: TLStatisticsGraph
+}
+export function messageStatistics(object: TLObject): TLMessageStatistics { return object as TLMessageStatistics }
 export interface TLUpdateAuthorizationState extends TLObject {
 	readonly "@type": "updateAuthorizationState"
 	readonly authorization_state: TLAuthorizationState
@@ -4994,13 +5528,20 @@ export interface TLUpdateMessageEdited extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 }
 export function updateMessageEdited(object: TLObject): TLUpdateMessageEdited { return object as TLUpdateMessageEdited }
-export interface TLUpdateMessageViews extends TLObject {
-	readonly "@type": "updateMessageViews"
+export interface TLUpdateMessageIsPinned extends TLObject {
+	readonly "@type": "updateMessageIsPinned"
 	readonly chat_id: number
 	readonly message_id: number
-	readonly views: number
+	readonly is_pinned: boolean
 }
-export function updateMessageViews(object: TLObject): TLUpdateMessageViews { return object as TLUpdateMessageViews }
+export function updateMessageIsPinned(object: TLObject): TLUpdateMessageIsPinned { return object as TLUpdateMessageIsPinned }
+export interface TLUpdateMessageInteractionInfo extends TLObject {
+	readonly "@type": "updateMessageInteractionInfo"
+	readonly chat_id: number
+	readonly message_id: number
+	readonly interaction_info: TLMessageInteractionInfo
+}
+export function updateMessageInteractionInfo(object: TLObject): TLUpdateMessageInteractionInfo { return object as TLUpdateMessageInteractionInfo }
 export interface TLUpdateMessageContentOpened extends TLObject {
 	readonly "@type": "updateMessageContentOpened"
 	readonly chat_id: number
@@ -5025,12 +5566,6 @@ export interface TLUpdateNewChat extends TLObject {
 	readonly chat: TLChat
 }
 export function updateNewChat(object: TLObject): TLUpdateNewChat { return object as TLUpdateNewChat }
-export interface TLUpdateChatChatList extends TLObject {
-	readonly "@type": "updateChatChatList"
-	readonly chat_id: number
-	readonly chat_list: TLChatList
-}
-export function updateChatChatList(object: TLObject): TLUpdateChatChatList { return object as TLUpdateChatChatList }
 export interface TLUpdateChatTitle extends TLObject {
 	readonly "@type": "updateChatTitle"
 	readonly chat_id: number
@@ -5040,7 +5575,7 @@ export function updateChatTitle(object: TLObject): TLUpdateChatTitle { return ob
 export interface TLUpdateChatPhoto extends TLObject {
 	readonly "@type": "updateChatPhoto"
 	readonly chat_id: number
-	readonly photo: TLChatPhoto
+	readonly photo: TLChatPhotoInfo
 }
 export function updateChatPhoto(object: TLObject): TLUpdateChatPhoto { return object as TLUpdateChatPhoto }
 export interface TLUpdateChatPermissions extends TLObject {
@@ -5053,35 +5588,27 @@ export interface TLUpdateChatLastMessage extends TLObject {
 	readonly "@type": "updateChatLastMessage"
 	readonly chat_id: number
 	readonly last_message: TLMessage
-	readonly order: string
+	readonly positions: ReadonlyArray<TLChatPosition>
 }
 export function updateChatLastMessage(object: TLObject): TLUpdateChatLastMessage { return object as TLUpdateChatLastMessage }
-export interface TLUpdateChatOrder extends TLObject {
-	readonly "@type": "updateChatOrder"
+export interface TLUpdateChatPosition extends TLObject {
+	readonly "@type": "updateChatPosition"
 	readonly chat_id: number
-	readonly order: string
+	readonly position: TLChatPosition
 }
-export function updateChatOrder(object: TLObject): TLUpdateChatOrder { return object as TLUpdateChatOrder }
-export interface TLUpdateChatIsPinned extends TLObject {
-	readonly "@type": "updateChatIsPinned"
-	readonly chat_id: number
-	readonly is_pinned: boolean
-	readonly order: string
-}
-export function updateChatIsPinned(object: TLObject): TLUpdateChatIsPinned { return object as TLUpdateChatIsPinned }
+export function updateChatPosition(object: TLObject): TLUpdateChatPosition { return object as TLUpdateChatPosition }
 export interface TLUpdateChatIsMarkedAsUnread extends TLObject {
 	readonly "@type": "updateChatIsMarkedAsUnread"
 	readonly chat_id: number
 	readonly is_marked_as_unread: boolean
 }
 export function updateChatIsMarkedAsUnread(object: TLObject): TLUpdateChatIsMarkedAsUnread { return object as TLUpdateChatIsMarkedAsUnread }
-export interface TLUpdateChatIsSponsored extends TLObject {
-	readonly "@type": "updateChatIsSponsored"
+export interface TLUpdateChatIsBlocked extends TLObject {
+	readonly "@type": "updateChatIsBlocked"
 	readonly chat_id: number
-	readonly is_sponsored: boolean
-	readonly order: string
+	readonly is_blocked: boolean
 }
-export function updateChatIsSponsored(object: TLObject): TLUpdateChatIsSponsored { return object as TLUpdateChatIsSponsored }
+export function updateChatIsBlocked(object: TLObject): TLUpdateChatIsBlocked { return object as TLUpdateChatIsBlocked }
 export interface TLUpdateChatHasScheduledMessages extends TLObject {
 	readonly "@type": "updateChatHasScheduledMessages"
 	readonly chat_id: number
@@ -5131,12 +5658,6 @@ export interface TLUpdateChatActionBar extends TLObject {
 	readonly action_bar: TLChatActionBar
 }
 export function updateChatActionBar(object: TLObject): TLUpdateChatActionBar { return object as TLUpdateChatActionBar }
-export interface TLUpdateChatPinnedMessage extends TLObject {
-	readonly "@type": "updateChatPinnedMessage"
-	readonly chat_id: number
-	readonly pinned_message_id: number
-}
-export function updateChatPinnedMessage(object: TLObject): TLUpdateChatPinnedMessage { return object as TLUpdateChatPinnedMessage }
 export interface TLUpdateChatReplyMarkup extends TLObject {
 	readonly "@type": "updateChatReplyMarkup"
 	readonly chat_id: number
@@ -5147,9 +5668,14 @@ export interface TLUpdateChatDraftMessage extends TLObject {
 	readonly "@type": "updateChatDraftMessage"
 	readonly chat_id: number
 	readonly draft_message: TLDraftMessage
-	readonly order: string
+	readonly positions: ReadonlyArray<TLChatPosition>
 }
 export function updateChatDraftMessage(object: TLObject): TLUpdateChatDraftMessage { return object as TLUpdateChatDraftMessage }
+export interface TLUpdateChatFilters extends TLObject {
+	readonly "@type": "updateChatFilters"
+	readonly chat_filters: ReadonlyArray<TLChatFilterInfo>
+}
+export function updateChatFilters(object: TLObject): TLUpdateChatFilters { return object as TLUpdateChatFilters }
 export interface TLUpdateChatOnlineMemberCount extends TLObject {
 	readonly "@type": "updateChatOnlineMemberCount"
 	readonly chat_id: number
@@ -5196,6 +5722,7 @@ export function updateDeleteMessages(object: TLObject): TLUpdateDeleteMessages {
 export interface TLUpdateUserChatAction extends TLObject {
 	readonly "@type": "updateUserChatAction"
 	readonly chat_id: number
+	readonly message_thread_id: number
 	readonly user_id: number
 	readonly action: TLChatAction
 }
@@ -5273,6 +5800,12 @@ export interface TLUpdateCall extends TLObject {
 	readonly call: TLCall
 }
 export function updateCall(object: TLObject): TLUpdateCall { return object as TLUpdateCall }
+export interface TLUpdateNewCallSignalingData extends TLObject {
+	readonly "@type": "updateNewCallSignalingData"
+	readonly call_id: number
+	readonly data: Uint8Array
+}
+export function updateNewCallSignalingData(object: TLObject): TLUpdateNewCallSignalingData { return object as TLUpdateNewCallSignalingData }
 export interface TLUpdateUserPrivacySettingRules extends TLObject {
 	readonly "@type": "updateUserPrivacySettingRules"
 	readonly setting: TLUserPrivacySetting
@@ -5302,6 +5835,11 @@ export interface TLUpdateOption extends TLObject {
 	readonly value: TLOptionValue
 }
 export function updateOption(object: TLObject): TLUpdateOption { return object as TLUpdateOption }
+export interface TLUpdateStickerSet extends TLObject {
+	readonly "@type": "updateStickerSet"
+	readonly sticker_set: TLStickerSet
+}
+export function updateStickerSet(object: TLObject): TLUpdateStickerSet { return object as TLUpdateStickerSet }
 export interface TLUpdateInstalledStickerSets extends TLObject {
 	readonly "@type": "updateInstalledStickerSets"
 	readonly is_masks: boolean
@@ -5358,6 +5896,23 @@ export interface TLUpdateUsersNearby extends TLObject {
 	readonly users_nearby: ReadonlyArray<TLChatNearby>
 }
 export function updateUsersNearby(object: TLObject): TLUpdateUsersNearby { return object as TLUpdateUsersNearby }
+export interface TLUpdateDiceEmojis extends TLObject {
+	readonly "@type": "updateDiceEmojis"
+	readonly emojis: ReadonlyArray<string>
+}
+export function updateDiceEmojis(object: TLObject): TLUpdateDiceEmojis { return object as TLUpdateDiceEmojis }
+export interface TLUpdateAnimationSearchParameters extends TLObject {
+	readonly "@type": "updateAnimationSearchParameters"
+	readonly provider: string
+	readonly emojis: ReadonlyArray<string>
+}
+export function updateAnimationSearchParameters(object: TLObject): TLUpdateAnimationSearchParameters { return object as TLUpdateAnimationSearchParameters }
+export interface TLUpdateSuggestedActions extends TLObject {
+	readonly "@type": "updateSuggestedActions"
+	readonly added_actions: ReadonlyArray<TLSuggestedAction>
+	readonly removed_actions: ReadonlyArray<TLSuggestedAction>
+}
+export function updateSuggestedActions(object: TLObject): TLUpdateSuggestedActions { return object as TLUpdateSuggestedActions }
 export interface TLUpdateNewInlineQuery extends TLObject {
 	readonly "@type": "updateNewInlineQuery"
 	readonly id: string
@@ -5438,7 +5993,7 @@ export interface TLUpdatePollAnswer extends TLObject {
 	readonly option_ids: ReadonlyArray<number>
 }
 export function updatePollAnswer(object: TLObject): TLUpdatePollAnswer { return object as TLUpdatePollAnswer }
-export type TLUpdate = TLUpdateAuthorizationState | TLUpdateNewMessage | TLUpdateMessageSendAcknowledged | TLUpdateMessageSendSucceeded | TLUpdateMessageSendFailed | TLUpdateMessageContent | TLUpdateMessageEdited | TLUpdateMessageViews | TLUpdateMessageContentOpened | TLUpdateMessageMentionRead | TLUpdateMessageLiveLocationViewed | TLUpdateNewChat | TLUpdateChatChatList | TLUpdateChatTitle | TLUpdateChatPhoto | TLUpdateChatPermissions | TLUpdateChatLastMessage | TLUpdateChatOrder | TLUpdateChatIsPinned | TLUpdateChatIsMarkedAsUnread | TLUpdateChatIsSponsored | TLUpdateChatHasScheduledMessages | TLUpdateChatDefaultDisableNotification | TLUpdateChatReadInbox | TLUpdateChatReadOutbox | TLUpdateChatUnreadMentionCount | TLUpdateChatNotificationSettings | TLUpdateScopeNotificationSettings | TLUpdateChatActionBar | TLUpdateChatPinnedMessage | TLUpdateChatReplyMarkup | TLUpdateChatDraftMessage | TLUpdateChatOnlineMemberCount | TLUpdateNotification | TLUpdateNotificationGroup | TLUpdateActiveNotifications | TLUpdateHavePendingNotifications | TLUpdateDeleteMessages | TLUpdateUserChatAction | TLUpdateUserStatus | TLUpdateUser | TLUpdateBasicGroup | TLUpdateSupergroup | TLUpdateSecretChat | TLUpdateUserFullInfo | TLUpdateBasicGroupFullInfo | TLUpdateSupergroupFullInfo | TLUpdateServiceNotification | TLUpdateFile | TLUpdateFileGenerationStart | TLUpdateFileGenerationStop | TLUpdateCall | TLUpdateUserPrivacySettingRules | TLUpdateUnreadMessageCount | TLUpdateUnreadChatCount | TLUpdateOption | TLUpdateInstalledStickerSets | TLUpdateTrendingStickerSets | TLUpdateRecentStickers | TLUpdateFavoriteStickers | TLUpdateSavedAnimations | TLUpdateSelectedBackground | TLUpdateLanguagePackStrings | TLUpdateConnectionState | TLUpdateTermsOfService | TLUpdateUsersNearby | TLUpdateNewInlineQuery | TLUpdateNewChosenInlineResult | TLUpdateNewCallbackQuery | TLUpdateNewInlineCallbackQuery | TLUpdateNewShippingQuery | TLUpdateNewPreCheckoutQuery | TLUpdateNewCustomEvent | TLUpdateNewCustomQuery | TLUpdatePoll | TLUpdatePollAnswer
+export type TLUpdate = TLUpdateAuthorizationState | TLUpdateNewMessage | TLUpdateMessageSendAcknowledged | TLUpdateMessageSendSucceeded | TLUpdateMessageSendFailed | TLUpdateMessageContent | TLUpdateMessageEdited | TLUpdateMessageIsPinned | TLUpdateMessageInteractionInfo | TLUpdateMessageContentOpened | TLUpdateMessageMentionRead | TLUpdateMessageLiveLocationViewed | TLUpdateNewChat | TLUpdateChatTitle | TLUpdateChatPhoto | TLUpdateChatPermissions | TLUpdateChatLastMessage | TLUpdateChatPosition | TLUpdateChatIsMarkedAsUnread | TLUpdateChatIsBlocked | TLUpdateChatHasScheduledMessages | TLUpdateChatDefaultDisableNotification | TLUpdateChatReadInbox | TLUpdateChatReadOutbox | TLUpdateChatUnreadMentionCount | TLUpdateChatNotificationSettings | TLUpdateScopeNotificationSettings | TLUpdateChatActionBar | TLUpdateChatReplyMarkup | TLUpdateChatDraftMessage | TLUpdateChatFilters | TLUpdateChatOnlineMemberCount | TLUpdateNotification | TLUpdateNotificationGroup | TLUpdateActiveNotifications | TLUpdateHavePendingNotifications | TLUpdateDeleteMessages | TLUpdateUserChatAction | TLUpdateUserStatus | TLUpdateUser | TLUpdateBasicGroup | TLUpdateSupergroup | TLUpdateSecretChat | TLUpdateUserFullInfo | TLUpdateBasicGroupFullInfo | TLUpdateSupergroupFullInfo | TLUpdateServiceNotification | TLUpdateFile | TLUpdateFileGenerationStart | TLUpdateFileGenerationStop | TLUpdateCall | TLUpdateNewCallSignalingData | TLUpdateUserPrivacySettingRules | TLUpdateUnreadMessageCount | TLUpdateUnreadChatCount | TLUpdateOption | TLUpdateStickerSet | TLUpdateInstalledStickerSets | TLUpdateTrendingStickerSets | TLUpdateRecentStickers | TLUpdateFavoriteStickers | TLUpdateSavedAnimations | TLUpdateSelectedBackground | TLUpdateLanguagePackStrings | TLUpdateConnectionState | TLUpdateTermsOfService | TLUpdateUsersNearby | TLUpdateDiceEmojis | TLUpdateAnimationSearchParameters | TLUpdateSuggestedActions | TLUpdateNewInlineQuery | TLUpdateNewChosenInlineResult | TLUpdateNewCallbackQuery | TLUpdateNewInlineCallbackQuery | TLUpdateNewShippingQuery | TLUpdateNewPreCheckoutQuery | TLUpdateNewCustomEvent | TLUpdateNewCustomQuery | TLUpdatePoll | TLUpdatePollAnswer
 export interface TLUpdates extends TLObject {
 	readonly "@type": "updates"
 	readonly updates: ReadonlyArray<TLUpdate>
@@ -5452,6 +6007,7 @@ export interface TLLogStreamFile extends TLObject {
 	readonly "@type": "logStreamFile"
 	readonly path: string
 	readonly max_file_size: number
+	readonly redirect_stderr: boolean
 }
 export function logStreamFile(object: TLObject): TLLogStreamFile { return object as TLLogStreamFile }
 export interface TLLogStreamEmpty extends TLObject {
@@ -5796,12 +6352,29 @@ export class TD {
 		} as any as TdObject)) as any as TLMessage
 	}
 
+	public async getCallbackQueryMessage(chat_id: number, message_id: number, callback_query_id: string): Promise<TLMessage> {
+		return (await this.client.send({
+			"@type": "getCallbackQueryMessage",
+			"chat_id": chat_id,
+			"message_id": message_id,
+			"callback_query_id": callback_query_id,
+		} as any as TdObject)) as any as TLMessage
+	}
+
 	public async getMessages(chat_id: number, message_ids: ReadonlyArray<number>): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "getMessages",
 			"chat_id": chat_id,
 			"message_ids": message_ids,
 		} as any as TdObject)) as any as TLMessages
+	}
+
+	public async getMessageThread(chat_id: number, message_id: number): Promise<TLMessageThreadInfo> {
+		return (await this.client.send({
+			"@type": "getMessageThread",
+			"chat_id": chat_id,
+			"message_id": message_id,
+		} as any as TdObject)) as any as TLMessageThreadInfo
 	}
 
 	public async getFile(file_id: number): Promise<TLFile> {
@@ -5956,6 +6529,17 @@ export class TD {
 		} as any as TdObject)) as any as TLMessages
 	}
 
+	public async getMessageThreadHistory(chat_id: number, message_id: number, from_message_id: number, offset: number, limit: number): Promise<TLMessages> {
+		return (await this.client.send({
+			"@type": "getMessageThreadHistory",
+			"chat_id": chat_id,
+			"message_id": message_id,
+			"from_message_id": from_message_id,
+			"offset": offset,
+			"limit": limit,
+		} as any as TdObject)) as any as TLMessages
+	}
+
 	public async deleteChatHistory(chat_id: number, remove_from_chat_list: boolean, revoke: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteChatHistory",
@@ -5965,20 +6549,21 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async searchChatMessages(chat_id: number, query: string, sender_user_id: number, from_message_id: number, offset: number, limit: number, filter: TLSearchMessagesFilter): Promise<TLMessages> {
+	public async searchChatMessages(chat_id: number, query: string, sender: TLMessageSender, from_message_id: number, offset: number, limit: number, filter: TLSearchMessagesFilter, message_thread_id: number): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "searchChatMessages",
 			"chat_id": chat_id,
 			"query": query,
-			"sender_user_id": sender_user_id,
+			"sender": sender,
 			"from_message_id": from_message_id,
 			"offset": offset,
 			"limit": limit,
 			"filter": filter,
+			"message_thread_id": message_thread_id,
 		} as any as TdObject)) as any as TLMessages
 	}
 
-	public async searchMessages(chat_list: TLChatList, query: string, offset_date: number, offset_chat_id: number, offset_message_id: number, limit: number): Promise<TLMessages> {
+	public async searchMessages(chat_list: TLChatList, query: string, offset_date: number, offset_chat_id: number, offset_message_id: number, limit: number, filter: TLSearchMessagesFilter, min_date: number, max_date: number): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "searchMessages",
 			"chat_list": chat_list,
@@ -5987,15 +6572,18 @@ export class TD {
 			"offset_chat_id": offset_chat_id,
 			"offset_message_id": offset_message_id,
 			"limit": limit,
+			"filter": filter,
+			"min_date": min_date,
+			"max_date": max_date,
 		} as any as TdObject)) as any as TLMessages
 	}
 
-	public async searchSecretMessages(chat_id: number, query: string, from_search_id: string, limit: number, filter: TLSearchMessagesFilter): Promise<TLFoundMessages> {
+	public async searchSecretMessages(chat_id: number, query: string, offset: string, limit: number, filter: TLSearchMessagesFilter): Promise<TLFoundMessages> {
 		return (await this.client.send({
 			"@type": "searchSecretMessages",
 			"chat_id": chat_id,
 			"query": query,
-			"from_search_id": from_search_id,
+			"offset": offset,
 			"limit": limit,
 			"filter": filter,
 		} as any as TdObject)) as any as TLFoundMessages
@@ -6048,6 +6636,16 @@ export class TD {
 		} as any as TdObject)) as any as TLMessages
 	}
 
+	public async getMessagePublicForwards(chat_id: number, message_id: number, offset: string, limit: number): Promise<TLFoundMessages> {
+		return (await this.client.send({
+			"@type": "getMessagePublicForwards",
+			"chat_id": chat_id,
+			"message_id": message_id,
+			"offset": offset,
+			"limit": limit,
+		} as any as TdObject)) as any as TLFoundMessages
+	}
+
 	public async removeNotification(notification_group_id: number, notification_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeNotification",
@@ -6064,21 +6662,23 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async getPublicMessageLink(chat_id: number, message_id: number, for_album: boolean): Promise<TLPublicMessageLink> {
-		return (await this.client.send({
-			"@type": "getPublicMessageLink",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"for_album": for_album,
-		} as any as TdObject)) as any as TLPublicMessageLink
-	}
-
-	public async getMessageLink(chat_id: number, message_id: number): Promise<TLHttpUrl> {
+	public async getMessageLink(chat_id: number, message_id: number, for_album: boolean, for_comment: boolean): Promise<TLMessageLink> {
 		return (await this.client.send({
 			"@type": "getMessageLink",
 			"chat_id": chat_id,
 			"message_id": message_id,
-		} as any as TdObject)) as any as TLHttpUrl
+			"for_album": for_album,
+			"for_comment": for_comment,
+		} as any as TdObject)) as any as TLMessageLink
+	}
+
+	public async getMessageEmbeddingCode(chat_id: number, message_id: number, for_album: boolean): Promise<TLText> {
+		return (await this.client.send({
+			"@type": "getMessageEmbeddingCode",
+			"chat_id": chat_id,
+			"message_id": message_id,
+			"for_album": for_album,
+		} as any as TdObject)) as any as TLText
 	}
 
 	public async getMessageLinkInfo(url: string): Promise<TLMessageLinkInfo> {
@@ -6088,10 +6688,11 @@ export class TD {
 		} as any as TdObject)) as any as TLMessageLinkInfo
 	}
 
-	public async sendMessage(chat_id: number, reply_to_message_id: number, options: TLSendMessageOptions, reply_markup: TLReplyMarkup, input_message_content: TLInputMessageContent): Promise<TLMessage> {
+	public async sendMessage(chat_id: number, message_thread_id: number, reply_to_message_id: number, options: TLMessageSendOptions, reply_markup: TLReplyMarkup, input_message_content: TLInputMessageContent): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "sendMessage",
 			"chat_id": chat_id,
+			"message_thread_id": message_thread_id,
 			"reply_to_message_id": reply_to_message_id,
 			"options": options,
 			"reply_markup": reply_markup,
@@ -6099,10 +6700,11 @@ export class TD {
 		} as any as TdObject)) as any as TLMessage
 	}
 
-	public async sendMessageAlbum(chat_id: number, reply_to_message_id: number, options: TLSendMessageOptions, input_message_contents: ReadonlyArray<TLInputMessageContent>): Promise<TLMessages> {
+	public async sendMessageAlbum(chat_id: number, message_thread_id: number, reply_to_message_id: number, options: TLMessageSendOptions, input_message_contents: ReadonlyArray<TLInputMessageContent>): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "sendMessageAlbum",
 			"chat_id": chat_id,
+			"message_thread_id": message_thread_id,
 			"reply_to_message_id": reply_to_message_id,
 			"options": options,
 			"input_message_contents": input_message_contents,
@@ -6118,10 +6720,11 @@ export class TD {
 		} as any as TdObject)) as any as TLMessage
 	}
 
-	public async sendInlineQueryResultMessage(chat_id: number, reply_to_message_id: number, options: TLSendMessageOptions, query_id: string, result_id: string, hide_via_bot: boolean): Promise<TLMessage> {
+	public async sendInlineQueryResultMessage(chat_id: number, message_thread_id: number, reply_to_message_id: number, options: TLMessageSendOptions, query_id: string, result_id: string, hide_via_bot: boolean): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "sendInlineQueryResultMessage",
 			"chat_id": chat_id,
+			"message_thread_id": message_thread_id,
 			"reply_to_message_id": reply_to_message_id,
 			"options": options,
 			"query_id": query_id,
@@ -6130,14 +6733,13 @@ export class TD {
 		} as any as TdObject)) as any as TLMessage
 	}
 
-	public async forwardMessages(chat_id: number, from_chat_id: number, message_ids: ReadonlyArray<number>, options: TLSendMessageOptions, as_album: boolean, send_copy: boolean, remove_caption: boolean): Promise<TLMessages> {
+	public async forwardMessages(chat_id: number, from_chat_id: number, message_ids: ReadonlyArray<number>, options: TLMessageSendOptions, send_copy: boolean, remove_caption: boolean): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "forwardMessages",
 			"chat_id": chat_id,
 			"from_chat_id": from_chat_id,
 			"message_ids": message_ids,
 			"options": options,
-			"as_album": as_album,
 			"send_copy": send_copy,
 			"remove_caption": remove_caption,
 		} as any as TdObject)) as any as TLMessages
@@ -6166,11 +6768,11 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async addLocalMessage(chat_id: number, sender_user_id: number, reply_to_message_id: number, disable_notification: boolean, input_message_content: TLInputMessageContent): Promise<TLMessage> {
+	public async addLocalMessage(chat_id: number, sender: TLMessageSender, reply_to_message_id: number, disable_notification: boolean, input_message_content: TLInputMessageContent): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "addLocalMessage",
 			"chat_id": chat_id,
-			"sender_user_id": sender_user_id,
+			"sender": sender,
 			"reply_to_message_id": reply_to_message_id,
 			"disable_notification": disable_notification,
 			"input_message_content": input_message_content,
@@ -6204,13 +6806,15 @@ export class TD {
 		} as any as TdObject)) as any as TLMessage
 	}
 
-	public async editMessageLiveLocation(chat_id: number, message_id: number, reply_markup: TLReplyMarkup, location: TLLocation): Promise<TLMessage> {
+	public async editMessageLiveLocation(chat_id: number, message_id: number, reply_markup: TLReplyMarkup, location: TLLocation, heading: number, proximity_alert_radius: number): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "editMessageLiveLocation",
 			"chat_id": chat_id,
 			"message_id": message_id,
 			"reply_markup": reply_markup,
 			"location": location,
+			"heading": heading,
+			"proximity_alert_radius": proximity_alert_radius,
 		} as any as TdObject)) as any as TLMessage
 	}
 
@@ -6252,12 +6856,14 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async editInlineMessageLiveLocation(inline_message_id: string, reply_markup: TLReplyMarkup, location: TLLocation): Promise<TLOk> {
+	public async editInlineMessageLiveLocation(inline_message_id: string, reply_markup: TLReplyMarkup, location: TLLocation, heading: number, proximity_alert_radius: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "editInlineMessageLiveLocation",
 			"inline_message_id": inline_message_id,
 			"reply_markup": reply_markup,
 			"location": location,
+			"heading": heading,
+			"proximity_alert_radius": proximity_alert_radius,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -6308,6 +6914,20 @@ export class TD {
 			"@type": "parseTextEntities",
 			"text": text,
 			"parse_mode": parse_mode,
+		} as any as TdObject)) as any as TLFormattedText
+	}
+
+	public async parseMarkdown(text: TLFormattedText): Promise<TLFormattedText> {
+		return (await this.client.send({
+			"@type": "parseMarkdown",
+			"text": text,
+		} as any as TdObject)) as any as TLFormattedText
+	}
+
+	public async getMarkdownText(text: TLFormattedText): Promise<TLFormattedText> {
+		return (await this.client.send({
+			"@type": "getMarkdownText",
+			"text": text,
 		} as any as TdObject)) as any as TLFormattedText
 	}
 
@@ -6382,6 +7002,13 @@ export class TD {
 			"chat_id": chat_id,
 			"message_id": message_id,
 			"reply_markup": reply_markup,
+		} as any as TdObject)) as any as TLOk
+	}
+
+	public async hideSuggestedAction(action: TLSuggestedAction): Promise<TLOk> {
+		return (await this.client.send({
+			"@type": "hideSuggestedAction",
+			"action": action,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -6513,10 +7140,11 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async sendChatAction(chat_id: number, action: TLChatAction): Promise<TLOk> {
+	public async sendChatAction(chat_id: number, message_thread_id: number, action: TLChatAction): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "sendChatAction",
 			"chat_id": chat_id,
+			"message_thread_id": message_thread_id,
 			"action": action,
 		} as any as TdObject)) as any as TLOk
 	}
@@ -6535,10 +7163,11 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async viewMessages(chat_id: number, message_ids: ReadonlyArray<number>, force_read: boolean): Promise<TLOk> {
+	public async viewMessages(chat_id: number, message_thread_id: number, message_ids: ReadonlyArray<number>, force_read: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "viewMessages",
 			"chat_id": chat_id,
+			"message_thread_id": message_thread_id,
 			"message_ids": message_ids,
 			"force_read": force_read,
 		} as any as TdObject)) as any as TLOk
@@ -6622,12 +7251,68 @@ export class TD {
 		} as any as TdObject)) as any as TLChat
 	}
 
-	public async setChatChatList(chat_id: number, chat_list: TLChatList): Promise<TLOk> {
+	public async getChatListsToAddChat(chat_id: number): Promise<TLChatLists> {
 		return (await this.client.send({
-			"@type": "setChatChatList",
+			"@type": "getChatListsToAddChat",
+			"chat_id": chat_id,
+		} as any as TdObject)) as any as TLChatLists
+	}
+
+	public async addChatToList(chat_id: number, chat_list: TLChatList): Promise<TLOk> {
+		return (await this.client.send({
+			"@type": "addChatToList",
 			"chat_id": chat_id,
 			"chat_list": chat_list,
 		} as any as TdObject)) as any as TLOk
+	}
+
+	public async getChatFilter(chat_filter_id: number): Promise<TLChatFilter> {
+		return (await this.client.send({
+			"@type": "getChatFilter",
+			"chat_filter_id": chat_filter_id,
+		} as any as TdObject)) as any as TLChatFilter
+	}
+
+	public async createChatFilter(filter: TLChatFilter): Promise<TLChatFilterInfo> {
+		return (await this.client.send({
+			"@type": "createChatFilter",
+			"filter": filter,
+		} as any as TdObject)) as any as TLChatFilterInfo
+	}
+
+	public async editChatFilter(chat_filter_id: number, filter: TLChatFilter): Promise<TLChatFilterInfo> {
+		return (await this.client.send({
+			"@type": "editChatFilter",
+			"chat_filter_id": chat_filter_id,
+			"filter": filter,
+		} as any as TdObject)) as any as TLChatFilterInfo
+	}
+
+	public async deleteChatFilter(chat_filter_id: number): Promise<TLOk> {
+		return (await this.client.send({
+			"@type": "deleteChatFilter",
+			"chat_filter_id": chat_filter_id,
+		} as any as TdObject)) as any as TLOk
+	}
+
+	public async reorderChatFilters(chat_filter_ids: ReadonlyArray<number>): Promise<TLOk> {
+		return (await this.client.send({
+			"@type": "reorderChatFilters",
+			"chat_filter_ids": chat_filter_ids,
+		} as any as TdObject)) as any as TLOk
+	}
+
+	public async getRecommendedChatFilters(): Promise<TLRecommendedChatFilters> {
+		return (await this.client.send({
+			"@type": "getRecommendedChatFilters",
+		} as any as TdObject)) as any as TLRecommendedChatFilters
+	}
+
+	public async getChatFilterDefaultIconName(filter: TLChatFilter): Promise<TLText> {
+		return (await this.client.send({
+			"@type": "getChatFilterDefaultIconName",
+			"filter": filter,
+		} as any as TdObject)) as any as TLText
 	}
 
 	public async setChatTitle(chat_id: number, title: string): Promise<TLOk> {
@@ -6638,7 +7323,7 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async setChatPhoto(chat_id: number, photo: TLInputFile): Promise<TLOk> {
+	public async setChatPhoto(chat_id: number, photo: TLInputChatPhoto): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatPhoto",
 			"chat_id": chat_id,
@@ -6654,10 +7339,11 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async setChatDraftMessage(chat_id: number, draft_message: TLDraftMessage): Promise<TLOk> {
+	public async setChatDraftMessage(chat_id: number, message_thread_id: number, draft_message: TLDraftMessage): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatDraftMessage",
 			"chat_id": chat_id,
+			"message_thread_id": message_thread_id,
 			"draft_message": draft_message,
 		} as any as TdObject)) as any as TLOk
 	}
@@ -6667,14 +7353,6 @@ export class TD {
 			"@type": "setChatNotificationSettings",
 			"chat_id": chat_id,
 			"notification_settings": notification_settings,
-		} as any as TdObject)) as any as TLOk
-	}
-
-	public async toggleChatIsPinned(chat_id: number, is_pinned: boolean): Promise<TLOk> {
-		return (await this.client.send({
-			"@type": "toggleChatIsPinned",
-			"chat_id": chat_id,
-			"is_pinned": is_pinned,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -6734,18 +7412,27 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async pinChatMessage(chat_id: number, message_id: number, disable_notification: boolean): Promise<TLOk> {
+	public async pinChatMessage(chat_id: number, message_id: number, disable_notification: boolean, only_for_self: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "pinChatMessage",
 			"chat_id": chat_id,
 			"message_id": message_id,
 			"disable_notification": disable_notification,
+			"only_for_self": only_for_self,
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async unpinChatMessage(chat_id: number): Promise<TLOk> {
+	public async unpinChatMessage(chat_id: number, message_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "unpinChatMessage",
+			"chat_id": chat_id,
+			"message_id": message_id,
+		} as any as TdObject)) as any as TLOk
+	}
+
+	public async unpinAllChatMessages(chat_id: number): Promise<TLOk> {
+		return (await this.client.send({
+			"@type": "unpinAllChatMessages",
 			"chat_id": chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
@@ -6866,6 +7553,15 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
+	public async toggleChatIsPinned(chat_list: TLChatList, chat_id: number, is_pinned: boolean): Promise<TLOk> {
+		return (await this.client.send({
+			"@type": "toggleChatIsPinned",
+			"chat_list": chat_list,
+			"chat_id": chat_id,
+			"is_pinned": is_pinned,
+		} as any as TdObject)) as any as TLOk
+	}
+
 	public async setPinnedChats(chat_list: TLChatList, chat_ids: ReadonlyArray<number>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setPinnedChats",
@@ -6980,11 +7676,12 @@ export class TD {
 		} as any as TdObject)) as any as TLChat
 	}
 
-	public async createCall(user_id: number, protocol: TLCallProtocol): Promise<TLCallId> {
+	public async createCall(user_id: number, protocol: TLCallProtocol, is_video: boolean): Promise<TLCallId> {
 		return (await this.client.send({
 			"@type": "createCall",
 			"user_id": user_id,
 			"protocol": protocol,
+			"is_video": is_video,
 		} as any as TdObject)) as any as TLCallId
 	}
 
@@ -6996,12 +7693,21 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async discardCall(call_id: number, is_disconnected: boolean, duration: number, connection_id: string): Promise<TLOk> {
+	public async sendCallSignalingData(call_id: number, data: Uint8Array): Promise<TLOk> {
+		return (await this.client.send({
+			"@type": "sendCallSignalingData",
+			"call_id": call_id,
+			"data": data,
+		} as any as TdObject)) as any as TLOk
+	}
+
+	public async discardCall(call_id: number, is_disconnected: boolean, duration: number, is_video: boolean, connection_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "discardCall",
 			"call_id": call_id,
 			"is_disconnected": is_disconnected,
 			"duration": duration,
+			"is_video": is_video,
 			"connection_id": connection_id,
 		} as any as TdObject)) as any as TLOk
 	}
@@ -7024,26 +7730,30 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async blockUser(user_id: number): Promise<TLOk> {
+	public async toggleMessageSenderIsBlocked(sender: TLMessageSender, is_blocked: boolean): Promise<TLOk> {
 		return (await this.client.send({
-			"@type": "blockUser",
-			"user_id": user_id,
+			"@type": "toggleMessageSenderIsBlocked",
+			"sender": sender,
+			"is_blocked": is_blocked,
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async unblockUser(user_id: number): Promise<TLOk> {
+	public async blockMessageSenderFromReplies(message_id: number, delete_message: boolean, delete_all_messages: boolean, report_spam: boolean): Promise<TLOk> {
 		return (await this.client.send({
-			"@type": "unblockUser",
-			"user_id": user_id,
+			"@type": "blockMessageSenderFromReplies",
+			"message_id": message_id,
+			"delete_message": delete_message,
+			"delete_all_messages": delete_all_messages,
+			"report_spam": report_spam,
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async getBlockedUsers(offset: number, limit: number): Promise<TLUsers> {
+	public async getBlockedMessageSenders(offset: number, limit: number): Promise<TLMessageSenders> {
 		return (await this.client.send({
-			"@type": "getBlockedUsers",
+			"@type": "getBlockedMessageSenders",
 			"offset": offset,
 			"limit": limit,
-		} as any as TdObject)) as any as TLUsers
+		} as any as TdObject)) as any as TLMessageSenders
 	}
 
 	public async addContact(contact: TLContact, share_phone_number: boolean): Promise<TLOk> {
@@ -7108,13 +7818,13 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
-	public async getUserProfilePhotos(user_id: number, offset: number, limit: number): Promise<TLUserProfilePhotos> {
+	public async getUserProfilePhotos(user_id: number, offset: number, limit: number): Promise<TLChatPhotos> {
 		return (await this.client.send({
 			"@type": "getUserProfilePhotos",
 			"user_id": user_id,
 			"offset": offset,
 			"limit": limit,
-		} as any as TdObject)) as any as TLUserProfilePhotos
+		} as any as TdObject)) as any as TLChatPhotos
 	}
 
 	public async getStickers(emoji: string, limit: number): Promise<TLStickers> {
@@ -7149,9 +7859,11 @@ export class TD {
 		} as any as TdObject)) as any as TLStickerSets
 	}
 
-	public async getTrendingStickerSets(): Promise<TLStickerSets> {
+	public async getTrendingStickerSets(offset: number, limit: number): Promise<TLStickerSets> {
 		return (await this.client.send({
 			"@type": "getTrendingStickerSets",
+			"offset": offset,
+			"limit": limit,
 		} as any as TdObject)) as any as TLStickerSets
 	}
 
@@ -7273,12 +7985,12 @@ export class TD {
 		} as any as TdObject)) as any as TLEmojis
 	}
 
-	public async searchEmojis(text: string, exact_match: boolean, input_language_code: string): Promise<TLEmojis> {
+	public async searchEmojis(text: string, exact_match: boolean, input_language_codes: ReadonlyArray<string>): Promise<TLEmojis> {
 		return (await this.client.send({
 			"@type": "searchEmojis",
 			"text": text,
 			"exact_match": exact_match,
-			"input_language_code": input_language_code,
+			"input_language_codes": input_language_codes,
 		} as any as TdObject)) as any as TLEmojis
 	}
 
@@ -7345,7 +8057,7 @@ export class TD {
 		} as any as TdObject)) as any as TLWebPageInstantView
 	}
 
-	public async setProfilePhoto(photo: TLInputFile): Promise<TLOk> {
+	public async setProfilePhoto(photo: TLInputChatPhoto): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setProfilePhoto",
 			"photo": photo,
@@ -7381,6 +8093,13 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
+	public async setLocation(location: TLLocation): Promise<TLOk> {
+		return (await this.client.send({
+			"@type": "setLocation",
+			"location": location,
+		} as any as TdObject)) as any as TLOk
+	}
+
 	public async changePhoneNumber(phone_number: string, settings: TLPhoneNumberAuthenticationSettings): Promise<TLAuthenticationCodeInfo> {
 		return (await this.client.send({
 			"@type": "changePhoneNumber",
@@ -7399,6 +8118,13 @@ export class TD {
 		return (await this.client.send({
 			"@type": "checkChangePhoneNumberCode",
 			"code": code,
+		} as any as TdObject)) as any as TLOk
+	}
+
+	public async setCommands(commands: ReadonlyArray<TLBotCommand>): Promise<TLOk> {
+		return (await this.client.send({
+			"@type": "setCommands",
+			"commands": commands,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -7792,6 +8518,32 @@ export class TD {
 		} as any as TdObject)) as any as TLHttpUrl
 	}
 
+	public async getChatStatistics(chat_id: number, is_dark: boolean): Promise<TLChatStatistics> {
+		return (await this.client.send({
+			"@type": "getChatStatistics",
+			"chat_id": chat_id,
+			"is_dark": is_dark,
+		} as any as TdObject)) as any as TLChatStatistics
+	}
+
+	public async getMessageStatistics(chat_id: number, message_id: number, is_dark: boolean): Promise<TLMessageStatistics> {
+		return (await this.client.send({
+			"@type": "getMessageStatistics",
+			"chat_id": chat_id,
+			"message_id": message_id,
+			"is_dark": is_dark,
+		} as any as TdObject)) as any as TLMessageStatistics
+	}
+
+	public async getStatisticsGraph(chat_id: number, token: string, x: number): Promise<TLStatisticsGraph> {
+		return (await this.client.send({
+			"@type": "getStatisticsGraph",
+			"chat_id": chat_id,
+			"token": token,
+			"x": x,
+		} as any as TdObject)) as any as TLStatisticsGraph
+	}
+
 	public async getStorageStatistics(chat_limit: number): Promise<TLStorageStatistics> {
 		return (await this.client.send({
 			"@type": "getStorageStatistics",
@@ -7811,7 +8563,7 @@ export class TD {
 		} as any as TdObject)) as any as TLDatabaseStatistics
 	}
 
-	public async optimizeStorage(size: number, ttl: number, count: number, immunity_delay: number, file_types: ReadonlyArray<TLFileType>, chat_ids: ReadonlyArray<number>, exclude_chat_ids: ReadonlyArray<number>, chat_limit: number): Promise<TLStorageStatistics> {
+	public async optimizeStorage(size: number, ttl: number, count: number, immunity_delay: number, file_types: ReadonlyArray<TLFileType>, chat_ids: ReadonlyArray<number>, exclude_chat_ids: ReadonlyArray<number>, return_deleted_file_statistics: boolean, chat_limit: number): Promise<TLStorageStatistics> {
 		return (await this.client.send({
 			"@type": "optimizeStorage",
 			"size": size,
@@ -7821,6 +8573,7 @@ export class TD {
 			"file_types": file_types,
 			"chat_ids": chat_ids,
 			"exclude_chat_ids": exclude_chat_ids,
+			"return_deleted_file_statistics": return_deleted_file_statistics,
 			"chat_limit": chat_limit,
 		} as any as TdObject)) as any as TLStorageStatistics
 	}
@@ -7864,6 +8617,13 @@ export class TD {
 			"settings": settings,
 			"type": type,
 		} as any as TdObject)) as any as TLOk
+	}
+
+	public async getBankCardInfo(bank_card_number: string): Promise<TLBankCardInfo> {
+		return (await this.client.send({
+			"@type": "getBankCardInfo",
+			"bank_card_number": bank_card_number,
+		} as any as TdObject)) as any as TLBankCardInfo
 	}
 
 	public async getPassportElement(type: TLPassportElementType, password: string): Promise<TLPassportElement> {
@@ -8036,6 +8796,15 @@ export class TD {
 		} as any as TdObject)) as any as TLStickerSet
 	}
 
+	public async setStickerSetThumbnail(user_id: number, name: string, thumbnail: TLInputFile): Promise<TLStickerSet> {
+		return (await this.client.send({
+			"@type": "setStickerSetThumbnail",
+			"user_id": user_id,
+			"name": name,
+			"thumbnail": thumbnail,
+		} as any as TdObject)) as any as TLStickerSet
+	}
+
 	public async setStickerPositionInSet(sticker: TLInputFile, position: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setStickerPositionInSet",
@@ -8093,10 +8862,23 @@ export class TD {
 		} as any as TdObject)) as any as TLOk
 	}
 
+	public async getCountries(): Promise<TLCountries> {
+		return (await this.client.send({
+			"@type": "getCountries",
+		} as any as TdObject)) as any as TLCountries
+	}
+
 	public async getCountryCode(): Promise<TLText> {
 		return (await this.client.send({
 			"@type": "getCountryCode",
 		} as any as TdObject)) as any as TLText
+	}
+
+	public async getPhoneNumberInfo(phone_number_prefix: string): Promise<TLPhoneNumberInfo> {
+		return (await this.client.send({
+			"@type": "getPhoneNumberInfo",
+			"phone_number_prefix": phone_number_prefix,
+		} as any as TdObject)) as any as TLPhoneNumberInfo
 	}
 
 	public async getInviteText(): Promise<TLText> {

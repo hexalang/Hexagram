@@ -16,7 +16,6 @@
 import * as TL from '../tdlib/tdapi'
 import { observable } from "mobx"
 
-// "updateUser" - TODO
 export class User {
 	readonly id: number
 	@observable firstName!: string
@@ -54,6 +53,7 @@ export class Message {
 	readonly id: number
 	@observable date!: number
 	@observable senderUserId!: number
+	@observable senderChatId!: number
 	@observable replyToMessageId!: number
 	@observable content!: TL.TLMessageContent
 
@@ -63,7 +63,16 @@ export class Message {
 
 	merge(tl: TL.TLMessage) {
 		this.date = tl.date
-		this.senderUserId = tl.sender_user_id
+		switch (tl.sender['@type']) {
+			case 'messageSenderChat':
+				this.senderChatId = TL.messageSenderChat(tl.sender).chat_id
+				this.senderUserId = 0
+				break
+			case 'messageSenderUser':
+				this.senderUserId = TL.messageSenderUser(tl.sender).user_id
+				this.senderChatId = 0
+				break
+		}
 		this.replyToMessageId = tl.reply_to_message_id
 		this.content = tl.content
 
@@ -76,7 +85,7 @@ export class Chat {
 	@observable title!: string
 	@observable isPinned!: boolean
 	@observable unreadCount!: number // "updateUnreadChatCount" - TODO
-	@observable photo!: TL.TLChatPhoto | null
+	@observable photo!: TL.TLChatPhotoInfo | null
 	@observable lastMessage!: number // "updateChatLastMessage" - TODO
 	@observable type!: TL.TLChatType
 	@observable mentions!: number
@@ -92,8 +101,13 @@ export class Chat {
 
 	merge(tl: TL.TLChat) {
 		this.title = tl.title
-		this.order = tl.order
-		this.isPinned = tl.is_pinned
+		for (const position of tl.positions) {
+			if (position.list['@type'] === 'chatListMain') {
+				this.order = position.order
+				this.isPinned = position.is_pinned
+				break
+			}
+		}
 		this.unreadCount = tl.unread_count
 		this.mentions = tl.unread_mention_count
 		this.photo = tl.photo

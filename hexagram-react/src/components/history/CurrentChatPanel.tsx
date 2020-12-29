@@ -199,7 +199,7 @@ const History = observer(({ state }: { state: State }) => {
 
 						} else {
 
-							const sticker: TL.TLFile = messageSticker.sticker.is_animated ? messageSticker.sticker.thumbnail.photo : messageSticker.sticker.sticker
+							const sticker: TL.TLFile = messageSticker.sticker.is_animated ? messageSticker.sticker.thumbnail.file : messageSticker.sticker.sticker
 							updateDestination(messageState.senderUserId)
 							destination.push(<StickerMy key={key} state={state} sticker={sticker} time={time} />)
 						}
@@ -357,7 +357,7 @@ const History = observer(({ state }: { state: State }) => {
 						const message = state.messages[chat.id][messageId]
 						if (message.replyToMessageId === messageState.id && message.content['@type'] === "messageSticker") {
 							const messageSticker = TL.messageSticker(message.content)
-							const sticker: TL.TLFile = messageSticker.sticker.thumbnail.photo
+							const sticker: TL.TLFile = messageSticker.sticker.thumbnail.file
 							const senderName = state.users[message.senderUserId] ? state.users[message.senderUserId].firstName : 'Someone'
 
 							reactions.push(<StickerOnMessage senderName={senderName} state={state} key={key} sticker={sticker} />)

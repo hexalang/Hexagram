@@ -2151,10 +2151,10 @@
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.6.tgz#a9ca4b70a18b270ccb2bc0aaafefd1d486b7ea74"
   integrity sha512-W+bw9ds02rAQaMvaLYxAbJ6cvguW/iJXNT6lTssS1ps6QdrMKttqEAMEG/b5CR8TZl3/L7/lH0ZV5nNR1LXikA==
 
-"@types/tdweb@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@types/tdweb/-/tdweb-1.4.0.tgz#847380e9253524a791a047032ebbc130e08ffe79"
-  integrity sha512-T5w1xYMGALmxzX1J1dgC+4xF8fOQ1mFsOmtnpWITVQWAq0bJHFz5S6XrCCMHlG4jg1LUNzWZSYOTBr/ehrTnag==
+"@types/tdweb@1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@types/tdweb/-/tdweb-1.4.1.tgz#e65ebba29a430c42f87f53187b328b7a3eb1dd6c"
+  integrity sha512-BBH/Td1QsPzvMbcphCXuEXqQ27UDcbSy7gbzaYV9Tkk1TzldhYMhAPHE+u5LPHU8hacZsyLFnZio6g20/K+9hg==
 
 "@types/testing-library__jest-dom@^5.9.1":
   version "5.9.5"
@@ -11020,10 +11020,10 @@ tar@^6.0.2:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-tdweb@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/tdweb/-/tdweb-1.6.0.tgz#2e29fdb70a8a25c6b6c138ba9ffd901bf7e1b8be"
-  integrity sha512-Ql1BRNHM10I5vs3diV44PHhJkBAQSUjSJMVEwyPtwBC4JhjsNHQ/xHayNQuSM/pHs2nITbgyrMx7l0nq3l1Evw==
+tdweb@1.6.10:
+  version "1.6.10"
+  resolved "https://registry.yarnpkg.com/tdweb/-/tdweb-1.6.10.tgz#c2272148fb0ab722b401a7bd762b20c38bbce8e1"
+  integrity sha512-fOgeS6xkMEa1e2kb89QL7rz6aHDP/mWjYkz2DbGCxsYX6buZxtaKvir/yUY6hYPXkE8OM3xthw0oJn0YyrIFYg==
   dependencies:
     "@babel/runtime" "^7.4.3"
     broadcast-channel "^2.1.12"

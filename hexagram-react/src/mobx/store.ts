@@ -44,6 +44,7 @@ export class State {
 	@observable loaded: boolean
 	@observable showSideBar: boolean
 	@observable loginState: LoginState
+	@observable hint: string
 	@observable myId: number
 	@observable currentChatId: number
 
@@ -75,6 +76,7 @@ export class State {
 		this.supergroups = {}
 		this.files = {}
 		this.filesQueue = []
+		this.hint = ''
 		this.history = {}
 	}
 
@@ -209,6 +211,8 @@ export class State {
 							break
 						case "authorizationStateWaitPassword":
 							this.loginState = LoginState.WaitPassword
+							const authorizationStateWaitPassword = TL.authorizationStateWaitPassword(updateAuthorizationState.authorization_state)
+							this.hint = authorizationStateWaitPassword.password_hint
 							break
 						case "authorizationStateReady":
 							this.loginState = LoginState.Ready
@@ -225,10 +229,11 @@ export class State {
 							this.loaded = true
 							break
 						case "my_id":
-							this.myId = TL.optionValueInteger(updateOption.value).value
+							this.myId = parseFloat(TL.optionValueInteger(updateOption.value).value)
 							break
+						default:
+							console.warn('Unknown update option', update)
 					}
-					console.warn('Unknown update option', update)
 				}
 				break
 
@@ -255,27 +260,29 @@ export class State {
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					const messages = this.getOrCreateMessages(chat_id)
 					messages[message.id] = message
-					chat.order = updateChatLastMessage.order
+					for (const position of updateChatLastMessage.positions) {
+						if (position.list['@type'] === 'chatListMain') {
+							chat.order = position.order
+							chat.isPinned = position.is_pinned
+							break
+						}
+					}
 					chat.lastMessage = message.id
 				}
 				break
 
-			case "updateChatOrder":
+			case "updateChatPosition":
 				{
-					const updateChatOrder = TL.updateChatOrder(update)
-					const chat_id = updateChatOrder.chat_id
+					const updateChatPosition = TL.updateChatPosition(update)
+					const chat_id = updateChatPosition.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
-					chat.order = updateChatOrder.order
-				}
-				break
+					const position = updateChatPosition.position
 
-			case "updateChatIsPinned":
-				{
-					const updateChatIsPinned = TL.updateChatIsPinned(update)
-					const chat_id = updateChatIsPinned.chat_id
-					const chat = createIfNone(this.chats, chat_id, Chat)
-					chat.order = updateChatIsPinned.order
-					chat.isPinned = updateChatIsPinned.is_pinned
+					if (position.list['@type'] === 'chatListMain') {
+						chat.order = position.order
+						chat.isPinned = position.is_pinned
+						break
+					}
 				}
 				break
 
@@ -417,7 +424,7 @@ export class State {
 			// TODO updateSupergroup
 
 			default:
-				console.warn('Unknown update', update)
+				console.warn('Unknown update', update['@type'], update)
 				return
 		}
 
