@@ -13,15 +13,14 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React from 'react'
-import { State } from '../../mobx/store'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { ChatList } from './ChatList'
 import './ChatsPanel.scss'
 import { observer } from 'mobx-react-lite'
+import { state } from '../../mobx/store'
 
-export const ChatsPanel = observer(({ state }: { state: State }) => {
+export const ChatsPanel = observer(() => {
 	const selectChat = (id: number): void => {
 		state.selectChat(id)
 	}
@@ -32,7 +31,7 @@ export const ChatsPanel = observer(({ state }: { state: State }) => {
 
 	return <div className="chatList">
 		<Header showSidePanel={showSidePanel} />
-		<ChatList state={state} selectChat={selectChat} />
+		<ChatList selectChat={selectChat} />
 		<Footer />
 	</div>
 })

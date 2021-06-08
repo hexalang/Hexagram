@@ -13,9 +13,10 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './LoginForm.scss'
-import { State, LoginState } from '../../mobx/store'
+import { LoginState } from '../../mobx/store'
+import { state } from '../../mobx/store'
 import { tg } from '../../tdlib/tdlib'
 import { observer } from 'mobx-react-lite'
 
@@ -34,9 +35,7 @@ const isCorrectPhoneNumber = (text: string): boolean => {
 	return true
 }
 
-export const LoginForm = observer(({ state }: {
-	state: State
-}) => {
+export const LoginForm = observer(() => {
 	const [phone, setPhone] = useState('')
 	const [code, setCode] = useState('')
 	const [secret, setSecret] = useState('')

@@ -1,5 +1,5 @@
 // Hexagram
-// Copyright (C) 2020  Oleg Petrenko
+// Copyright (C) 2021  Oleg Petrenko
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -13,23 +13,16 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState } from 'react'
 import './App.scss'
-import { dispatchTelegramEventHandler } from '../tdlib/tdlib'
 import { CurrentChatPanel } from '../components/history/CurrentChatPanel'
 import { ChatsPanel } from '../components/chats/ChatsPanel'
 import { SidePanel } from '../components/panels/SidePanel'
-import { State, LoginState } from '../mobx/store'
-import * as TL from '../tdlib/tdapi'
+import { LoginState, state } from '../mobx/store'
 import { LoginForm } from '../components/login/LoginForm'
 import preview from './preview.svg'
 import { observer } from 'mobx-react-lite'
 
 export default observer(() => {
-	const [state] = useState(() => new State())
-
-	dispatchTelegramEventHandler.handle = (updates: TL.TLObject[]) => state.mergeAll(updates)
-
 	const loaded = state.loaded
 	const loginState = state.loginState
 	const showSideBar = state.showSideBar
@@ -39,11 +32,11 @@ export default observer(() => {
 
 	if (loginState === LoginState.Ready) return (
 		<div className="App">
-			<ChatsPanel state={state} />
-			<CurrentChatPanel state={state} />
-			{showSideBar && <SidePanel state={state} />}
+			<ChatsPanel />
+			<CurrentChatPanel />
+			{showSideBar && <SidePanel />}
 		</div>
 	)
 
-	return <div className="App"><LoginForm state={state} /></div>
+	return <div className="App"><LoginForm /></div>
 })

@@ -16,7 +16,7 @@
 import * as TL from '../tdlib/tdapi'
 import { Chat, User, Message, Supergroup, File } from './types'
 import { action, computed, keys, observable } from "mobx"
-import { tg } from '../tdlib/tdlib'
+import { tg, dispatchTelegramEventHandler } from '../tdlib/tdlib'
 
 export enum LoginState {
 	WaitTDLib,
@@ -87,6 +87,8 @@ export class State {
 		this.filesQueue = []
 		this.hint = ''
 		this.history = {}
+
+		dispatchTelegramEventHandler.handle = (updates: TL.TLObject[]) => this.mergeAll(updates)
 	}
 
 	getOrCreateMessages(chatId: number): {
@@ -444,3 +446,5 @@ export class State {
 		console.log('Handled update', update['@type'])
 	}
 }
+
+export const state: State = new State()

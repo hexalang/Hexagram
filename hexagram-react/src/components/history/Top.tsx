@@ -14,11 +14,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { observer } from 'mobx-react-lite'
-import { State } from '../../mobx/store'
+import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import './Top.scss'
 
-export const Top = observer(({ state }: { state: State }) => {
+export const Top = observer(() => {
 	const chat = state.chats[state.currentChatId]
 	const savedMessages = state.myId === chat.id
 	let larger = savedMessages

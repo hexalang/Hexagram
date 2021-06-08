@@ -14,13 +14,13 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import * as TL from '../../tdlib/tdapi'
-import { State } from '../../mobx/store'
+import { state } from '../../mobx/store'
 import { formatTime } from '../../utils/Time'
 import { nameToInitials } from '../../utils/UserInfo'
 import { observer } from "mobx-react-lite"
 import { Message } from '../../mobx/types'
 
-const messageContentToPreview = (message: Message, chatId: number, state: State): { textPreview: string, systemPreview?: string } => {
+const messageContentToPreview = (message: Message, chatId: number): { textPreview: string, systemPreview?: string } => {
 	const content = message.content
 
 	// TODO pre-load messages, also proper nullability
@@ -36,7 +36,7 @@ const messageContentToPreview = (message: Message, chatId: number, state: State)
 
 		case "messagePhoto":
 			const caption = TL.messagePhoto(content).caption.text
-			if (message.media_album_id != '0') {
+			if (message.media_album_id !== '0') {
 				return { textPreview: caption, systemPreview: caption === '' ? "Album" : "Album, " }
 			}
 			return { textPreview: caption, systemPreview: caption === '' ? "Photo" : "Photo, " }
@@ -47,7 +47,7 @@ const messageContentToPreview = (message: Message, chatId: number, state: State)
 
 		case "messagePinMessage":
 			const messagePinMessage = TL.messagePinMessage(content).message_id
-			const preview = messageContentToPreview(state.getOrCreateMessage(chatId, messagePinMessage), chatId, state)
+			const preview = messageContentToPreview(state.getOrCreateMessage(chatId, messagePinMessage), chatId)
 			// TODO elipsis: via , systemNested: + no '\n'
 			return { textPreview: '', systemPreview: "pinned «" + (preview.textPreview || preview.systemPreview) + "»" }
 
@@ -75,7 +75,7 @@ const messageContentToPreview = (message: Message, chatId: number, state: State)
 	}
 }
 
-export const ChatListElement = observer(({ chatId, selectChat, state }: { chatId: number, selectChat: (id: number) => void, state: State }) => {
+export const ChatListElement = observer(({ chatId, selectChat }: { chatId: number, selectChat: (id: number) => void }) => {
 	const currentChatId = state.currentChatId
 	const myId = state.myId
 	const chats = state.chats
@@ -117,7 +117,7 @@ export const ChatListElement = observer(({ chatId, selectChat, state }: { chatId
 	const date = message ? formatTime(message.date) : ''
 	const dateHint = message ? new Date(message.date * 1000).toLocaleDateString() : ''
 
-	const preview = message ? messageContentToPreview(message, chatId, state) : null
+	const preview = message ? messageContentToPreview(message, chatId) : null
 
 	// TODO hexa switch (chat, message, user) case null, null, null:
 

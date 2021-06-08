@@ -16,7 +16,7 @@
 import * as TL from '../../tdlib/tdapi'
 import { nameToInitials } from '../../utils/UserInfo'
 import './MessageTypes.scss'
-import { State } from '../../mobx/store'
+import { state } from '../../mobx/store'
 import { inflate } from 'pako'
 import Lottie from 'react-lottie'
 import { observer } from "mobx-react-lite"
@@ -25,10 +25,11 @@ const dateTemp = new Date()
 const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as const
 
 export const LottieSticker = observer(({
-	time, state, sticker
+	time,
+	sticker
 }: {
-	state: State, sticker: TL.TLFile, time: string
-
+	sticker: TL.TLFile,
+	time: string
 }) => {
 	const file: TL.TLFile = sticker
 
@@ -72,8 +73,7 @@ const CenterSystemMessageGroupPic = ({ src }: { src: string }) => {
 }
 
 export const StickerMy = observer(({
-	time, state, sticker }: {
-		state: State,
+	time, sticker }: {
 		sticker: TL.TLFile, time: string
 	}) => {
 	const file: TL.TLFile = sticker
@@ -133,8 +133,8 @@ export const MessageSameSender = observer(({ children }: any) => {
 	</div>
 })
 
-export const MessageSameSenderTheirs = observer(({ children, state, senderUserId }: {
-	state: State, senderUserId: number, children: React.ReactNode
+export const MessageSameSenderTheirs = observer(({ children, senderUserId }: {
+	senderUserId: number, children: React.ReactNode
 }) => {
 	const user = state.users[senderUserId]
 	const chat = state.chats[state.currentChatId]
@@ -167,8 +167,7 @@ export const MessageSameSenderTheirs = observer(({ children, state, senderUserId
 	</div>
 })
 
-export const MessagePhotoTheirs = observer(({ sized, text, time, date, author, views, state }: {
-	state: State,
+export const MessagePhotoTheirs = observer(({ sized, text, time, date, author, views }: {
 	sized: TL.TLFile, text: React.ReactNode[], time: string | null, date: number, author: string | null, views?: string
 }) => {
 	const file: TL.TLFile = sized
@@ -195,8 +194,8 @@ export const MessagePhotoTheirs = observer(({ sized, text, time, date, author, v
 	</div>
 })
 
-export const StickerOnMessage = observer(({ state, sticker, senderName }: {
-	state: State, senderName: string, sticker: TL.TLFile
+export const StickerOnMessage = observer(({ sticker, senderName }: {
+	senderName: string, sticker: TL.TLFile
 }) => {
 	const srcAva: string | null = state.fileURL(sticker)
 	if (srcAva == null) state.downloadFile(sticker, true)

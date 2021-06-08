@@ -15,7 +15,7 @@
 
 import { observer } from 'mobx-react-lite'
 import { useState, useEffect, useRef } from 'react'
-import { State } from '../../mobx/store'
+import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
 import './Input.scss'
@@ -39,7 +39,7 @@ const replaceCaret = (el: HTMLElement) => {
 	}
 }
 
-export const Input = observer(({ state }: { state: State }) => {
+export const Input = observer(() => {
 	const [value, setValue] = useState('')
 	const messagesEndRef = useRef(null)
 

@@ -14,7 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React, { useState, useEffect, useRef } from 'react'
-import { State } from '../../mobx/store'
+import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
 import { MessageSameSender, MessageSameSenderTheirs, CenterSystemMessage, MessagePhotoTheirs } from '../messages/MessageTypes'
@@ -24,7 +24,7 @@ import { Top } from './Top'
 import './CurrentChatPanel.scss'
 import { observer } from 'mobx-react-lite'
 
-const History = observer(({ state }: { state: State }) => {
+const History = observer(() => {
 	const [dragging, setDragging] = useState(false)
 	const [position, setPosition] = useState(0)
 	const [lastPosition, setLastPosition] = useState(0)
@@ -127,7 +127,6 @@ const History = observer(({ state }: { state: State }) => {
 			// Note: for channels and auto-forward from channels `lastSender == 0`!
 			else messages.push(<MessageSameSenderTheirs
 				senderUserId={lastSender}
-				state={state}
 				key={'~' + lastSender + '~' + state.currentChatId + '~' + lastMessageId}>
 				{destination}
 			</MessageSameSenderTheirs>
@@ -184,7 +183,7 @@ const History = observer(({ state }: { state: State }) => {
 						const sized: TL.TLFile = photo.sizes.reduce((prev, curr) => prev.height > curr.height ? prev : curr).photo
 						updateDestination(messageState.senderUserId)
 						const senderName = destination.length === 0 && state.users[messageState.senderUserId] ? state.users[messageState.senderUserId].firstName : null
-						destination.push(<MessagePhotoTheirs key={key} state={state} sized={sized} author={senderName} text={text} time={time} date={messageState.date} />)
+						destination.push(<MessagePhotoTheirs key={key} sized={sized} author={senderName} text={text} time={time} date={messageState.date} />)
 					}
 					break
 
@@ -195,13 +194,13 @@ const History = observer(({ state }: { state: State }) => {
 						if (messageSticker.sticker.is_animated) {
 							const sticker: TL.TLFile = messageSticker.sticker.sticker
 							updateDestination(messageState.senderUserId)
-							destination.push(<LottieSticker key={key} state={state} sticker={sticker} time={time} />)
+							destination.push(<LottieSticker key={key} sticker={sticker} time={time} />)
 
 						} else {
 
 							const sticker: TL.TLFile = messageSticker.sticker.is_animated ? messageSticker.sticker.thumbnail.file : messageSticker.sticker.sticker
 							updateDestination(messageState.senderUserId)
-							destination.push(<StickerMy key={key} state={state} sticker={sticker} time={time} />)
+							destination.push(<StickerMy key={key} sticker={sticker} time={time} />)
 						}
 					}
 					break
@@ -360,7 +359,7 @@ const History = observer(({ state }: { state: State }) => {
 							const sticker: TL.TLFile = messageSticker.sticker.thumbnail.file
 							const senderName = state.users[message.senderUserId] ? state.users[message.senderUserId].firstName : 'Someone'
 
-							reactions.push(<StickerOnMessage senderName={senderName} state={state} key={key} sticker={sticker} />)
+							reactions.push(<StickerOnMessage senderName={senderName} key={key} sticker={sticker} />)
 						}
 					}
 
@@ -418,7 +417,7 @@ const History = observer(({ state }: { state: State }) => {
 	</div>
 })
 
-export const CurrentChatPanel = observer(({ state }: { state: State }) => {
+export const CurrentChatPanel = observer(() => {
 	const chatSelected = state.chats[state.currentChatId] && state.chatIds.includes(state.currentChatId)
 
 	return <>
@@ -427,9 +426,9 @@ export const CurrentChatPanel = observer(({ state }: { state: State }) => {
 				// TODO handle status . left the group
 				chatSelected ?
 					<>
-						<Top state={state} />
-						<History state={state} />
-						<Input state={state} />
+						<Top />
+						<History />
+						<Input />
 					</>
 					:
 					<>

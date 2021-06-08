@@ -14,10 +14,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { observer } from 'mobx-react-lite'
-import { State } from '../../mobx/store'
+import { state } from '../../mobx/store'
 import './SidePanel.scss'
 
-export const SidePanel = observer(({ state }: { state: State }) => {
+export const SidePanel = observer(() => {
 	const user = state.users[state.myId]
 
 	const hideSidePanel = (e: unknown) => {

@@ -48,3 +48,7 @@ $RECYCLE.BIN/
 node_modules
 hexagram-react/src/tdlib/id.json
 hexagram-react/.eslintcache
+hexagram-react/.vs/hexagram-react/v16/.suo
+hexagram-react/.vs/ProjectSettings.json
+hexagram-react/.vs/slnx.sqlite
+hexagram-react/.vs/VSWorkspaceState.json

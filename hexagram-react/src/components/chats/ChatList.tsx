@@ -13,12 +13,12 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ChatListElement } from './ChatListElement'
-import { State } from '../../mobx/store'
 import { observer } from 'mobx-react-lite'
+import { state } from '../../mobx/store'
 
-export const ChatList = observer(({ selectChat, state }: { selectChat: (id: number) => void, state: State }) => {
+export const ChatList = observer(({ selectChat }: { selectChat: (id: number) => void }) => {
 	const [dragging, setDragging] = useState(false)
 	const [position, setPosition] = useState({ left: 0, top: 0 })
 	const [lastPosition, setLastPosition] = useState({ left: 0, top: 0 })
@@ -83,7 +83,7 @@ export const ChatList = observer(({ selectChat, state }: { selectChat: (id: numb
 	return <div key="chats" className="chats" onWheel={onWheel}>
 		<div key="chatListScrollPane" className="chatListScrollPane" ref={chatListScrollPane} style={{ top: paneY + 'px' }}>
 			{
-				sortedChats.map(chatId => <ChatListElement state={state} key={chatId} chatId={chatId} selectChat={selectChat} />)
+				sortedChats.map(chatId => <ChatListElement key={chatId} chatId={chatId} selectChat={selectChat} />)
 			}
 		</div>
 		<div key="chatListScrollBar" className="chatListScrollBar" onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
