@@ -119,15 +119,17 @@ export const Input = observer(() => {
 		if (supergroup.isChannel === true) return null
 	}
 
-	return <div className="bottom">
-		<div className="input">
-			{(value === '') && false && <div className="placeholder">Write a message...</div>}
-			{false &&
-				<div ref={messagesEndRef} className="editor" contentEditable={true} onKeyDown={onKeyDown} onInput={e => updateValue((e.target as any).innerHTML)} dangerouslySetInnerHTML={{ __html: value }}></div>
-			}
-			<input type="text" className="editor" id="textName" maxLength={90} placeholder="Write a message..." onKeyDown={onKeyDown} value={value} onChange={e => updateValue(e.target.value)} required />
-		</div>
+	return (
+		<div className="bottom">
+			<div className="input">
+				{(value === '') && false && <div className="placeholder">Write a message...</div>}
+				{false &&
+					<div ref={messagesEndRef} className="editor" contentEditable={true} onKeyDown={onKeyDown} onInput={e => updateValue((e.target as any).innerHTML)} dangerouslySetInnerHTML={{ __html: value }}></div>
+				}
+				<input type="text" className="editor" id="textName" maxLength={90} placeholder="Write a message..." onKeyDown={onKeyDown} value={value} onChange={e => updateValue(e.target.value)} required />
+			</div>
 
-		<div className="thinVerticalLine" />
-	</div>
+			<div className="thinVerticalLine" />
+		</div>
+	)
 })

@@ -81,13 +81,18 @@ export const ChatList = observer(({ selectChat }: { selectChat: (id: number) => 
 		return 0
 	})
 
-	return <div key="chats" className={css.chats} onWheel={ui.onWheel}>
-		<div key="chatListScrollPane" className={pane} ref={chatListScrollPane} style={{ top: ui.paneY + 'px' }}>
-			{
-				sortedChats.map(chatId => <ChatListElement key={chatId} chatId={chatId} selectChat={selectChat} />)
-			}
+	const slider = ui.dragging ? css.slider + ' ' + css.opacity : css.slider + ' ' + css.sliderSmooth
+	const pane = ui.dragging ? css.pane : css.pane + ' ' + css.transition
+
+	return (
+		<div key="chats" className={css.chats} onWheel={ui.onWheel}>
+			<div key="chatListScrollPane" className={pane} ref={chatListScrollPane} style={{ top: ui.paneY + 'px' }}>
+				{
+					sortedChats.map(chatId => <ChatListElement key={chatId} chatId={chatId} selectChat={selectChat} />)
+				}
+			</div>
+			<div key="chatListScrollBar" className={css.scrollBar} onMouseDown={ui.onMouseClick} ref={chatListScrollBar}></div>
+			<div key="chatListScrollBarSlider" className={slider} onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={{ top: ui.sliderY + 3 + 'px' }}></div>
 		</div>
-		<div key="chatListScrollBar" className={css.scrollBar} onMouseDown={ui.onMouseClick} ref={chatListScrollBar}></div>
-		<div key="chatListScrollBarSlider" className={slider} onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={{ top: ui.sliderY + 3 + 'px' }}></div>
-	</div>
+	)
 })

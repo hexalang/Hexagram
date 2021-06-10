@@ -100,12 +100,14 @@ export const Top = observer(() => {
 			if (user.status['@type'] === 'userStatusLastMonth') summary = 'last seen within a month'
 		}
 
-	return <div className="top">
-		<div className="about">
-			<div className={larger ? "bold larger" : "bold"}>{name}</div>
-			<div className="light">{summary}</div>
-		</div>
+	return (
+		<div className="top">
+			<div className="about">
+				<div className={larger ? "bold larger" : "bold"}>{name}</div>
+				<div className="light">{summary}</div>
+			</div>
 
-		<div className="thinVerticalLine" />
-	</div>
+			<div className="thinVerticalLine" />
+		</div>
+	)
 })

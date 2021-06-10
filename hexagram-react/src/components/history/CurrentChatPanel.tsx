@@ -408,34 +408,38 @@ const History = observer(() => {
 	const paneY = -Math.round(_progress * (paneH - sliderMaxY))
 
 	// TODO use return (<>) everywhere
-	return <div className="history" key={state.currentChatId}>
-		<div className="historyView" onWheel={onWheel} key={state.currentChatId} ref={chatListScrollPane} style={{ top: paneY + 'px' }}>
-			{messages}
+	return (
+		<div className="history" key={state.currentChatId}>
+			<div className="historyView" onWheel={onWheel} key={state.currentChatId} ref={chatListScrollPane} style={{ top: paneY + 'px' }}>
+				{messages}
+			</div>
+			<div className="chatListScrollBar" onWheel={onWheel} onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
+			<div className="chatListScrollBarSlider" onWheel={onWheel} onMouseDown={onMouseDown} style={{ top: sliderY + 3 + 'px' }}></div>
 		</div>
-		<div className="chatListScrollBar" onWheel={onWheel} onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
-		<div className="chatListScrollBarSlider" onWheel={onWheel} onMouseDown={onMouseDown} style={{ top: sliderY + 3 + 'px' }}></div>
-	</div>
+	)
 })
 
 export const CurrentChatPanel = observer(() => {
 	const chatSelected = state.chats[state.currentChatId] && state.chatIds.includes(state.currentChatId)
 
-	return <>
-		<div className="blow center">
-			{
-				// TODO handle status . left the group
-				chatSelected ?
-					<>
-						<Top />
-						<History />
-						<Input />
-					</>
-					:
-					<>
-						<div className="pleaseSelectChat "><div>Please select a chat to start messaging</div></div>
-						<div className="pleaseSelectChat "><a href="https://www.patreon.com/PeyTy">Made for you by PeyTy</a></div>
-					</>
-			}
-		</div>
-	</>
+	return (
+		<>
+			<div className="blow center">
+				{
+					// TODO handle status . left the group
+					chatSelected ?
+						<>
+							<Top />
+							<History />
+							<Input />
+						</>
+						:
+						<>
+							<div className="pleaseSelectChat "><div>Please select a chat to start messaging</div></div>
+							<div className="pleaseSelectChat "><a href="https://www.patreon.com/PeyTy">Made for you by PeyTy</a></div>
+						</>
+				}
+			</div>
+		</>
+	)
 })

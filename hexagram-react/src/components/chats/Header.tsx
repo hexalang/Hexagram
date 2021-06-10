@@ -16,12 +16,14 @@
 import { observer } from "mobx-react-lite"
 
 export const Header = observer(({ showSidePanel }: { showSidePanel: (event: unknown) => void }) => {
-	return <div className="header">
-		<div className="burger" onClick={showSidePanel}>
-			<div></div>
-			<div></div>
-			<div></div>
+	return (
+		<div className="header">
+			<div className="burger" onClick={showSidePanel}>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div className="search" title="Not yet implemented"><span>Search</span></div>
 		</div>
-		<div className="search" title="Not yet implemented"><span>Search</span></div>
-	</div> // TODO Search, etc
+	) // TODO Search, etc
 })

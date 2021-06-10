@@ -49,27 +49,33 @@ export const LottieSticker = observer(({
 		}
 	}
 
-	return <div className="stickerMy">
-		{
-			srcAva == null ?
-				<div className="webp" style={{ backgroundImage: 'url(blur.png)' }}>{' '}</div>
-				:
-				<div className="webp"><Lottie options={defaultOptions} height={256} width={256} /></div>
-		}
-		<div className="time">{time}</div>
-	</div>
+	return (
+		<div className="stickerMy">
+			{
+				srcAva == null ?
+					<div className="webp" style={{ backgroundImage: 'url(blur.png)' }}>{' '}</div>
+					:
+					<div className="webp"><Lottie options={defaultOptions} height={256} width={256} /></div>
+			}
+			<div className="time">{time}</div>
+		</div>
+	)
 })
 
 export const CenterSystemMessage = observer(({ text }: { text: string }) => {
-	return <div className="centerSystemMessage">
-		<div>{text}</div>
-	</div>
+	return (
+		<div className="centerSystemMessage">
+			<div>{text}</div>
+		</div>
+	)
 })
 
 const CenterSystemMessageGroupPic = ({ src }: { src: string }) => {
-	return <div className="centerSystemMessageGroupPic">
-		<div style={{ backgroundImage: 'url(' + src + ')' }}>{' '}</div>
-	</div>
+	return (
+		<div className="centerSystemMessageGroupPic">
+			<div style={{ backgroundImage: 'url(' + src + ')' }}>{' '}</div>
+		</div>
+	)
 }
 
 export const StickerMy = observer(({
@@ -82,10 +88,12 @@ export const StickerMy = observer(({
 
 	if (srcAva == null) state.downloadFile(file, true)
 
-	return <div className="stickerMy">
-		<div className="webp" style={{ backgroundImage: 'url(' + (srcAva || 'blur.png') + ')' }}>{' '}</div>
-		<div className="time">{time}</div>
-	</div>
+	return (
+		<div className="stickerMy">
+			<div className="webp" style={{ backgroundImage: 'url(' + (srcAva || 'blur.png') + ')' }}>{' '}</div>
+			<div className="time">{time}</div>
+		</div>
+	)
 })
 
 export const MessageMy = observer(({
@@ -96,12 +104,14 @@ export const MessageMy = observer(({
 }) => {
 	dateTemp.setTime(date * 1000)
 	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
-	return <div className="messageMy">
-		{text}
-		<div className="text">&nbsp;&nbsp;&nbsp;</div>
-		{reactions}
-		<div className="time" title={timeTitle}>{time}</div>
-	</div>
+	return (
+		<div className="messageMy">
+			{text}
+			<div className="text">&nbsp;&nbsp;&nbsp;</div>
+			{reactions}
+			<div className="time" title={timeTitle}>{time}</div>
+		</div>
+	)
 })
 
 export const MessageTheirs = observer(({
@@ -111,26 +121,30 @@ export const MessageTheirs = observer(({
 }) => {
 	dateTemp.setTime(date * 1000)
 	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
-	return <div>
-		{null && avatar && <img className="messageAvatar" src={avatar} alt="Avatar" />}
-		<div className="messageTheirs">
-			{author && <div className="author">{author}</div>}
-			{text}
-			{false && <div className="text">{text}</div>}
-			<div key="text" className="text">&nbsp;&nbsp;&nbsp;</div>
-			<div key="right" className="right">
-				{reactions}
-				<div className="time" title={timeTitle}>{time}</div>
-				{views && <div className="views" title={views + ' views'}>{views}</div>}
+	return (
+		<div>
+			{null && avatar && <img className="messageAvatar" src={avatar} alt="Avatar" />}
+			<div className="messageTheirs">
+				{author && <div className="author">{author}</div>}
+				{text}
+				{false && <div className="text">{text}</div>}
+				<div key="text" className="text">&nbsp;&nbsp;&nbsp;</div>
+				<div key="right" className="right">
+					{reactions}
+					<div className="time" title={timeTitle}>{time}</div>
+					{views && <div className="views" title={views + ' views'}>{views}</div>}
+				</div>
 			</div>
 		</div>
-	</div>
+	)
 })
 
 export const MessageSameSender = observer(({ children }: any) => {
-	return <div className="messageSameSender">
-		{children}
-	</div>
+	return (
+		<div className="messageSameSender">
+			{children}
+		</div>
+	)
 })
 
 export const MessageSameSenderTheirs = observer(({ children, senderUserId }: {
@@ -145,7 +159,7 @@ export const MessageSameSenderTheirs = observer(({ children, senderUserId }: {
 			:
 			(chat && chat.photo && state.fileURL(chat.photo.small))
 
-	// TODO useEffect
+	// TODO mobx
 	if (srcAva == null && user && user.photo) state.downloadFile(user.photo.small, true)
 	if (srcAva == null && chat && chat.photo) state.downloadFile(chat.photo.small, true)
 
@@ -160,11 +174,13 @@ export const MessageSameSenderTheirs = observer(({ children, senderUserId }: {
 		user.type['@type'] === 'userTypeDeleted'
 	) name = 'Deleted Account'
 
-	return <div className="messageSameSenderTheirs" key={senderUserId}>
-		{srcAva != null && <img className="messageAvatar" src={srcAva || 'blur.jpg'} key={senderUserId} alt="Avatar" />}
-		{srcAva == null && <span className="messageAvatarPlaceholder" key={senderUserId}>{nameToInitials(name)}</span>}
-		{children}
-	</div>
+	return (
+		<div className="messageSameSenderTheirs" key={senderUserId}>
+			{srcAva != null && <img className="messageAvatar" src={srcAva || 'blur.jpg'} key={senderUserId} alt="Avatar" />}
+			{srcAva == null && <span className="messageAvatarPlaceholder" key={senderUserId}>{nameToInitials(name)}</span>}
+			{children}
+		</div>
+	)
 })
 
 export const MessagePhotoTheirs = observer(({ sized, text, time, date, author, views }: {
@@ -180,18 +196,20 @@ export const MessagePhotoTheirs = observer(({ sized, text, time, date, author, v
 	dateTemp.setTime(date * 1000)
 	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
 
-	return <div>
-		<div className={text.length !== 0 ? "messageTheirs messageTheirsPhoto" : "messageTheirs messageTheirsPhoto messageTheirsPhotoNoCaption"}>
-			{author && <div className="author">{author}</div>}
-			<div className="messagePhoto"><img className="" src={srcAva || 'blur.jpg'} alt="Avatar" /></div>
-			{text}
-			<div className="text">&nbsp;&nbsp;&nbsp;</div>
-			<div className="right">
-				<div className="time" title={timeTitle}>{time}</div>
-				{views && <div className="views" title={views + ' views'}>{views}</div>}
+	return (
+		<div>
+			<div className={text.length !== 0 ? "messageTheirs messageTheirsPhoto" : "messageTheirs messageTheirsPhoto messageTheirsPhotoNoCaption"}>
+				{author && <div className="author">{author}</div>}
+				<div className="messagePhoto"><img className="" src={srcAva || 'blur.jpg'} alt="Avatar" /></div>
+				{text}
+				<div className="text">&nbsp;&nbsp;&nbsp;</div>
+				<div className="right">
+					<div className="time" title={timeTitle}>{time}</div>
+					{views && <div className="views" title={views + ' views'}>{views}</div>}
+				</div>
 			</div>
 		</div>
-	</div>
+	)
 })
 
 export const StickerOnMessage = observer(({ sticker, senderName }: {

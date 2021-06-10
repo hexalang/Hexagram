@@ -38,5 +38,9 @@ export default observer(() => {
 		</div>
 	)
 
-	return <div className="App"><LoginForm /></div>
+	return (
+		<div className="App">
+			<LoginForm />
+		</div>
+	)
 })

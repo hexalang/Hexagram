@@ -29,9 +29,11 @@ export const ChatsPanel = observer(() => {
 		state.showSideBar = true
 	}
 
-	return <div className="chatList">
-		<Header showSidePanel={showSidePanel} />
-		<ChatList selectChat={selectChat} />
-		<Footer />
-	</div>
+	return (
+		<div className="chatList">
+			<Header showSidePanel={showSidePanel} />
+			<ChatList selectChat={selectChat} />
+			<Footer />
+		</div>
+	)
 })

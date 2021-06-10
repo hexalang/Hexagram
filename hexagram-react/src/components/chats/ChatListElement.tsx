@@ -185,44 +185,46 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 			draftText = chat.draft['@type']
 	}
 
-	return <div className={active} onClick={e => selectChat(chatId)}>
-		<div className="wrap">
+	return (
+		<div className={active} onClick={e => selectChat(chatId)}>
+			<div className="wrap">
 
-			{srcAva ? <img title={'Click to show user picture (TODO)'} className="avatar" src={srcAva || 'blur.jpg'} alt="Avatar" /> : <div className="avatarEmpty">{
-				nameToInitials(name)
-			}</div>}
-			<div className="namedatetext">
-				<div className="namedate">
-					<span className="bold name">
-						{channel && <img className="channel" title="This is a news channel or blog" src="icons/dialogs_channel.png" alt="Channel" />}
-						{supergroup && <img className="supergroup" title="This is a group chat" src="icons/dialogs_chat.png" alt="Supergroup" />}
-						{bot && <img className="bot" title="This is a bot, not a human" src="icons/dialogs_bot.png" alt="Bot" />}
-						<div title={name}>{name}</div>
-						{verified && <img className="verified" title="Account verified by Telegram team" src="icons/dialogs_verified_star.png" alt="Verified" />}
-					</span>
-					<span className="light date" title={dateHint}>{date}</span>
-				</div>
-				<div className="textcounter">
-					{
-						draft == null ?
-							<span className="light text">
-								{who && <div className="who" title={who}>{who}</div>}
-								{system && <div className="who" title={text ? system + text : system}>{system}</div>}
-								<div title={text}>{text}</div>
-							</span>
-							:
-							<span className="light text">
-								<div className="draft">{'Draft:'}</div>
-								<div title={'Draft: ' + draftText + '\n\n' + (who || (name + ': ')) + (text || system)}>{draftText}</div>
-							</span>
-					}
-					<div className="counter">
-						{(mentioned > 0 && unread > 0) && <span className="mentioned" title={`You have been mentioned ${mentioned} times in this chat`}><div>@</div></span>}
-						{unread === 0 && pinned && <span className="light pinned" title={"You pinned this chat for quick access\n\nOnly 5 chats may be pinned"}><img src="icons/dialogs_pinned.png" alt="Pinned" /></span>}
-						{unread > 0 && <span className="light unread" title="You have unread messages in this chat"><div>{unread}</div></span>}
+				{srcAva ? <img title={'Click to show user picture (TODO)'} className="avatar" src={srcAva || 'blur.jpg'} alt="Avatar" /> : <div className="avatarEmpty">{
+					nameToInitials(name)
+				}</div>}
+				<div className="namedatetext">
+					<div className="namedate">
+						<span className="bold name">
+							{channel && <img className="channel" title="This is a news channel or blog" src="icons/dialogs_channel.png" alt="Channel" />}
+							{supergroup && <img className="supergroup" title="This is a group chat" src="icons/dialogs_chat.png" alt="Supergroup" />}
+							{bot && <img className="bot" title="This is a bot, not a human" src="icons/dialogs_bot.png" alt="Bot" />}
+							<div title={name}>{name}</div>
+							{verified && <img className="verified" title="Account verified by Telegram team" src="icons/dialogs_verified_star.png" alt="Verified" />}
+						</span>
+						<span className="light date" title={dateHint}>{date}</span>
+					</div>
+					<div className="textcounter">
+						{
+							draft == null ?
+								<span className="light text">
+									{who && <div className="who" title={who}>{who}</div>}
+									{system && <div className="who" title={text ? system + text : system}>{system}</div>}
+									<div title={text}>{text}</div>
+								</span>
+								:
+								<span className="light text">
+									<div className="draft">{'Draft:'}</div>
+									<div title={'Draft: ' + draftText + '\n\n' + (who || (name + ': ')) + (text || system)}>{draftText}</div>
+								</span>
+						}
+						<div className="counter">
+							{(mentioned > 0 && unread > 0) && <span className="mentioned" title={`You have been mentioned ${mentioned} times in this chat`}><div>@</div></span>}
+							{unread === 0 && pinned && <span className="light pinned" title={"You pinned this chat for quick access\n\nOnly 5 chats may be pinned"}><img src="icons/dialogs_pinned.png" alt="Pinned" /></span>}
+							{unread > 0 && <span className="light unread" title="You have unread messages in this chat"><div>{unread}</div></span>}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	)
 })
