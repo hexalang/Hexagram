@@ -17,6 +17,7 @@ import { useState, useEffect, useRef } from 'react'
 import { ChatListElement } from './ChatListElement'
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
+import css from './ChatList.module.scss'
 
 export const ChatList = observer(({ selectChat }: { selectChat: (id: number) => void }) => {
 	const [dragging, setDragging] = useState(false)
@@ -80,13 +81,13 @@ export const ChatList = observer(({ selectChat }: { selectChat: (id: number) => 
 		return 0
 	})
 
-	return <div key="chats" className="chats" onWheel={onWheel}>
-		<div key="chatListScrollPane" className="chatListScrollPane" ref={chatListScrollPane} style={{ top: paneY + 'px' }}>
+	return <div key="chats" className={css.chats} onWheel={ui.onWheel}>
+		<div key="chatListScrollPane" className={pane} ref={chatListScrollPane} style={{ top: ui.paneY + 'px' }}>
 			{
 				sortedChats.map(chatId => <ChatListElement key={chatId} chatId={chatId} selectChat={selectChat} />)
 			}
 		</div>
-		<div key="chatListScrollBar" className="chatListScrollBar" onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
-		<div key="chatListScrollBarSlider" className="chatListScrollBarSlider" onMouseDown={onMouseDown} style={{ top: sliderY + 3 + 'px' }}></div>
+		<div key="chatListScrollBar" className={css.scrollBar} onMouseDown={ui.onMouseClick} ref={chatListScrollBar}></div>
+		<div key="chatListScrollBarSlider" className={slider} onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={{ top: ui.sliderY + 3 + 'px' }}></div>
 	</div>
 })
