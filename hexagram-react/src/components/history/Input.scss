@@ -24,7 +24,7 @@
 			position: absolute;
 			//cursor: default;
 			pointer-events: none;
-			color: #BBBBBB;
+			color: #bbbbbb;
 			font-size: 11pt;
 			font-weight: lighter;
 			left: 16px;
@@ -36,14 +36,20 @@
 			text-align: left;
 			outline: none !important;
 
-			& *, & > *, &, & *[style], & > *[style], & > a[style], & a[style] {
+			& *,
+			& > *,
+			&,
+			& *[style],
+			& > *[style],
+			& > a[style],
+			& a[style] {
 				color: black !important;
 				user-select: auto !important;
 				font-size: 11pt !important;
 				cursor: text !important;
-				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-	'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-	sans-serif !important;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+					'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+					'Helvetica Neue', sans-serif !important;
 				text-decoration: none !important;
 				font-weight: lighter !important;
 				background-color: transparent !important;
@@ -51,7 +57,8 @@
 				display: inline;
 			}
 
-			& img, & > img {
+			& img,
+			& > img {
 				display: none !important;
 			}
 		}

@@ -86,7 +86,7 @@
 
 .messageMy {
 	display: flex;
-	background-color: #EFFDDE;
+	background-color: #effdde;
 	border-radius: 6px;
 	max-width: 430px;
 	min-height: 33px;
@@ -101,7 +101,7 @@
 	& div.time {
 		display: flex;
 		font-size: 11pt;
-		color: #6CC264;
+		color: #6cc264;
 		white-space: nowrap;
 		align-self: flex-end;
 		flex-grow: 0;
@@ -146,7 +146,7 @@
 
 .textEntityTypeUrl {
 	cursor: pointer !important;
-	color: #168ACD !important;
+	color: #168acd !important;
 }
 
 .textEntityTypeUrl:hover {
@@ -176,7 +176,7 @@
 	& div.time {
 		display: flex;
 		font-size: 11pt;
-		color: #A0ACB6;
+		color: #a0acb6;
 		white-space: nowrap;
 		flex-grow: 0;
 		margin-left: auto;
@@ -185,7 +185,7 @@
 	& div.views {
 		display: flex;
 		font-size: 11pt;
-		color: #A0ACB6;
+		color: #a0acb6;
 		white-space: nowrap;
 		flex-grow: 0;
 		margin-left: auto;
@@ -195,7 +195,7 @@
 		flex-basis: 100%;
 		text-align: left;
 		font-size: 11pt;
-		color: #16B4EF;
+		color: #16b4ef;
 		font-weight: bold;
 		cursor: pointer;
 	}
@@ -237,7 +237,7 @@
 	top: calc(100% - 34px);
 	display: block;
 	font-size: 13px;
-	background-color: #7BC862;
+	background-color: #7bc862;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -253,7 +253,6 @@
 
 	background-image: url(bg_initial.jpg);
 	background-repeat: repeat;
-
 
 	& img {
 		height: auto;
@@ -314,7 +313,6 @@
 }
 
 .messagePrivateOrChannel {
-
 }
 
 .messageSameSender > div {

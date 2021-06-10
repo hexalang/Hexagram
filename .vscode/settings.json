@@ -8,5 +8,6 @@
 		".vscode": true,
 		"hexagram-react-redux-deprecated": true
 	},
-	"editor.formatOnSave": true
+	"editor.formatOnSave": true,
+	"prettier.useTabs": true
 }
