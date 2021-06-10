@@ -103,7 +103,7 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	// TODO they may have drafts!
 	if (message == null) return null
 
-	let name = chat ? (myId === chat.id ? 'Saved Messages' : chat.title) : ''
+	let name = chat ? (myId === chat.id ? 'Saved Messages' : chat.meta.title) : ''
 
 	if (
 		chat &&

@@ -167,7 +167,7 @@ export const MessageSameSenderTheirs = observer(({ children, senderUserId }: {
 		user ?
 			(user && (user.firstName + ' ' + user.lastName).trim())
 			:
-			(chat ? (chat.title).trim() : '??')
+			(chat ? (chat.meta.title).trim() : '??')
 
 	if (
 		user &&

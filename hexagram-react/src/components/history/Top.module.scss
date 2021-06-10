@@ -36,3 +36,15 @@
 		}
 	}
 }
+
+.thinVerticalLine {
+	//background-clip: content-box;
+	width: 1px;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: rgba(0, 0, 0, 0.1); //rgb(235, 235, 235);
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}

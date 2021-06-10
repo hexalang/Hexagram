@@ -16,14 +16,14 @@
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
-import './Top.scss'
+import css from './Top.module.scss'
 
 export const Top = observer(() => {
 	const chat = state.chats[state.currentChatId]
 	const savedMessages = state.myId === chat.id
 	let larger = savedMessages
 
-	let name = chat ? (savedMessages ? 'Saved Messages' : chat.title) : ''
+	let name = chat ? (savedMessages ? 'Saved Messages' : chat.meta.title) : ''
 	let summary = ''
 
 	if (
@@ -101,13 +101,13 @@ export const Top = observer(() => {
 		}
 
 	return (
-		<div className="top">
-			<div className="about">
-				<div className={larger ? "bold larger" : "bold"}>{name}</div>
-				<div className="light">{summary}</div>
+		<div className={css.top}>
+			<div className={css.about}>
+				<div className={larger ? css.bold + " " + css.larger : css.bold}>{name}</div>
+				<div className={css.light}>{summary}</div>
 			</div>
 
-			<div className="thinVerticalLine" />
+			<div className={css.thinVerticalLine} />
 		</div>
 	)
 })

@@ -39,7 +39,7 @@ const dispatchTelegramEvent = (update: TdObject) => {
 	if (timeOut) {
 		dequeue()
 		timeOut = false
-		setTimeout(dequeue, 123)
+		setTimeout(dequeue, 111)
 	}
 }
 

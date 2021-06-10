@@ -84,11 +84,11 @@ export class Message {
 
 export class Chat {
 	readonly id: number
-	@observable title!: string
+	@observable meta!: TL.TLChat
 	@observable isPinned!: boolean
 	@observable unreadCount!: number // "updateUnreadChatCount" - TODO
 	@observable photo!: TL.TLChatPhotoInfo | null
-	@observable lastMessage!: number // "updateChatLastMessage" - TODO
+	@observable lastMessage!: number
 	@observable type!: TL.TLChatType
 	@observable mentions!: number
 	@observable onlineMemberCount!: number
@@ -102,7 +102,7 @@ export class Chat {
 	}
 
 	merge(tl: TL.TLChat) {
-		this.title = tl.title
+		this.meta = tl
 		for (const position of tl.positions) {
 			if (position.list['@type'] === 'chatListMain') {
 				this.order = position.order
