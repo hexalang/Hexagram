@@ -13,69 +13,130 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, RefObject } from 'react'
 import { ChatListElement } from './ChatListElement'
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
+import { observable } from "mobx"
 import css from './ChatList.module.scss'
 
+interface Position {
+	left: number, top: number
+}
+class UI {
+	// GUI
+	@observable dragging: boolean | null = null
+	position: Position = { left: 0, top: 0 }
+	lastPosition: Position = { left: 0, top: 0 }
+	paneY: number = 0
+	sliderY: number = 0
+
+	chatListScrollBar: RefObject<HTMLDivElement>
+	chatListScrollPane: RefObject<HTMLDivElement>
+	chatListScrollSlider: RefObject<HTMLDivElement>
+	sliderHeight: number = 0
+	sliderMaxY: number = 0
+
+	constructor(
+		chatListScrollBar: RefObject<HTMLDivElement>,
+		chatListScrollPane: RefObject<HTMLDivElement>,
+		chatListScrollSlider: RefObject<HTMLDivElement>
+	) {
+		this.chatListScrollBar = chatListScrollBar
+		this.chatListScrollPane = chatListScrollPane
+		this.chatListScrollSlider = chatListScrollSlider
+
+		this.reposition()
+	}
+
+	events = () => {
+		if (this.dragging === true) {
+			document.addEventListener('mousemove', this.onMouseMove)
+			document.addEventListener('mouseup', this.onMouseUp, { once: true })
+		}
+
+		if (this.dragging === false) {
+			document.removeEventListener('mousemove', this.onMouseMove)
+			document.removeEventListener('mouseup', this.onMouseUp)
+		}
+	}
+
+	reposition = () => {
+		this.sliderMaxY = this.chatListScrollBar.current != null ? (this.chatListScrollBar.current as any).offsetHeight : 0
+		this.sliderHeight = 100 // TODO
+		this.sliderY = Math.min(Math.max(this.position.top, 0), this.sliderMaxY - this.sliderHeight)
+		const progress = Math.min(this.sliderY / (this.sliderMaxY - this.sliderHeight), 1.0)
+		const paneH = this.chatListScrollPane.current != null ? (this.chatListScrollPane.current as any).offsetHeight : 0
+		this.paneY = -Math.round(progress * (paneH - this.sliderMaxY))
+
+		if (this.chatListScrollPane.current) {
+			this.chatListScrollPane.current.style.top = this.paneY + 'px'
+		}
+
+		if (this.chatListScrollSlider.current) {
+			this.chatListScrollSlider.current.style.top = this.sliderY + 3 + 'px'
+		}
+	}
+
+	onMouseDown = (e: any) => {
+		this.lastPosition.left = e.pageX
+		this.lastPosition.top = e.pageY
+		this.dragging = true
+		this.events()
+	}
+
+	onMouseMove = (e: any) => {
+		e.preventDefault()
+		e.stopPropagation()
+
+		this.position = {
+			left: this.position.left + e.pageX - this.lastPosition.left,
+			top: Math.max(0, this.position.top + e.pageY - this.lastPosition.top)
+		}
+		this.lastPosition = { left: e.pageX, top: e.pageY }
+
+		this.reposition()
+		requestAnimationFrame(this.reposition)
+	}
+
+	onMouseUp = (e: any) => {
+		e.preventDefault()
+		e.stopPropagation()
+
+		this.dragging = false
+		this.events()
+	}
+
+	onWheel = (e: any) => {
+		this.position = { ...this.position, top: Math.min(Math.max(0, this.position.top + e.deltaY * 0.5), this.sliderMaxY - this.sliderHeight) }
+		this.reposition()
+	}
+
+	onMouseClick = (e: unknown) => {
+
+	}
+
+	unmount = () => {
+		this.dragging = false
+		this.events()
+	}
+}
+
 export const ChatList = observer(({ selectChat }: { selectChat: (id: number) => void }) => {
-	const [dragging, setDragging] = useState(false)
-	const [position, setPosition] = useState({ left: 0, top: 0 })
-	const [lastPosition, setLastPosition] = useState({ left: 0, top: 0 })
+	const chatListScrollBar = useRef<HTMLDivElement>(null)
+	const chatListScrollSlider = useRef<HTMLDivElement>(null)
+	const chatListScrollPane = useRef<HTMLDivElement>(null)
+	const [ui] = useState(() => new UI(chatListScrollBar, chatListScrollPane, chatListScrollSlider))
 
-	const chatListScrollBar = useRef(null)
-	const chatListScrollPane = useRef(null)
+	useEffect(() => () => {
+		ui.unmount()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
-	const chatIds = state.chatIds
-	const chats = state.chats
-
-	useEffect(() => {
-
-		const onMouseMove = (e: any) => {
-			setPosition({
-				left: position.left + e.pageX - lastPosition.left,
-				top: Math.max(0, position.top + e.pageY - lastPosition.top)
-			})
-			setLastPosition({ left: e.pageX, top: e.pageY })
-		}
-
-		const onMouseUp = () => {
-			setDragging(false)
-		}
-
-		if (dragging) {
-			document.addEventListener('mousemove', onMouseMove)
-			document.addEventListener('mouseup', onMouseUp)
-		}
-
-		return () => {
-			document.removeEventListener('mousemove', onMouseMove)
-			document.removeEventListener('mouseup', onMouseUp)
-		}
-	}, [dragging])
-
-	const onMouseDown = (e: any) => {
-		setLastPosition({ left: e.pageX, top: e.pageY })
-		setDragging(true)
-	}
-
-	const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
-	const sliderHeight = 100 // TODO
-	const sliderY = Math.min(Math.max(position.top, 0), sliderMaxY - sliderHeight)
-	const progress = Math.min(sliderY / (sliderMaxY - sliderHeight), 1.0)
-	const paneH = chatListScrollPane.current != null ? (chatListScrollPane.current as any).offsetHeight : 0
-	const paneY = -Math.round(progress * (paneH - sliderMaxY))
-	const onMouseClick = (e: unknown) => {
-	}
-
-	const onWheel = (e: any) => {
-		setPosition({ ...position, top: Math.min(Math.max(0, position.top + e.deltaY * 0.5), sliderMaxY - sliderHeight) })
-	}
-
-	const sortedChats: number[] = [...chatIds].sort((a: number, b: number): number => {
-		const ordera: BigInt = BigInt(chats[a].order)
-		const orderb: BigInt = BigInt(chats[b].order)
+	const chats = state.chats // Optimization
+	const sortedChats: number[] = [...state.chatIds].sort((a: number, b: number): number => {
+		const ordera: BigInt = BigInt(chats[a].order ?? '0')
+		const orderb: BigInt = BigInt(chats[b].order ?? '0')
 		if (ordera > orderb) return -1
 		if (ordera < orderb) return +1
 		return 0
