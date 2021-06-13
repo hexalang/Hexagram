@@ -70,7 +70,7 @@ export const Top = observer(() => {
 			state.users[(chat.type as TL.TLChatTypePrivate).user_id] &&
 			state.users[(chat.type as TL.TLChatTypePrivate).user_id].type['@type'] === 'userTypeRegular'
 		) {
-			const user = state.users[TL.chatTypePrivate(chat.type).user_id]
+			const user = state.users[(chat.type as TL.TLChatTypePrivate).user_id]
 			name = (user.firstName + ' ' + user.lastName).trim()
 			if (user.status['@type'] === 'userStatusEmpty') summary = 'service notifications'
 			if (user.status['@type'] === 'userStatusOnline') summary = 'online'
