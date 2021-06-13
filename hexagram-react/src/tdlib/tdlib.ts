@@ -15,6 +15,7 @@
 
 import TdClient, { TdOptions, TdObject } from 'tdweb'
 import * as TL from './tdapi'
+import { stringMap } from './tdedup'
 import ids from './id.json'
 
 // 'cause you cannot reassign `import {let}`
@@ -35,6 +36,7 @@ const dequeue = () => {
 }
 
 const dispatchTelegramEvent = (update: TdObject) => {
+	update['@type'] = stringMap.get(update['@type']) as string
 	queue.push(update)
 	if (timeOut) {
 		dequeue()

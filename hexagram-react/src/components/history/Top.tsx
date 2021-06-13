@@ -29,9 +29,9 @@ export const Top = observer(() => {
 	if (
 		chat &&
 		chat.type['@type'] === 'chatTypeSupergroup' &&
-		state.supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id]
+		state.supergroups[(chat.type as TL.TLChatTypeSupergroup).supergroup_id]
 	) {
-		const supergroup = state.supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id]
+		const supergroup = state.supergroups[(chat.type as TL.TLChatTypeSupergroup).supergroup_id]
 		const memberCount = supergroup.memberCount
 		if (supergroup.isChannel === false) {
 			summary = '' + memberCount + ' members' // TODO 1 member/ N members
@@ -43,10 +43,10 @@ export const Top = observer(() => {
 	const bot = (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		state.users[TL.chatTypePrivate(chat.type).user_id] &&
+		state.users[(chat.type as TL.TLChatTypePrivate).user_id] &&
 		// TODO TL.userTypeBot(...) != null
 		// ^ or better isUserTypeBot
-		state.users[TL.chatTypePrivate(chat.type).user_id].type['@type'] === 'userTypeBot'
+		state.users[(chat.type as TL.TLChatTypePrivate).user_id].type['@type'] === 'userTypeBot'
 	)
 
 	if (bot) summary = 'bot'
@@ -54,8 +54,8 @@ export const Top = observer(() => {
 	if (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		state.users[TL.chatTypePrivate(chat.type).user_id] &&
-		state.users[TL.chatTypePrivate(chat.type).user_id].type['@type'] === 'userTypeDeleted'
+		state.users[(chat.type as TL.TLChatTypePrivate).user_id] &&
+		state.users[(chat.type as TL.TLChatTypePrivate).user_id].type['@type'] === 'userTypeDeleted'
 	) {
 		name = 'Deleted Account'
 		larger = true
@@ -67,15 +67,15 @@ export const Top = observer(() => {
 			savedMessages === false &&
 			chat &&
 			chat.type['@type'] === 'chatTypePrivate' &&
-			state.users[TL.chatTypePrivate(chat.type).user_id] &&
-			state.users[TL.chatTypePrivate(chat.type).user_id].type['@type'] === 'userTypeRegular'
+			state.users[(chat.type as TL.TLChatTypePrivate).user_id] &&
+			state.users[(chat.type as TL.TLChatTypePrivate).user_id].type['@type'] === 'userTypeRegular'
 		) {
 			const user = state.users[TL.chatTypePrivate(chat.type).user_id]
 			name = (user.firstName + ' ' + user.lastName).trim()
 			if (user.status['@type'] === 'userStatusEmpty') summary = 'service notifications'
 			if (user.status['@type'] === 'userStatusOnline') summary = 'online'
 			if (user.status['@type'] === 'userStatusOffline') {
-				const was_online: number = TL.userStatusOffline(user.status).was_online * 1000
+				const was_online: number = (user.status as TL.TLUserStatusOffline).was_online * 1000
 				const second = 1
 				const minute = 60 * second
 				const hour = 60 * minute

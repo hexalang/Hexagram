@@ -1,5 +1,5 @@
 // Hexagram
-// Copyright (C) 2020  Oleg Petrenko
+// Copyright (C) 2021  Oleg Petrenko
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -34,7 +34,7 @@ import TdClient, { TdObject } from 'tdweb'
 `
 
 const fs = require('fs')
-const path = require('path')
+
 console.log('start...')
 
 const lines = fs.readFileSync('./hexagram-react/td_api.tl.txt').toString()
@@ -66,23 +66,19 @@ function toTitleCase(named) {
 	return named[0].toUpperCase() + named.substr(1)
 }
 
-function toCamelCase(named) {
-	return named[0].toLowerCase() + named.substr(1)
-}
-
 function toType(typea) {
-	if (typea == 'string')           return `string`;
-	if (typea == 'Bool')             return `boolean`
-	if (typea == 'int32')            return `number`
-	if (typea == 'int53')            return `number`
-	if (typea == 'int64')            return `string`
-	if (typea == 'bytes')            return `Uint8Array`
-	if (typea == 'vector<int32>')    return `ReadonlyArray<number>`
-	if (typea == 'vector<int53>')    return `ReadonlyArray<number>`
-	if (typea == 'vector<int64>')    return `ReadonlyArray<string>`
-	if (typea == 'vector<string>')   return `ReadonlyArray<string>`
-	if (typea == 'vector<bytes>')   return `ReadonlyArray<Uint8Array>`
-	if (typea == 'double')           return `number`
+	if (typea === 'string')           return `string`;
+	if (typea === 'Bool')             return `boolean`
+	if (typea === 'int32')            return `number`
+	if (typea === 'int53')            return `number`
+	if (typea === 'int64')            return `string`
+	if (typea === 'bytes')            return `Uint8Array`
+	if (typea === 'vector<int32>')    return `ReadonlyArray<number>`
+	if (typea === 'vector<int53>')    return `ReadonlyArray<number>`
+	if (typea === 'vector<int64>')    return `ReadonlyArray<string>`
+	if (typea === 'vector<string>')   return `ReadonlyArray<string>`
+	if (typea === 'vector<bytes>')   return `ReadonlyArray<Uint8Array>`
+	if (typea === 'double')           return `number`
 	if (typea.startsWith('vector<vector<')) return 'ReadonlyArray<ReadonlyArray<TL' + toTitleCase(typea.split('<')[2].split('>')[0]) + '>>'
 	if (typea.startsWith('vector<')) return 'ReadonlyArray<TL' + toTitleCase(typea.split('<')[1].split('>')[0]) + '>'
 	return 'TL' + toTitleCase(typea)
@@ -91,14 +87,14 @@ function toType(typea) {
 // Objects
 while (lines.length > 0) {
 	const line = lines.shift()
-	if (line == '---functions---') break
+	if (line === '---functions---') break
 	if (line.startsWith('//')) continue
 
 	let lined = line.split(' = ')
 	let params = lined[0].split(' ')
 	let typed = lined[1].replace(';', '')
 
-	if (enumName != null && enumName != typed) {
+	if (enumName != null && enumName !== typed) {
 		if (enums.length > 1) out.push('export type TL' + enumName + ' = ' + enums.join(' | '))
 		enumName = null
 		enums = []
@@ -122,7 +118,6 @@ while (lines.length > 0) {
 	}
 
 	out.push(`}`)
-	out.push(`export function ${named}(object: TLObject): TL${namedTitle} { return object as TL${namedTitle} }`)
 
 	if(!typed) {console.log(line);break;}
 
@@ -180,4 +175,15 @@ out.unshift(`	readonly "@type": "${typesAll.join('" |\n\t"')}"`)
 out.unshift('export interface TLObject {')
 
 fs.writeFileSync('./hexagram-react/src/tdlib/tdapi.ts', header + out.join('\n'))
+console.log(typesAll.length, 'types')
+
+{
+	let dedup = []
+	dedup.push('export const stringMap: Map<string, string> = new Map()')
+	dedup.push('const strings: string[] = ["' + typesAll.join('","') + '"]')
+	dedup.push('for (const key of strings) stringMap.set(key, key)')
+	dedup.push('')
+	fs.writeFileSync('./hexagram-react/src/tdlib/tdedup.ts', header + dedup.join('\n'))
+}
+
 console.log('done.')

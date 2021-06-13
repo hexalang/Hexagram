@@ -55,11 +55,11 @@ export const Input = observer(() => {
 		if (
 			draft &&
 			draft['@type'] === 'inputMessageText' &&
-			TL.inputMessageText(draft).text['@type'] === 'formattedText'
+			(draft as TL.TLInputMessageText).text['@type'] === 'formattedText'
 		) {
-			const draftText: string = TL.formattedText(TL.inputMessageText(draft).text).text
 			setValue(draftText.trim())
 		} else setValue('')
+			const draftText: string = ((draft as TL.TLInputMessageText).text as TL.TLFormattedText).text
 
 	}, [state.currentChatId])
 
@@ -105,17 +105,17 @@ export const Input = observer(() => {
 
 	if (
 		chat.type['@type'] === 'chatTypePrivate' &&
-		state.users[TL.chatTypePrivate(chat.type).user_id] &&
-		state.users[TL.chatTypePrivate(chat.type).user_id].type['@type'] === 'userTypeDeleted'
+		state.users[(chat.type as TL.TLChatTypePrivate).user_id] &&
+		state.users[(chat.type as TL.TLChatTypePrivate).user_id].type['@type'] === 'userTypeDeleted'
 	) {
 		return null
 	}
 
 	if (
 		chat.type['@type'] === 'chatTypeSupergroup' &&
-		state.supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id]
+		state.supergroups[(chat.type as TL.TLChatTypeSupergroup).supergroup_id]
 	) {
-		const supergroup = state.supergroups[TL.chatTypeSupergroup(chat.type).supergroup_id]
+		const supergroup = state.supergroups[(chat.type as TL.TLChatTypeSupergroup).supergroup_id]
 		if (supergroup.isChannel === true) return null
 	}
 

@@ -134,7 +134,7 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 				// Just empty
 			}
 			else
-				if (chat.type['@type'] === 'chatTypeSupergroup' && TL.chatTypeSupergroup(chat.type).is_channel === false) {
+				if (chat.type['@type'] === 'chatTypeSupergroup' && (chat.type as TL.TLChatTypeSupergroup).is_channel === false) {
 					const sender = users[message.senderUserId]
 					if (sender) who = sender.firstName + ': '
 					if (sender && sender.type['@type'] === 'userTypeDeleted') who = 'Deleted: '
@@ -147,16 +147,16 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	const verified = (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		users[TL.chatTypePrivate(chat.type).user_id] &&
-		users[TL.chatTypePrivate(chat.type).user_id].verified
+		users[(chat.type as TL.TLChatTypePrivate).user_id] &&
+		users[(chat.type as TL.TLChatTypePrivate).user_id].verified
 	)
-	const channel = (chat && chat.type['@type'] === 'chatTypeSupergroup' && TL.chatTypeSupergroup(chat.type).is_channel === true)
+	const channel = (chat && chat.type['@type'] === 'chatTypeSupergroup' && (chat.type as TL.TLChatTypeSupergroup).is_channel === true)
 	const supergroup = (chat && chat.type['@type'] === 'chatTypeSupergroup' && channel === false)
 	const bot = (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		users[TL.chatTypePrivate(chat.type).user_id] &&
-		users[TL.chatTypePrivate(chat.type).user_id].type['@type'] === 'userTypeBot'
+		users[(chat.type as TL.TLChatTypePrivate).user_id] &&
+		users[(chat.type as TL.TLChatTypePrivate).user_id].type['@type'] === 'userTypeBot'
 	)
 
 	const active = current ? "chatListElement chatListElement__active" : "chatListElement"
@@ -169,14 +169,14 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 
 	if (chat && chat.draft) switch (chat.draft['@type']) {
 		case 'inputMessageText': {
-			switch (TL.inputMessageText(chat.draft).text['@type']) {
+			switch ((chat.draft as TL.TLInputMessageText).text['@type']) {
 				case 'formattedText': {
-					draftText = TL.formattedText(TL.inputMessageText(chat.draft).text).text
+					draftText = ((chat.draft as TL.TLInputMessageText).text as TL.TLFormattedText).text
 					break
 				}
 				default:
-					console.warn('Unknown draft type ' + TL.inputMessageText(chat.draft).text['@type'])
-					draftText = TL.inputMessageText(chat.draft).text['@type']
+					console.warn('Unknown draft type ' + (chat.draft as TL.TLInputMessageText).text['@type'])
+					draftText = (chat.draft as TL.TLInputMessageText).text['@type']
 			}
 			break
 		}

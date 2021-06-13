@@ -214,7 +214,7 @@ export class State {
 		switch (update['@type']) {
 			case "updateAuthorizationState":
 				{
-					const updateAuthorizationState = TL.updateAuthorizationState(update)
+					const updateAuthorizationState = update as TL.TLUpdateAuthorizationState
 					switch (updateAuthorizationState.authorization_state['@type']) {
 						case "authorizationStateWaitPhoneNumber":
 							this.loginState = LoginState.WaitPhoneNumber
@@ -227,7 +227,7 @@ export class State {
 							break
 						case "authorizationStateWaitPassword":
 							this.loginState = LoginState.WaitPassword
-							const authorizationStateWaitPassword = TL.authorizationStateWaitPassword(updateAuthorizationState.authorization_state)
+							const authorizationStateWaitPassword = updateAuthorizationState.authorization_state as TL.TLAuthorizationStateWaitPassword
 							this.hint = authorizationStateWaitPassword.password_hint
 							break
 						case "authorizationStateReady":
@@ -239,13 +239,13 @@ export class State {
 
 			case "updateOption":
 				{
-					const updateOption = TL.updateOption(update)
+					const updateOption = update as TL.TLUpdateOption
 					switch (updateOption.name) {
 						case "version":
 							this.loaded = true
 							break
 						case "my_id":
-							this.myId = parseFloat(TL.optionValueInteger(updateOption.value).value)
+							this.myId = parseFloat((updateOption.value as TL.TLOptionValueInteger).value)
 							break
 						default:
 							console.warn('Unknown update option', update)
@@ -255,7 +255,7 @@ export class State {
 
 			case "updateNewChat":
 				{
-					const updateNewChat = TL.updateNewChat(update)
+					const updateNewChat = update as TL.TLUpdateNewChat
 					const chat_id = updateNewChat.chat.id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					chat.merge(updateNewChat.chat)
@@ -264,7 +264,7 @@ export class State {
 
 			case "updateChatLastMessage":
 				{
-					const updateChatLastMessage = TL.updateChatLastMessage(update)
+					const updateChatLastMessage = update as TL.TLUpdateChatLastMessage
 					if (updateChatLastMessage.last_message == null) {
 						console.warn('updateChatLastMessage TODO handle empty last_message')
 						break
@@ -288,7 +288,7 @@ export class State {
 
 			case "updateChatPosition":
 				{
-					const updateChatPosition = TL.updateChatPosition(update)
+					const updateChatPosition = update as TL.TLUpdateChatPosition
 					const chat_id = updateChatPosition.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					const position = updateChatPosition.position
@@ -303,7 +303,7 @@ export class State {
 
 			case "updateChatUnreadMentionCount":
 				{
-					const updateChatUnreadMentionCount = TL.updateChatUnreadMentionCount(update)
+					const updateChatUnreadMentionCount = update as TL.TLUpdateChatUnreadMentionCount
 					const chat_id = updateChatUnreadMentionCount.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					chat.mentions = updateChatUnreadMentionCount.unread_mention_count
@@ -312,7 +312,7 @@ export class State {
 
 			case "updateMessageMentionRead":
 				{
-					const updateMessageMentionRead = TL.updateMessageMentionRead(update)
+					const updateMessageMentionRead = update as TL.TLUpdateMessageMentionRead
 					const chat_id = updateMessageMentionRead.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					chat.mentions = updateMessageMentionRead.unread_mention_count
@@ -323,7 +323,7 @@ export class State {
 
 			case "updateNewMessage":
 				{
-					const updateNewMessage = TL.updateNewMessage(update)
+					const updateNewMessage = update as TL.TLUpdateNewMessage
 					const message = new Message(updateNewMessage.message.id).merge(updateNewMessage.message)
 					const chat_id = updateNewMessage.message.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
@@ -337,7 +337,7 @@ export class State {
 
 			case "updateDeleteMessages":
 				{
-					const updateDeleteMessages = TL.updateDeleteMessages(update)
+					const updateDeleteMessages = update as TL.TLUpdateDeleteMessages
 					if (updateDeleteMessages.is_permanent === false) break
 					if (updateDeleteMessages.from_cache === true) break
 					const chat_id = updateDeleteMessages.chat_id
@@ -349,7 +349,7 @@ export class State {
 
 			case "updateChatReadInbox":
 				{
-					const updateChatReadInbox = TL.updateChatReadInbox(update)
+					const updateChatReadInbox = update as TL.TLUpdateChatReadInbox
 					const chat_id = updateChatReadInbox.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					chat.unreadCount = updateChatReadInbox.unread_count
@@ -359,7 +359,7 @@ export class State {
 			case "updateChatDraftMessage":
 				{
 					// TODO consider `order`
-					const updateChatDraftMessage = TL.updateChatDraftMessage(update)
+					const updateChatDraftMessage = update as TL.TLUpdateChatDraftMessage
 					const chat_id = updateChatDraftMessage.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					const draft_message: TL.TLDraftMessage | null = updateChatDraftMessage.draft_message
@@ -375,7 +375,7 @@ export class State {
 
 			case "updateChatOnlineMemberCount":
 				{
-					const updateChatOnlineMemberCount = TL.updateChatOnlineMemberCount(update)
+					const updateChatOnlineMemberCount = update as TL.TLUpdateChatOnlineMemberCount
 					const chat_id = updateChatOnlineMemberCount.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					chat.onlineMemberCount = updateChatOnlineMemberCount.online_member_count
@@ -384,7 +384,7 @@ export class State {
 
 			case "updateMessageContent":
 				{
-					const updateMessageContent = TL.updateMessageContent(update)
+					const updateMessageContent = update as TL.TLUpdateMessageContent
 					const chat_id = updateMessageContent.chat_id
 					const messages = this.getOrCreateMessages(chat_id)
 					const message_id = updateMessageContent.message_id
@@ -395,7 +395,7 @@ export class State {
 
 			case "updateSupergroup":
 				{
-					const updateSupergroup = TL.updateSupergroup(update)
+					const updateSupergroup = update as TL.TLUpdateSupergroup
 					const supergroup = createIfNone(this.supergroups, updateSupergroup.supergroup.id, Supergroup)
 					supergroup.merge(updateSupergroup.supergroup)
 				}
@@ -403,7 +403,7 @@ export class State {
 
 			case "updateFile":
 				{
-					const updateFile = TL.updateFile(update)
+					const updateFile = update as TL.TLUpdateFile
 					const file = createIfNone(this.files, updateFile.file.id, File)
 					file.completed = updateFile.file.local.is_downloading_completed
 					file.active = updateFile.file.local.is_downloading_active
@@ -421,7 +421,7 @@ export class State {
 
 			case "updateUser":
 				{
-					const updateUser = TL.updateUser(update)
+					const updateUser = update as TL.TLUpdateUser
 					const user = createIfNone(this.users, updateUser.user.id, User)
 					user.merge(updateUser.user)
 				}
@@ -429,7 +429,7 @@ export class State {
 
 			case "updateUserStatus":
 				{
-					const updateUserStatus = TL.updateUserStatus(update)
+					const updateUserStatus = update as TL.TLUpdateUserStatus
 					const user = createIfNone(this.users, updateUserStatus.user_id, User)
 					user.status = updateUserStatus.status
 				}

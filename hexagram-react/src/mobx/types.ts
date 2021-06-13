@@ -66,11 +66,11 @@ export class Message {
 		this.date = tl.date
 		switch (tl.sender['@type']) {
 			case 'messageSenderChat':
-				this.senderChatId = TL.messageSenderChat(tl.sender).chat_id
+				this.senderChatId = (tl.sender as TL.TLMessageSenderChat).chat_id
 				this.senderUserId = 0
 				break
 			case 'messageSenderUser':
-				this.senderUserId = TL.messageSenderUser(tl.sender).user_id
+				this.senderUserId = (tl.sender as TL.TLMessageSenderUser).user_id
 				this.senderChatId = 0
 				break
 		}
