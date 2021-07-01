@@ -15,6 +15,7 @@
 
 import * as TL from '../tdlib/tdapi'
 import { Chat, User, Message, Supergroup, File } from './types'
+import { StoreEvent, listeners, Store } from './wrap'
 import { action, computed, keys, observable } from "mobx"
 import { tg, dispatchTelegramEventHandler } from '../tdlib/tdlib'
 
@@ -89,6 +90,17 @@ export class State {
 		this.history = {}
 
 		dispatchTelegramEventHandler.handle = (updates: TL.TLObject[]) => this.mergeAll(updates)
+	}
+
+	private dispatched: StoreEvent = null as unknown as StoreEvent
+
+	private dispatcher = (store: Store) => {
+		store.listen(this.dispatched)
+	}
+
+	dispatch(e: StoreEvent) {
+		this.dispatched = e
+		listeners.forEach(this.dispatcher)
 	}
 
 	getOrCreateMessages(chatId: number): {
