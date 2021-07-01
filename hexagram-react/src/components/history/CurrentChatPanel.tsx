@@ -29,6 +29,7 @@ import { observable } from "mobx"
 interface Position {
 	left: number, top: number
 }
+
 class UI {
 	// GUI
 	@observable dragging: boolean | null = null
@@ -70,7 +71,7 @@ class UI {
 	readonly reposition = () => {
 		this.sliderMaxY = this.chatListScrollBar.current != null ? (this.chatListScrollBar.current as any).offsetHeight : 0
 		const count = state.history[state.currentChatId] ? state.history[state.currentChatId].length : 1
-		this.sliderHeight = Math.round(this.sliderMaxY * (this.sliderMaxY / (62 * count)))
+		this.sliderHeight = Math.round(this.sliderMaxY * (this.sliderMaxY / (96 * count)))
 		this.sliderY = Math.min(Math.max(this.position.top, 0), this.sliderMaxY - this.sliderHeight)
 		const progress = Math.min(this.sliderY / (this.sliderMaxY - this.sliderHeight), 1.0)
 		const paneH = this.chatListScrollPane.current != null ? (this.chatListScrollPane.current as any).offsetHeight : 0
@@ -86,6 +87,9 @@ class UI {
 	}
 
 	readonly onMouseDown = (e: any) => {
+		e.preventDefault()
+		e.stopPropagation()
+
 		this.lastPosition.left = e.pageX
 		this.lastPosition.top = e.pageY
 		this.dragging = true
@@ -115,6 +119,7 @@ class UI {
 	}
 
 	readonly onWheel = (e: any) => {
+		// TODO is delta correct?
 		this.position = { ...this.position, top: Math.min(Math.max(0, this.position.top + e.deltaY * 0.5), this.sliderMaxY - this.sliderHeight) }
 		this.reposition()
 	}
@@ -130,11 +135,6 @@ class UI {
 }
 
 const History = observer(() => {
-	const [dragging, setDragging] = useState(false)
-	const [position, setPosition] = useState(0)
-	const [lastPosition, setLastPosition] = useState(0)
-	const [progress, setProgress] = useState(0.0)
-
 	const chatListScrollBar = useRef<HTMLDivElement>(null)
 	const chatListScrollSlider = useRef<HTMLDivElement>(null)
 	const chatListScrollPane = useRef<HTMLDivElement>(null)
@@ -155,49 +155,10 @@ const History = observer(() => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [state.currentChatId])
 
-	const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
-	const sliderHeight = 100 // TODO
-	const sliderY = Math.min(Math.max(position, 0), sliderMaxY - sliderHeight)
-
-	useEffect(() => {
-
-		const onMouseMove = (e: any) => {
-			const positionNew = Math.max(0, position + e.pageY - lastPosition)
-			setPosition(positionNew)
-			setLastPosition(e.pageY)
-
-			const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
-			const sliderY = Math.min(Math.max(positionNew, 0), sliderMaxY - sliderHeight)
-			const progressNew = Math.min(sliderY / (sliderMaxY - sliderHeight), 1.0)
-			setProgress(progressNew)
-		}
-
-		const onMouseUp = () => {
-			setDragging(false)
-		}
-
-		if (dragging) {
-			document.addEventListener('mousemove', onMouseMove)
-			document.addEventListener('mouseup', onMouseUp)
-		}
-
-		return () => {
-			document.removeEventListener('mousemove', onMouseMove)
-			document.removeEventListener('mouseup', onMouseUp)
-		}
-	}, [dragging])
-
 	const messages: React.ReactNode[] = []
-
 	const chat = state.chats[state.currentChatId]
 
 	const scrollToBottom = () => {
-		// TODO remember scroll position for each chat separately
-		setTimeout(() => {
-			setProgress(Math.min(1.0, (1.0 - 0.00001) + Math.random() * 0.00001))
-			const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
-			setPosition(sliderMaxY - sliderHeight)
-		}, 100)
 	}
 
 	useEffect(scrollToBottom, [chatListScrollPane.current, state.currentChatId, messages.length, chat && chat.lastMessage])
@@ -503,30 +464,6 @@ const History = observer(() => {
 		if (destination !== messages && destination.length > 0) mergeDestination()
 	}
 
-	const onMouseDown = (e: any) => {
-		setLastPosition(e.pageY)
-		setDragging(true)
-		e.stopPropagation()
-	}
-
-	const onMouseClick = (e: any) => {
-	}
-
-	const onWheel = (e: any) => {
-		// e.deltaY is -100 ... 100
-		const progressNew = progress + e.deltaY * 0.01 * 0.085
-		const progressClamp = Math.max(Math.min(1.0, progressNew), 0.0)
-		setProgress(progressClamp)
-
-		const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
-		const sliderY = (sliderMaxY - sliderHeight) * progressClamp
-		setPosition(sliderY)
-		setLastPosition(sliderY)
-	}
-
-	const _progress = progress
-	const paneH = chatListScrollPane.current != null ? (chatListScrollPane.current as any).offsetHeight : 0
-	const paneY = -Math.round(_progress * (paneH - sliderMaxY))
 	const slider = ui.dragging ? css.slider + ' ' + css.opacity : css.slider + ' ' + css.sliderSmooth
 	const pane = ui.dragging ? css.pane : css.pane + ' ' + css.transition
 

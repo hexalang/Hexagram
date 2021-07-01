@@ -23,6 +23,7 @@ import css from './ChatList.module.scss'
 interface Position {
 	left: number, top: number
 }
+
 class UI {
 	// GUI
 	@observable dragging: boolean | null = null
@@ -79,6 +80,9 @@ class UI {
 	}
 
 	readonly onMouseDown = (e: any) => {
+		e.preventDefault()
+		e.stopPropagation()
+
 		this.lastPosition.left = e.pageX
 		this.lastPosition.top = e.pageY
 		this.dragging = true
