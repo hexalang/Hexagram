@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, RefObject } from 'react'
 import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
@@ -23,6 +23,111 @@ import { Input } from './Input'
 import { Top } from './Top'
 import './CurrentChatPanel.scss'
 import { observer } from 'mobx-react-lite'
+import css from './CurrentChatPanel.module.scss'
+import { observable } from "mobx"
+
+interface Position {
+	left: number, top: number
+}
+class UI {
+	// GUI
+	@observable dragging: boolean | null = null
+	position: Position = { left: 0, top: 0 }
+	lastPosition: Position = { left: 0, top: 0 }
+	paneY: number = 0
+	sliderY: number = 0
+
+	chatListScrollBar: RefObject<HTMLDivElement>
+	chatListScrollPane: RefObject<HTMLDivElement>
+	chatListScrollSlider: RefObject<HTMLDivElement>
+	sliderHeight: number = 100
+	sliderMaxY: number = 200
+
+	constructor(
+		chatListScrollBar: RefObject<HTMLDivElement>,
+		chatListScrollPane: RefObject<HTMLDivElement>,
+		chatListScrollSlider: RefObject<HTMLDivElement>
+	) {
+		this.chatListScrollBar = chatListScrollBar
+		this.chatListScrollPane = chatListScrollPane
+		this.chatListScrollSlider = chatListScrollSlider
+
+		this.reposition()
+	}
+
+	readonly events = () => {
+		if (this.dragging === true) {
+			document.addEventListener('mousemove', this.onMouseMove)
+			document.addEventListener('mouseup', this.onMouseUp, { once: true })
+		}
+
+		if (this.dragging === false) {
+			document.removeEventListener('mousemove', this.onMouseMove)
+			document.removeEventListener('mouseup', this.onMouseUp)
+		}
+	}
+
+	readonly reposition = () => {
+		this.sliderMaxY = this.chatListScrollBar.current != null ? (this.chatListScrollBar.current as any).offsetHeight : 0
+		const count = state.history[state.currentChatId] ? state.history[state.currentChatId].length : 1
+		this.sliderHeight = Math.round(this.sliderMaxY * (this.sliderMaxY / (62 * count)))
+		this.sliderY = Math.min(Math.max(this.position.top, 0), this.sliderMaxY - this.sliderHeight)
+		const progress = Math.min(this.sliderY / (this.sliderMaxY - this.sliderHeight), 1.0)
+		const paneH = this.chatListScrollPane.current != null ? (this.chatListScrollPane.current as any).offsetHeight : 0
+		this.paneY = -Math.round(progress * (paneH - this.sliderMaxY))
+
+		if (this.chatListScrollPane.current) {
+			this.chatListScrollPane.current.style.top = this.paneY + 'px'
+		}
+
+		if (this.chatListScrollSlider.current) {
+			this.chatListScrollSlider.current.style.top = this.sliderY + 3 + 'px'
+		}
+	}
+
+	readonly onMouseDown = (e: any) => {
+		this.lastPosition.left = e.pageX
+		this.lastPosition.top = e.pageY
+		this.dragging = true
+		this.events()
+	}
+
+	readonly onMouseMove = (e: any) => {
+		e.preventDefault()
+		e.stopPropagation()
+
+		this.position = {
+			left: this.position.left + e.pageX - this.lastPosition.left,
+			top: Math.max(0, this.position.top + e.pageY - this.lastPosition.top)
+		}
+		this.lastPosition = { left: e.pageX, top: e.pageY }
+
+		this.reposition()
+		requestAnimationFrame(this.reposition)
+	}
+
+	readonly onMouseUp = (e: any) => {
+		e.preventDefault()
+		e.stopPropagation()
+
+		this.dragging = false
+		this.events()
+	}
+
+	readonly onWheel = (e: any) => {
+		this.position = { ...this.position, top: Math.min(Math.max(0, this.position.top + e.deltaY * 0.5), this.sliderMaxY - this.sliderHeight) }
+		this.reposition()
+	}
+
+	readonly onMouseClick = (e: unknown) => {
+
+	}
+
+	readonly unmount = () => {
+		this.dragging = false
+		this.events()
+	}
+}
 
 const History = observer(() => {
 	const [dragging, setDragging] = useState(false)
@@ -30,8 +135,25 @@ const History = observer(() => {
 	const [lastPosition, setLastPosition] = useState(0)
 	const [progress, setProgress] = useState(0.0)
 
-	const chatListScrollBar = useRef(null)
-	const chatListScrollPane = useRef(null)
+	const chatListScrollBar = useRef<HTMLDivElement>(null)
+	const chatListScrollSlider = useRef<HTMLDivElement>(null)
+	const chatListScrollPane = useRef<HTMLDivElement>(null)
+
+	const [ui] = useState(() => new UI(chatListScrollBar, chatListScrollPane, chatListScrollSlider))
+
+	useEffect(() => {
+		return () => {
+			ui.unmount()
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	useEffect(() => {
+		// Done after first and next complete renders
+		// Required here to react on chat change
+		ui.reposition()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [state.currentChatId])
 
 	const sliderMaxY = chatListScrollBar.current != null ? (chatListScrollBar.current as any).offsetHeight : 0
 	const sliderHeight = 100 // TODO
@@ -405,15 +527,17 @@ const History = observer(() => {
 	const _progress = progress
 	const paneH = chatListScrollPane.current != null ? (chatListScrollPane.current as any).offsetHeight : 0
 	const paneY = -Math.round(_progress * (paneH - sliderMaxY))
+	const slider = ui.dragging ? css.slider + ' ' + css.opacity : css.slider + ' ' + css.sliderSmooth
+	const pane = ui.dragging ? css.pane : css.pane + ' ' + css.transition
 
 	// TODO use return (<>) everywhere
 	return (
-		<div className="history" key={state.currentChatId}>
-			<div className="historyView" onWheel={onWheel} key={state.currentChatId} ref={chatListScrollPane} style={{ top: paneY + 'px' }}>
+		<div className={css.history} key={state.currentChatId}>
+			<div className={pane} onWheel={ui.onWheel} key={state.currentChatId} ref={chatListScrollPane} style={{ top: ui.paneY + 'px' }}>
 				{messages}
 			</div>
-			<div className="chatListScrollBar" onWheel={onWheel} onMouseDown={onMouseClick} ref={chatListScrollBar}></div>
-			<div className="chatListScrollBarSlider" onWheel={onWheel} onMouseDown={onMouseDown} style={{ top: sliderY + 3 + 'px' }}></div>
+			<div className={css.scrollBar} onWheel={ui.onWheel} onMouseDown={ui.onMouseClick} ref={chatListScrollBar}></div>
+			<div className={slider} onWheel={ui.onWheel} onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={{ top: ui.sliderY + 3 + 'px', height: ui.sliderHeight + 'px' }}></div>
 		</div>
 	)
 })

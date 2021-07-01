@@ -107,9 +107,9 @@ export const MessageMy = observer(({
 	return (
 		<div className="messageMy">
 			{text}
-			<div className="text">&nbsp;&nbsp;&nbsp;</div>
+			<div key="nbsp" className="text">&nbsp;&nbsp;&nbsp;</div>
 			{reactions}
-			<div className="time" title={timeTitle}>{time}</div>
+			<div key="time" className="time" title={timeTitle}>{time}</div>
 		</div>
 	)
 })

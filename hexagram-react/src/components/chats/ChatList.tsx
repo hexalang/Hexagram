@@ -34,8 +34,8 @@ class UI {
 	chatListScrollBar: RefObject<HTMLDivElement>
 	chatListScrollPane: RefObject<HTMLDivElement>
 	chatListScrollSlider: RefObject<HTMLDivElement>
-	sliderHeight: number = 0
-	sliderMaxY: number = 0
+	sliderHeight: number = 100
+	sliderMaxY: number = 200
 
 	constructor(
 		chatListScrollBar: RefObject<HTMLDivElement>,
@@ -49,7 +49,7 @@ class UI {
 		this.reposition()
 	}
 
-	events = () => {
+	readonly events = () => {
 		if (this.dragging === true) {
 			document.addEventListener('mousemove', this.onMouseMove)
 			document.addEventListener('mouseup', this.onMouseUp, { once: true })
@@ -61,9 +61,9 @@ class UI {
 		}
 	}
 
-	reposition = () => {
+	readonly reposition = () => {
 		this.sliderMaxY = this.chatListScrollBar.current != null ? (this.chatListScrollBar.current as any).offsetHeight : 0
-		this.sliderHeight = 100 // TODO
+		this.sliderHeight = Math.round(this.sliderMaxY * (this.sliderMaxY / (62 * state.chatIds.length)))
 		this.sliderY = Math.min(Math.max(this.position.top, 0), this.sliderMaxY - this.sliderHeight)
 		const progress = Math.min(this.sliderY / (this.sliderMaxY - this.sliderHeight), 1.0)
 		const paneH = this.chatListScrollPane.current != null ? (this.chatListScrollPane.current as any).offsetHeight : 0
@@ -78,14 +78,14 @@ class UI {
 		}
 	}
 
-	onMouseDown = (e: any) => {
+	readonly onMouseDown = (e: any) => {
 		this.lastPosition.left = e.pageX
 		this.lastPosition.top = e.pageY
 		this.dragging = true
 		this.events()
 	}
 
-	onMouseMove = (e: any) => {
+	readonly onMouseMove = (e: any) => {
 		e.preventDefault()
 		e.stopPropagation()
 
@@ -99,7 +99,7 @@ class UI {
 		requestAnimationFrame(this.reposition)
 	}
 
-	onMouseUp = (e: any) => {
+	readonly onMouseUp = (e: any) => {
 		e.preventDefault()
 		e.stopPropagation()
 
@@ -107,16 +107,16 @@ class UI {
 		this.events()
 	}
 
-	onWheel = (e: any) => {
+	readonly onWheel = (e: any) => {
 		this.position = { ...this.position, top: Math.min(Math.max(0, this.position.top + e.deltaY * 0.5), this.sliderMaxY - this.sliderHeight) }
 		this.reposition()
 	}
 
-	onMouseClick = (e: unknown) => {
+	readonly onMouseClick = (e: unknown) => {
 
 	}
 
-	unmount = () => {
+	readonly unmount = () => {
 		this.dragging = false
 		this.events()
 	}
@@ -128,12 +128,22 @@ export const ChatList = observer(({ selectChat }: { selectChat: (id: number) => 
 	const chatListScrollPane = useRef<HTMLDivElement>(null)
 	const [ui] = useState(() => new UI(chatListScrollBar, chatListScrollPane, chatListScrollSlider))
 
-	useEffect(() => () => {
-		ui.unmount()
+	useEffect(() => {
+		return () => {
+			ui.unmount()
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const chats = state.chats // Optimization
+
+	useEffect(() => {
+		// Done after first and next complete renders
+		// Required here to react on elements count change
+		ui.reposition()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [state.chatIds.length])
+
 	const sortedChats: number[] = [...state.chatIds].sort((a: number, b: number): number => {
 		const ordera: BigInt = BigInt(chats[a].order ?? '0')
 		const orderb: BigInt = BigInt(chats[b].order ?? '0')
@@ -153,7 +163,7 @@ export const ChatList = observer(({ selectChat }: { selectChat: (id: number) => 
 				}
 			</div>
 			<div key="chatListScrollBar" className={css.scrollBar} onMouseDown={ui.onMouseClick} ref={chatListScrollBar}></div>
-			<div key="chatListScrollBarSlider" className={slider} onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={{ top: ui.sliderY + 3 + 'px' }}></div>
+			<div key="chatListScrollBarSlider" className={slider} onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={{ top: ui.sliderY + 3 + 'px', height: ui.sliderHeight + 'px' }}></div>
 		</div>
 	)
 })

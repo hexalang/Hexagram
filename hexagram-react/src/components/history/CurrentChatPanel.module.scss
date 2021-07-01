@@ -1,0 +1,75 @@
+$slider-transition: background-color 0.5s ease, opacity 0.5s ease;
+
+.slider {
+	content: '';
+	display: block;
+	width: 4px;
+	background-color: rgba(0, 0, 0, 0.1);
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	height: 100px;
+	border-radius: 4px;
+	transition: $slider-transition;
+	opacity: 0;
+	will-change: top;
+
+	.history:hover & {
+		opacity: 1;
+	}
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.4);
+	}
+}
+
+.sliderSmooth {
+	transition: $slider-transition, top 0.4s ease;
+}
+
+.opacity {
+	opacity: 1;
+}
+
+.history {
+	height: calc(100vh - 54px);
+	width: 100%;
+	position: relative;
+}
+
+.scrollBar {
+	display: block;
+	width: 4px;
+	background-color: rgba(0, 0, 0, 0.1);
+	height: calc(100% - 6px);
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	border-radius: 4px;
+	transition: background-color 0.5s ease, opacity 0.5s ease;
+	opacity: 0;
+
+	.history:hover & {
+		opacity: 1;
+	}
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.25);
+	}
+}
+
+.pane {
+	position: relative;
+	top: 0px;
+	height: auto;
+	will-change: top;
+
+	width: 100%;
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.transition {
+	transition: top 0.4s ease;
+}
