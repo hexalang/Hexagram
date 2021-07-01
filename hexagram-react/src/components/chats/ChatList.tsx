@@ -76,6 +76,7 @@ class UI {
 
 		if (this.chatListScrollSlider.current) {
 			this.chatListScrollSlider.current.style.top = this.sliderY + 3 + 'px'
+			this.chatListScrollSlider.current.style.height = this.sliderHeight + 'px'
 		}
 	}
 
@@ -112,6 +113,13 @@ class UI {
 	}
 
 	readonly onWheel = (e: any) => {
+		e.stopPropagation()
+
+		if (this.dragging) {
+			return
+		}
+
+		// TODO fix delta
 		this.position = { ...this.position, top: Math.min(Math.max(0, this.position.top + e.deltaY * 0.5), this.sliderMaxY - this.sliderHeight) }
 		this.reposition()
 	}

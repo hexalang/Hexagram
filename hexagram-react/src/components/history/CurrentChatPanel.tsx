@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useState, useEffect, useRef, RefObject } from 'react'
+import React, { useEffect, useRef, RefObject } from 'react'
 import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
@@ -25,12 +25,13 @@ import './CurrentChatPanel.scss'
 import { observer } from 'mobx-react-lite'
 import css from './CurrentChatPanel.module.scss'
 import { observable } from "mobx"
+import { Store, useStore, StoreEvent } from '../../mobx/wrap'
 
 interface Position {
 	left: number, top: number
 }
 
-class UI {
+class UI extends Store {
 	// GUI
 	@observable dragging: boolean | null = null
 	position: Position = { left: 0, top: 0 }
@@ -49,6 +50,8 @@ class UI {
 		chatListScrollPane: RefObject<HTMLDivElement>,
 		chatListScrollSlider: RefObject<HTMLDivElement>
 	) {
+		super()
+
 		this.chatListScrollBar = chatListScrollBar
 		this.chatListScrollPane = chatListScrollPane
 		this.chatListScrollSlider = chatListScrollSlider
@@ -71,7 +74,7 @@ class UI {
 	readonly reposition = () => {
 		this.sliderMaxY = this.chatListScrollBar.current != null ? (this.chatListScrollBar.current as any).offsetHeight : 0
 		const count = state.history[state.currentChatId] ? state.history[state.currentChatId].length : 1
-		this.sliderHeight = Math.round(this.sliderMaxY * (this.sliderMaxY / (96 * count)))
+		this.sliderHeight = Math.round(this.sliderMaxY * (this.sliderMaxY / (100 * count)))
 		this.sliderY = Math.min(Math.max(this.position.top, 0), this.sliderMaxY - this.sliderHeight)
 		const progress = Math.min(this.sliderY / (this.sliderMaxY - this.sliderHeight), 1.0)
 		const paneH = this.chatListScrollPane.current != null ? (this.chatListScrollPane.current as any).offsetHeight : 0
@@ -83,7 +86,62 @@ class UI {
 
 		if (this.chatListScrollSlider.current) {
 			this.chatListScrollSlider.current.style.top = this.sliderY + 3 + 'px'
+			this.chatListScrollSlider.current.style.height = this.sliderHeight + 'px'
 		}
+
+		if (this.sliderY < 2) {
+			this.loadMoreHistory()
+			this.position.top = this.sliderY = 3
+		}
+	}
+
+	loadsMore = false
+
+	loadMoreHistory() {
+		// Fix race condition
+		const currentChatId = state.currentChatId
+		// Avoid repeating of getChatHistory
+		// TODO
+
+		let from = 0
+		let date = Date.now()
+
+		const history = state.history[state.currentChatId]
+
+		if (!history) return
+		if (this.loadsMore) return
+
+		this.loadsMore = true
+
+		history.forEach(messageId => {
+			const messageState = state.messages[currentChatId][messageId]
+
+			if (messageState.date < date) {
+				date = messageState.date
+				from = messageState.id
+			}
+		})
+
+		const howMuch = 25
+		tg.getChatHistory(
+			currentChatId,
+			from,
+			0,
+			howMuch,
+			false
+		).then(messages => {
+			tg.getChatHistory(
+				currentChatId,
+				from,
+				0,
+				howMuch,
+				false
+			).then(messages => {
+				state.saveChatHistory(currentChatId, messages.messages)
+				this.loadsMore = false
+				this.reposition()
+			})
+		})
 	}
 
 	readonly onMouseDown = (e: any) => {
@@ -119,8 +177,23 @@ class UI {
 	}
 
 	readonly onWheel = (e: any) => {
-		// TODO is delta correct?
-		this.position = { ...this.position, top: Math.min(Math.max(0, this.position.top + e.deltaY * 0.5), this.sliderMaxY - this.sliderHeight) }
+		e.stopPropagation()
+
+		if (this.dragging) {
+			return
+		}
+
+		const howMuch = 25
+		const count = state.history[state.currentChatId] ? state.history[state.currentChatId].length : 1
+
+		// e.deltaY is -100 ... 100
+		this.position = {
+			...this.position,
+			top: Math.min(
+				Math.max(0, this.position.top + e.deltaY * (howMuch / count)),
+				this.sliderMaxY - this.sliderHeight
+			)
+		}
 		this.reposition()
 	}
 
@@ -128,9 +201,34 @@ class UI {
 
 	}
 
-	readonly unmount = () => {
+	mustScrollToBottom = false
+
+	readonly scrollToBottom = () => {
+		if (this.dragging) {
+			return
+		}
+
+		this.reposition() // Get values
+		this.position.top = this.sliderMaxY - this.sliderHeight
+		console.log('scrollToBottom')
+		this.reposition()
+	}
+
+	unmount() {
+		super.unmount()
 		this.dragging = false
 		this.events()
+	}
+
+	render() {
+		if (this.mustScrollToBottom) {
+			this.scrollToBottom()
+			this.mustScrollToBottom = false
+		}
+	}
+
+	listen(e: StoreEvent) {
+
 	}
 }
 
@@ -139,14 +237,7 @@ const History = observer(() => {
 	const chatListScrollSlider = useRef<HTMLDivElement>(null)
 	const chatListScrollPane = useRef<HTMLDivElement>(null)
 
-	const [ui] = useState(() => new UI(chatListScrollBar, chatListScrollPane, chatListScrollSlider))
-
-	useEffect(() => {
-		return () => {
-			ui.unmount()
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	const ui = useStore(() => new UI(chatListScrollBar, chatListScrollPane, chatListScrollSlider))
 
 	useEffect(() => {
 		// Done after first and next complete renders
@@ -157,11 +248,6 @@ const History = observer(() => {
 
 	const messages: React.ReactNode[] = []
 	const chat = state.chats[state.currentChatId]
-
-	const scrollToBottom = () => {
-	}
-
-	useEffect(scrollToBottom, [chatListScrollPane.current, state.currentChatId, messages.length, chat && chat.lastMessage])
 
 	useEffect(() => {
 		if (
@@ -188,6 +274,7 @@ const History = observer(() => {
 					false
 				).then(messages => {
 					state.saveChatHistory(currentChatId, messages.messages)
+					ui.mustScrollToBottom = true
 				})
 			})
 		}
