@@ -5241,22 +5241,22 @@ export class TD {
 	public async setTdlibParameters(parameters: TLTdlibParameters): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setTdlibParameters",
-			"parameters": parameters,
+			parameters: parameters,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async checkDatabaseEncryptionKey(encryption_key: Uint8Array): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "checkDatabaseEncryptionKey",
-			"encryption_key": encryption_key,
+			encryption_key: encryption_key,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setAuthenticationPhoneNumber(phone_number: string, settings: TLPhoneNumberAuthenticationSettings): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setAuthenticationPhoneNumber",
-			"phone_number": phone_number,
-			"settings": settings,
+			phone_number: phone_number,
+			settings: settings,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -5269,29 +5269,29 @@ export class TD {
 	public async checkAuthenticationCode(code: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "checkAuthenticationCode",
-			"code": code,
+			code: code,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async requestQrCodeAuthentication(other_user_ids: ReadonlyArray<number>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "requestQrCodeAuthentication",
-			"other_user_ids": other_user_ids,
+			other_user_ids: other_user_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async registerUser(first_name: string, last_name: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "registerUser",
-			"first_name": first_name,
-			"last_name": last_name,
+			first_name: first_name,
+			last_name: last_name,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async checkAuthenticationPassword(password: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "checkAuthenticationPassword",
-			"password": password,
+			password: password,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -5304,14 +5304,14 @@ export class TD {
 	public async recoverAuthenticationPassword(recovery_code: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "recoverAuthenticationPassword",
-			"recovery_code": recovery_code,
+			recovery_code: recovery_code,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async checkAuthenticationBotToken(token: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "checkAuthenticationBotToken",
-			"token": token,
+			token: token,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -5336,7 +5336,7 @@ export class TD {
 	public async confirmQrCodeAuthentication(link: string): Promise<TLSession> {
 		return (await this.client.send({
 			"@type": "confirmQrCodeAuthentication",
-			"link": link,
+			link: link,
 		} as any as TdObject)) as any as TLSession
 	}
 
@@ -5349,7 +5349,7 @@ export class TD {
 	public async setDatabaseEncryptionKey(new_encryption_key: Uint8Array): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setDatabaseEncryptionKey",
-			"new_encryption_key": new_encryption_key,
+			new_encryption_key: new_encryption_key,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -5362,33 +5362,33 @@ export class TD {
 	public async setPassword(old_password: string, new_password: string, new_hint: string, set_recovery_email_address: boolean, new_recovery_email_address: string): Promise<TLPasswordState> {
 		return (await this.client.send({
 			"@type": "setPassword",
-			"old_password": old_password,
-			"new_password": new_password,
-			"new_hint": new_hint,
-			"set_recovery_email_address": set_recovery_email_address,
-			"new_recovery_email_address": new_recovery_email_address,
+			old_password: old_password,
+			new_password: new_password,
+			new_hint: new_hint,
+			set_recovery_email_address: set_recovery_email_address,
+			new_recovery_email_address: new_recovery_email_address,
 		} as any as TdObject)) as any as TLPasswordState
 	}
 
 	public async getRecoveryEmailAddress(password: string): Promise<TLRecoveryEmailAddress> {
 		return (await this.client.send({
 			"@type": "getRecoveryEmailAddress",
-			"password": password,
+			password: password,
 		} as any as TdObject)) as any as TLRecoveryEmailAddress
 	}
 
 	public async setRecoveryEmailAddress(password: string, new_recovery_email_address: string): Promise<TLPasswordState> {
 		return (await this.client.send({
 			"@type": "setRecoveryEmailAddress",
-			"password": password,
-			"new_recovery_email_address": new_recovery_email_address,
+			password: password,
+			new_recovery_email_address: new_recovery_email_address,
 		} as any as TdObject)) as any as TLPasswordState
 	}
 
 	public async checkRecoveryEmailAddressCode(code: string): Promise<TLPasswordState> {
 		return (await this.client.send({
 			"@type": "checkRecoveryEmailAddressCode",
-			"code": code,
+			code: code,
 		} as any as TdObject)) as any as TLPasswordState
 	}
 
@@ -5407,15 +5407,15 @@ export class TD {
 	public async recoverPassword(recovery_code: string): Promise<TLPasswordState> {
 		return (await this.client.send({
 			"@type": "recoverPassword",
-			"recovery_code": recovery_code,
+			recovery_code: recovery_code,
 		} as any as TdObject)) as any as TLPasswordState
 	}
 
 	public async createTemporaryPassword(password: string, valid_for: number): Promise<TLTemporaryPasswordState> {
 		return (await this.client.send({
 			"@type": "createTemporaryPassword",
-			"password": password,
-			"valid_for": valid_for,
+			password: password,
+			valid_for: valid_for,
 		} as any as TdObject)) as any as TLTemporaryPasswordState
 	}
 
@@ -5434,204 +5434,204 @@ export class TD {
 	public async getUser(user_id: number): Promise<TLUser> {
 		return (await this.client.send({
 			"@type": "getUser",
-			"user_id": user_id,
+			user_id: user_id,
 		} as any as TdObject)) as any as TLUser
 	}
 
 	public async getUserFullInfo(user_id: number): Promise<TLUserFullInfo> {
 		return (await this.client.send({
 			"@type": "getUserFullInfo",
-			"user_id": user_id,
+			user_id: user_id,
 		} as any as TdObject)) as any as TLUserFullInfo
 	}
 
 	public async getBasicGroup(basic_group_id: number): Promise<TLBasicGroup> {
 		return (await this.client.send({
 			"@type": "getBasicGroup",
-			"basic_group_id": basic_group_id,
+			basic_group_id: basic_group_id,
 		} as any as TdObject)) as any as TLBasicGroup
 	}
 
 	public async getBasicGroupFullInfo(basic_group_id: number): Promise<TLBasicGroupFullInfo> {
 		return (await this.client.send({
 			"@type": "getBasicGroupFullInfo",
-			"basic_group_id": basic_group_id,
+			basic_group_id: basic_group_id,
 		} as any as TdObject)) as any as TLBasicGroupFullInfo
 	}
 
 	public async getSupergroup(supergroup_id: number): Promise<TLSupergroup> {
 		return (await this.client.send({
 			"@type": "getSupergroup",
-			"supergroup_id": supergroup_id,
+			supergroup_id: supergroup_id,
 		} as any as TdObject)) as any as TLSupergroup
 	}
 
 	public async getSupergroupFullInfo(supergroup_id: number): Promise<TLSupergroupFullInfo> {
 		return (await this.client.send({
 			"@type": "getSupergroupFullInfo",
-			"supergroup_id": supergroup_id,
+			supergroup_id: supergroup_id,
 		} as any as TdObject)) as any as TLSupergroupFullInfo
 	}
 
 	public async getSecretChat(secret_chat_id: number): Promise<TLSecretChat> {
 		return (await this.client.send({
 			"@type": "getSecretChat",
-			"secret_chat_id": secret_chat_id,
+			secret_chat_id: secret_chat_id,
 		} as any as TdObject)) as any as TLSecretChat
 	}
 
 	public async getChat(chat_id: number): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "getChat",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async getMessage(chat_id: number, message_id: number): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "getMessage",
-			"chat_id": chat_id,
-			"message_id": message_id,
+			chat_id: chat_id,
+			message_id: message_id,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async getMessageLocally(chat_id: number, message_id: number): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "getMessageLocally",
-			"chat_id": chat_id,
-			"message_id": message_id,
+			chat_id: chat_id,
+			message_id: message_id,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async getRepliedMessage(chat_id: number, message_id: number): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "getRepliedMessage",
-			"chat_id": chat_id,
-			"message_id": message_id,
+			chat_id: chat_id,
+			message_id: message_id,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async getChatPinnedMessage(chat_id: number): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "getChatPinnedMessage",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async getCallbackQueryMessage(chat_id: number, message_id: number, callback_query_id: string): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "getCallbackQueryMessage",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"callback_query_id": callback_query_id,
+			chat_id: chat_id,
+			message_id: message_id,
+			callback_query_id: callback_query_id,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async getMessages(chat_id: number, message_ids: ReadonlyArray<number>): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "getMessages",
-			"chat_id": chat_id,
-			"message_ids": message_ids,
+			chat_id: chat_id,
+			message_ids: message_ids,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async getMessageThread(chat_id: number, message_id: number): Promise<TLMessageThreadInfo> {
 		return (await this.client.send({
 			"@type": "getMessageThread",
-			"chat_id": chat_id,
-			"message_id": message_id,
+			chat_id: chat_id,
+			message_id: message_id,
 		} as any as TdObject)) as any as TLMessageThreadInfo
 	}
 
 	public async getFile(file_id: number): Promise<TLFile> {
 		return (await this.client.send({
 			"@type": "getFile",
-			"file_id": file_id,
+			file_id: file_id,
 		} as any as TdObject)) as any as TLFile
 	}
 
 	public async getRemoteFile(remote_file_id: string, file_type: TLFileType): Promise<TLFile> {
 		return (await this.client.send({
 			"@type": "getRemoteFile",
-			"remote_file_id": remote_file_id,
-			"file_type": file_type,
+			remote_file_id: remote_file_id,
+			file_type: file_type,
 		} as any as TdObject)) as any as TLFile
 	}
 
 	public async getChats(chat_list: TLChatList, offset_order: string, offset_chat_id: number, limit: number): Promise<TLChats> {
 		return (await this.client.send({
 			"@type": "getChats",
-			"chat_list": chat_list,
-			"offset_order": offset_order,
-			"offset_chat_id": offset_chat_id,
-			"limit": limit,
+			chat_list: chat_list,
+			offset_order: offset_order,
+			offset_chat_id: offset_chat_id,
+			limit: limit,
 		} as any as TdObject)) as any as TLChats
 	}
 
 	public async searchPublicChat(username: string): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "searchPublicChat",
-			"username": username,
+			username: username,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async searchPublicChats(query: string): Promise<TLChats> {
 		return (await this.client.send({
 			"@type": "searchPublicChats",
-			"query": query,
+			query: query,
 		} as any as TdObject)) as any as TLChats
 	}
 
 	public async searchChats(query: string, limit: number): Promise<TLChats> {
 		return (await this.client.send({
 			"@type": "searchChats",
-			"query": query,
-			"limit": limit,
+			query: query,
+			limit: limit,
 		} as any as TdObject)) as any as TLChats
 	}
 
 	public async searchChatsOnServer(query: string, limit: number): Promise<TLChats> {
 		return (await this.client.send({
 			"@type": "searchChatsOnServer",
-			"query": query,
-			"limit": limit,
+			query: query,
+			limit: limit,
 		} as any as TdObject)) as any as TLChats
 	}
 
 	public async searchChatsNearby(location: TLLocation): Promise<TLChatsNearby> {
 		return (await this.client.send({
 			"@type": "searchChatsNearby",
-			"location": location,
+			location: location,
 		} as any as TdObject)) as any as TLChatsNearby
 	}
 
 	public async getTopChats(category: TLTopChatCategory, limit: number): Promise<TLChats> {
 		return (await this.client.send({
 			"@type": "getTopChats",
-			"category": category,
-			"limit": limit,
+			category: category,
+			limit: limit,
 		} as any as TdObject)) as any as TLChats
 	}
 
 	public async removeTopChat(category: TLTopChatCategory, chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeTopChat",
-			"category": category,
-			"chat_id": chat_id,
+			category: category,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async addRecentlyFoundChat(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addRecentlyFoundChat",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async removeRecentlyFoundChat(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeRecentlyFoundChat",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -5644,22 +5644,22 @@ export class TD {
 	public async checkChatUsername(chat_id: number, username: string): Promise<TLCheckChatUsernameResult> {
 		return (await this.client.send({
 			"@type": "checkChatUsername",
-			"chat_id": chat_id,
-			"username": username,
+			chat_id: chat_id,
+			username: username,
 		} as any as TdObject)) as any as TLCheckChatUsernameResult
 	}
 
 	public async getCreatedPublicChats(type: TLPublicChatType): Promise<TLChats> {
 		return (await this.client.send({
 			"@type": "getCreatedPublicChats",
-			"type": type,
+			type: type,
 		} as any as TdObject)) as any as TLChats
 	}
 
 	public async checkCreatedPublicChatsLimit(type: TLPublicChatType): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "checkCreatedPublicChatsLimit",
-			"type": type,
+			type: type,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -5678,97 +5678,97 @@ export class TD {
 	public async getGroupsInCommon(user_id: number, offset_chat_id: number, limit: number): Promise<TLChats> {
 		return (await this.client.send({
 			"@type": "getGroupsInCommon",
-			"user_id": user_id,
-			"offset_chat_id": offset_chat_id,
-			"limit": limit,
+			user_id: user_id,
+			offset_chat_id: offset_chat_id,
+			limit: limit,
 		} as any as TdObject)) as any as TLChats
 	}
 
 	public async getChatHistory(chat_id: number, from_message_id: number, offset: number, limit: number, only_local: boolean): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "getChatHistory",
-			"chat_id": chat_id,
-			"from_message_id": from_message_id,
-			"offset": offset,
-			"limit": limit,
-			"only_local": only_local,
+			chat_id: chat_id,
+			from_message_id: from_message_id,
+			offset: offset,
+			limit: limit,
+			only_local: only_local,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async getMessageThreadHistory(chat_id: number, message_id: number, from_message_id: number, offset: number, limit: number): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "getMessageThreadHistory",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"from_message_id": from_message_id,
-			"offset": offset,
-			"limit": limit,
+			chat_id: chat_id,
+			message_id: message_id,
+			from_message_id: from_message_id,
+			offset: offset,
+			limit: limit,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async deleteChatHistory(chat_id: number, remove_from_chat_list: boolean, revoke: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteChatHistory",
-			"chat_id": chat_id,
-			"remove_from_chat_list": remove_from_chat_list,
-			"revoke": revoke,
+			chat_id: chat_id,
+			remove_from_chat_list: remove_from_chat_list,
+			revoke: revoke,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async searchChatMessages(chat_id: number, query: string, sender: TLMessageSender, from_message_id: number, offset: number, limit: number, filter: TLSearchMessagesFilter, message_thread_id: number): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "searchChatMessages",
-			"chat_id": chat_id,
-			"query": query,
-			"sender": sender,
-			"from_message_id": from_message_id,
-			"offset": offset,
-			"limit": limit,
-			"filter": filter,
-			"message_thread_id": message_thread_id,
+			chat_id: chat_id,
+			query: query,
+			sender: sender,
+			from_message_id: from_message_id,
+			offset: offset,
+			limit: limit,
+			filter: filter,
+			message_thread_id: message_thread_id,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async searchMessages(chat_list: TLChatList, query: string, offset_date: number, offset_chat_id: number, offset_message_id: number, limit: number, filter: TLSearchMessagesFilter, min_date: number, max_date: number): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "searchMessages",
-			"chat_list": chat_list,
-			"query": query,
-			"offset_date": offset_date,
-			"offset_chat_id": offset_chat_id,
-			"offset_message_id": offset_message_id,
-			"limit": limit,
-			"filter": filter,
-			"min_date": min_date,
-			"max_date": max_date,
+			chat_list: chat_list,
+			query: query,
+			offset_date: offset_date,
+			offset_chat_id: offset_chat_id,
+			offset_message_id: offset_message_id,
+			limit: limit,
+			filter: filter,
+			min_date: min_date,
+			max_date: max_date,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async searchSecretMessages(chat_id: number, query: string, offset: string, limit: number, filter: TLSearchMessagesFilter): Promise<TLFoundMessages> {
 		return (await this.client.send({
 			"@type": "searchSecretMessages",
-			"chat_id": chat_id,
-			"query": query,
-			"offset": offset,
-			"limit": limit,
-			"filter": filter,
+			chat_id: chat_id,
+			query: query,
+			offset: offset,
+			limit: limit,
+			filter: filter,
 		} as any as TdObject)) as any as TLFoundMessages
 	}
 
 	public async searchCallMessages(from_message_id: number, limit: number, only_missed: boolean): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "searchCallMessages",
-			"from_message_id": from_message_id,
-			"limit": limit,
-			"only_missed": only_missed,
+			from_message_id: from_message_id,
+			limit: limit,
+			only_missed: only_missed,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async searchChatRecentLocationMessages(chat_id: number, limit: number): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "searchChatRecentLocationMessages",
-			"chat_id": chat_id,
-			"limit": limit,
+			chat_id: chat_id,
+			limit: limit,
 		} as any as TdObject)) as any as TLMessages
 	}
 
@@ -5781,690 +5781,690 @@ export class TD {
 	public async getChatMessageByDate(chat_id: number, date: number): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "getChatMessageByDate",
-			"chat_id": chat_id,
-			"date": date,
+			chat_id: chat_id,
+			date: date,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async getChatMessageCount(chat_id: number, filter: TLSearchMessagesFilter, return_local: boolean): Promise<TLCount> {
 		return (await this.client.send({
 			"@type": "getChatMessageCount",
-			"chat_id": chat_id,
-			"filter": filter,
-			"return_local": return_local,
+			chat_id: chat_id,
+			filter: filter,
+			return_local: return_local,
 		} as any as TdObject)) as any as TLCount
 	}
 
 	public async getChatScheduledMessages(chat_id: number): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "getChatScheduledMessages",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async getMessagePublicForwards(chat_id: number, message_id: number, offset: string, limit: number): Promise<TLFoundMessages> {
 		return (await this.client.send({
 			"@type": "getMessagePublicForwards",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"offset": offset,
-			"limit": limit,
+			chat_id: chat_id,
+			message_id: message_id,
+			offset: offset,
+			limit: limit,
 		} as any as TdObject)) as any as TLFoundMessages
 	}
 
 	public async removeNotification(notification_group_id: number, notification_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeNotification",
-			"notification_group_id": notification_group_id,
-			"notification_id": notification_id,
+			notification_group_id: notification_group_id,
+			notification_id: notification_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async removeNotificationGroup(notification_group_id: number, max_notification_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeNotificationGroup",
-			"notification_group_id": notification_group_id,
-			"max_notification_id": max_notification_id,
+			notification_group_id: notification_group_id,
+			max_notification_id: max_notification_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getMessageLink(chat_id: number, message_id: number, for_album: boolean, for_comment: boolean): Promise<TLMessageLink> {
 		return (await this.client.send({
 			"@type": "getMessageLink",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"for_album": for_album,
-			"for_comment": for_comment,
+			chat_id: chat_id,
+			message_id: message_id,
+			for_album: for_album,
+			for_comment: for_comment,
 		} as any as TdObject)) as any as TLMessageLink
 	}
 
 	public async getMessageEmbeddingCode(chat_id: number, message_id: number, for_album: boolean): Promise<TLText> {
 		return (await this.client.send({
 			"@type": "getMessageEmbeddingCode",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"for_album": for_album,
+			chat_id: chat_id,
+			message_id: message_id,
+			for_album: for_album,
 		} as any as TdObject)) as any as TLText
 	}
 
 	public async getMessageLinkInfo(url: string): Promise<TLMessageLinkInfo> {
 		return (await this.client.send({
 			"@type": "getMessageLinkInfo",
-			"url": url,
+			url: url,
 		} as any as TdObject)) as any as TLMessageLinkInfo
 	}
 
 	public async sendMessage(chat_id: number, message_thread_id: number, reply_to_message_id: number, options: TLMessageSendOptions, reply_markup: TLReplyMarkup, input_message_content: TLInputMessageContent): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "sendMessage",
-			"chat_id": chat_id,
-			"message_thread_id": message_thread_id,
-			"reply_to_message_id": reply_to_message_id,
-			"options": options,
-			"reply_markup": reply_markup,
-			"input_message_content": input_message_content,
+			chat_id: chat_id,
+			message_thread_id: message_thread_id,
+			reply_to_message_id: reply_to_message_id,
+			options: options,
+			reply_markup: reply_markup,
+			input_message_content: input_message_content,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async sendMessageAlbum(chat_id: number, message_thread_id: number, reply_to_message_id: number, options: TLMessageSendOptions, input_message_contents: ReadonlyArray<TLInputMessageContent>): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "sendMessageAlbum",
-			"chat_id": chat_id,
-			"message_thread_id": message_thread_id,
-			"reply_to_message_id": reply_to_message_id,
-			"options": options,
-			"input_message_contents": input_message_contents,
+			chat_id: chat_id,
+			message_thread_id: message_thread_id,
+			reply_to_message_id: reply_to_message_id,
+			options: options,
+			input_message_contents: input_message_contents,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async sendBotStartMessage(bot_user_id: number, chat_id: number, parameter: string): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "sendBotStartMessage",
-			"bot_user_id": bot_user_id,
-			"chat_id": chat_id,
-			"parameter": parameter,
+			bot_user_id: bot_user_id,
+			chat_id: chat_id,
+			parameter: parameter,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async sendInlineQueryResultMessage(chat_id: number, message_thread_id: number, reply_to_message_id: number, options: TLMessageSendOptions, query_id: string, result_id: string, hide_via_bot: boolean): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "sendInlineQueryResultMessage",
-			"chat_id": chat_id,
-			"message_thread_id": message_thread_id,
-			"reply_to_message_id": reply_to_message_id,
-			"options": options,
-			"query_id": query_id,
-			"result_id": result_id,
-			"hide_via_bot": hide_via_bot,
+			chat_id: chat_id,
+			message_thread_id: message_thread_id,
+			reply_to_message_id: reply_to_message_id,
+			options: options,
+			query_id: query_id,
+			result_id: result_id,
+			hide_via_bot: hide_via_bot,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async forwardMessages(chat_id: number, from_chat_id: number, message_ids: ReadonlyArray<number>, options: TLMessageSendOptions, send_copy: boolean, remove_caption: boolean): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "forwardMessages",
-			"chat_id": chat_id,
-			"from_chat_id": from_chat_id,
-			"message_ids": message_ids,
-			"options": options,
-			"send_copy": send_copy,
-			"remove_caption": remove_caption,
+			chat_id: chat_id,
+			from_chat_id: from_chat_id,
+			message_ids: message_ids,
+			options: options,
+			send_copy: send_copy,
+			remove_caption: remove_caption,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async resendMessages(chat_id: number, message_ids: ReadonlyArray<number>): Promise<TLMessages> {
 		return (await this.client.send({
 			"@type": "resendMessages",
-			"chat_id": chat_id,
-			"message_ids": message_ids,
+			chat_id: chat_id,
+			message_ids: message_ids,
 		} as any as TdObject)) as any as TLMessages
 	}
 
 	public async sendChatSetTtlMessage(chat_id: number, ttl: number): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "sendChatSetTtlMessage",
-			"chat_id": chat_id,
-			"ttl": ttl,
+			chat_id: chat_id,
+			ttl: ttl,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async sendChatScreenshotTakenNotification(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "sendChatScreenshotTakenNotification",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async addLocalMessage(chat_id: number, sender: TLMessageSender, reply_to_message_id: number, disable_notification: boolean, input_message_content: TLInputMessageContent): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "addLocalMessage",
-			"chat_id": chat_id,
-			"sender": sender,
-			"reply_to_message_id": reply_to_message_id,
-			"disable_notification": disable_notification,
-			"input_message_content": input_message_content,
+			chat_id: chat_id,
+			sender: sender,
+			reply_to_message_id: reply_to_message_id,
+			disable_notification: disable_notification,
+			input_message_content: input_message_content,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async deleteMessages(chat_id: number, message_ids: ReadonlyArray<number>, revoke: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteMessages",
-			"chat_id": chat_id,
-			"message_ids": message_ids,
-			"revoke": revoke,
+			chat_id: chat_id,
+			message_ids: message_ids,
+			revoke: revoke,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async deleteChatMessagesFromUser(chat_id: number, user_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteChatMessagesFromUser",
-			"chat_id": chat_id,
-			"user_id": user_id,
+			chat_id: chat_id,
+			user_id: user_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async editMessageText(chat_id: number, message_id: number, reply_markup: TLReplyMarkup, input_message_content: TLInputMessageContent): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "editMessageText",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"reply_markup": reply_markup,
-			"input_message_content": input_message_content,
+			chat_id: chat_id,
+			message_id: message_id,
+			reply_markup: reply_markup,
+			input_message_content: input_message_content,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async editMessageLiveLocation(chat_id: number, message_id: number, reply_markup: TLReplyMarkup, location: TLLocation, heading: number, proximity_alert_radius: number): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "editMessageLiveLocation",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"reply_markup": reply_markup,
-			"location": location,
-			"heading": heading,
-			"proximity_alert_radius": proximity_alert_radius,
+			chat_id: chat_id,
+			message_id: message_id,
+			reply_markup: reply_markup,
+			location: location,
+			heading: heading,
+			proximity_alert_radius: proximity_alert_radius,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async editMessageMedia(chat_id: number, message_id: number, reply_markup: TLReplyMarkup, input_message_content: TLInputMessageContent): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "editMessageMedia",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"reply_markup": reply_markup,
-			"input_message_content": input_message_content,
+			chat_id: chat_id,
+			message_id: message_id,
+			reply_markup: reply_markup,
+			input_message_content: input_message_content,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async editMessageCaption(chat_id: number, message_id: number, reply_markup: TLReplyMarkup, caption: TLFormattedText): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "editMessageCaption",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"reply_markup": reply_markup,
-			"caption": caption,
+			chat_id: chat_id,
+			message_id: message_id,
+			reply_markup: reply_markup,
+			caption: caption,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async editMessageReplyMarkup(chat_id: number, message_id: number, reply_markup: TLReplyMarkup): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "editMessageReplyMarkup",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"reply_markup": reply_markup,
+			chat_id: chat_id,
+			message_id: message_id,
+			reply_markup: reply_markup,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async editInlineMessageText(inline_message_id: string, reply_markup: TLReplyMarkup, input_message_content: TLInputMessageContent): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "editInlineMessageText",
-			"inline_message_id": inline_message_id,
-			"reply_markup": reply_markup,
-			"input_message_content": input_message_content,
+			inline_message_id: inline_message_id,
+			reply_markup: reply_markup,
+			input_message_content: input_message_content,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async editInlineMessageLiveLocation(inline_message_id: string, reply_markup: TLReplyMarkup, location: TLLocation, heading: number, proximity_alert_radius: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "editInlineMessageLiveLocation",
-			"inline_message_id": inline_message_id,
-			"reply_markup": reply_markup,
-			"location": location,
-			"heading": heading,
-			"proximity_alert_radius": proximity_alert_radius,
+			inline_message_id: inline_message_id,
+			reply_markup: reply_markup,
+			location: location,
+			heading: heading,
+			proximity_alert_radius: proximity_alert_radius,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async editInlineMessageMedia(inline_message_id: string, reply_markup: TLReplyMarkup, input_message_content: TLInputMessageContent): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "editInlineMessageMedia",
-			"inline_message_id": inline_message_id,
-			"reply_markup": reply_markup,
-			"input_message_content": input_message_content,
+			inline_message_id: inline_message_id,
+			reply_markup: reply_markup,
+			input_message_content: input_message_content,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async editInlineMessageCaption(inline_message_id: string, reply_markup: TLReplyMarkup, caption: TLFormattedText): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "editInlineMessageCaption",
-			"inline_message_id": inline_message_id,
-			"reply_markup": reply_markup,
-			"caption": caption,
+			inline_message_id: inline_message_id,
+			reply_markup: reply_markup,
+			caption: caption,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async editInlineMessageReplyMarkup(inline_message_id: string, reply_markup: TLReplyMarkup): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "editInlineMessageReplyMarkup",
-			"inline_message_id": inline_message_id,
-			"reply_markup": reply_markup,
+			inline_message_id: inline_message_id,
+			reply_markup: reply_markup,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async editMessageSchedulingState(chat_id: number, message_id: number, scheduling_state: TLMessageSchedulingState): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "editMessageSchedulingState",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"scheduling_state": scheduling_state,
+			chat_id: chat_id,
+			message_id: message_id,
+			scheduling_state: scheduling_state,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getTextEntities(text: string): Promise<TLTextEntities> {
 		return (await this.client.send({
 			"@type": "getTextEntities",
-			"text": text,
+			text: text,
 		} as any as TdObject)) as any as TLTextEntities
 	}
 
 	public async parseTextEntities(text: string, parse_mode: TLTextParseMode): Promise<TLFormattedText> {
 		return (await this.client.send({
 			"@type": "parseTextEntities",
-			"text": text,
-			"parse_mode": parse_mode,
+			text: text,
+			parse_mode: parse_mode,
 		} as any as TdObject)) as any as TLFormattedText
 	}
 
 	public async parseMarkdown(text: TLFormattedText): Promise<TLFormattedText> {
 		return (await this.client.send({
 			"@type": "parseMarkdown",
-			"text": text,
+			text: text,
 		} as any as TdObject)) as any as TLFormattedText
 	}
 
 	public async getMarkdownText(text: TLFormattedText): Promise<TLFormattedText> {
 		return (await this.client.send({
 			"@type": "getMarkdownText",
-			"text": text,
+			text: text,
 		} as any as TdObject)) as any as TLFormattedText
 	}
 
 	public async getFileMimeType(file_name: string): Promise<TLText> {
 		return (await this.client.send({
 			"@type": "getFileMimeType",
-			"file_name": file_name,
+			file_name: file_name,
 		} as any as TdObject)) as any as TLText
 	}
 
 	public async getFileExtension(mime_type: string): Promise<TLText> {
 		return (await this.client.send({
 			"@type": "getFileExtension",
-			"mime_type": mime_type,
+			mime_type: mime_type,
 		} as any as TdObject)) as any as TLText
 	}
 
 	public async cleanFileName(file_name: string): Promise<TLText> {
 		return (await this.client.send({
 			"@type": "cleanFileName",
-			"file_name": file_name,
+			file_name: file_name,
 		} as any as TdObject)) as any as TLText
 	}
 
 	public async getLanguagePackString(language_pack_database_path: string, localization_target: string, language_pack_id: string, key: string): Promise<TLLanguagePackStringValue> {
 		return (await this.client.send({
 			"@type": "getLanguagePackString",
-			"language_pack_database_path": language_pack_database_path,
-			"localization_target": localization_target,
-			"language_pack_id": language_pack_id,
-			"key": key,
+			language_pack_database_path: language_pack_database_path,
+			localization_target: localization_target,
+			language_pack_id: language_pack_id,
+			key: key,
 		} as any as TdObject)) as any as TLLanguagePackStringValue
 	}
 
 	public async getJsonValue(json: string): Promise<TLJsonValue> {
 		return (await this.client.send({
 			"@type": "getJsonValue",
-			"json": json,
+			json: json,
 		} as any as TdObject)) as any as TLJsonValue
 	}
 
 	public async getJsonString(json_value: TLJsonValue): Promise<TLText> {
 		return (await this.client.send({
 			"@type": "getJsonString",
-			"json_value": json_value,
+			json_value: json_value,
 		} as any as TdObject)) as any as TLText
 	}
 
 	public async setPollAnswer(chat_id: number, message_id: number, option_ids: ReadonlyArray<number>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setPollAnswer",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"option_ids": option_ids,
+			chat_id: chat_id,
+			message_id: message_id,
+			option_ids: option_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getPollVoters(chat_id: number, message_id: number, option_id: number, offset: number, limit: number): Promise<TLUsers> {
 		return (await this.client.send({
 			"@type": "getPollVoters",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"option_id": option_id,
-			"offset": offset,
-			"limit": limit,
+			chat_id: chat_id,
+			message_id: message_id,
+			option_id: option_id,
+			offset: offset,
+			limit: limit,
 		} as any as TdObject)) as any as TLUsers
 	}
 
 	public async stopPoll(chat_id: number, message_id: number, reply_markup: TLReplyMarkup): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "stopPoll",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"reply_markup": reply_markup,
+			chat_id: chat_id,
+			message_id: message_id,
+			reply_markup: reply_markup,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async hideSuggestedAction(action: TLSuggestedAction): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "hideSuggestedAction",
-			"action": action,
+			action: action,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getLoginUrlInfo(chat_id: number, message_id: number, button_id: number): Promise<TLLoginUrlInfo> {
 		return (await this.client.send({
 			"@type": "getLoginUrlInfo",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"button_id": button_id,
+			chat_id: chat_id,
+			message_id: message_id,
+			button_id: button_id,
 		} as any as TdObject)) as any as TLLoginUrlInfo
 	}
 
 	public async getLoginUrl(chat_id: number, message_id: number, button_id: number, allow_write_access: boolean): Promise<TLHttpUrl> {
 		return (await this.client.send({
 			"@type": "getLoginUrl",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"button_id": button_id,
-			"allow_write_access": allow_write_access,
+			chat_id: chat_id,
+			message_id: message_id,
+			button_id: button_id,
+			allow_write_access: allow_write_access,
 		} as any as TdObject)) as any as TLHttpUrl
 	}
 
 	public async getInlineQueryResults(bot_user_id: number, chat_id: number, user_location: TLLocation, query: string, offset: string): Promise<TLInlineQueryResults> {
 		return (await this.client.send({
 			"@type": "getInlineQueryResults",
-			"bot_user_id": bot_user_id,
-			"chat_id": chat_id,
-			"user_location": user_location,
-			"query": query,
-			"offset": offset,
+			bot_user_id: bot_user_id,
+			chat_id: chat_id,
+			user_location: user_location,
+			query: query,
+			offset: offset,
 		} as any as TdObject)) as any as TLInlineQueryResults
 	}
 
 	public async answerInlineQuery(inline_query_id: string, is_personal: boolean, results: ReadonlyArray<TLInputInlineQueryResult>, cache_time: number, next_offset: string, switch_pm_text: string, switch_pm_parameter: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "answerInlineQuery",
-			"inline_query_id": inline_query_id,
-			"is_personal": is_personal,
-			"results": results,
-			"cache_time": cache_time,
-			"next_offset": next_offset,
-			"switch_pm_text": switch_pm_text,
-			"switch_pm_parameter": switch_pm_parameter,
+			inline_query_id: inline_query_id,
+			is_personal: is_personal,
+			results: results,
+			cache_time: cache_time,
+			next_offset: next_offset,
+			switch_pm_text: switch_pm_text,
+			switch_pm_parameter: switch_pm_parameter,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getCallbackQueryAnswer(chat_id: number, message_id: number, payload: TLCallbackQueryPayload): Promise<TLCallbackQueryAnswer> {
 		return (await this.client.send({
 			"@type": "getCallbackQueryAnswer",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"payload": payload,
+			chat_id: chat_id,
+			message_id: message_id,
+			payload: payload,
 		} as any as TdObject)) as any as TLCallbackQueryAnswer
 	}
 
 	public async answerCallbackQuery(callback_query_id: string, text: string, show_alert: boolean, url: string, cache_time: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "answerCallbackQuery",
-			"callback_query_id": callback_query_id,
-			"text": text,
-			"show_alert": show_alert,
-			"url": url,
-			"cache_time": cache_time,
+			callback_query_id: callback_query_id,
+			text: text,
+			show_alert: show_alert,
+			url: url,
+			cache_time: cache_time,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async answerShippingQuery(shipping_query_id: string, shipping_options: ReadonlyArray<TLShippingOption>, error_message: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "answerShippingQuery",
-			"shipping_query_id": shipping_query_id,
-			"shipping_options": shipping_options,
-			"error_message": error_message,
+			shipping_query_id: shipping_query_id,
+			shipping_options: shipping_options,
+			error_message: error_message,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async answerPreCheckoutQuery(pre_checkout_query_id: string, error_message: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "answerPreCheckoutQuery",
-			"pre_checkout_query_id": pre_checkout_query_id,
-			"error_message": error_message,
+			pre_checkout_query_id: pre_checkout_query_id,
+			error_message: error_message,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setGameScore(chat_id: number, message_id: number, edit_message: boolean, user_id: number, score: number, force: boolean): Promise<TLMessage> {
 		return (await this.client.send({
 			"@type": "setGameScore",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"edit_message": edit_message,
-			"user_id": user_id,
-			"score": score,
-			"force": force,
+			chat_id: chat_id,
+			message_id: message_id,
+			edit_message: edit_message,
+			user_id: user_id,
+			score: score,
+			force: force,
 		} as any as TdObject)) as any as TLMessage
 	}
 
 	public async setInlineGameScore(inline_message_id: string, edit_message: boolean, user_id: number, score: number, force: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setInlineGameScore",
-			"inline_message_id": inline_message_id,
-			"edit_message": edit_message,
-			"user_id": user_id,
-			"score": score,
-			"force": force,
+			inline_message_id: inline_message_id,
+			edit_message: edit_message,
+			user_id: user_id,
+			score: score,
+			force: force,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getGameHighScores(chat_id: number, message_id: number, user_id: number): Promise<TLGameHighScores> {
 		return (await this.client.send({
 			"@type": "getGameHighScores",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"user_id": user_id,
+			chat_id: chat_id,
+			message_id: message_id,
+			user_id: user_id,
 		} as any as TdObject)) as any as TLGameHighScores
 	}
 
 	public async getInlineGameHighScores(inline_message_id: string, user_id: number): Promise<TLGameHighScores> {
 		return (await this.client.send({
 			"@type": "getInlineGameHighScores",
-			"inline_message_id": inline_message_id,
-			"user_id": user_id,
+			inline_message_id: inline_message_id,
+			user_id: user_id,
 		} as any as TdObject)) as any as TLGameHighScores
 	}
 
 	public async deleteChatReplyMarkup(chat_id: number, message_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteChatReplyMarkup",
-			"chat_id": chat_id,
-			"message_id": message_id,
+			chat_id: chat_id,
+			message_id: message_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async sendChatAction(chat_id: number, message_thread_id: number, action: TLChatAction): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "sendChatAction",
-			"chat_id": chat_id,
-			"message_thread_id": message_thread_id,
-			"action": action,
+			chat_id: chat_id,
+			message_thread_id: message_thread_id,
+			action: action,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async openChat(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "openChat",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async closeChat(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "closeChat",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async viewMessages(chat_id: number, message_thread_id: number, message_ids: ReadonlyArray<number>, force_read: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "viewMessages",
-			"chat_id": chat_id,
-			"message_thread_id": message_thread_id,
-			"message_ids": message_ids,
-			"force_read": force_read,
+			chat_id: chat_id,
+			message_thread_id: message_thread_id,
+			message_ids: message_ids,
+			force_read: force_read,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async openMessageContent(chat_id: number, message_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "openMessageContent",
-			"chat_id": chat_id,
-			"message_id": message_id,
+			chat_id: chat_id,
+			message_id: message_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async readAllChatMentions(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "readAllChatMentions",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async createPrivateChat(user_id: number, force: boolean): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "createPrivateChat",
-			"user_id": user_id,
-			"force": force,
+			user_id: user_id,
+			force: force,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async createBasicGroupChat(basic_group_id: number, force: boolean): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "createBasicGroupChat",
-			"basic_group_id": basic_group_id,
-			"force": force,
+			basic_group_id: basic_group_id,
+			force: force,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async createSupergroupChat(supergroup_id: number, force: boolean): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "createSupergroupChat",
-			"supergroup_id": supergroup_id,
-			"force": force,
+			supergroup_id: supergroup_id,
+			force: force,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async createSecretChat(secret_chat_id: number): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "createSecretChat",
-			"secret_chat_id": secret_chat_id,
+			secret_chat_id: secret_chat_id,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async createNewBasicGroupChat(user_ids: ReadonlyArray<number>, title: string): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "createNewBasicGroupChat",
-			"user_ids": user_ids,
-			"title": title,
+			user_ids: user_ids,
+			title: title,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async createNewSupergroupChat(title: string, is_channel: boolean, description: string, location: TLChatLocation): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "createNewSupergroupChat",
-			"title": title,
-			"is_channel": is_channel,
-			"description": description,
-			"location": location,
+			title: title,
+			is_channel: is_channel,
+			description: description,
+			location: location,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async createNewSecretChat(user_id: number): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "createNewSecretChat",
-			"user_id": user_id,
+			user_id: user_id,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async upgradeBasicGroupChatToSupergroupChat(chat_id: number): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "upgradeBasicGroupChatToSupergroupChat",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async getChatListsToAddChat(chat_id: number): Promise<TLChatLists> {
 		return (await this.client.send({
 			"@type": "getChatListsToAddChat",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLChatLists
 	}
 
 	public async addChatToList(chat_id: number, chat_list: TLChatList): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addChatToList",
-			"chat_id": chat_id,
-			"chat_list": chat_list,
+			chat_id: chat_id,
+			chat_list: chat_list,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getChatFilter(chat_filter_id: number): Promise<TLChatFilter> {
 		return (await this.client.send({
 			"@type": "getChatFilter",
-			"chat_filter_id": chat_filter_id,
+			chat_filter_id: chat_filter_id,
 		} as any as TdObject)) as any as TLChatFilter
 	}
 
 	public async createChatFilter(filter: TLChatFilter): Promise<TLChatFilterInfo> {
 		return (await this.client.send({
 			"@type": "createChatFilter",
-			"filter": filter,
+			filter: filter,
 		} as any as TdObject)) as any as TLChatFilterInfo
 	}
 
 	public async editChatFilter(chat_filter_id: number, filter: TLChatFilter): Promise<TLChatFilterInfo> {
 		return (await this.client.send({
 			"@type": "editChatFilter",
-			"chat_filter_id": chat_filter_id,
-			"filter": filter,
+			chat_filter_id: chat_filter_id,
+			filter: filter,
 		} as any as TdObject)) as any as TLChatFilterInfo
 	}
 
 	public async deleteChatFilter(chat_filter_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteChatFilter",
-			"chat_filter_id": chat_filter_id,
+			chat_filter_id: chat_filter_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async reorderChatFilters(chat_filter_ids: ReadonlyArray<number>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "reorderChatFilters",
-			"chat_filter_ids": chat_filter_ids,
+			chat_filter_ids: chat_filter_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -6477,169 +6477,169 @@ export class TD {
 	public async getChatFilterDefaultIconName(filter: TLChatFilter): Promise<TLText> {
 		return (await this.client.send({
 			"@type": "getChatFilterDefaultIconName",
-			"filter": filter,
+			filter: filter,
 		} as any as TdObject)) as any as TLText
 	}
 
 	public async setChatTitle(chat_id: number, title: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatTitle",
-			"chat_id": chat_id,
-			"title": title,
+			chat_id: chat_id,
+			title: title,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatPhoto(chat_id: number, photo: TLInputChatPhoto): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatPhoto",
-			"chat_id": chat_id,
-			"photo": photo,
+			chat_id: chat_id,
+			photo: photo,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatPermissions(chat_id: number, permissions: TLChatPermissions): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatPermissions",
-			"chat_id": chat_id,
-			"permissions": permissions,
+			chat_id: chat_id,
+			permissions: permissions,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatDraftMessage(chat_id: number, message_thread_id: number, draft_message: TLDraftMessage): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatDraftMessage",
-			"chat_id": chat_id,
-			"message_thread_id": message_thread_id,
-			"draft_message": draft_message,
+			chat_id: chat_id,
+			message_thread_id: message_thread_id,
+			draft_message: draft_message,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatNotificationSettings(chat_id: number, notification_settings: TLChatNotificationSettings): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatNotificationSettings",
-			"chat_id": chat_id,
-			"notification_settings": notification_settings,
+			chat_id: chat_id,
+			notification_settings: notification_settings,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async toggleChatIsMarkedAsUnread(chat_id: number, is_marked_as_unread: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "toggleChatIsMarkedAsUnread",
-			"chat_id": chat_id,
-			"is_marked_as_unread": is_marked_as_unread,
+			chat_id: chat_id,
+			is_marked_as_unread: is_marked_as_unread,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async toggleChatDefaultDisableNotification(chat_id: number, default_disable_notification: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "toggleChatDefaultDisableNotification",
-			"chat_id": chat_id,
-			"default_disable_notification": default_disable_notification,
+			chat_id: chat_id,
+			default_disable_notification: default_disable_notification,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatClientData(chat_id: number, client_data: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatClientData",
-			"chat_id": chat_id,
-			"client_data": client_data,
+			chat_id: chat_id,
+			client_data: client_data,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatDescription(chat_id: number, description: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatDescription",
-			"chat_id": chat_id,
-			"description": description,
+			chat_id: chat_id,
+			description: description,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatDiscussionGroup(chat_id: number, discussion_chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatDiscussionGroup",
-			"chat_id": chat_id,
-			"discussion_chat_id": discussion_chat_id,
+			chat_id: chat_id,
+			discussion_chat_id: discussion_chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatLocation(chat_id: number, location: TLChatLocation): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatLocation",
-			"chat_id": chat_id,
-			"location": location,
+			chat_id: chat_id,
+			location: location,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatSlowModeDelay(chat_id: number, slow_mode_delay: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatSlowModeDelay",
-			"chat_id": chat_id,
-			"slow_mode_delay": slow_mode_delay,
+			chat_id: chat_id,
+			slow_mode_delay: slow_mode_delay,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async pinChatMessage(chat_id: number, message_id: number, disable_notification: boolean, only_for_self: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "pinChatMessage",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"disable_notification": disable_notification,
-			"only_for_self": only_for_self,
+			chat_id: chat_id,
+			message_id: message_id,
+			disable_notification: disable_notification,
+			only_for_self: only_for_self,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async unpinChatMessage(chat_id: number, message_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "unpinChatMessage",
-			"chat_id": chat_id,
-			"message_id": message_id,
+			chat_id: chat_id,
+			message_id: message_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async unpinAllChatMessages(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "unpinAllChatMessages",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async joinChat(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "joinChat",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async leaveChat(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "leaveChat",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async addChatMember(chat_id: number, user_id: number, forward_limit: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addChatMember",
-			"chat_id": chat_id,
-			"user_id": user_id,
-			"forward_limit": forward_limit,
+			chat_id: chat_id,
+			user_id: user_id,
+			forward_limit: forward_limit,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async addChatMembers(chat_id: number, user_ids: ReadonlyArray<number>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addChatMembers",
-			"chat_id": chat_id,
-			"user_ids": user_ids,
+			chat_id: chat_id,
+			user_ids: user_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setChatMemberStatus(chat_id: number, user_id: number, status: TLChatMemberStatus): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setChatMemberStatus",
-			"chat_id": chat_id,
-			"user_id": user_id,
-			"status": status,
+			chat_id: chat_id,
+			user_id: user_id,
+			status: status,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -6652,64 +6652,64 @@ export class TD {
 	public async transferChatOwnership(chat_id: number, user_id: number, password: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "transferChatOwnership",
-			"chat_id": chat_id,
-			"user_id": user_id,
-			"password": password,
+			chat_id: chat_id,
+			user_id: user_id,
+			password: password,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getChatMember(chat_id: number, user_id: number): Promise<TLChatMember> {
 		return (await this.client.send({
 			"@type": "getChatMember",
-			"chat_id": chat_id,
-			"user_id": user_id,
+			chat_id: chat_id,
+			user_id: user_id,
 		} as any as TdObject)) as any as TLChatMember
 	}
 
 	public async searchChatMembers(chat_id: number, query: string, limit: number, filter: TLChatMembersFilter): Promise<TLChatMembers> {
 		return (await this.client.send({
 			"@type": "searchChatMembers",
-			"chat_id": chat_id,
-			"query": query,
-			"limit": limit,
-			"filter": filter,
+			chat_id: chat_id,
+			query: query,
+			limit: limit,
+			filter: filter,
 		} as any as TdObject)) as any as TLChatMembers
 	}
 
 	public async getChatAdministrators(chat_id: number): Promise<TLChatAdministrators> {
 		return (await this.client.send({
 			"@type": "getChatAdministrators",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLChatAdministrators
 	}
 
 	public async clearAllDraftMessages(exclude_secret_chats: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "clearAllDraftMessages",
-			"exclude_secret_chats": exclude_secret_chats,
+			exclude_secret_chats: exclude_secret_chats,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getChatNotificationSettingsExceptions(scope: TLNotificationSettingsScope, compare_sound: boolean): Promise<TLChats> {
 		return (await this.client.send({
 			"@type": "getChatNotificationSettingsExceptions",
-			"scope": scope,
-			"compare_sound": compare_sound,
+			scope: scope,
+			compare_sound: compare_sound,
 		} as any as TdObject)) as any as TLChats
 	}
 
 	public async getScopeNotificationSettings(scope: TLNotificationSettingsScope): Promise<TLScopeNotificationSettings> {
 		return (await this.client.send({
 			"@type": "getScopeNotificationSettings",
-			"scope": scope,
+			scope: scope,
 		} as any as TdObject)) as any as TLScopeNotificationSettings
 	}
 
 	public async setScopeNotificationSettings(scope: TLNotificationSettingsScope, notification_settings: TLScopeNotificationSettings): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setScopeNotificationSettings",
-			"scope": scope,
-			"notification_settings": notification_settings,
+			scope: scope,
+			notification_settings: notification_settings,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -6722,218 +6722,218 @@ export class TD {
 	public async toggleChatIsPinned(chat_list: TLChatList, chat_id: number, is_pinned: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "toggleChatIsPinned",
-			"chat_list": chat_list,
-			"chat_id": chat_id,
-			"is_pinned": is_pinned,
+			chat_list: chat_list,
+			chat_id: chat_id,
+			is_pinned: is_pinned,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setPinnedChats(chat_list: TLChatList, chat_ids: ReadonlyArray<number>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setPinnedChats",
-			"chat_list": chat_list,
-			"chat_ids": chat_ids,
+			chat_list: chat_list,
+			chat_ids: chat_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async downloadFile(file_id: number, priority: number, offset: number, limit: number, synchronous: boolean): Promise<TLFile> {
 		return (await this.client.send({
 			"@type": "downloadFile",
-			"file_id": file_id,
-			"priority": priority,
-			"offset": offset,
-			"limit": limit,
-			"synchronous": synchronous,
+			file_id: file_id,
+			priority: priority,
+			offset: offset,
+			limit: limit,
+			synchronous: synchronous,
 		} as any as TdObject)) as any as TLFile
 	}
 
 	public async getFileDownloadedPrefixSize(file_id: number, offset: number): Promise<TLCount> {
 		return (await this.client.send({
 			"@type": "getFileDownloadedPrefixSize",
-			"file_id": file_id,
-			"offset": offset,
+			file_id: file_id,
+			offset: offset,
 		} as any as TdObject)) as any as TLCount
 	}
 
 	public async cancelDownloadFile(file_id: number, only_if_pending: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "cancelDownloadFile",
-			"file_id": file_id,
-			"only_if_pending": only_if_pending,
+			file_id: file_id,
+			only_if_pending: only_if_pending,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async uploadFile(file: TLInputFile, file_type: TLFileType, priority: number): Promise<TLFile> {
 		return (await this.client.send({
 			"@type": "uploadFile",
-			"file": file,
-			"file_type": file_type,
-			"priority": priority,
+			file: file,
+			file_type: file_type,
+			priority: priority,
 		} as any as TdObject)) as any as TLFile
 	}
 
 	public async cancelUploadFile(file_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "cancelUploadFile",
-			"file_id": file_id,
+			file_id: file_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async writeGeneratedFilePart(generation_id: string, offset: number, data: Uint8Array): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "writeGeneratedFilePart",
-			"generation_id": generation_id,
-			"offset": offset,
-			"data": data,
+			generation_id: generation_id,
+			offset: offset,
+			data: data,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setFileGenerationProgress(generation_id: string, expected_size: number, local_prefix_size: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setFileGenerationProgress",
-			"generation_id": generation_id,
-			"expected_size": expected_size,
-			"local_prefix_size": local_prefix_size,
+			generation_id: generation_id,
+			expected_size: expected_size,
+			local_prefix_size: local_prefix_size,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async finishFileGeneration(generation_id: string, error: TLError): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "finishFileGeneration",
-			"generation_id": generation_id,
-			"error": error,
+			generation_id: generation_id,
+			error: error,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async readFilePart(file_id: number, offset: number, count: number): Promise<TLFilePart> {
 		return (await this.client.send({
 			"@type": "readFilePart",
-			"file_id": file_id,
-			"offset": offset,
-			"count": count,
+			file_id: file_id,
+			offset: offset,
+			count: count,
 		} as any as TdObject)) as any as TLFilePart
 	}
 
 	public async deleteFile(file_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteFile",
-			"file_id": file_id,
+			file_id: file_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async generateChatInviteLink(chat_id: number): Promise<TLChatInviteLink> {
 		return (await this.client.send({
 			"@type": "generateChatInviteLink",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLChatInviteLink
 	}
 
 	public async checkChatInviteLink(invite_link: string): Promise<TLChatInviteLinkInfo> {
 		return (await this.client.send({
 			"@type": "checkChatInviteLink",
-			"invite_link": invite_link,
+			invite_link: invite_link,
 		} as any as TdObject)) as any as TLChatInviteLinkInfo
 	}
 
 	public async joinChatByInviteLink(invite_link: string): Promise<TLChat> {
 		return (await this.client.send({
 			"@type": "joinChatByInviteLink",
-			"invite_link": invite_link,
+			invite_link: invite_link,
 		} as any as TdObject)) as any as TLChat
 	}
 
 	public async createCall(user_id: number, protocol: TLCallProtocol, is_video: boolean): Promise<TLCallId> {
 		return (await this.client.send({
 			"@type": "createCall",
-			"user_id": user_id,
-			"protocol": protocol,
-			"is_video": is_video,
+			user_id: user_id,
+			protocol: protocol,
+			is_video: is_video,
 		} as any as TdObject)) as any as TLCallId
 	}
 
 	public async acceptCall(call_id: number, protocol: TLCallProtocol): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "acceptCall",
-			"call_id": call_id,
-			"protocol": protocol,
+			call_id: call_id,
+			protocol: protocol,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async sendCallSignalingData(call_id: number, data: Uint8Array): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "sendCallSignalingData",
-			"call_id": call_id,
-			"data": data,
+			call_id: call_id,
+			data: data,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async discardCall(call_id: number, is_disconnected: boolean, duration: number, is_video: boolean, connection_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "discardCall",
-			"call_id": call_id,
-			"is_disconnected": is_disconnected,
-			"duration": duration,
-			"is_video": is_video,
-			"connection_id": connection_id,
+			call_id: call_id,
+			is_disconnected: is_disconnected,
+			duration: duration,
+			is_video: is_video,
+			connection_id: connection_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async sendCallRating(call_id: number, rating: number, comment: string, problems: ReadonlyArray<TLCallProblem>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "sendCallRating",
-			"call_id": call_id,
-			"rating": rating,
-			"comment": comment,
-			"problems": problems,
+			call_id: call_id,
+			rating: rating,
+			comment: comment,
+			problems: problems,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async sendCallDebugInformation(call_id: number, debug_information: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "sendCallDebugInformation",
-			"call_id": call_id,
-			"debug_information": debug_information,
+			call_id: call_id,
+			debug_information: debug_information,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async toggleMessageSenderIsBlocked(sender: TLMessageSender, is_blocked: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "toggleMessageSenderIsBlocked",
-			"sender": sender,
-			"is_blocked": is_blocked,
+			sender: sender,
+			is_blocked: is_blocked,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async blockMessageSenderFromReplies(message_id: number, delete_message: boolean, delete_all_messages: boolean, report_spam: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "blockMessageSenderFromReplies",
-			"message_id": message_id,
-			"delete_message": delete_message,
-			"delete_all_messages": delete_all_messages,
-			"report_spam": report_spam,
+			message_id: message_id,
+			delete_message: delete_message,
+			delete_all_messages: delete_all_messages,
+			report_spam: report_spam,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getBlockedMessageSenders(offset: number, limit: number): Promise<TLMessageSenders> {
 		return (await this.client.send({
 			"@type": "getBlockedMessageSenders",
-			"offset": offset,
-			"limit": limit,
+			offset: offset,
+			limit: limit,
 		} as any as TdObject)) as any as TLMessageSenders
 	}
 
 	public async addContact(contact: TLContact, share_phone_number: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addContact",
-			"contact": contact,
-			"share_phone_number": share_phone_number,
+			contact: contact,
+			share_phone_number: share_phone_number,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async importContacts(contacts: ReadonlyArray<TLContact>): Promise<TLImportedContacts> {
 		return (await this.client.send({
 			"@type": "importContacts",
-			"contacts": contacts,
+			contacts: contacts,
 		} as any as TdObject)) as any as TLImportedContacts
 	}
 
@@ -6946,15 +6946,15 @@ export class TD {
 	public async searchContacts(query: string, limit: number): Promise<TLUsers> {
 		return (await this.client.send({
 			"@type": "searchContacts",
-			"query": query,
-			"limit": limit,
+			query: query,
+			limit: limit,
 		} as any as TdObject)) as any as TLUsers
 	}
 
 	public async removeContacts(user_ids: ReadonlyArray<number>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeContacts",
-			"user_ids": user_ids,
+			user_ids: user_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -6967,7 +6967,7 @@ export class TD {
 	public async changeImportedContacts(contacts: ReadonlyArray<TLContact>): Promise<TLImportedContacts> {
 		return (await this.client.send({
 			"@type": "changeImportedContacts",
-			"contacts": contacts,
+			contacts: contacts,
 		} as any as TdObject)) as any as TLImportedContacts
 	}
 
@@ -6980,147 +6980,147 @@ export class TD {
 	public async sharePhoneNumber(user_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "sharePhoneNumber",
-			"user_id": user_id,
+			user_id: user_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getUserProfilePhotos(user_id: number, offset: number, limit: number): Promise<TLChatPhotos> {
 		return (await this.client.send({
 			"@type": "getUserProfilePhotos",
-			"user_id": user_id,
-			"offset": offset,
-			"limit": limit,
+			user_id: user_id,
+			offset: offset,
+			limit: limit,
 		} as any as TdObject)) as any as TLChatPhotos
 	}
 
 	public async getStickers(emoji: string, limit: number): Promise<TLStickers> {
 		return (await this.client.send({
 			"@type": "getStickers",
-			"emoji": emoji,
-			"limit": limit,
+			emoji: emoji,
+			limit: limit,
 		} as any as TdObject)) as any as TLStickers
 	}
 
 	public async searchStickers(emoji: string, limit: number): Promise<TLStickers> {
 		return (await this.client.send({
 			"@type": "searchStickers",
-			"emoji": emoji,
-			"limit": limit,
+			emoji: emoji,
+			limit: limit,
 		} as any as TdObject)) as any as TLStickers
 	}
 
 	public async getInstalledStickerSets(is_masks: boolean): Promise<TLStickerSets> {
 		return (await this.client.send({
 			"@type": "getInstalledStickerSets",
-			"is_masks": is_masks,
+			is_masks: is_masks,
 		} as any as TdObject)) as any as TLStickerSets
 	}
 
 	public async getArchivedStickerSets(is_masks: boolean, offset_sticker_set_id: string, limit: number): Promise<TLStickerSets> {
 		return (await this.client.send({
 			"@type": "getArchivedStickerSets",
-			"is_masks": is_masks,
-			"offset_sticker_set_id": offset_sticker_set_id,
-			"limit": limit,
+			is_masks: is_masks,
+			offset_sticker_set_id: offset_sticker_set_id,
+			limit: limit,
 		} as any as TdObject)) as any as TLStickerSets
 	}
 
 	public async getTrendingStickerSets(offset: number, limit: number): Promise<TLStickerSets> {
 		return (await this.client.send({
 			"@type": "getTrendingStickerSets",
-			"offset": offset,
-			"limit": limit,
+			offset: offset,
+			limit: limit,
 		} as any as TdObject)) as any as TLStickerSets
 	}
 
 	public async getAttachedStickerSets(file_id: number): Promise<TLStickerSets> {
 		return (await this.client.send({
 			"@type": "getAttachedStickerSets",
-			"file_id": file_id,
+			file_id: file_id,
 		} as any as TdObject)) as any as TLStickerSets
 	}
 
 	public async getStickerSet(set_id: string): Promise<TLStickerSet> {
 		return (await this.client.send({
 			"@type": "getStickerSet",
-			"set_id": set_id,
+			set_id: set_id,
 		} as any as TdObject)) as any as TLStickerSet
 	}
 
 	public async searchStickerSet(name: string): Promise<TLStickerSet> {
 		return (await this.client.send({
 			"@type": "searchStickerSet",
-			"name": name,
+			name: name,
 		} as any as TdObject)) as any as TLStickerSet
 	}
 
 	public async searchInstalledStickerSets(is_masks: boolean, query: string, limit: number): Promise<TLStickerSets> {
 		return (await this.client.send({
 			"@type": "searchInstalledStickerSets",
-			"is_masks": is_masks,
-			"query": query,
-			"limit": limit,
+			is_masks: is_masks,
+			query: query,
+			limit: limit,
 		} as any as TdObject)) as any as TLStickerSets
 	}
 
 	public async searchStickerSets(query: string): Promise<TLStickerSets> {
 		return (await this.client.send({
 			"@type": "searchStickerSets",
-			"query": query,
+			query: query,
 		} as any as TdObject)) as any as TLStickerSets
 	}
 
 	public async changeStickerSet(set_id: string, is_installed: boolean, is_archived: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "changeStickerSet",
-			"set_id": set_id,
-			"is_installed": is_installed,
-			"is_archived": is_archived,
+			set_id: set_id,
+			is_installed: is_installed,
+			is_archived: is_archived,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async viewTrendingStickerSets(sticker_set_ids: ReadonlyArray<string>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "viewTrendingStickerSets",
-			"sticker_set_ids": sticker_set_ids,
+			sticker_set_ids: sticker_set_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async reorderInstalledStickerSets(is_masks: boolean, sticker_set_ids: ReadonlyArray<string>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "reorderInstalledStickerSets",
-			"is_masks": is_masks,
-			"sticker_set_ids": sticker_set_ids,
+			is_masks: is_masks,
+			sticker_set_ids: sticker_set_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getRecentStickers(is_attached: boolean): Promise<TLStickers> {
 		return (await this.client.send({
 			"@type": "getRecentStickers",
-			"is_attached": is_attached,
+			is_attached: is_attached,
 		} as any as TdObject)) as any as TLStickers
 	}
 
 	public async addRecentSticker(is_attached: boolean, sticker: TLInputFile): Promise<TLStickers> {
 		return (await this.client.send({
 			"@type": "addRecentSticker",
-			"is_attached": is_attached,
-			"sticker": sticker,
+			is_attached: is_attached,
+			sticker: sticker,
 		} as any as TdObject)) as any as TLStickers
 	}
 
 	public async removeRecentSticker(is_attached: boolean, sticker: TLInputFile): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeRecentSticker",
-			"is_attached": is_attached,
-			"sticker": sticker,
+			is_attached: is_attached,
+			sticker: sticker,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async clearRecentStickers(is_attached: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "clearRecentStickers",
-			"is_attached": is_attached,
+			is_attached: is_attached,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -7133,37 +7133,37 @@ export class TD {
 	public async addFavoriteSticker(sticker: TLInputFile): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addFavoriteSticker",
-			"sticker": sticker,
+			sticker: sticker,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async removeFavoriteSticker(sticker: TLInputFile): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeFavoriteSticker",
-			"sticker": sticker,
+			sticker: sticker,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getStickerEmojis(sticker: TLInputFile): Promise<TLEmojis> {
 		return (await this.client.send({
 			"@type": "getStickerEmojis",
-			"sticker": sticker,
+			sticker: sticker,
 		} as any as TdObject)) as any as TLEmojis
 	}
 
 	public async searchEmojis(text: string, exact_match: boolean, input_language_codes: ReadonlyArray<string>): Promise<TLEmojis> {
 		return (await this.client.send({
 			"@type": "searchEmojis",
-			"text": text,
-			"exact_match": exact_match,
-			"input_language_codes": input_language_codes,
+			text: text,
+			exact_match: exact_match,
+			input_language_codes: input_language_codes,
 		} as any as TdObject)) as any as TLEmojis
 	}
 
 	public async getEmojiSuggestionsUrl(language_code: string): Promise<TLHttpUrl> {
 		return (await this.client.send({
 			"@type": "getEmojiSuggestionsUrl",
-			"language_code": language_code,
+			language_code: language_code,
 		} as any as TdObject)) as any as TLHttpUrl
 	}
 
@@ -7176,14 +7176,14 @@ export class TD {
 	public async addSavedAnimation(animation: TLInputFile): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addSavedAnimation",
-			"animation": animation,
+			animation: animation,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async removeSavedAnimation(animation: TLInputFile): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeSavedAnimation",
-			"animation": animation,
+			animation: animation,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -7196,81 +7196,81 @@ export class TD {
 	public async searchHashtags(prefix: string, limit: number): Promise<TLHashtags> {
 		return (await this.client.send({
 			"@type": "searchHashtags",
-			"prefix": prefix,
-			"limit": limit,
+			prefix: prefix,
+			limit: limit,
 		} as any as TdObject)) as any as TLHashtags
 	}
 
 	public async removeRecentHashtag(hashtag: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeRecentHashtag",
-			"hashtag": hashtag,
+			hashtag: hashtag,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getWebPagePreview(text: TLFormattedText): Promise<TLWebPage> {
 		return (await this.client.send({
 			"@type": "getWebPagePreview",
-			"text": text,
+			text: text,
 		} as any as TdObject)) as any as TLWebPage
 	}
 
 	public async getWebPageInstantView(url: string, force_full: boolean): Promise<TLWebPageInstantView> {
 		return (await this.client.send({
 			"@type": "getWebPageInstantView",
-			"url": url,
-			"force_full": force_full,
+			url: url,
+			force_full: force_full,
 		} as any as TdObject)) as any as TLWebPageInstantView
 	}
 
 	public async setProfilePhoto(photo: TLInputChatPhoto): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setProfilePhoto",
-			"photo": photo,
+			photo: photo,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async deleteProfilePhoto(profile_photo_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteProfilePhoto",
-			"profile_photo_id": profile_photo_id,
+			profile_photo_id: profile_photo_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setName(first_name: string, last_name: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setName",
-			"first_name": first_name,
-			"last_name": last_name,
+			first_name: first_name,
+			last_name: last_name,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setBio(bio: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setBio",
-			"bio": bio,
+			bio: bio,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setUsername(username: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setUsername",
-			"username": username,
+			username: username,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setLocation(location: TLLocation): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setLocation",
-			"location": location,
+			location: location,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async changePhoneNumber(phone_number: string, settings: TLPhoneNumberAuthenticationSettings): Promise<TLAuthenticationCodeInfo> {
 		return (await this.client.send({
 			"@type": "changePhoneNumber",
-			"phone_number": phone_number,
-			"settings": settings,
+			phone_number: phone_number,
+			settings: settings,
 		} as any as TdObject)) as any as TLAuthenticationCodeInfo
 	}
 
@@ -7283,14 +7283,14 @@ export class TD {
 	public async checkChangePhoneNumberCode(code: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "checkChangePhoneNumberCode",
-			"code": code,
+			code: code,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setCommands(commands: ReadonlyArray<TLBotCommand>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setCommands",
-			"commands": commands,
+			commands: commands,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -7303,7 +7303,7 @@ export class TD {
 	public async terminateSession(session_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "terminateSession",
-			"session_id": session_id,
+			session_id: session_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -7322,7 +7322,7 @@ export class TD {
 	public async disconnectWebsite(website_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "disconnectWebsite",
-			"website_id": website_id,
+			website_id: website_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -7335,114 +7335,114 @@ export class TD {
 	public async setSupergroupUsername(supergroup_id: number, username: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setSupergroupUsername",
-			"supergroup_id": supergroup_id,
-			"username": username,
+			supergroup_id: supergroup_id,
+			username: username,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setSupergroupStickerSet(supergroup_id: number, sticker_set_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setSupergroupStickerSet",
-			"supergroup_id": supergroup_id,
-			"sticker_set_id": sticker_set_id,
+			supergroup_id: supergroup_id,
+			sticker_set_id: sticker_set_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async toggleSupergroupSignMessages(supergroup_id: number, sign_messages: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "toggleSupergroupSignMessages",
-			"supergroup_id": supergroup_id,
-			"sign_messages": sign_messages,
+			supergroup_id: supergroup_id,
+			sign_messages: sign_messages,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async toggleSupergroupIsAllHistoryAvailable(supergroup_id: number, is_all_history_available: boolean): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "toggleSupergroupIsAllHistoryAvailable",
-			"supergroup_id": supergroup_id,
-			"is_all_history_available": is_all_history_available,
+			supergroup_id: supergroup_id,
+			is_all_history_available: is_all_history_available,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async reportSupergroupSpam(supergroup_id: number, user_id: number, message_ids: ReadonlyArray<number>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "reportSupergroupSpam",
-			"supergroup_id": supergroup_id,
-			"user_id": user_id,
-			"message_ids": message_ids,
+			supergroup_id: supergroup_id,
+			user_id: user_id,
+			message_ids: message_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getSupergroupMembers(supergroup_id: number, filter: TLSupergroupMembersFilter, offset: number, limit: number): Promise<TLChatMembers> {
 		return (await this.client.send({
 			"@type": "getSupergroupMembers",
-			"supergroup_id": supergroup_id,
-			"filter": filter,
-			"offset": offset,
-			"limit": limit,
+			supergroup_id: supergroup_id,
+			filter: filter,
+			offset: offset,
+			limit: limit,
 		} as any as TdObject)) as any as TLChatMembers
 	}
 
 	public async deleteSupergroup(supergroup_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteSupergroup",
-			"supergroup_id": supergroup_id,
+			supergroup_id: supergroup_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async closeSecretChat(secret_chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "closeSecretChat",
-			"secret_chat_id": secret_chat_id,
+			secret_chat_id: secret_chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getChatEventLog(chat_id: number, query: string, from_event_id: string, limit: number, filters: TLChatEventLogFilters, user_ids: ReadonlyArray<number>): Promise<TLChatEvents> {
 		return (await this.client.send({
 			"@type": "getChatEventLog",
-			"chat_id": chat_id,
-			"query": query,
-			"from_event_id": from_event_id,
-			"limit": limit,
-			"filters": filters,
-			"user_ids": user_ids,
+			chat_id: chat_id,
+			query: query,
+			from_event_id: from_event_id,
+			limit: limit,
+			filters: filters,
+			user_ids: user_ids,
 		} as any as TdObject)) as any as TLChatEvents
 	}
 
 	public async getPaymentForm(chat_id: number, message_id: number): Promise<TLPaymentForm> {
 		return (await this.client.send({
 			"@type": "getPaymentForm",
-			"chat_id": chat_id,
-			"message_id": message_id,
+			chat_id: chat_id,
+			message_id: message_id,
 		} as any as TdObject)) as any as TLPaymentForm
 	}
 
 	public async validateOrderInfo(chat_id: number, message_id: number, order_info: TLOrderInfo, allow_save: boolean): Promise<TLValidatedOrderInfo> {
 		return (await this.client.send({
 			"@type": "validateOrderInfo",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"order_info": order_info,
-			"allow_save": allow_save,
+			chat_id: chat_id,
+			message_id: message_id,
+			order_info: order_info,
+			allow_save: allow_save,
 		} as any as TdObject)) as any as TLValidatedOrderInfo
 	}
 
 	public async sendPaymentForm(chat_id: number, message_id: number, order_info_id: string, shipping_option_id: string, credentials: TLInputCredentials): Promise<TLPaymentResult> {
 		return (await this.client.send({
 			"@type": "sendPaymentForm",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"order_info_id": order_info_id,
-			"shipping_option_id": shipping_option_id,
-			"credentials": credentials,
+			chat_id: chat_id,
+			message_id: message_id,
+			order_info_id: order_info_id,
+			shipping_option_id: shipping_option_id,
+			credentials: credentials,
 		} as any as TdObject)) as any as TLPaymentResult
 	}
 
 	public async getPaymentReceipt(chat_id: number, message_id: number): Promise<TLPaymentReceipt> {
 		return (await this.client.send({
 			"@type": "getPaymentReceipt",
-			"chat_id": chat_id,
-			"message_id": message_id,
+			chat_id: chat_id,
+			message_id: message_id,
 		} as any as TdObject)) as any as TLPaymentReceipt
 	}
 
@@ -7473,38 +7473,38 @@ export class TD {
 	public async getBackgrounds(for_dark_theme: boolean): Promise<TLBackgrounds> {
 		return (await this.client.send({
 			"@type": "getBackgrounds",
-			"for_dark_theme": for_dark_theme,
+			for_dark_theme: for_dark_theme,
 		} as any as TdObject)) as any as TLBackgrounds
 	}
 
 	public async getBackgroundUrl(name: string, type: TLBackgroundType): Promise<TLHttpUrl> {
 		return (await this.client.send({
 			"@type": "getBackgroundUrl",
-			"name": name,
-			"type": type,
+			name: name,
+			type: type,
 		} as any as TdObject)) as any as TLHttpUrl
 	}
 
 	public async searchBackground(name: string): Promise<TLBackground> {
 		return (await this.client.send({
 			"@type": "searchBackground",
-			"name": name,
+			name: name,
 		} as any as TdObject)) as any as TLBackground
 	}
 
 	public async setBackground(background: TLInputBackground, type: TLBackgroundType, for_dark_theme: boolean): Promise<TLBackground> {
 		return (await this.client.send({
 			"@type": "setBackground",
-			"background": background,
-			"type": type,
-			"for_dark_theme": for_dark_theme,
+			background: background,
+			type: type,
+			for_dark_theme: for_dark_theme,
 		} as any as TdObject)) as any as TLBackground
 	}
 
 	public async removeBackground(background_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeBackground",
-			"background_id": background_id,
+			background_id: background_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -7517,132 +7517,132 @@ export class TD {
 	public async getLocalizationTargetInfo(only_local: boolean): Promise<TLLocalizationTargetInfo> {
 		return (await this.client.send({
 			"@type": "getLocalizationTargetInfo",
-			"only_local": only_local,
+			only_local: only_local,
 		} as any as TdObject)) as any as TLLocalizationTargetInfo
 	}
 
 	public async getLanguagePackInfo(language_pack_id: string): Promise<TLLanguagePackInfo> {
 		return (await this.client.send({
 			"@type": "getLanguagePackInfo",
-			"language_pack_id": language_pack_id,
+			language_pack_id: language_pack_id,
 		} as any as TdObject)) as any as TLLanguagePackInfo
 	}
 
 	public async getLanguagePackStrings(language_pack_id: string, keys: ReadonlyArray<string>): Promise<TLLanguagePackStrings> {
 		return (await this.client.send({
 			"@type": "getLanguagePackStrings",
-			"language_pack_id": language_pack_id,
-			"keys": keys,
+			language_pack_id: language_pack_id,
+			keys: keys,
 		} as any as TdObject)) as any as TLLanguagePackStrings
 	}
 
 	public async synchronizeLanguagePack(language_pack_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "synchronizeLanguagePack",
-			"language_pack_id": language_pack_id,
+			language_pack_id: language_pack_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async addCustomServerLanguagePack(language_pack_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addCustomServerLanguagePack",
-			"language_pack_id": language_pack_id,
+			language_pack_id: language_pack_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setCustomLanguagePack(info: TLLanguagePackInfo, strings: ReadonlyArray<TLLanguagePackString>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setCustomLanguagePack",
-			"info": info,
-			"strings": strings,
+			info: info,
+			strings: strings,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async editCustomLanguagePackInfo(info: TLLanguagePackInfo): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "editCustomLanguagePackInfo",
-			"info": info,
+			info: info,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setCustomLanguagePackString(language_pack_id: string, new_string: TLLanguagePackString): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setCustomLanguagePackString",
-			"language_pack_id": language_pack_id,
-			"new_string": new_string,
+			language_pack_id: language_pack_id,
+			new_string: new_string,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async deleteLanguagePack(language_pack_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteLanguagePack",
-			"language_pack_id": language_pack_id,
+			language_pack_id: language_pack_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async registerDevice(device_token: TLDeviceToken, other_user_ids: ReadonlyArray<number>): Promise<TLPushReceiverId> {
 		return (await this.client.send({
 			"@type": "registerDevice",
-			"device_token": device_token,
-			"other_user_ids": other_user_ids,
+			device_token: device_token,
+			other_user_ids: other_user_ids,
 		} as any as TdObject)) as any as TLPushReceiverId
 	}
 
 	public async processPushNotification(payload: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "processPushNotification",
-			"payload": payload,
+			payload: payload,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getPushReceiverId(payload: string): Promise<TLPushReceiverId> {
 		return (await this.client.send({
 			"@type": "getPushReceiverId",
-			"payload": payload,
+			payload: payload,
 		} as any as TdObject)) as any as TLPushReceiverId
 	}
 
 	public async getRecentlyVisitedTMeUrls(referrer: string): Promise<TLTMeUrls> {
 		return (await this.client.send({
 			"@type": "getRecentlyVisitedTMeUrls",
-			"referrer": referrer,
+			referrer: referrer,
 		} as any as TdObject)) as any as TLTMeUrls
 	}
 
 	public async setUserPrivacySettingRules(setting: TLUserPrivacySetting, rules: TLUserPrivacySettingRules): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setUserPrivacySettingRules",
-			"setting": setting,
-			"rules": rules,
+			setting: setting,
+			rules: rules,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getUserPrivacySettingRules(setting: TLUserPrivacySetting): Promise<TLUserPrivacySettingRules> {
 		return (await this.client.send({
 			"@type": "getUserPrivacySettingRules",
-			"setting": setting,
+			setting: setting,
 		} as any as TdObject)) as any as TLUserPrivacySettingRules
 	}
 
 	public async getOption(name: string): Promise<TLOptionValue> {
 		return (await this.client.send({
 			"@type": "getOption",
-			"name": name,
+			name: name,
 		} as any as TdObject)) as any as TLOptionValue
 	}
 
 	public async setOption(name: string, value: TLOptionValue): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setOption",
-			"name": name,
-			"value": value,
+			name: name,
+			value: value,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setAccountTtl(ttl: TLAccountTtl): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setAccountTtl",
-			"ttl": ttl,
+			ttl: ttl,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -7655,65 +7655,65 @@ export class TD {
 	public async deleteAccount(reason: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deleteAccount",
-			"reason": reason,
+			reason: reason,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async removeChatActionBar(chat_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeChatActionBar",
-			"chat_id": chat_id,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async reportChat(chat_id: number, reason: TLChatReportReason, message_ids: ReadonlyArray<number>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "reportChat",
-			"chat_id": chat_id,
-			"reason": reason,
-			"message_ids": message_ids,
+			chat_id: chat_id,
+			reason: reason,
+			message_ids: message_ids,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getChatStatisticsUrl(chat_id: number, parameters: string, is_dark: boolean): Promise<TLHttpUrl> {
 		return (await this.client.send({
 			"@type": "getChatStatisticsUrl",
-			"chat_id": chat_id,
-			"parameters": parameters,
-			"is_dark": is_dark,
+			chat_id: chat_id,
+			parameters: parameters,
+			is_dark: is_dark,
 		} as any as TdObject)) as any as TLHttpUrl
 	}
 
 	public async getChatStatistics(chat_id: number, is_dark: boolean): Promise<TLChatStatistics> {
 		return (await this.client.send({
 			"@type": "getChatStatistics",
-			"chat_id": chat_id,
-			"is_dark": is_dark,
+			chat_id: chat_id,
+			is_dark: is_dark,
 		} as any as TdObject)) as any as TLChatStatistics
 	}
 
 	public async getMessageStatistics(chat_id: number, message_id: number, is_dark: boolean): Promise<TLMessageStatistics> {
 		return (await this.client.send({
 			"@type": "getMessageStatistics",
-			"chat_id": chat_id,
-			"message_id": message_id,
-			"is_dark": is_dark,
+			chat_id: chat_id,
+			message_id: message_id,
+			is_dark: is_dark,
 		} as any as TdObject)) as any as TLMessageStatistics
 	}
 
 	public async getStatisticsGraph(chat_id: number, token: string, x: number): Promise<TLStatisticsGraph> {
 		return (await this.client.send({
 			"@type": "getStatisticsGraph",
-			"chat_id": chat_id,
-			"token": token,
-			"x": x,
+			chat_id: chat_id,
+			token: token,
+			x: x,
 		} as any as TdObject)) as any as TLStatisticsGraph
 	}
 
 	public async getStorageStatistics(chat_limit: number): Promise<TLStorageStatistics> {
 		return (await this.client.send({
 			"@type": "getStorageStatistics",
-			"chat_limit": chat_limit,
+			chat_limit: chat_limit,
 		} as any as TdObject)) as any as TLStorageStatistics
 	}
 
@@ -7732,36 +7732,36 @@ export class TD {
 	public async optimizeStorage(size: number, ttl: number, count: number, immunity_delay: number, file_types: ReadonlyArray<TLFileType>, chat_ids: ReadonlyArray<number>, exclude_chat_ids: ReadonlyArray<number>, return_deleted_file_statistics: boolean, chat_limit: number): Promise<TLStorageStatistics> {
 		return (await this.client.send({
 			"@type": "optimizeStorage",
-			"size": size,
-			"ttl": ttl,
-			"count": count,
-			"immunity_delay": immunity_delay,
-			"file_types": file_types,
-			"chat_ids": chat_ids,
-			"exclude_chat_ids": exclude_chat_ids,
-			"return_deleted_file_statistics": return_deleted_file_statistics,
-			"chat_limit": chat_limit,
+			size: size,
+			ttl: ttl,
+			count: count,
+			immunity_delay: immunity_delay,
+			file_types: file_types,
+			chat_ids: chat_ids,
+			exclude_chat_ids: exclude_chat_ids,
+			return_deleted_file_statistics: return_deleted_file_statistics,
+			chat_limit: chat_limit,
 		} as any as TdObject)) as any as TLStorageStatistics
 	}
 
 	public async setNetworkType(type: TLNetworkType): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setNetworkType",
-			"type": type,
+			type: type,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getNetworkStatistics(only_current: boolean): Promise<TLNetworkStatistics> {
 		return (await this.client.send({
 			"@type": "getNetworkStatistics",
-			"only_current": only_current,
+			only_current: only_current,
 		} as any as TdObject)) as any as TLNetworkStatistics
 	}
 
 	public async addNetworkStatistics(entry: TLNetworkStatisticsEntry): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addNetworkStatistics",
-			"entry": entry,
+			entry: entry,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -7780,68 +7780,68 @@ export class TD {
 	public async setAutoDownloadSettings(settings: TLAutoDownloadSettings, type: TLNetworkType): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setAutoDownloadSettings",
-			"settings": settings,
-			"type": type,
+			settings: settings,
+			type: type,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getBankCardInfo(bank_card_number: string): Promise<TLBankCardInfo> {
 		return (await this.client.send({
 			"@type": "getBankCardInfo",
-			"bank_card_number": bank_card_number,
+			bank_card_number: bank_card_number,
 		} as any as TdObject)) as any as TLBankCardInfo
 	}
 
 	public async getPassportElement(type: TLPassportElementType, password: string): Promise<TLPassportElement> {
 		return (await this.client.send({
 			"@type": "getPassportElement",
-			"type": type,
-			"password": password,
+			type: type,
+			password: password,
 		} as any as TdObject)) as any as TLPassportElement
 	}
 
 	public async getAllPassportElements(password: string): Promise<TLPassportElements> {
 		return (await this.client.send({
 			"@type": "getAllPassportElements",
-			"password": password,
+			password: password,
 		} as any as TdObject)) as any as TLPassportElements
 	}
 
 	public async setPassportElement(element: TLInputPassportElement, password: string): Promise<TLPassportElement> {
 		return (await this.client.send({
 			"@type": "setPassportElement",
-			"element": element,
-			"password": password,
+			element: element,
+			password: password,
 		} as any as TdObject)) as any as TLPassportElement
 	}
 
 	public async deletePassportElement(type: TLPassportElementType): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "deletePassportElement",
-			"type": type,
+			type: type,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setPassportElementErrors(user_id: number, errors: ReadonlyArray<TLInputPassportElementError>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setPassportElementErrors",
-			"user_id": user_id,
-			"errors": errors,
+			user_id: user_id,
+			errors: errors,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getPreferredCountryLanguage(country_code: string): Promise<TLText> {
 		return (await this.client.send({
 			"@type": "getPreferredCountryLanguage",
-			"country_code": country_code,
+			country_code: country_code,
 		} as any as TdObject)) as any as TLText
 	}
 
 	public async sendPhoneNumberVerificationCode(phone_number: string, settings: TLPhoneNumberAuthenticationSettings): Promise<TLAuthenticationCodeInfo> {
 		return (await this.client.send({
 			"@type": "sendPhoneNumberVerificationCode",
-			"phone_number": phone_number,
-			"settings": settings,
+			phone_number: phone_number,
+			settings: settings,
 		} as any as TdObject)) as any as TLAuthenticationCodeInfo
 	}
 
@@ -7854,14 +7854,14 @@ export class TD {
 	public async checkPhoneNumberVerificationCode(code: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "checkPhoneNumberVerificationCode",
-			"code": code,
+			code: code,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async sendEmailAddressVerificationCode(email_address: string): Promise<TLEmailAddressAuthenticationCodeInfo> {
 		return (await this.client.send({
 			"@type": "sendEmailAddressVerificationCode",
-			"email_address": email_address,
+			email_address: email_address,
 		} as any as TdObject)) as any as TLEmailAddressAuthenticationCodeInfo
 	}
 
@@ -7874,42 +7874,42 @@ export class TD {
 	public async checkEmailAddressVerificationCode(code: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "checkEmailAddressVerificationCode",
-			"code": code,
+			code: code,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getPassportAuthorizationForm(bot_user_id: number, scope: string, public_key: string, nonce: string): Promise<TLPassportAuthorizationForm> {
 		return (await this.client.send({
 			"@type": "getPassportAuthorizationForm",
-			"bot_user_id": bot_user_id,
-			"scope": scope,
-			"public_key": public_key,
-			"nonce": nonce,
+			bot_user_id: bot_user_id,
+			scope: scope,
+			public_key: public_key,
+			nonce: nonce,
 		} as any as TdObject)) as any as TLPassportAuthorizationForm
 	}
 
 	public async getPassportAuthorizationFormAvailableElements(autorization_form_id: number, password: string): Promise<TLPassportElementsWithErrors> {
 		return (await this.client.send({
 			"@type": "getPassportAuthorizationFormAvailableElements",
-			"autorization_form_id": autorization_form_id,
-			"password": password,
+			autorization_form_id: autorization_form_id,
+			password: password,
 		} as any as TdObject)) as any as TLPassportElementsWithErrors
 	}
 
 	public async sendPassportAuthorizationForm(autorization_form_id: number, types: ReadonlyArray<TLPassportElementType>): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "sendPassportAuthorizationForm",
-			"autorization_form_id": autorization_form_id,
-			"types": types,
+			autorization_form_id: autorization_form_id,
+			types: types,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async sendPhoneNumberConfirmationCode(hash: string, phone_number: string, settings: TLPhoneNumberAuthenticationSettings): Promise<TLAuthenticationCodeInfo> {
 		return (await this.client.send({
 			"@type": "sendPhoneNumberConfirmationCode",
-			"hash": hash,
-			"phone_number": phone_number,
-			"settings": settings,
+			hash: hash,
+			phone_number: phone_number,
+			settings: settings,
 		} as any as TdObject)) as any as TLAuthenticationCodeInfo
 	}
 
@@ -7922,109 +7922,109 @@ export class TD {
 	public async checkPhoneNumberConfirmationCode(code: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "checkPhoneNumberConfirmationCode",
-			"code": code,
+			code: code,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setBotUpdatesStatus(pending_update_count: number, error_message: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setBotUpdatesStatus",
-			"pending_update_count": pending_update_count,
-			"error_message": error_message,
+			pending_update_count: pending_update_count,
+			error_message: error_message,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async uploadStickerFile(user_id: number, png_sticker: TLInputFile): Promise<TLFile> {
 		return (await this.client.send({
 			"@type": "uploadStickerFile",
-			"user_id": user_id,
-			"png_sticker": png_sticker,
+			user_id: user_id,
+			png_sticker: png_sticker,
 		} as any as TdObject)) as any as TLFile
 	}
 
 	public async createNewStickerSet(user_id: number, title: string, name: string, is_masks: boolean, stickers: ReadonlyArray<TLInputSticker>): Promise<TLStickerSet> {
 		return (await this.client.send({
 			"@type": "createNewStickerSet",
-			"user_id": user_id,
-			"title": title,
-			"name": name,
-			"is_masks": is_masks,
-			"stickers": stickers,
+			user_id: user_id,
+			title: title,
+			name: name,
+			is_masks: is_masks,
+			stickers: stickers,
 		} as any as TdObject)) as any as TLStickerSet
 	}
 
 	public async addStickerToSet(user_id: number, name: string, sticker: TLInputSticker): Promise<TLStickerSet> {
 		return (await this.client.send({
 			"@type": "addStickerToSet",
-			"user_id": user_id,
-			"name": name,
-			"sticker": sticker,
+			user_id: user_id,
+			name: name,
+			sticker: sticker,
 		} as any as TdObject)) as any as TLStickerSet
 	}
 
 	public async setStickerSetThumbnail(user_id: number, name: string, thumbnail: TLInputFile): Promise<TLStickerSet> {
 		return (await this.client.send({
 			"@type": "setStickerSetThumbnail",
-			"user_id": user_id,
-			"name": name,
-			"thumbnail": thumbnail,
+			user_id: user_id,
+			name: name,
+			thumbnail: thumbnail,
 		} as any as TdObject)) as any as TLStickerSet
 	}
 
 	public async setStickerPositionInSet(sticker: TLInputFile, position: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setStickerPositionInSet",
-			"sticker": sticker,
-			"position": position,
+			sticker: sticker,
+			position: position,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async removeStickerFromSet(sticker: TLInputFile): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeStickerFromSet",
-			"sticker": sticker,
+			sticker: sticker,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getMapThumbnailFile(location: TLLocation, zoom: number, width: number, height: number, scale: number, chat_id: number): Promise<TLFile> {
 		return (await this.client.send({
 			"@type": "getMapThumbnailFile",
-			"location": location,
-			"zoom": zoom,
-			"width": width,
-			"height": height,
-			"scale": scale,
-			"chat_id": chat_id,
+			location: location,
+			zoom: zoom,
+			width: width,
+			height: height,
+			scale: scale,
+			chat_id: chat_id,
 		} as any as TdObject)) as any as TLFile
 	}
 
 	public async acceptTermsOfService(terms_of_service_id: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "acceptTermsOfService",
-			"terms_of_service_id": terms_of_service_id,
+			terms_of_service_id: terms_of_service_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async sendCustomRequest(method: string, parameters: string): Promise<TLCustomRequestResult> {
 		return (await this.client.send({
 			"@type": "sendCustomRequest",
-			"method": method,
-			"parameters": parameters,
+			method: method,
+			parameters: parameters,
 		} as any as TdObject)) as any as TLCustomRequestResult
 	}
 
 	public async answerCustomQuery(custom_query_id: string, data: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "answerCustomQuery",
-			"custom_query_id": custom_query_id,
-			"data": data,
+			custom_query_id: custom_query_id,
+			data: data,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async setAlarm(seconds: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setAlarm",
-			"seconds": seconds,
+			seconds: seconds,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -8043,7 +8043,7 @@ export class TD {
 	public async getPhoneNumberInfo(phone_number_prefix: string): Promise<TLPhoneNumberInfo> {
 		return (await this.client.send({
 			"@type": "getPhoneNumberInfo",
-			"phone_number_prefix": phone_number_prefix,
+			phone_number_prefix: phone_number_prefix,
 		} as any as TdObject)) as any as TLPhoneNumberInfo
 	}
 
@@ -8056,7 +8056,7 @@ export class TD {
 	public async getDeepLinkInfo(link: string): Promise<TLDeepLinkInfo> {
 		return (await this.client.send({
 			"@type": "getDeepLinkInfo",
-			"link": link,
+			link: link,
 		} as any as TdObject)) as any as TLDeepLinkInfo
 	}
 
@@ -8069,37 +8069,37 @@ export class TD {
 	public async saveApplicationLogEvent(type: string, chat_id: number, data: TLJsonValue): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "saveApplicationLogEvent",
-			"type": type,
-			"chat_id": chat_id,
-			"data": data,
+			type: type,
+			chat_id: chat_id,
+			data: data,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async addProxy(server: string, port: number, enable: boolean, type: TLProxyType): Promise<TLProxy> {
 		return (await this.client.send({
 			"@type": "addProxy",
-			"server": server,
-			"port": port,
-			"enable": enable,
-			"type": type,
+			server: server,
+			port: port,
+			enable: enable,
+			type: type,
 		} as any as TdObject)) as any as TLProxy
 	}
 
 	public async editProxy(proxy_id: number, server: string, port: number, enable: boolean, type: TLProxyType): Promise<TLProxy> {
 		return (await this.client.send({
 			"@type": "editProxy",
-			"proxy_id": proxy_id,
-			"server": server,
-			"port": port,
-			"enable": enable,
-			"type": type,
+			proxy_id: proxy_id,
+			server: server,
+			port: port,
+			enable: enable,
+			type: type,
 		} as any as TdObject)) as any as TLProxy
 	}
 
 	public async enableProxy(proxy_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "enableProxy",
-			"proxy_id": proxy_id,
+			proxy_id: proxy_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -8112,7 +8112,7 @@ export class TD {
 	public async removeProxy(proxy_id: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "removeProxy",
-			"proxy_id": proxy_id,
+			proxy_id: proxy_id,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -8125,21 +8125,21 @@ export class TD {
 	public async getProxyLink(proxy_id: number): Promise<TLText> {
 		return (await this.client.send({
 			"@type": "getProxyLink",
-			"proxy_id": proxy_id,
+			proxy_id: proxy_id,
 		} as any as TdObject)) as any as TLText
 	}
 
 	public async pingProxy(proxy_id: number): Promise<TLSeconds> {
 		return (await this.client.send({
 			"@type": "pingProxy",
-			"proxy_id": proxy_id,
+			proxy_id: proxy_id,
 		} as any as TdObject)) as any as TLSeconds
 	}
 
 	public async setLogStream(log_stream: TLLogStream): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setLogStream",
-			"log_stream": log_stream,
+			log_stream: log_stream,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -8152,7 +8152,7 @@ export class TD {
 	public async setLogVerbosityLevel(new_verbosity_level: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setLogVerbosityLevel",
-			"new_verbosity_level": new_verbosity_level,
+			new_verbosity_level: new_verbosity_level,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -8171,23 +8171,23 @@ export class TD {
 	public async setLogTagVerbosityLevel(tag: string, new_verbosity_level: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "setLogTagVerbosityLevel",
-			"tag": tag,
-			"new_verbosity_level": new_verbosity_level,
+			tag: tag,
+			new_verbosity_level: new_verbosity_level,
 		} as any as TdObject)) as any as TLOk
 	}
 
 	public async getLogTagVerbosityLevel(tag: string): Promise<TLLogVerbosityLevel> {
 		return (await this.client.send({
 			"@type": "getLogTagVerbosityLevel",
-			"tag": tag,
+			tag: tag,
 		} as any as TdObject)) as any as TLLogVerbosityLevel
 	}
 
 	public async addLogMessage(verbosity_level: number, text: string): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "addLogMessage",
-			"verbosity_level": verbosity_level,
-			"text": text,
+			verbosity_level: verbosity_level,
+			text: text,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -8200,49 +8200,49 @@ export class TD {
 	public async testCallString(x: string): Promise<TLTestString> {
 		return (await this.client.send({
 			"@type": "testCallString",
-			"x": x,
+			x: x,
 		} as any as TdObject)) as any as TLTestString
 	}
 
 	public async testCallBytes(x: Uint8Array): Promise<TLTestBytes> {
 		return (await this.client.send({
 			"@type": "testCallBytes",
-			"x": x,
+			x: x,
 		} as any as TdObject)) as any as TLTestBytes
 	}
 
 	public async testCallVectorInt(x: ReadonlyArray<number>): Promise<TLTestVectorInt> {
 		return (await this.client.send({
 			"@type": "testCallVectorInt",
-			"x": x,
+			x: x,
 		} as any as TdObject)) as any as TLTestVectorInt
 	}
 
 	public async testCallVectorIntObject(x: ReadonlyArray<TLTestInt>): Promise<TLTestVectorIntObject> {
 		return (await this.client.send({
 			"@type": "testCallVectorIntObject",
-			"x": x,
+			x: x,
 		} as any as TdObject)) as any as TLTestVectorIntObject
 	}
 
 	public async testCallVectorString(x: ReadonlyArray<string>): Promise<TLTestVectorString> {
 		return (await this.client.send({
 			"@type": "testCallVectorString",
-			"x": x,
+			x: x,
 		} as any as TdObject)) as any as TLTestVectorString
 	}
 
 	public async testCallVectorStringObject(x: ReadonlyArray<TLTestString>): Promise<TLTestVectorStringObject> {
 		return (await this.client.send({
 			"@type": "testCallVectorStringObject",
-			"x": x,
+			x: x,
 		} as any as TdObject)) as any as TLTestVectorStringObject
 	}
 
 	public async testSquareInt(x: number): Promise<TLTestInt> {
 		return (await this.client.send({
 			"@type": "testSquareInt",
-			"x": x,
+			x: x,
 		} as any as TdObject)) as any as TLTestInt
 	}
 
@@ -8255,11 +8255,11 @@ export class TD {
 	public async testProxy(server: string, port: number, type: TLProxyType, dc_id: number, timeout: number): Promise<TLOk> {
 		return (await this.client.send({
 			"@type": "testProxy",
-			"server": server,
-			"port": port,
-			"type": type,
-			"dc_id": dc_id,
-			"timeout": timeout,
+			server: server,
+			port: port,
+			type: type,
+			dc_id: dc_id,
+			timeout: timeout,
 		} as any as TdObject)) as any as TLOk
 	}
 
@@ -8278,7 +8278,7 @@ export class TD {
 	public async testReturnError(error: TLError): Promise<TLError> {
 		return (await this.client.send({
 			"@type": "testReturnError",
-			"error": error,
+			error: error,
 		} as any as TdObject)) as any as TLError
 	}
 }

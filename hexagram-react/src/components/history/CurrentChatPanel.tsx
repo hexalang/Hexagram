@@ -331,7 +331,7 @@ const History = observer(() => {
 							lastLength = entity.length
 							const string = lines.substr(entity.offset, entity.length)
 
-							switch (entity.type["@type"]) {
+							switch (entity.type['@type']) {
 								case 'textEntityTypeBold': {
 									const what = <div key={lastOffset} className="text textEntityTypeBold">{'' + string + ''}</div>
 									text.push(what)

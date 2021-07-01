@@ -162,7 +162,7 @@ while (lines.length > 0) {
 	out.push(`\t\t\t"@type": "${named}",`)
 	for (const param of params) {
 		const namea = param.split(':')[0]
-		out.push(`\t\t\t"${namea}": ${namea},`)
+		out.push(`\t\t\t${namea}: ${namea},`)
 	}
 	out.push(`\t\t} as any as TdObject)) as any as TL${namedTitle}`)
 	out.push(`\t}`)
