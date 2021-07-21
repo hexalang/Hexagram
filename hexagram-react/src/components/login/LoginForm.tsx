@@ -19,6 +19,8 @@ import { LoginState } from '../../mobx/store'
 import { state } from '../../mobx/store'
 import { tg } from '../../tdlib/tdlib'
 import { observer } from 'mobx-react-lite'
+import { observable } from 'mobx'
+import { Store, useStore, StoreEvent } from '../../mobx/wrap'
 
 const cleanPhoneNumber = (text: string): string => {
 	text = text.trim()
@@ -32,42 +34,73 @@ const isCorrectPhoneNumber = (text: string): boolean => {
 	for (const char of text.split('')) {
 		if (!'0123456789'.includes(char)) return false
 	}
-	return true
+	return text.length > 0
+}
+
+class LoginFormState extends Store {
+	@observable phone = ''
+	@observable code = ''
+	@observable secret = ''
+	@observable error = false
+
+	constructor(
+	) {
+		super()
+	}
+
+	unmount() {
+		super.unmount()
+	}
+
+	listen(e: StoreEvent) {
+		console.log({ StoreEvent: e })
+	}
 }
 
 export const LoginForm = observer(() => {
-	const [phone, setPhone] = useState('')
-	const [code, setCode] = useState('')
-	const [secret, setSecret] = useState('')
+	const ui = useStore(() => new LoginFormState())
 	const { loginState } = state
 
 	const setAuthenticationPhoneNumber = async (value: string) => {
-		await tg.setAuthenticationPhoneNumber(value, {
-			"@type": "phoneNumberAuthenticationSettings",
-			allow_flash_call: false,
-			is_current_phone_number: false,
-			allow_sms_retriever_api: false,
-		})
+		try {
+			await tg.setAuthenticationPhoneNumber(value, {
+				"@type": "phoneNumberAuthenticationSettings",
+				allow_flash_call: false,
+				is_current_phone_number: false,
+				allow_sms_retriever_api: false,
+			})
+		} catch (e) {
+			ui.error = true
+		}
 	}
 
 	const checkAuthenticationCode = async (value: string) => {
-		await tg.checkAuthenticationCode(value)
+		try {
+			await tg.checkAuthenticationCode(value)
+		} catch (e) {
+			ui.error = true
+		}
 	}
 
 	const checkAuthenticationPassword = async (value: string) => {
-		await tg.checkAuthenticationPassword(value)
+		try {
+			await tg.checkAuthenticationPassword(value)
+		} catch (e) {
+			ui.error = true
+		}
 	}
 
 	const next = () => {
-		let password = secret.trim()
-		setSecret('')
+		let password = ui.secret.trim()
+		ui.secret = ''
+		ui.error = false
 
-		if (loginState === LoginState.WaitPhoneNumber && isCorrectPhoneNumber(phone)) {
-			setAuthenticationPhoneNumber(cleanPhoneNumber(phone))
+		if (loginState === LoginState.WaitPhoneNumber && isCorrectPhoneNumber(ui.phone)) {
+			setAuthenticationPhoneNumber(cleanPhoneNumber(ui.phone))
 		}
 
-		if (loginState === LoginState.WaitCode && isCorrectPhoneNumber(code)) {
-			checkAuthenticationCode(cleanPhoneNumber(code))
+		if (loginState === LoginState.WaitCode && isCorrectPhoneNumber(ui.code)) {
+			checkAuthenticationCode(cleanPhoneNumber(ui.code))
 		}
 
 		if (loginState === LoginState.WaitPassword && password !== '') {
@@ -79,7 +112,7 @@ export const LoginForm = observer(() => {
 		}
 	}
 
-	const blur = (loginState !== LoginState.WaitPhoneNumber) || (phone !== '')
+	const blur = (loginState !== LoginState.WaitPhoneNumber) || (ui.phone !== '')
 
 	return <>
 		<div className="centerBackgroundBefore"></div>
@@ -92,8 +125,11 @@ export const LoginForm = observer(() => {
 			{loginState === LoginState.WaitPhoneNumber && <>
 				<div className="hint">Enter your phone number to log in</div>
 				<div className="phone"><input
-					className={isCorrectPhoneNumber(phone) ? '' : 'error'}
-					value={phone} onChange={e => setPhone(e.target.value)}
+					className={isCorrectPhoneNumber(ui.phone) && !ui.error ? '' : 'error'}
+					value={ui.phone} onChange={e => {
+						ui.error = false
+						ui.phone = e.target.value
+					}}
 					type="tel" name="phoneInput" id="phoneInput"
 					placeholder="Your phone number"
 				/></div>
@@ -102,8 +138,11 @@ export const LoginForm = observer(() => {
 			{loginState === LoginState.WaitCode && <>
 				<div className="hint">Enter authentication code to log in</div>
 				<div className="code"><input
-					className={isCorrectPhoneNumber(code) ? '' : 'error'}
-					value={code} onChange={e => setCode(e.target.value)}
+					className={isCorrectPhoneNumber(ui.code) && !ui.error ? '' : 'error'}
+					value={ui.code} onChange={e => {
+						ui.error = false
+						ui.code = e.target.value
+					}}
 					type="tel" name="codeInput" id="codeInput"
 					placeholder="Code from SMS or message" /></div>
 			</>}
@@ -115,22 +154,25 @@ export const LoginForm = observer(() => {
 			{loginState === LoginState.WaitPassword && <>
 				<div className="hint">Enter your phone 2FA password to log in</div>
 				<div className="secret"><input
-					className={true ? '' : 'error'}
-					value={secret} onChange={e => setSecret(e.target.value)}
+					className={ui.error ? 'error' : ''}
+					value={ui.secret} onChange={e => {
+						ui.error = false
+						ui.secret = e.target.value
+					}}
 					type="password" name="secretInput" id="secretInput"
 					placeholder={state.hint ? state.hint : "Your password"} /></div>
 			</>}
 
-			<div className="next" onClick={next}>NEXT</div>
+			<div className={ui.error ? 'next error' : 'next'} onClick={next}>NEXT</div>
 
-			{loginState === LoginState.WaitPhoneNumber && <div className="hint">You will receive SMS</div>}
-			{loginState === LoginState.WaitCode && <div className="hint">Check your SMS inbox or other devices</div>}
-			{loginState === LoginState.WaitRegistration && <div className="hint">You accept Telegram terms of service</div>}
-			{loginState === LoginState.WaitPassword && <div className="hint">You have set 2FA in your profile</div>}
+			{!ui.error && loginState === LoginState.WaitPhoneNumber && <div className="hint">You will receive SMS</div>}
+			{!ui.error && loginState === LoginState.WaitCode && <div className="hint">Check your SMS inbox or other devices</div>}
+			{!ui.error && loginState === LoginState.WaitRegistration && <div className="hint">You accept Telegram terms of service</div>}
+			{!ui.error && loginState === LoginState.WaitPassword && <div className="hint">You have set 2FA in your profile</div>}
 
-			{false && <div className="hint">Wrong phone number</div>}
-			{false && <div className="hint">Wrong secret code</div>}
-			{false && <div className="hint">Wrong 2FA password</div>}
+			{ui.error && loginState === LoginState.WaitPhoneNumber && <div className="hint">Wrong phone number</div>}
+			{ui.error && loginState === LoginState.WaitCode && <div className="hint">Wrong secret code</div>}
+			{ui.error && loginState === LoginState.WaitPassword && <div className="hint">Wrong 2FA password</div>}
 		</div>
 	</>
 })

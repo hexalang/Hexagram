@@ -112,5 +112,9 @@
 		&:hover {
 			background-color: #4797E2;
 		}
+
+		&.error {
+			background-color: #7aacdb;
+		}
 	}
 }

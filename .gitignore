@@ -52,3 +52,4 @@ hexagram-react/.vs/hexagram-react/v16/.suo
 hexagram-react/.vs/ProjectSettings.json
 hexagram-react/.vs/slnx.sqlite
 hexagram-react/.vs/VSWorkspaceState.json
+*.db:encryptable
