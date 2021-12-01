@@ -327,7 +327,7 @@ const History = observer(() => {
 			})
 			switch (messageState.content['@type']) {
 				case "messageChatUpgradeFrom":
-					let messageChatUpgradeFrom = messageState.content as TL.TLMessageChatUpgradeFrom
+					let messageChatUpgradeFrom = messageState.content
 					updateDestination(-1)
 					destination.push(<CenterSystemMessage key={key} text={`Group ${messageChatUpgradeFrom.title} upgraded to supergroup`} />)
 					break
@@ -335,7 +335,7 @@ const History = observer(() => {
 				case "messageChatJoinByLink":
 					{
 						updateDestination(-1)
-						let messageChatJoinByLink = messageState.content as TL.TLMessageChatJoinByLink
+						let messageChatJoinByLink = messageState.content
 						const senderName = state.users[messageState.senderUserId] ?
 							(state.users[messageState.senderUserId].firstName + ' ' + state.users[messageState.senderUserId].lastName).trim()
 							: 'User'
@@ -346,7 +346,7 @@ const History = observer(() => {
 
 				case "messagePhoto":
 					{
-						const messagePhoto = messageState.content as TL.TLMessagePhoto
+						const messagePhoto = messageState.content
 						const photo = messagePhoto.photo
 						const caption: TL.TLFormattedText = messagePhoto.caption
 						const text = caption.text !== "" ? [<div className="text">{caption.text}</div>] : []
@@ -359,7 +359,7 @@ const History = observer(() => {
 
 				case "messageSticker":
 					{
-						const messageSticker = (messageState.content as TL.TLMessageSticker)
+						const messageSticker = messageState.content
 
 						if (messageSticker.sticker.is_animated) {
 							const sticker: TL.TLFile = messageSticker.sticker.sticker
@@ -380,8 +380,8 @@ const History = observer(() => {
 
 					// TODO no sender name for private chats
 					const senderName = destination.length === 0 && state.users[messageState.senderUserId] ? state.users[messageState.senderUserId].firstName : null
-					let lines = (messageState.content as TL.TLMessageText).text.text//.trim()
 					let text = [<div className="text">{lines}</div>]
+					let lines = messageState.content.text.text//.trim()
 
 					if (lines.includes('\n')) {
 						text = []
@@ -403,11 +403,11 @@ const History = observer(() => {
 						}
 					}
 
-					if ((messageState.content as TL.TLMessageText).text.entities.length > 0) {
+					if (messageState.content.text.entities.length > 0) {
 						let lastOffset = 0
 						let lastLength = 0
 						text = []
-						for (const entity of (messageState.content as TL.TLMessageText).text.entities) {
+						for (const entity of messageState.content.text.entities) {
 							if (entity.offset > lastOffset + lastLength) {
 								const string = lines.substr(lastOffset + lastLength, entity.offset - (lastOffset + lastLength))
 								const what = <div key={lastOffset} className="text">{'' + string + ''}</div>
@@ -524,7 +524,7 @@ const History = observer(() => {
 					for (const messageId of state.history[chat.id]) {
 						const message = state.messages[chat.id][messageId]
 						if (message.replyToMessageId === messageState.id && message.content['@type'] === "messageSticker") {
-							const messageSticker = (message.content as TL.TLMessageSticker)
+							const messageSticker = message.content
 							const sticker: TL.TLFile = messageSticker.sticker.thumbnail.file
 							const senderName = state.users[message.senderUserId] ? state.users[message.senderUserId].firstName : 'Someone'
 

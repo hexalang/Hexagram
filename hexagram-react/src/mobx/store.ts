@@ -239,7 +239,7 @@ export class State {
 							break
 						case "authorizationStateWaitPassword":
 							this.loginState = LoginState.WaitPassword
-							const authorizationStateWaitPassword = updateAuthorizationState.authorization_state as TL.TLAuthorizationStateWaitPassword
+							const authorizationStateWaitPassword = updateAuthorizationState.authorization_state
 							this.hint = authorizationStateWaitPassword.password_hint
 							break
 						case "authorizationStateReady":

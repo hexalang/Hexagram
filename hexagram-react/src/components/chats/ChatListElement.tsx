@@ -31,11 +31,11 @@ const messageContentToPreview = (message: Message, chatId: number): { textPrevie
 	switch (content['@type']) {
 		case "messageText":
 			return {
-				textPreview: (content as TL.TLMessageText).text.text,
+				textPreview: content.text.text,
 			}
 
 		case "messagePhoto":
-			const caption = (content as TL.TLMessagePhoto).caption.text
+			const caption = content.caption.text
 			if (message.media_album_id !== '0') {
 				return { textPreview: caption, systemPreview: caption === '' ? "Album" : "Album, " }
 			}
@@ -46,13 +46,13 @@ const messageContentToPreview = (message: Message, chatId: number): { textPrevie
 			return { textPreview: '', systemPreview: "joined the group via invite link" }
 
 		case "messagePinMessage":
-			const messagePinMessage = (content as TL.TLMessagePinMessage).message_id
+			const messagePinMessage = content.message_id
 			const preview = messageContentToPreview(state.getOrCreateMessage(chatId, messagePinMessage), chatId)
 			// TODO elipsis: via , systemNested: + no '\n'
 			return { textPreview: '', systemPreview: "pinned «" + (preview.textPreview || preview.systemPreview) + "»" }
 
 		case "messageCall":
-			const messageCall = content as TL.TLMessageCall
+			const messageCall = content
 			switch (messageCall.discard_reason['@type']) {
 				case 'callDiscardReasonEmpty':
 					return { textPreview: '', systemPreview: messageCall.is_video ? "Video call" : "Call" }
@@ -66,7 +66,7 @@ const messageContentToPreview = (message: Message, chatId: number): { textPrevie
 			}
 
 		case "messageSticker":
-			const messageSticker = content as TL.TLMessageSticker
+			const messageSticker = content
 			return { textPreview: messageSticker.sticker.emoji, systemPreview: "Sticker " }
 
 		default:
@@ -93,8 +93,8 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 		chat &&
 		// TODO if(let TL.chatTypeSupergroup(chat.type)) i.e. func does @type check or ret null
 		chat.type['@type'] === 'chatTypeSupergroup' &&
-		supergroups[(chat.type as TL.TLChatTypeSupergroup).supergroup_id] &&
-		supergroups[(chat.type as TL.TLChatTypeSupergroup).supergroup_id].chatMemberStatus['@type'] === 'chatMemberStatusLeft'
+		supergroups[chat.type.supergroup_id] &&
+		supergroups[chat.type.supergroup_id].chatMemberStatus['@type'] === 'chatMemberStatusLeft'
 	) return null
 
 	const message = (messages[chat.id] ?? {})[chat.lastMessage] ?? null
@@ -108,8 +108,8 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	if (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		users[(chat.type as TL.TLChatTypePrivate).user_id] &&
-		users[(chat.type as TL.TLChatTypePrivate).user_id].type['@type'] === 'userTypeDeleted'
+		users[chat.type.user_id] &&
+		users[chat.type.user_id].type['@type'] === 'userTypeDeleted'
 	) name = 'Deleted Account'
 
 	const unread = chat ? chat.unreadCount : 0
@@ -134,7 +134,7 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 				// Just empty
 			}
 			else
-				if (chat.type['@type'] === 'chatTypeSupergroup' && (chat.type as TL.TLChatTypeSupergroup).is_channel === false) {
+				if (chat.type['@type'] === 'chatTypeSupergroup' && chat.type.is_channel === false) {
 					const sender = users[message.senderUserId]
 					if (sender) who = sender.firstName + ': '
 					if (sender && sender.type['@type'] === 'userTypeDeleted') who = 'Deleted: '
@@ -147,16 +147,16 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	const verified = (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		users[(chat.type as TL.TLChatTypePrivate).user_id] &&
-		users[(chat.type as TL.TLChatTypePrivate).user_id].verified
+		users[chat.type.user_id] &&
+		users[chat.type.user_id].verified
 	)
-	const channel = (chat && chat.type['@type'] === 'chatTypeSupergroup' && (chat.type as TL.TLChatTypeSupergroup).is_channel === true)
+	const channel = (chat && chat.type['@type'] === 'chatTypeSupergroup' && chat.type.is_channel === true)
 	const supergroup = (chat && chat.type['@type'] === 'chatTypeSupergroup' && channel === false)
 	const bot = (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		users[(chat.type as TL.TLChatTypePrivate).user_id] &&
-		users[(chat.type as TL.TLChatTypePrivate).user_id].type['@type'] === 'userTypeBot'
+		users[chat.type.user_id] &&
+		users[chat.type.user_id].type['@type'] === 'userTypeBot'
 	)
 
 	const active = current ? "chatListElement chatListElement__active" : "chatListElement"
@@ -169,14 +169,14 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 
 	if (chat && chat.draft) switch (chat.draft['@type']) {
 		case 'inputMessageText': {
-			switch ((chat.draft as TL.TLInputMessageText).text['@type']) {
+			switch (chat.draft.text['@type']) {
 				case 'formattedText': {
-					draftText = ((chat.draft as TL.TLInputMessageText).text as TL.TLFormattedText).text
+					draftText = chat.draft.text.text
 					break
 				}
 				default:
-					console.warn('Unknown draft type ' + (chat.draft as TL.TLInputMessageText).text['@type'])
-					draftText = (chat.draft as TL.TLInputMessageText).text['@type']
+					console.warn('Unknown draft type ' + chat.draft.text['@type'])
+					draftText = chat.draft.text['@type']
 			}
 			break
 		}
