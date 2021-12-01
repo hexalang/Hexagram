@@ -15,852 +15,16 @@
 
 import TdClient, { TdObject } from 'tdweb'
 
-export interface TLObject {
-	readonly "@type": "error" |
-	"ok" |
-	"tdlibParameters" |
-	"authenticationCodeTypeTelegramMessage" |
-	"authenticationCodeTypeSms" |
-	"authenticationCodeTypeCall" |
-	"authenticationCodeTypeFlashCall" |
-	"authenticationCodeInfo" |
-	"emailAddressAuthenticationCodeInfo" |
-	"textEntity" |
-	"textEntities" |
-	"formattedText" |
-	"termsOfService" |
-	"authorizationStateWaitTdlibParameters" |
-	"authorizationStateWaitEncryptionKey" |
-	"authorizationStateWaitPhoneNumber" |
-	"authorizationStateWaitCode" |
-	"authorizationStateWaitOtherDeviceConfirmation" |
-	"authorizationStateWaitRegistration" |
-	"authorizationStateWaitPassword" |
-	"authorizationStateReady" |
-	"authorizationStateLoggingOut" |
-	"authorizationStateClosing" |
-	"authorizationStateClosed" |
-	"passwordState" |
-	"recoveryEmailAddress" |
-	"temporaryPasswordState" |
-	"localFile" |
-	"remoteFile" |
-	"file" |
-	"inputFileId" |
-	"inputFileRemote" |
-	"inputFileLocal" |
-	"inputFileGenerated" |
-	"photoSize" |
-	"minithumbnail" |
-	"thumbnailFormatJpeg" |
-	"thumbnailFormatPng" |
-	"thumbnailFormatWebp" |
-	"thumbnailFormatGif" |
-	"thumbnailFormatTgs" |
-	"thumbnailFormatMpeg4" |
-	"thumbnail" |
-	"maskPointForehead" |
-	"maskPointEyes" |
-	"maskPointMouth" |
-	"maskPointChin" |
-	"maskPosition" |
-	"pollOption" |
-	"pollTypeRegular" |
-	"pollTypeQuiz" |
-	"animation" |
-	"audio" |
-	"document" |
-	"photo" |
-	"sticker" |
-	"video" |
-	"videoNote" |
-	"voiceNote" |
-	"contact" |
-	"location" |
-	"venue" |
-	"game" |
-	"poll" |
-	"profilePhoto" |
-	"chatPhotoInfo" |
-	"userTypeRegular" |
-	"userTypeDeleted" |
-	"userTypeBot" |
-	"userTypeUnknown" |
-	"botCommand" |
-	"botInfo" |
-	"chatLocation" |
-	"animatedChatPhoto" |
-	"chatPhoto" |
-	"chatPhotos" |
-	"inputChatPhotoPrevious" |
-	"inputChatPhotoStatic" |
-	"inputChatPhotoAnimation" |
-	"user" |
-	"userFullInfo" |
-	"users" |
-	"chatAdministrator" |
-	"chatAdministrators" |
-	"chatPermissions" |
-	"chatMemberStatusCreator" |
-	"chatMemberStatusAdministrator" |
-	"chatMemberStatusMember" |
-	"chatMemberStatusRestricted" |
-	"chatMemberStatusLeft" |
-	"chatMemberStatusBanned" |
-	"chatMember" |
-	"chatMembers" |
-	"chatMembersFilterContacts" |
-	"chatMembersFilterAdministrators" |
-	"chatMembersFilterMembers" |
-	"chatMembersFilterMention" |
-	"chatMembersFilterRestricted" |
-	"chatMembersFilterBanned" |
-	"chatMembersFilterBots" |
-	"supergroupMembersFilterRecent" |
-	"supergroupMembersFilterContacts" |
-	"supergroupMembersFilterAdministrators" |
-	"supergroupMembersFilterSearch" |
-	"supergroupMembersFilterRestricted" |
-	"supergroupMembersFilterBanned" |
-	"supergroupMembersFilterMention" |
-	"supergroupMembersFilterBots" |
-	"basicGroup" |
-	"basicGroupFullInfo" |
-	"supergroup" |
-	"supergroupFullInfo" |
-	"secretChatStatePending" |
-	"secretChatStateReady" |
-	"secretChatStateClosed" |
-	"secretChat" |
-	"messageSenderUser" |
-	"messageSenderChat" |
-	"messageSenders" |
-	"messageForwardOriginUser" |
-	"messageForwardOriginChat" |
-	"messageForwardOriginHiddenUser" |
-	"messageForwardOriginChannel" |
-	"messageForwardInfo" |
-	"messageReplyInfo" |
-	"messageInteractionInfo" |
-	"messageSendingStatePending" |
-	"messageSendingStateFailed" |
-	"message" |
-	"messages" |
-	"foundMessages" |
-	"notificationSettingsScopePrivateChats" |
-	"notificationSettingsScopeGroupChats" |
-	"notificationSettingsScopeChannelChats" |
-	"chatNotificationSettings" |
-	"scopeNotificationSettings" |
-	"draftMessage" |
-	"chatTypePrivate" |
-	"chatTypeBasicGroup" |
-	"chatTypeSupergroup" |
-	"chatTypeSecret" |
-	"chatFilter" |
-	"chatFilterInfo" |
-	"recommendedChatFilter" |
-	"recommendedChatFilters" |
-	"chatListMain" |
-	"chatListArchive" |
-	"chatListFilter" |
-	"chatLists" |
-	"chatSourceMtprotoProxy" |
-	"chatSourcePublicServiceAnnouncement" |
-	"chatPosition" |
-	"chat" |
-	"chats" |
-	"chatNearby" |
-	"chatsNearby" |
-	"chatInviteLink" |
-	"chatInviteLinkInfo" |
-	"publicChatTypeHasUsername" |
-	"publicChatTypeIsLocationBased" |
-	"chatActionBarReportSpam" |
-	"chatActionBarReportUnrelatedLocation" |
-	"chatActionBarReportAddBlock" |
-	"chatActionBarAddContact" |
-	"chatActionBarSharePhoneNumber" |
-	"keyboardButtonTypeText" |
-	"keyboardButtonTypeRequestPhoneNumber" |
-	"keyboardButtonTypeRequestLocation" |
-	"keyboardButtonTypeRequestPoll" |
-	"keyboardButton" |
-	"inlineKeyboardButtonTypeUrl" |
-	"inlineKeyboardButtonTypeLoginUrl" |
-	"inlineKeyboardButtonTypeCallback" |
-	"inlineKeyboardButtonTypeCallbackWithPassword" |
-	"inlineKeyboardButtonTypeCallbackGame" |
-	"inlineKeyboardButtonTypeSwitchInline" |
-	"inlineKeyboardButtonTypeBuy" |
-	"inlineKeyboardButton" |
-	"replyMarkupRemoveKeyboard" |
-	"replyMarkupForceReply" |
-	"replyMarkupShowKeyboard" |
-	"replyMarkupInlineKeyboard" |
-	"loginUrlInfoOpen" |
-	"loginUrlInfoRequestConfirmation" |
-	"messageThreadInfo" |
-	"richTextPlain" |
-	"richTextBold" |
-	"richTextItalic" |
-	"richTextUnderline" |
-	"richTextStrikethrough" |
-	"richTextFixed" |
-	"richTextUrl" |
-	"richTextEmailAddress" |
-	"richTextSubscript" |
-	"richTextSuperscript" |
-	"richTextMarked" |
-	"richTextPhoneNumber" |
-	"richTextIcon" |
-	"richTextReference" |
-	"richTextAnchor" |
-	"richTextAnchorLink" |
-	"richTexts" |
-	"pageBlockCaption" |
-	"pageBlockListItem" |
-	"pageBlockHorizontalAlignmentLeft" |
-	"pageBlockHorizontalAlignmentCenter" |
-	"pageBlockHorizontalAlignmentRight" |
-	"pageBlockVerticalAlignmentTop" |
-	"pageBlockVerticalAlignmentMiddle" |
-	"pageBlockVerticalAlignmentBottom" |
-	"pageBlockTableCell" |
-	"pageBlockRelatedArticle" |
-	"pageBlockTitle" |
-	"pageBlockSubtitle" |
-	"pageBlockAuthorDate" |
-	"pageBlockHeader" |
-	"pageBlockSubheader" |
-	"pageBlockKicker" |
-	"pageBlockParagraph" |
-	"pageBlockPreformatted" |
-	"pageBlockFooter" |
-	"pageBlockDivider" |
-	"pageBlockAnchor" |
-	"pageBlockList" |
-	"pageBlockBlockQuote" |
-	"pageBlockPullQuote" |
-	"pageBlockAnimation" |
-	"pageBlockAudio" |
-	"pageBlockPhoto" |
-	"pageBlockVideo" |
-	"pageBlockVoiceNote" |
-	"pageBlockCover" |
-	"pageBlockEmbedded" |
-	"pageBlockEmbeddedPost" |
-	"pageBlockCollage" |
-	"pageBlockSlideshow" |
-	"pageBlockChatLink" |
-	"pageBlockTable" |
-	"pageBlockDetails" |
-	"pageBlockRelatedArticles" |
-	"pageBlockMap" |
-	"webPageInstantView" |
-	"webPage" |
-	"countryInfo" |
-	"countries" |
-	"phoneNumberInfo" |
-	"bankCardActionOpenUrl" |
-	"bankCardInfo" |
-	"address" |
-	"labeledPricePart" |
-	"invoice" |
-	"orderInfo" |
-	"shippingOption" |
-	"savedCredentials" |
-	"inputCredentialsSaved" |
-	"inputCredentialsNew" |
-	"inputCredentialsAndroidPay" |
-	"inputCredentialsApplePay" |
-	"paymentsProviderStripe" |
-	"paymentForm" |
-	"validatedOrderInfo" |
-	"paymentResult" |
-	"paymentReceipt" |
-	"datedFile" |
-	"passportElementTypePersonalDetails" |
-	"passportElementTypePassport" |
-	"passportElementTypeDriverLicense" |
-	"passportElementTypeIdentityCard" |
-	"passportElementTypeInternalPassport" |
-	"passportElementTypeAddress" |
-	"passportElementTypeUtilityBill" |
-	"passportElementTypeBankStatement" |
-	"passportElementTypeRentalAgreement" |
-	"passportElementTypePassportRegistration" |
-	"passportElementTypeTemporaryRegistration" |
-	"passportElementTypePhoneNumber" |
-	"passportElementTypeEmailAddress" |
-	"date" |
-	"personalDetails" |
-	"identityDocument" |
-	"inputIdentityDocument" |
-	"personalDocument" |
-	"inputPersonalDocument" |
-	"passportElementPersonalDetails" |
-	"passportElementPassport" |
-	"passportElementDriverLicense" |
-	"passportElementIdentityCard" |
-	"passportElementInternalPassport" |
-	"passportElementAddress" |
-	"passportElementUtilityBill" |
-	"passportElementBankStatement" |
-	"passportElementRentalAgreement" |
-	"passportElementPassportRegistration" |
-	"passportElementTemporaryRegistration" |
-	"passportElementPhoneNumber" |
-	"passportElementEmailAddress" |
-	"inputPassportElementPersonalDetails" |
-	"inputPassportElementPassport" |
-	"inputPassportElementDriverLicense" |
-	"inputPassportElementIdentityCard" |
-	"inputPassportElementInternalPassport" |
-	"inputPassportElementAddress" |
-	"inputPassportElementUtilityBill" |
-	"inputPassportElementBankStatement" |
-	"inputPassportElementRentalAgreement" |
-	"inputPassportElementPassportRegistration" |
-	"inputPassportElementTemporaryRegistration" |
-	"inputPassportElementPhoneNumber" |
-	"inputPassportElementEmailAddress" |
-	"passportElements" |
-	"passportElementErrorSourceUnspecified" |
-	"passportElementErrorSourceDataField" |
-	"passportElementErrorSourceFrontSide" |
-	"passportElementErrorSourceReverseSide" |
-	"passportElementErrorSourceSelfie" |
-	"passportElementErrorSourceTranslationFile" |
-	"passportElementErrorSourceTranslationFiles" |
-	"passportElementErrorSourceFile" |
-	"passportElementErrorSourceFiles" |
-	"passportElementError" |
-	"passportSuitableElement" |
-	"passportRequiredElement" |
-	"passportAuthorizationForm" |
-	"passportElementsWithErrors" |
-	"encryptedCredentials" |
-	"encryptedPassportElement" |
-	"inputPassportElementErrorSourceUnspecified" |
-	"inputPassportElementErrorSourceDataField" |
-	"inputPassportElementErrorSourceFrontSide" |
-	"inputPassportElementErrorSourceReverseSide" |
-	"inputPassportElementErrorSourceSelfie" |
-	"inputPassportElementErrorSourceTranslationFile" |
-	"inputPassportElementErrorSourceTranslationFiles" |
-	"inputPassportElementErrorSourceFile" |
-	"inputPassportElementErrorSourceFiles" |
-	"inputPassportElementError" |
-	"messageText" |
-	"messageAnimation" |
-	"messageAudio" |
-	"messageDocument" |
-	"messagePhoto" |
-	"messageExpiredPhoto" |
-	"messageSticker" |
-	"messageVideo" |
-	"messageExpiredVideo" |
-	"messageVideoNote" |
-	"messageVoiceNote" |
-	"messageLocation" |
-	"messageVenue" |
-	"messageContact" |
-	"messageDice" |
-	"messageGame" |
-	"messagePoll" |
-	"messageInvoice" |
-	"messageCall" |
-	"messageBasicGroupChatCreate" |
-	"messageSupergroupChatCreate" |
-	"messageChatChangeTitle" |
-	"messageChatChangePhoto" |
-	"messageChatDeletePhoto" |
-	"messageChatAddMembers" |
-	"messageChatJoinByLink" |
-	"messageChatDeleteMember" |
-	"messageChatUpgradeTo" |
-	"messageChatUpgradeFrom" |
-	"messagePinMessage" |
-	"messageScreenshotTaken" |
-	"messageChatSetTtl" |
-	"messageCustomServiceAction" |
-	"messageGameScore" |
-	"messagePaymentSuccessful" |
-	"messagePaymentSuccessfulBot" |
-	"messageContactRegistered" |
-	"messageWebsiteConnected" |
-	"messagePassportDataSent" |
-	"messagePassportDataReceived" |
-	"messageProximityAlertTriggered" |
-	"messageUnsupported" |
-	"textEntityTypeMention" |
-	"textEntityTypeHashtag" |
-	"textEntityTypeCashtag" |
-	"textEntityTypeBotCommand" |
-	"textEntityTypeUrl" |
-	"textEntityTypeEmailAddress" |
-	"textEntityTypePhoneNumber" |
-	"textEntityTypeBankCardNumber" |
-	"textEntityTypeBold" |
-	"textEntityTypeItalic" |
-	"textEntityTypeUnderline" |
-	"textEntityTypeStrikethrough" |
-	"textEntityTypeCode" |
-	"textEntityTypePre" |
-	"textEntityTypePreCode" |
-	"textEntityTypeTextUrl" |
-	"textEntityTypeMentionName" |
-	"inputThumbnail" |
-	"messageSchedulingStateSendAtDate" |
-	"messageSchedulingStateSendWhenOnline" |
-	"messageSendOptions" |
-	"messageCopyOptions" |
-	"inputMessageText" |
-	"inputMessageAnimation" |
-	"inputMessageAudio" |
-	"inputMessageDocument" |
-	"inputMessagePhoto" |
-	"inputMessageSticker" |
-	"inputMessageVideo" |
-	"inputMessageVideoNote" |
-	"inputMessageVoiceNote" |
-	"inputMessageLocation" |
-	"inputMessageVenue" |
-	"inputMessageContact" |
-	"inputMessageDice" |
-	"inputMessageGame" |
-	"inputMessageInvoice" |
-	"inputMessagePoll" |
-	"inputMessageForwarded" |
-	"searchMessagesFilterEmpty" |
-	"searchMessagesFilterAnimation" |
-	"searchMessagesFilterAudio" |
-	"searchMessagesFilterDocument" |
-	"searchMessagesFilterPhoto" |
-	"searchMessagesFilterVideo" |
-	"searchMessagesFilterVoiceNote" |
-	"searchMessagesFilterPhotoAndVideo" |
-	"searchMessagesFilterUrl" |
-	"searchMessagesFilterChatPhoto" |
-	"searchMessagesFilterCall" |
-	"searchMessagesFilterMissedCall" |
-	"searchMessagesFilterVideoNote" |
-	"searchMessagesFilterVoiceAndVideoNote" |
-	"searchMessagesFilterMention" |
-	"searchMessagesFilterUnreadMention" |
-	"searchMessagesFilterFailedToSend" |
-	"searchMessagesFilterPinned" |
-	"chatActionTyping" |
-	"chatActionRecordingVideo" |
-	"chatActionUploadingVideo" |
-	"chatActionRecordingVoiceNote" |
-	"chatActionUploadingVoiceNote" |
-	"chatActionUploadingPhoto" |
-	"chatActionUploadingDocument" |
-	"chatActionChoosingLocation" |
-	"chatActionChoosingContact" |
-	"chatActionStartPlayingGame" |
-	"chatActionRecordingVideoNote" |
-	"chatActionUploadingVideoNote" |
-	"chatActionCancel" |
-	"userStatusEmpty" |
-	"userStatusOnline" |
-	"userStatusOffline" |
-	"userStatusRecently" |
-	"userStatusLastWeek" |
-	"userStatusLastMonth" |
-	"stickers" |
-	"emojis" |
-	"stickerSet" |
-	"stickerSetInfo" |
-	"stickerSets" |
-	"callDiscardReasonEmpty" |
-	"callDiscardReasonMissed" |
-	"callDiscardReasonDeclined" |
-	"callDiscardReasonDisconnected" |
-	"callDiscardReasonHungUp" |
-	"callProtocol" |
-	"callServerTypeTelegramReflector" |
-	"callServerTypeWebrtc" |
-	"callServer" |
-	"callId" |
-	"callStatePending" |
-	"callStateExchangingKeys" |
-	"callStateReady" |
-	"callStateHangingUp" |
-	"callStateDiscarded" |
-	"callStateError" |
-	"callProblemEcho" |
-	"callProblemNoise" |
-	"callProblemInterruptions" |
-	"callProblemDistortedSpeech" |
-	"callProblemSilentLocal" |
-	"callProblemSilentRemote" |
-	"callProblemDropped" |
-	"callProblemDistortedVideo" |
-	"callProblemPixelatedVideo" |
-	"call" |
-	"phoneNumberAuthenticationSettings" |
-	"animations" |
-	"diceStickersRegular" |
-	"diceStickersSlotMachine" |
-	"importedContacts" |
-	"httpUrl" |
-	"inputInlineQueryResultAnimation" |
-	"inputInlineQueryResultArticle" |
-	"inputInlineQueryResultAudio" |
-	"inputInlineQueryResultContact" |
-	"inputInlineQueryResultDocument" |
-	"inputInlineQueryResultGame" |
-	"inputInlineQueryResultLocation" |
-	"inputInlineQueryResultPhoto" |
-	"inputInlineQueryResultSticker" |
-	"inputInlineQueryResultVenue" |
-	"inputInlineQueryResultVideo" |
-	"inputInlineQueryResultVoiceNote" |
-	"inlineQueryResultArticle" |
-	"inlineQueryResultContact" |
-	"inlineQueryResultLocation" |
-	"inlineQueryResultVenue" |
-	"inlineQueryResultGame" |
-	"inlineQueryResultAnimation" |
-	"inlineQueryResultAudio" |
-	"inlineQueryResultDocument" |
-	"inlineQueryResultPhoto" |
-	"inlineQueryResultSticker" |
-	"inlineQueryResultVideo" |
-	"inlineQueryResultVoiceNote" |
-	"inlineQueryResults" |
-	"callbackQueryPayloadData" |
-	"callbackQueryPayloadDataWithPassword" |
-	"callbackQueryPayloadGame" |
-	"callbackQueryAnswer" |
-	"customRequestResult" |
-	"gameHighScore" |
-	"gameHighScores" |
-	"chatEventMessageEdited" |
-	"chatEventMessageDeleted" |
-	"chatEventPollStopped" |
-	"chatEventMessagePinned" |
-	"chatEventMessageUnpinned" |
-	"chatEventMemberJoined" |
-	"chatEventMemberLeft" |
-	"chatEventMemberInvited" |
-	"chatEventMemberPromoted" |
-	"chatEventMemberRestricted" |
-	"chatEventTitleChanged" |
-	"chatEventPermissionsChanged" |
-	"chatEventDescriptionChanged" |
-	"chatEventUsernameChanged" |
-	"chatEventPhotoChanged" |
-	"chatEventInvitesToggled" |
-	"chatEventLinkedChatChanged" |
-	"chatEventSlowModeDelayChanged" |
-	"chatEventSignMessagesToggled" |
-	"chatEventStickerSetChanged" |
-	"chatEventLocationChanged" |
-	"chatEventIsAllHistoryAvailableToggled" |
-	"chatEvent" |
-	"chatEvents" |
-	"chatEventLogFilters" |
-	"languagePackStringValueOrdinary" |
-	"languagePackStringValuePluralized" |
-	"languagePackStringValueDeleted" |
-	"languagePackString" |
-	"languagePackStrings" |
-	"languagePackInfo" |
-	"localizationTargetInfo" |
-	"deviceTokenFirebaseCloudMessaging" |
-	"deviceTokenApplePush" |
-	"deviceTokenApplePushVoIP" |
-	"deviceTokenWindowsPush" |
-	"deviceTokenMicrosoftPush" |
-	"deviceTokenMicrosoftPushVoIP" |
-	"deviceTokenWebPush" |
-	"deviceTokenSimplePush" |
-	"deviceTokenUbuntuPush" |
-	"deviceTokenBlackBerryPush" |
-	"deviceTokenTizenPush" |
-	"pushReceiverId" |
-	"backgroundFillSolid" |
-	"backgroundFillGradient" |
-	"backgroundTypeWallpaper" |
-	"backgroundTypePattern" |
-	"backgroundTypeFill" |
-	"background" |
-	"backgrounds" |
-	"inputBackgroundLocal" |
-	"inputBackgroundRemote" |
-	"hashtags" |
-	"canTransferOwnershipResultOk" |
-	"canTransferOwnershipResultPasswordNeeded" |
-	"canTransferOwnershipResultPasswordTooFresh" |
-	"canTransferOwnershipResultSessionTooFresh" |
-	"checkChatUsernameResultOk" |
-	"checkChatUsernameResultUsernameInvalid" |
-	"checkChatUsernameResultUsernameOccupied" |
-	"checkChatUsernameResultPublicChatsTooMuch" |
-	"checkChatUsernameResultPublicGroupsUnavailable" |
-	"pushMessageContentHidden" |
-	"pushMessageContentAnimation" |
-	"pushMessageContentAudio" |
-	"pushMessageContentContact" |
-	"pushMessageContentContactRegistered" |
-	"pushMessageContentDocument" |
-	"pushMessageContentGame" |
-	"pushMessageContentGameScore" |
-	"pushMessageContentInvoice" |
-	"pushMessageContentLocation" |
-	"pushMessageContentPhoto" |
-	"pushMessageContentPoll" |
-	"pushMessageContentScreenshotTaken" |
-	"pushMessageContentSticker" |
-	"pushMessageContentText" |
-	"pushMessageContentVideo" |
-	"pushMessageContentVideoNote" |
-	"pushMessageContentVoiceNote" |
-	"pushMessageContentBasicGroupChatCreate" |
-	"pushMessageContentChatAddMembers" |
-	"pushMessageContentChatChangePhoto" |
-	"pushMessageContentChatChangeTitle" |
-	"pushMessageContentChatDeleteMember" |
-	"pushMessageContentChatJoinByLink" |
-	"pushMessageContentMessageForwards" |
-	"pushMessageContentMediaAlbum" |
-	"notificationTypeNewMessage" |
-	"notificationTypeNewSecretChat" |
-	"notificationTypeNewCall" |
-	"notificationTypeNewPushMessage" |
-	"notificationGroupTypeMessages" |
-	"notificationGroupTypeMentions" |
-	"notificationGroupTypeSecretChat" |
-	"notificationGroupTypeCalls" |
-	"notification" |
-	"notificationGroup" |
-	"optionValueBoolean" |
-	"optionValueEmpty" |
-	"optionValueInteger" |
-	"optionValueString" |
-	"jsonObjectMember" |
-	"jsonValueNull" |
-	"jsonValueBoolean" |
-	"jsonValueNumber" |
-	"jsonValueString" |
-	"jsonValueArray" |
-	"jsonValueObject" |
-	"userPrivacySettingRuleAllowAll" |
-	"userPrivacySettingRuleAllowContacts" |
-	"userPrivacySettingRuleAllowUsers" |
-	"userPrivacySettingRuleAllowChatMembers" |
-	"userPrivacySettingRuleRestrictAll" |
-	"userPrivacySettingRuleRestrictContacts" |
-	"userPrivacySettingRuleRestrictUsers" |
-	"userPrivacySettingRuleRestrictChatMembers" |
-	"userPrivacySettingRules" |
-	"userPrivacySettingShowStatus" |
-	"userPrivacySettingShowProfilePhoto" |
-	"userPrivacySettingShowLinkInForwardedMessages" |
-	"userPrivacySettingShowPhoneNumber" |
-	"userPrivacySettingAllowChatInvites" |
-	"userPrivacySettingAllowCalls" |
-	"userPrivacySettingAllowPeerToPeerCalls" |
-	"userPrivacySettingAllowFindingByPhoneNumber" |
-	"accountTtl" |
-	"session" |
-	"sessions" |
-	"connectedWebsite" |
-	"connectedWebsites" |
-	"chatReportReasonSpam" |
-	"chatReportReasonViolence" |
-	"chatReportReasonPornography" |
-	"chatReportReasonChildAbuse" |
-	"chatReportReasonCopyright" |
-	"chatReportReasonUnrelatedLocation" |
-	"chatReportReasonCustom" |
-	"messageLink" |
-	"messageLinkInfo" |
-	"filePart" |
-	"fileTypeNone" |
-	"fileTypeAnimation" |
-	"fileTypeAudio" |
-	"fileTypeDocument" |
-	"fileTypePhoto" |
-	"fileTypeProfilePhoto" |
-	"fileTypeSecret" |
-	"fileTypeSecretThumbnail" |
-	"fileTypeSecure" |
-	"fileTypeSticker" |
-	"fileTypeThumbnail" |
-	"fileTypeUnknown" |
-	"fileTypeVideo" |
-	"fileTypeVideoNote" |
-	"fileTypeVoiceNote" |
-	"fileTypeWallpaper" |
-	"storageStatisticsByFileType" |
-	"storageStatisticsByChat" |
-	"storageStatistics" |
-	"storageStatisticsFast" |
-	"databaseStatistics" |
-	"networkTypeNone" |
-	"networkTypeMobile" |
-	"networkTypeMobileRoaming" |
-	"networkTypeWiFi" |
-	"networkTypeOther" |
-	"networkStatisticsEntryFile" |
-	"networkStatisticsEntryCall" |
-	"networkStatistics" |
-	"autoDownloadSettings" |
-	"autoDownloadSettingsPresets" |
-	"connectionStateWaitingForNetwork" |
-	"connectionStateConnectingToProxy" |
-	"connectionStateConnecting" |
-	"connectionStateUpdating" |
-	"connectionStateReady" |
-	"topChatCategoryUsers" |
-	"topChatCategoryBots" |
-	"topChatCategoryGroups" |
-	"topChatCategoryChannels" |
-	"topChatCategoryInlineBots" |
-	"topChatCategoryCalls" |
-	"topChatCategoryForwardChats" |
-	"tMeUrlTypeUser" |
-	"tMeUrlTypeSupergroup" |
-	"tMeUrlTypeChatInvite" |
-	"tMeUrlTypeStickerSet" |
-	"tMeUrl" |
-	"tMeUrls" |
-	"suggestedActionEnableArchiveAndMuteNewChats" |
-	"suggestedActionCheckPhoneNumber" |
-	"count" |
-	"text" |
-	"seconds" |
-	"deepLinkInfo" |
-	"textParseModeMarkdown" |
-	"textParseModeHTML" |
-	"proxyTypeSocks5" |
-	"proxyTypeHttp" |
-	"proxyTypeMtproto" |
-	"proxy" |
-	"proxies" |
-	"inputStickerStatic" |
-	"inputStickerAnimated" |
-	"dateRange" |
-	"statisticsValue" |
-	"statisticsGraphData" |
-	"statisticsGraphAsync" |
-	"statisticsGraphError" |
-	"chatStatisticsMessageInteractionInfo" |
-	"chatStatisticsMessageSenderInfo" |
-	"chatStatisticsAdministratorActionsInfo" |
-	"chatStatisticsInviterInfo" |
-	"chatStatisticsSupergroup" |
-	"chatStatisticsChannel" |
-	"messageStatistics" |
-	"updateAuthorizationState" |
-	"updateNewMessage" |
-	"updateMessageSendAcknowledged" |
-	"updateMessageSendSucceeded" |
-	"updateMessageSendFailed" |
-	"updateMessageContent" |
-	"updateMessageEdited" |
-	"updateMessageIsPinned" |
-	"updateMessageInteractionInfo" |
-	"updateMessageContentOpened" |
-	"updateMessageMentionRead" |
-	"updateMessageLiveLocationViewed" |
-	"updateNewChat" |
-	"updateChatTitle" |
-	"updateChatPhoto" |
-	"updateChatPermissions" |
-	"updateChatLastMessage" |
-	"updateChatPosition" |
-	"updateChatIsMarkedAsUnread" |
-	"updateChatIsBlocked" |
-	"updateChatHasScheduledMessages" |
-	"updateChatDefaultDisableNotification" |
-	"updateChatReadInbox" |
-	"updateChatReadOutbox" |
-	"updateChatUnreadMentionCount" |
-	"updateChatNotificationSettings" |
-	"updateScopeNotificationSettings" |
-	"updateChatActionBar" |
-	"updateChatReplyMarkup" |
-	"updateChatDraftMessage" |
-	"updateChatFilters" |
-	"updateChatOnlineMemberCount" |
-	"updateNotification" |
-	"updateNotificationGroup" |
-	"updateActiveNotifications" |
-	"updateHavePendingNotifications" |
-	"updateDeleteMessages" |
-	"updateUserChatAction" |
-	"updateUserStatus" |
-	"updateUser" |
-	"updateBasicGroup" |
-	"updateSupergroup" |
-	"updateSecretChat" |
-	"updateUserFullInfo" |
-	"updateBasicGroupFullInfo" |
-	"updateSupergroupFullInfo" |
-	"updateServiceNotification" |
-	"updateFile" |
-	"updateFileGenerationStart" |
-	"updateFileGenerationStop" |
-	"updateCall" |
-	"updateNewCallSignalingData" |
-	"updateUserPrivacySettingRules" |
-	"updateUnreadMessageCount" |
-	"updateUnreadChatCount" |
-	"updateOption" |
-	"updateStickerSet" |
-	"updateInstalledStickerSets" |
-	"updateTrendingStickerSets" |
-	"updateRecentStickers" |
-	"updateFavoriteStickers" |
-	"updateSavedAnimations" |
-	"updateSelectedBackground" |
-	"updateLanguagePackStrings" |
-	"updateConnectionState" |
-	"updateTermsOfService" |
-	"updateUsersNearby" |
-	"updateDiceEmojis" |
-	"updateAnimationSearchParameters" |
-	"updateSuggestedActions" |
-	"updateNewInlineQuery" |
-	"updateNewChosenInlineResult" |
-	"updateNewCallbackQuery" |
-	"updateNewInlineCallbackQuery" |
-	"updateNewShippingQuery" |
-	"updateNewPreCheckoutQuery" |
-	"updateNewCustomEvent" |
-	"updateNewCustomQuery" |
-	"updatePoll" |
-	"updatePollAnswer" |
-	"updates" |
-	"logStreamDefault" |
-	"logStreamFile" |
-	"logStreamEmpty" |
-	"logVerbosityLevel" |
-	"logTags" |
-	"testInt" |
-	"testString" |
-	"testBytes" |
-	"testVectorInt" |
-	"testVectorIntObject" |
-	"testVectorString" |
-	"testVectorStringObject"
-}
 // TDLib
-export interface TLError extends TLObject {
+export interface TLError {
 	readonly "@type": "error"
 	readonly code: number
 	readonly message: string
 }
-export interface TLOk extends TLObject {
+export interface TLOk {
 	readonly "@type": "ok"
 }
-export interface TLTdlibParameters extends TLObject {
+export interface TLTdlibParameters {
 	readonly "@type": "tdlibParameters"
 	readonly use_test_dc: boolean
 	readonly database_directory: string
@@ -878,98 +42,98 @@ export interface TLTdlibParameters extends TLObject {
 	readonly enable_storage_optimizer: boolean
 	readonly ignore_file_names: boolean
 }
-export interface TLAuthenticationCodeTypeTelegramMessage extends TLObject {
+export interface TLAuthenticationCodeTypeTelegramMessage {
 	readonly "@type": "authenticationCodeTypeTelegramMessage"
 	readonly length: number
 }
-export interface TLAuthenticationCodeTypeSms extends TLObject {
+export interface TLAuthenticationCodeTypeSms {
 	readonly "@type": "authenticationCodeTypeSms"
 	readonly length: number
 }
-export interface TLAuthenticationCodeTypeCall extends TLObject {
+export interface TLAuthenticationCodeTypeCall {
 	readonly "@type": "authenticationCodeTypeCall"
 	readonly length: number
 }
-export interface TLAuthenticationCodeTypeFlashCall extends TLObject {
+export interface TLAuthenticationCodeTypeFlashCall {
 	readonly "@type": "authenticationCodeTypeFlashCall"
 	readonly pattern: string
 }
 export type TLAuthenticationCodeType = TLAuthenticationCodeTypeTelegramMessage | TLAuthenticationCodeTypeSms | TLAuthenticationCodeTypeCall | TLAuthenticationCodeTypeFlashCall
-export interface TLAuthenticationCodeInfo extends TLObject {
+export interface TLAuthenticationCodeInfo {
 	readonly "@type": "authenticationCodeInfo"
 	readonly phone_number: string
 	readonly type: TLAuthenticationCodeType
 	readonly next_type: TLAuthenticationCodeType
 	readonly timeout: number
 }
-export interface TLEmailAddressAuthenticationCodeInfo extends TLObject {
+export interface TLEmailAddressAuthenticationCodeInfo {
 	readonly "@type": "emailAddressAuthenticationCodeInfo"
 	readonly email_address_pattern: string
 	readonly length: number
 }
-export interface TLTextEntity extends TLObject {
+export interface TLTextEntity {
 	readonly "@type": "textEntity"
 	readonly offset: number
 	readonly length: number
 	readonly type: TLTextEntityType
 }
-export interface TLTextEntities extends TLObject {
+export interface TLTextEntities {
 	readonly "@type": "textEntities"
 	readonly entities: ReadonlyArray<TLTextEntity>
 }
-export interface TLFormattedText extends TLObject {
+export interface TLFormattedText {
 	readonly "@type": "formattedText"
 	readonly text: string
 	readonly entities: ReadonlyArray<TLTextEntity>
 }
-export interface TLTermsOfService extends TLObject {
+export interface TLTermsOfService {
 	readonly "@type": "termsOfService"
 	readonly text: TLFormattedText
 	readonly min_user_age: number
 	readonly show_popup: boolean
 }
-export interface TLAuthorizationStateWaitTdlibParameters extends TLObject {
+export interface TLAuthorizationStateWaitTdlibParameters {
 	readonly "@type": "authorizationStateWaitTdlibParameters"
 }
-export interface TLAuthorizationStateWaitEncryptionKey extends TLObject {
+export interface TLAuthorizationStateWaitEncryptionKey {
 	readonly "@type": "authorizationStateWaitEncryptionKey"
 	readonly is_encrypted: boolean
 }
-export interface TLAuthorizationStateWaitPhoneNumber extends TLObject {
+export interface TLAuthorizationStateWaitPhoneNumber {
 	readonly "@type": "authorizationStateWaitPhoneNumber"
 }
-export interface TLAuthorizationStateWaitCode extends TLObject {
+export interface TLAuthorizationStateWaitCode {
 	readonly "@type": "authorizationStateWaitCode"
 	readonly code_info: TLAuthenticationCodeInfo
 }
-export interface TLAuthorizationStateWaitOtherDeviceConfirmation extends TLObject {
+export interface TLAuthorizationStateWaitOtherDeviceConfirmation {
 	readonly "@type": "authorizationStateWaitOtherDeviceConfirmation"
 	readonly link: string
 }
-export interface TLAuthorizationStateWaitRegistration extends TLObject {
+export interface TLAuthorizationStateWaitRegistration {
 	readonly "@type": "authorizationStateWaitRegistration"
 	readonly terms_of_service: TLTermsOfService
 }
-export interface TLAuthorizationStateWaitPassword extends TLObject {
+export interface TLAuthorizationStateWaitPassword {
 	readonly "@type": "authorizationStateWaitPassword"
 	readonly password_hint: string
 	readonly has_recovery_email_address: boolean
 	readonly recovery_email_address_pattern: string
 }
-export interface TLAuthorizationStateReady extends TLObject {
+export interface TLAuthorizationStateReady {
 	readonly "@type": "authorizationStateReady"
 }
-export interface TLAuthorizationStateLoggingOut extends TLObject {
+export interface TLAuthorizationStateLoggingOut {
 	readonly "@type": "authorizationStateLoggingOut"
 }
-export interface TLAuthorizationStateClosing extends TLObject {
+export interface TLAuthorizationStateClosing {
 	readonly "@type": "authorizationStateClosing"
 }
-export interface TLAuthorizationStateClosed extends TLObject {
+export interface TLAuthorizationStateClosed {
 	readonly "@type": "authorizationStateClosed"
 }
 export type TLAuthorizationState = TLAuthorizationStateWaitTdlibParameters | TLAuthorizationStateWaitEncryptionKey | TLAuthorizationStateWaitPhoneNumber | TLAuthorizationStateWaitCode | TLAuthorizationStateWaitOtherDeviceConfirmation | TLAuthorizationStateWaitRegistration | TLAuthorizationStateWaitPassword | TLAuthorizationStateReady | TLAuthorizationStateLoggingOut | TLAuthorizationStateClosing | TLAuthorizationStateClosed
-export interface TLPasswordState extends TLObject {
+export interface TLPasswordState {
 	readonly "@type": "passwordState"
 	readonly has_password: boolean
 	readonly password_hint: string
@@ -977,16 +141,16 @@ export interface TLPasswordState extends TLObject {
 	readonly has_passport_data: boolean
 	readonly recovery_email_address_code_info: TLEmailAddressAuthenticationCodeInfo
 }
-export interface TLRecoveryEmailAddress extends TLObject {
+export interface TLRecoveryEmailAddress {
 	readonly "@type": "recoveryEmailAddress"
 	readonly recovery_email_address: string
 }
-export interface TLTemporaryPasswordState extends TLObject {
+export interface TLTemporaryPasswordState {
 	readonly "@type": "temporaryPasswordState"
 	readonly has_password: boolean
 	readonly valid_for: number
 }
-export interface TLLocalFile extends TLObject {
+export interface TLLocalFile {
 	readonly "@type": "localFile"
 	readonly path: string
 	readonly can_be_downloaded: boolean
@@ -997,7 +161,7 @@ export interface TLLocalFile extends TLObject {
 	readonly downloaded_prefix_size: number
 	readonly downloaded_size: number
 }
-export interface TLRemoteFile extends TLObject {
+export interface TLRemoteFile {
 	readonly "@type": "remoteFile"
 	readonly id: string
 	readonly unique_id: string
@@ -1005,7 +169,7 @@ export interface TLRemoteFile extends TLObject {
 	readonly is_uploading_completed: boolean
 	readonly uploaded_size: number
 }
-export interface TLFile extends TLObject {
+export interface TLFile {
 	readonly "@type": "file"
 	readonly id: number
 	readonly size: number
@@ -1013,26 +177,26 @@ export interface TLFile extends TLObject {
 	readonly local: TLLocalFile
 	readonly remote: TLRemoteFile
 }
-export interface TLInputFileId extends TLObject {
+export interface TLInputFileId {
 	readonly "@type": "inputFileId"
 	readonly id: number
 }
-export interface TLInputFileRemote extends TLObject {
+export interface TLInputFileRemote {
 	readonly "@type": "inputFileRemote"
 	readonly id: string
 }
-export interface TLInputFileLocal extends TLObject {
+export interface TLInputFileLocal {
 	readonly "@type": "inputFileLocal"
 	readonly path: string
 }
-export interface TLInputFileGenerated extends TLObject {
+export interface TLInputFileGenerated {
 	readonly "@type": "inputFileGenerated"
 	readonly original_path: string
 	readonly conversion: string
 	readonly expected_size: number
 }
 export type TLInputFile = TLInputFileId | TLInputFileRemote | TLInputFileLocal | TLInputFileGenerated
-export interface TLPhotoSize extends TLObject {
+export interface TLPhotoSize {
 	readonly "@type": "photoSize"
 	readonly type: string
 	readonly photo: TLFile
@@ -1040,59 +204,59 @@ export interface TLPhotoSize extends TLObject {
 	readonly height: number
 	readonly progressive_sizes: ReadonlyArray<number>
 }
-export interface TLMinithumbnail extends TLObject {
+export interface TLMinithumbnail {
 	readonly "@type": "minithumbnail"
 	readonly width: number
 	readonly height: number
 	readonly data: Uint8Array
 }
-export interface TLThumbnailFormatJpeg extends TLObject {
+export interface TLThumbnailFormatJpeg {
 	readonly "@type": "thumbnailFormatJpeg"
 }
-export interface TLThumbnailFormatPng extends TLObject {
+export interface TLThumbnailFormatPng {
 	readonly "@type": "thumbnailFormatPng"
 }
-export interface TLThumbnailFormatWebp extends TLObject {
+export interface TLThumbnailFormatWebp {
 	readonly "@type": "thumbnailFormatWebp"
 }
-export interface TLThumbnailFormatGif extends TLObject {
+export interface TLThumbnailFormatGif {
 	readonly "@type": "thumbnailFormatGif"
 }
-export interface TLThumbnailFormatTgs extends TLObject {
+export interface TLThumbnailFormatTgs {
 	readonly "@type": "thumbnailFormatTgs"
 }
-export interface TLThumbnailFormatMpeg4 extends TLObject {
+export interface TLThumbnailFormatMpeg4 {
 	readonly "@type": "thumbnailFormatMpeg4"
 }
 export type TLThumbnailFormat = TLThumbnailFormatJpeg | TLThumbnailFormatPng | TLThumbnailFormatWebp | TLThumbnailFormatGif | TLThumbnailFormatTgs | TLThumbnailFormatMpeg4
-export interface TLThumbnail extends TLObject {
+export interface TLThumbnail {
 	readonly "@type": "thumbnail"
 	readonly format: TLThumbnailFormat
 	readonly width: number
 	readonly height: number
 	readonly file: TLFile
 }
-export interface TLMaskPointForehead extends TLObject {
+export interface TLMaskPointForehead {
 	readonly "@type": "maskPointForehead"
 }
-export interface TLMaskPointEyes extends TLObject {
+export interface TLMaskPointEyes {
 	readonly "@type": "maskPointEyes"
 }
-export interface TLMaskPointMouth extends TLObject {
+export interface TLMaskPointMouth {
 	readonly "@type": "maskPointMouth"
 }
-export interface TLMaskPointChin extends TLObject {
+export interface TLMaskPointChin {
 	readonly "@type": "maskPointChin"
 }
 export type TLMaskPoint = TLMaskPointForehead | TLMaskPointEyes | TLMaskPointMouth | TLMaskPointChin
-export interface TLMaskPosition extends TLObject {
+export interface TLMaskPosition {
 	readonly "@type": "maskPosition"
 	readonly point: TLMaskPoint
 	readonly x_shift: number
 	readonly y_shift: number
 	readonly scale: number
 }
-export interface TLPollOption extends TLObject {
+export interface TLPollOption {
 	readonly "@type": "pollOption"
 	readonly text: string
 	readonly voter_count: number
@@ -1100,17 +264,17 @@ export interface TLPollOption extends TLObject {
 	readonly is_chosen: boolean
 	readonly is_being_chosen: boolean
 }
-export interface TLPollTypeRegular extends TLObject {
+export interface TLPollTypeRegular {
 	readonly "@type": "pollTypeRegular"
 	readonly allow_multiple_answers: boolean
 }
-export interface TLPollTypeQuiz extends TLObject {
+export interface TLPollTypeQuiz {
 	readonly "@type": "pollTypeQuiz"
 	readonly correct_option_id: number
 	readonly explanation: TLFormattedText
 }
 export type TLPollType = TLPollTypeRegular | TLPollTypeQuiz
-export interface TLAnimation extends TLObject {
+export interface TLAnimation {
 	readonly "@type": "animation"
 	readonly duration: number
 	readonly width: number
@@ -1122,7 +286,7 @@ export interface TLAnimation extends TLObject {
 	readonly thumbnail: TLThumbnail
 	readonly animation: TLFile
 }
-export interface TLAudio extends TLObject {
+export interface TLAudio {
 	readonly "@type": "audio"
 	readonly duration: number
 	readonly title: string
@@ -1133,7 +297,7 @@ export interface TLAudio extends TLObject {
 	readonly album_cover_thumbnail: TLThumbnail
 	readonly audio: TLFile
 }
-export interface TLDocument extends TLObject {
+export interface TLDocument {
 	readonly "@type": "document"
 	readonly file_name: string
 	readonly mime_type: string
@@ -1141,13 +305,13 @@ export interface TLDocument extends TLObject {
 	readonly thumbnail: TLThumbnail
 	readonly document: TLFile
 }
-export interface TLPhoto extends TLObject {
+export interface TLPhoto {
 	readonly "@type": "photo"
 	readonly has_stickers: boolean
 	readonly minithumbnail: TLMinithumbnail
 	readonly sizes: ReadonlyArray<TLPhotoSize>
 }
-export interface TLSticker extends TLObject {
+export interface TLSticker {
 	readonly "@type": "sticker"
 	readonly set_id: string
 	readonly width: number
@@ -1159,7 +323,7 @@ export interface TLSticker extends TLObject {
 	readonly thumbnail: TLThumbnail
 	readonly sticker: TLFile
 }
-export interface TLVideo extends TLObject {
+export interface TLVideo {
 	readonly "@type": "video"
 	readonly duration: number
 	readonly width: number
@@ -1172,7 +336,7 @@ export interface TLVideo extends TLObject {
 	readonly thumbnail: TLThumbnail
 	readonly video: TLFile
 }
-export interface TLVideoNote extends TLObject {
+export interface TLVideoNote {
 	readonly "@type": "videoNote"
 	readonly duration: number
 	readonly length: number
@@ -1180,14 +344,14 @@ export interface TLVideoNote extends TLObject {
 	readonly thumbnail: TLThumbnail
 	readonly video: TLFile
 }
-export interface TLVoiceNote extends TLObject {
+export interface TLVoiceNote {
 	readonly "@type": "voiceNote"
 	readonly duration: number
 	readonly waveform: Uint8Array
 	readonly mime_type: string
 	readonly voice: TLFile
 }
-export interface TLContact extends TLObject {
+export interface TLContact {
 	readonly "@type": "contact"
 	readonly phone_number: string
 	readonly first_name: string
@@ -1195,13 +359,13 @@ export interface TLContact extends TLObject {
 	readonly vcard: string
 	readonly user_id: number
 }
-export interface TLLocation extends TLObject {
+export interface TLLocation {
 	readonly "@type": "location"
 	readonly latitude: number
 	readonly longitude: number
 	readonly horizontal_accuracy: number
 }
-export interface TLVenue extends TLObject {
+export interface TLVenue {
 	readonly "@type": "venue"
 	readonly location: TLLocation
 	readonly title: string
@@ -1210,7 +374,7 @@ export interface TLVenue extends TLObject {
 	readonly id: string
 	readonly type: string
 }
-export interface TLGame extends TLObject {
+export interface TLGame {
 	readonly "@type": "game"
 	readonly id: string
 	readonly short_name: string
@@ -1220,7 +384,7 @@ export interface TLGame extends TLObject {
 	readonly photo: TLPhoto
 	readonly animation: TLAnimation
 }
-export interface TLPoll extends TLObject {
+export interface TLPoll {
 	readonly "@type": "poll"
 	readonly id: string
 	readonly question: string
@@ -1233,26 +397,26 @@ export interface TLPoll extends TLObject {
 	readonly close_date: number
 	readonly is_closed: boolean
 }
-export interface TLProfilePhoto extends TLObject {
+export interface TLProfilePhoto {
 	readonly "@type": "profilePhoto"
 	readonly id: string
 	readonly small: TLFile
 	readonly big: TLFile
 	readonly has_animation: boolean
 }
-export interface TLChatPhotoInfo extends TLObject {
+export interface TLChatPhotoInfo {
 	readonly "@type": "chatPhotoInfo"
 	readonly small: TLFile
 	readonly big: TLFile
 	readonly has_animation: boolean
 }
-export interface TLUserTypeRegular extends TLObject {
+export interface TLUserTypeRegular {
 	readonly "@type": "userTypeRegular"
 }
-export interface TLUserTypeDeleted extends TLObject {
+export interface TLUserTypeDeleted {
 	readonly "@type": "userTypeDeleted"
 }
-export interface TLUserTypeBot extends TLObject {
+export interface TLUserTypeBot {
 	readonly "@type": "userTypeBot"
 	readonly can_join_groups: boolean
 	readonly can_read_all_group_messages: boolean
@@ -1260,32 +424,32 @@ export interface TLUserTypeBot extends TLObject {
 	readonly inline_query_placeholder: string
 	readonly need_location: boolean
 }
-export interface TLUserTypeUnknown extends TLObject {
+export interface TLUserTypeUnknown {
 	readonly "@type": "userTypeUnknown"
 }
 export type TLUserType = TLUserTypeRegular | TLUserTypeDeleted | TLUserTypeBot | TLUserTypeUnknown
-export interface TLBotCommand extends TLObject {
+export interface TLBotCommand {
 	readonly "@type": "botCommand"
 	readonly command: string
 	readonly description: string
 }
-export interface TLBotInfo extends TLObject {
+export interface TLBotInfo {
 	readonly "@type": "botInfo"
 	readonly description: string
 	readonly commands: ReadonlyArray<TLBotCommand>
 }
-export interface TLChatLocation extends TLObject {
+export interface TLChatLocation {
 	readonly "@type": "chatLocation"
 	readonly location: TLLocation
 	readonly address: string
 }
-export interface TLAnimatedChatPhoto extends TLObject {
+export interface TLAnimatedChatPhoto {
 	readonly "@type": "animatedChatPhoto"
 	readonly length: number
 	readonly file: TLFile
 	readonly main_frame_timestamp: number
 }
-export interface TLChatPhoto extends TLObject {
+export interface TLChatPhoto {
 	readonly "@type": "chatPhoto"
 	readonly id: string
 	readonly added_date: number
@@ -1293,26 +457,26 @@ export interface TLChatPhoto extends TLObject {
 	readonly sizes: ReadonlyArray<TLPhotoSize>
 	readonly animation: TLAnimatedChatPhoto
 }
-export interface TLChatPhotos extends TLObject {
+export interface TLChatPhotos {
 	readonly "@type": "chatPhotos"
 	readonly total_count: number
 	readonly photos: ReadonlyArray<TLChatPhoto>
 }
-export interface TLInputChatPhotoPrevious extends TLObject {
+export interface TLInputChatPhotoPrevious {
 	readonly "@type": "inputChatPhotoPrevious"
 	readonly chat_photo_id: string
 }
-export interface TLInputChatPhotoStatic extends TLObject {
+export interface TLInputChatPhotoStatic {
 	readonly "@type": "inputChatPhotoStatic"
 	readonly photo: TLInputFile
 }
-export interface TLInputChatPhotoAnimation extends TLObject {
+export interface TLInputChatPhotoAnimation {
 	readonly "@type": "inputChatPhotoAnimation"
 	readonly animation: TLInputFile
 	readonly main_frame_timestamp: number
 }
 export type TLInputChatPhoto = TLInputChatPhotoPrevious | TLInputChatPhotoStatic | TLInputChatPhotoAnimation
-export interface TLUser extends TLObject {
+export interface TLUser {
 	readonly "@type": "user"
 	readonly id: number
 	readonly first_name: string
@@ -1331,7 +495,7 @@ export interface TLUser extends TLObject {
 	readonly type: TLUserType
 	readonly language_code: string
 }
-export interface TLUserFullInfo extends TLObject {
+export interface TLUserFullInfo {
 	readonly "@type": "userFullInfo"
 	readonly photo: TLChatPhoto
 	readonly is_blocked: boolean
@@ -1344,22 +508,22 @@ export interface TLUserFullInfo extends TLObject {
 	readonly group_in_common_count: number
 	readonly bot_info: TLBotInfo
 }
-export interface TLUsers extends TLObject {
+export interface TLUsers {
 	readonly "@type": "users"
 	readonly total_count: number
 	readonly user_ids: ReadonlyArray<number>
 }
-export interface TLChatAdministrator extends TLObject {
+export interface TLChatAdministrator {
 	readonly "@type": "chatAdministrator"
 	readonly user_id: number
 	readonly custom_title: string
 	readonly is_owner: boolean
 }
-export interface TLChatAdministrators extends TLObject {
+export interface TLChatAdministrators {
 	readonly "@type": "chatAdministrators"
 	readonly administrators: ReadonlyArray<TLChatAdministrator>
 }
-export interface TLChatPermissions extends TLObject {
+export interface TLChatPermissions {
 	readonly "@type": "chatPermissions"
 	readonly can_send_messages: boolean
 	readonly can_send_media_messages: boolean
@@ -1370,13 +534,13 @@ export interface TLChatPermissions extends TLObject {
 	readonly can_invite_users: boolean
 	readonly can_pin_messages: boolean
 }
-export interface TLChatMemberStatusCreator extends TLObject {
+export interface TLChatMemberStatusCreator {
 	readonly "@type": "chatMemberStatusCreator"
 	readonly custom_title: string
 	readonly is_anonymous: boolean
 	readonly is_member: boolean
 }
-export interface TLChatMemberStatusAdministrator extends TLObject {
+export interface TLChatMemberStatusAdministrator {
 	readonly "@type": "chatMemberStatusAdministrator"
 	readonly custom_title: string
 	readonly can_be_edited: boolean
@@ -1390,24 +554,24 @@ export interface TLChatMemberStatusAdministrator extends TLObject {
 	readonly can_promote_members: boolean
 	readonly is_anonymous: boolean
 }
-export interface TLChatMemberStatusMember extends TLObject {
+export interface TLChatMemberStatusMember {
 	readonly "@type": "chatMemberStatusMember"
 }
-export interface TLChatMemberStatusRestricted extends TLObject {
+export interface TLChatMemberStatusRestricted {
 	readonly "@type": "chatMemberStatusRestricted"
 	readonly is_member: boolean
 	readonly restricted_until_date: number
 	readonly permissions: TLChatPermissions
 }
-export interface TLChatMemberStatusLeft extends TLObject {
+export interface TLChatMemberStatusLeft {
 	readonly "@type": "chatMemberStatusLeft"
 }
-export interface TLChatMemberStatusBanned extends TLObject {
+export interface TLChatMemberStatusBanned {
 	readonly "@type": "chatMemberStatusBanned"
 	readonly banned_until_date: number
 }
 export type TLChatMemberStatus = TLChatMemberStatusCreator | TLChatMemberStatusAdministrator | TLChatMemberStatusMember | TLChatMemberStatusRestricted | TLChatMemberStatusLeft | TLChatMemberStatusBanned
-export interface TLChatMember extends TLObject {
+export interface TLChatMember {
 	readonly "@type": "chatMember"
 	readonly user_id: number
 	readonly inviter_user_id: number
@@ -1415,66 +579,66 @@ export interface TLChatMember extends TLObject {
 	readonly status: TLChatMemberStatus
 	readonly bot_info: TLBotInfo
 }
-export interface TLChatMembers extends TLObject {
+export interface TLChatMembers {
 	readonly "@type": "chatMembers"
 	readonly total_count: number
 	readonly members: ReadonlyArray<TLChatMember>
 }
-export interface TLChatMembersFilterContacts extends TLObject {
+export interface TLChatMembersFilterContacts {
 	readonly "@type": "chatMembersFilterContacts"
 }
-export interface TLChatMembersFilterAdministrators extends TLObject {
+export interface TLChatMembersFilterAdministrators {
 	readonly "@type": "chatMembersFilterAdministrators"
 }
-export interface TLChatMembersFilterMembers extends TLObject {
+export interface TLChatMembersFilterMembers {
 	readonly "@type": "chatMembersFilterMembers"
 }
-export interface TLChatMembersFilterMention extends TLObject {
+export interface TLChatMembersFilterMention {
 	readonly "@type": "chatMembersFilterMention"
 	readonly message_thread_id: number
 }
-export interface TLChatMembersFilterRestricted extends TLObject {
+export interface TLChatMembersFilterRestricted {
 	readonly "@type": "chatMembersFilterRestricted"
 }
-export interface TLChatMembersFilterBanned extends TLObject {
+export interface TLChatMembersFilterBanned {
 	readonly "@type": "chatMembersFilterBanned"
 }
-export interface TLChatMembersFilterBots extends TLObject {
+export interface TLChatMembersFilterBots {
 	readonly "@type": "chatMembersFilterBots"
 }
 export type TLChatMembersFilter = TLChatMembersFilterContacts | TLChatMembersFilterAdministrators | TLChatMembersFilterMembers | TLChatMembersFilterMention | TLChatMembersFilterRestricted | TLChatMembersFilterBanned | TLChatMembersFilterBots
-export interface TLSupergroupMembersFilterRecent extends TLObject {
+export interface TLSupergroupMembersFilterRecent {
 	readonly "@type": "supergroupMembersFilterRecent"
 }
-export interface TLSupergroupMembersFilterContacts extends TLObject {
+export interface TLSupergroupMembersFilterContacts {
 	readonly "@type": "supergroupMembersFilterContacts"
 	readonly query: string
 }
-export interface TLSupergroupMembersFilterAdministrators extends TLObject {
+export interface TLSupergroupMembersFilterAdministrators {
 	readonly "@type": "supergroupMembersFilterAdministrators"
 }
-export interface TLSupergroupMembersFilterSearch extends TLObject {
+export interface TLSupergroupMembersFilterSearch {
 	readonly "@type": "supergroupMembersFilterSearch"
 	readonly query: string
 }
-export interface TLSupergroupMembersFilterRestricted extends TLObject {
+export interface TLSupergroupMembersFilterRestricted {
 	readonly "@type": "supergroupMembersFilterRestricted"
 	readonly query: string
 }
-export interface TLSupergroupMembersFilterBanned extends TLObject {
+export interface TLSupergroupMembersFilterBanned {
 	readonly "@type": "supergroupMembersFilterBanned"
 	readonly query: string
 }
-export interface TLSupergroupMembersFilterMention extends TLObject {
+export interface TLSupergroupMembersFilterMention {
 	readonly "@type": "supergroupMembersFilterMention"
 	readonly query: string
 	readonly message_thread_id: number
 }
-export interface TLSupergroupMembersFilterBots extends TLObject {
+export interface TLSupergroupMembersFilterBots {
 	readonly "@type": "supergroupMembersFilterBots"
 }
 export type TLSupergroupMembersFilter = TLSupergroupMembersFilterRecent | TLSupergroupMembersFilterContacts | TLSupergroupMembersFilterAdministrators | TLSupergroupMembersFilterSearch | TLSupergroupMembersFilterRestricted | TLSupergroupMembersFilterBanned | TLSupergroupMembersFilterMention | TLSupergroupMembersFilterBots
-export interface TLBasicGroup extends TLObject {
+export interface TLBasicGroup {
 	readonly "@type": "basicGroup"
 	readonly id: number
 	readonly member_count: number
@@ -1482,7 +646,7 @@ export interface TLBasicGroup extends TLObject {
 	readonly is_active: boolean
 	readonly upgraded_to_supergroup_id: number
 }
-export interface TLBasicGroupFullInfo extends TLObject {
+export interface TLBasicGroupFullInfo {
 	readonly "@type": "basicGroupFullInfo"
 	readonly photo: TLChatPhoto
 	readonly description: string
@@ -1490,7 +654,7 @@ export interface TLBasicGroupFullInfo extends TLObject {
 	readonly members: ReadonlyArray<TLChatMember>
 	readonly invite_link: string
 }
-export interface TLSupergroup extends TLObject {
+export interface TLSupergroup {
 	readonly "@type": "supergroup"
 	readonly id: number
 	readonly username: string
@@ -1506,7 +670,7 @@ export interface TLSupergroup extends TLObject {
 	readonly restriction_reason: string
 	readonly is_scam: boolean
 }
-export interface TLSupergroupFullInfo extends TLObject {
+export interface TLSupergroupFullInfo {
 	readonly "@type": "supergroupFullInfo"
 	readonly photo: TLChatPhoto
 	readonly description: string
@@ -1529,17 +693,17 @@ export interface TLSupergroupFullInfo extends TLObject {
 	readonly upgraded_from_basic_group_id: number
 	readonly upgraded_from_max_message_id: number
 }
-export interface TLSecretChatStatePending extends TLObject {
+export interface TLSecretChatStatePending {
 	readonly "@type": "secretChatStatePending"
 }
-export interface TLSecretChatStateReady extends TLObject {
+export interface TLSecretChatStateReady {
 	readonly "@type": "secretChatStateReady"
 }
-export interface TLSecretChatStateClosed extends TLObject {
+export interface TLSecretChatStateClosed {
 	readonly "@type": "secretChatStateClosed"
 }
 export type TLSecretChatState = TLSecretChatStatePending | TLSecretChatStateReady | TLSecretChatStateClosed
-export interface TLSecretChat extends TLObject {
+export interface TLSecretChat {
 	readonly "@type": "secretChat"
 	readonly id: number
 	readonly user_id: number
@@ -1549,41 +713,41 @@ export interface TLSecretChat extends TLObject {
 	readonly key_hash: Uint8Array
 	readonly layer: number
 }
-export interface TLMessageSenderUser extends TLObject {
+export interface TLMessageSenderUser {
 	readonly "@type": "messageSenderUser"
 	readonly user_id: number
 }
-export interface TLMessageSenderChat extends TLObject {
+export interface TLMessageSenderChat {
 	readonly "@type": "messageSenderChat"
 	readonly chat_id: number
 }
 export type TLMessageSender = TLMessageSenderUser | TLMessageSenderChat
-export interface TLMessageSenders extends TLObject {
+export interface TLMessageSenders {
 	readonly "@type": "messageSenders"
 	readonly total_count: number
 	readonly senders: ReadonlyArray<TLMessageSender>
 }
-export interface TLMessageForwardOriginUser extends TLObject {
+export interface TLMessageForwardOriginUser {
 	readonly "@type": "messageForwardOriginUser"
 	readonly sender_user_id: number
 }
-export interface TLMessageForwardOriginChat extends TLObject {
+export interface TLMessageForwardOriginChat {
 	readonly "@type": "messageForwardOriginChat"
 	readonly sender_chat_id: number
 	readonly author_signature: string
 }
-export interface TLMessageForwardOriginHiddenUser extends TLObject {
+export interface TLMessageForwardOriginHiddenUser {
 	readonly "@type": "messageForwardOriginHiddenUser"
 	readonly sender_name: string
 }
-export interface TLMessageForwardOriginChannel extends TLObject {
+export interface TLMessageForwardOriginChannel {
 	readonly "@type": "messageForwardOriginChannel"
 	readonly chat_id: number
 	readonly message_id: number
 	readonly author_signature: string
 }
 export type TLMessageForwardOrigin = TLMessageForwardOriginUser | TLMessageForwardOriginChat | TLMessageForwardOriginHiddenUser | TLMessageForwardOriginChannel
-export interface TLMessageForwardInfo extends TLObject {
+export interface TLMessageForwardInfo {
 	readonly "@type": "messageForwardInfo"
 	readonly origin: TLMessageForwardOrigin
 	readonly date: number
@@ -1591,7 +755,7 @@ export interface TLMessageForwardInfo extends TLObject {
 	readonly from_chat_id: number
 	readonly from_message_id: number
 }
-export interface TLMessageReplyInfo extends TLObject {
+export interface TLMessageReplyInfo {
 	readonly "@type": "messageReplyInfo"
 	readonly reply_count: number
 	readonly recent_repliers: ReadonlyArray<TLMessageSender>
@@ -1599,16 +763,16 @@ export interface TLMessageReplyInfo extends TLObject {
 	readonly last_read_outbox_message_id: number
 	readonly last_message_id: number
 }
-export interface TLMessageInteractionInfo extends TLObject {
+export interface TLMessageInteractionInfo {
 	readonly "@type": "messageInteractionInfo"
 	readonly view_count: number
 	readonly forward_count: number
 	readonly reply_info: TLMessageReplyInfo
 }
-export interface TLMessageSendingStatePending extends TLObject {
+export interface TLMessageSendingStatePending {
 	readonly "@type": "messageSendingStatePending"
 }
-export interface TLMessageSendingStateFailed extends TLObject {
+export interface TLMessageSendingStateFailed {
 	readonly "@type": "messageSendingStateFailed"
 	readonly error_code: number
 	readonly error_message: string
@@ -1616,7 +780,7 @@ export interface TLMessageSendingStateFailed extends TLObject {
 	readonly retry_after: number
 }
 export type TLMessageSendingState = TLMessageSendingStatePending | TLMessageSendingStateFailed
-export interface TLMessage extends TLObject {
+export interface TLMessage {
 	readonly "@type": "message"
 	readonly id: number
 	readonly sender: TLMessageSender
@@ -1649,28 +813,28 @@ export interface TLMessage extends TLObject {
 	readonly content: TLMessageContent
 	readonly reply_markup: TLReplyMarkup
 }
-export interface TLMessages extends TLObject {
+export interface TLMessages {
 	readonly "@type": "messages"
 	readonly total_count: number
 	readonly messages: ReadonlyArray<TLMessage>
 }
-export interface TLFoundMessages extends TLObject {
+export interface TLFoundMessages {
 	readonly "@type": "foundMessages"
 	readonly total_count: number
 	readonly messages: ReadonlyArray<TLMessage>
 	readonly next_offset: string
 }
-export interface TLNotificationSettingsScopePrivateChats extends TLObject {
+export interface TLNotificationSettingsScopePrivateChats {
 	readonly "@type": "notificationSettingsScopePrivateChats"
 }
-export interface TLNotificationSettingsScopeGroupChats extends TLObject {
+export interface TLNotificationSettingsScopeGroupChats {
 	readonly "@type": "notificationSettingsScopeGroupChats"
 }
-export interface TLNotificationSettingsScopeChannelChats extends TLObject {
+export interface TLNotificationSettingsScopeChannelChats {
 	readonly "@type": "notificationSettingsScopeChannelChats"
 }
 export type TLNotificationSettingsScope = TLNotificationSettingsScopePrivateChats | TLNotificationSettingsScopeGroupChats | TLNotificationSettingsScopeChannelChats
-export interface TLChatNotificationSettings extends TLObject {
+export interface TLChatNotificationSettings {
 	readonly "@type": "chatNotificationSettings"
 	readonly use_default_mute_for: boolean
 	readonly mute_for: number
@@ -1683,7 +847,7 @@ export interface TLChatNotificationSettings extends TLObject {
 	readonly use_default_disable_mention_notifications: boolean
 	readonly disable_mention_notifications: boolean
 }
-export interface TLScopeNotificationSettings extends TLObject {
+export interface TLScopeNotificationSettings {
 	readonly "@type": "scopeNotificationSettings"
 	readonly mute_for: number
 	readonly sound: string
@@ -1691,32 +855,32 @@ export interface TLScopeNotificationSettings extends TLObject {
 	readonly disable_pinned_message_notifications: boolean
 	readonly disable_mention_notifications: boolean
 }
-export interface TLDraftMessage extends TLObject {
+export interface TLDraftMessage {
 	readonly "@type": "draftMessage"
 	readonly reply_to_message_id: number
 	readonly date: number
 	readonly input_message_text: TLInputMessageContent
 }
-export interface TLChatTypePrivate extends TLObject {
+export interface TLChatTypePrivate {
 	readonly "@type": "chatTypePrivate"
 	readonly user_id: number
 }
-export interface TLChatTypeBasicGroup extends TLObject {
+export interface TLChatTypeBasicGroup {
 	readonly "@type": "chatTypeBasicGroup"
 	readonly basic_group_id: number
 }
-export interface TLChatTypeSupergroup extends TLObject {
+export interface TLChatTypeSupergroup {
 	readonly "@type": "chatTypeSupergroup"
 	readonly supergroup_id: number
 	readonly is_channel: boolean
 }
-export interface TLChatTypeSecret extends TLObject {
+export interface TLChatTypeSecret {
 	readonly "@type": "chatTypeSecret"
 	readonly secret_chat_id: number
 	readonly user_id: number
 }
 export type TLChatType = TLChatTypePrivate | TLChatTypeBasicGroup | TLChatTypeSupergroup | TLChatTypeSecret
-export interface TLChatFilter extends TLObject {
+export interface TLChatFilter {
 	readonly "@type": "chatFilter"
 	readonly title: string
 	readonly icon_name: string
@@ -1732,53 +896,53 @@ export interface TLChatFilter extends TLObject {
 	readonly include_groups: boolean
 	readonly include_channels: boolean
 }
-export interface TLChatFilterInfo extends TLObject {
+export interface TLChatFilterInfo {
 	readonly "@type": "chatFilterInfo"
 	readonly id: number
 	readonly title: string
 	readonly icon_name: string
 }
-export interface TLRecommendedChatFilter extends TLObject {
+export interface TLRecommendedChatFilter {
 	readonly "@type": "recommendedChatFilter"
 	readonly filter: TLChatFilter
 	readonly description: string
 }
-export interface TLRecommendedChatFilters extends TLObject {
+export interface TLRecommendedChatFilters {
 	readonly "@type": "recommendedChatFilters"
 	readonly chat_filters: ReadonlyArray<TLRecommendedChatFilter>
 }
-export interface TLChatListMain extends TLObject {
+export interface TLChatListMain {
 	readonly "@type": "chatListMain"
 }
-export interface TLChatListArchive extends TLObject {
+export interface TLChatListArchive {
 	readonly "@type": "chatListArchive"
 }
-export interface TLChatListFilter extends TLObject {
+export interface TLChatListFilter {
 	readonly "@type": "chatListFilter"
 	readonly chat_filter_id: number
 }
 export type TLChatList = TLChatListMain | TLChatListArchive | TLChatListFilter
-export interface TLChatLists extends TLObject {
+export interface TLChatLists {
 	readonly "@type": "chatLists"
 	readonly chat_lists: ReadonlyArray<TLChatList>
 }
-export interface TLChatSourceMtprotoProxy extends TLObject {
+export interface TLChatSourceMtprotoProxy {
 	readonly "@type": "chatSourceMtprotoProxy"
 }
-export interface TLChatSourcePublicServiceAnnouncement extends TLObject {
+export interface TLChatSourcePublicServiceAnnouncement {
 	readonly "@type": "chatSourcePublicServiceAnnouncement"
 	readonly type: string
 	readonly text: string
 }
 export type TLChatSource = TLChatSourceMtprotoProxy | TLChatSourcePublicServiceAnnouncement
-export interface TLChatPosition extends TLObject {
+export interface TLChatPosition {
 	readonly "@type": "chatPosition"
 	readonly list: TLChatList
 	readonly order: string
 	readonly is_pinned: boolean
 	readonly source: TLChatSource
 }
-export interface TLChat extends TLObject {
+export interface TLChat {
 	readonly "@type": "chat"
 	readonly id: number
 	readonly type: TLChatType
@@ -1804,26 +968,26 @@ export interface TLChat extends TLObject {
 	readonly draft_message: TLDraftMessage
 	readonly client_data: string
 }
-export interface TLChats extends TLObject {
+export interface TLChats {
 	readonly "@type": "chats"
 	readonly total_count: number
 	readonly chat_ids: ReadonlyArray<number>
 }
-export interface TLChatNearby extends TLObject {
+export interface TLChatNearby {
 	readonly "@type": "chatNearby"
 	readonly chat_id: number
 	readonly distance: number
 }
-export interface TLChatsNearby extends TLObject {
+export interface TLChatsNearby {
 	readonly "@type": "chatsNearby"
 	readonly users_nearby: ReadonlyArray<TLChatNearby>
 	readonly supergroups_nearby: ReadonlyArray<TLChatNearby>
 }
-export interface TLChatInviteLink extends TLObject {
+export interface TLChatInviteLink {
 	readonly "@type": "chatInviteLink"
 	readonly invite_link: string
 }
-export interface TLChatInviteLinkInfo extends TLObject {
+export interface TLChatInviteLinkInfo {
 	readonly "@type": "chatInviteLinkInfo"
 	readonly chat_id: number
 	readonly accessible_for: number
@@ -1834,113 +998,113 @@ export interface TLChatInviteLinkInfo extends TLObject {
 	readonly member_user_ids: ReadonlyArray<number>
 	readonly is_public: boolean
 }
-export interface TLPublicChatTypeHasUsername extends TLObject {
+export interface TLPublicChatTypeHasUsername {
 	readonly "@type": "publicChatTypeHasUsername"
 }
-export interface TLPublicChatTypeIsLocationBased extends TLObject {
+export interface TLPublicChatTypeIsLocationBased {
 	readonly "@type": "publicChatTypeIsLocationBased"
 }
 export type TLPublicChatType = TLPublicChatTypeHasUsername | TLPublicChatTypeIsLocationBased
-export interface TLChatActionBarReportSpam extends TLObject {
+export interface TLChatActionBarReportSpam {
 	readonly "@type": "chatActionBarReportSpam"
 	readonly can_unarchive: boolean
 }
-export interface TLChatActionBarReportUnrelatedLocation extends TLObject {
+export interface TLChatActionBarReportUnrelatedLocation {
 	readonly "@type": "chatActionBarReportUnrelatedLocation"
 }
-export interface TLChatActionBarReportAddBlock extends TLObject {
+export interface TLChatActionBarReportAddBlock {
 	readonly "@type": "chatActionBarReportAddBlock"
 	readonly can_unarchive: boolean
 	readonly distance: number
 }
-export interface TLChatActionBarAddContact extends TLObject {
+export interface TLChatActionBarAddContact {
 	readonly "@type": "chatActionBarAddContact"
 }
-export interface TLChatActionBarSharePhoneNumber extends TLObject {
+export interface TLChatActionBarSharePhoneNumber {
 	readonly "@type": "chatActionBarSharePhoneNumber"
 }
 export type TLChatActionBar = TLChatActionBarReportSpam | TLChatActionBarReportUnrelatedLocation | TLChatActionBarReportAddBlock | TLChatActionBarAddContact | TLChatActionBarSharePhoneNumber
-export interface TLKeyboardButtonTypeText extends TLObject {
+export interface TLKeyboardButtonTypeText {
 	readonly "@type": "keyboardButtonTypeText"
 }
-export interface TLKeyboardButtonTypeRequestPhoneNumber extends TLObject {
+export interface TLKeyboardButtonTypeRequestPhoneNumber {
 	readonly "@type": "keyboardButtonTypeRequestPhoneNumber"
 }
-export interface TLKeyboardButtonTypeRequestLocation extends TLObject {
+export interface TLKeyboardButtonTypeRequestLocation {
 	readonly "@type": "keyboardButtonTypeRequestLocation"
 }
-export interface TLKeyboardButtonTypeRequestPoll extends TLObject {
+export interface TLKeyboardButtonTypeRequestPoll {
 	readonly "@type": "keyboardButtonTypeRequestPoll"
 	readonly force_regular: boolean
 	readonly force_quiz: boolean
 }
 export type TLKeyboardButtonType = TLKeyboardButtonTypeText | TLKeyboardButtonTypeRequestPhoneNumber | TLKeyboardButtonTypeRequestLocation | TLKeyboardButtonTypeRequestPoll
-export interface TLKeyboardButton extends TLObject {
+export interface TLKeyboardButton {
 	readonly "@type": "keyboardButton"
 	readonly text: string
 	readonly type: TLKeyboardButtonType
 }
-export interface TLInlineKeyboardButtonTypeUrl extends TLObject {
+export interface TLInlineKeyboardButtonTypeUrl {
 	readonly "@type": "inlineKeyboardButtonTypeUrl"
 	readonly url: string
 }
-export interface TLInlineKeyboardButtonTypeLoginUrl extends TLObject {
+export interface TLInlineKeyboardButtonTypeLoginUrl {
 	readonly "@type": "inlineKeyboardButtonTypeLoginUrl"
 	readonly url: string
 	readonly id: number
 	readonly forward_text: string
 }
-export interface TLInlineKeyboardButtonTypeCallback extends TLObject {
+export interface TLInlineKeyboardButtonTypeCallback {
 	readonly "@type": "inlineKeyboardButtonTypeCallback"
 	readonly data: Uint8Array
 }
-export interface TLInlineKeyboardButtonTypeCallbackWithPassword extends TLObject {
+export interface TLInlineKeyboardButtonTypeCallbackWithPassword {
 	readonly "@type": "inlineKeyboardButtonTypeCallbackWithPassword"
 	readonly data: Uint8Array
 }
-export interface TLInlineKeyboardButtonTypeCallbackGame extends TLObject {
+export interface TLInlineKeyboardButtonTypeCallbackGame {
 	readonly "@type": "inlineKeyboardButtonTypeCallbackGame"
 }
-export interface TLInlineKeyboardButtonTypeSwitchInline extends TLObject {
+export interface TLInlineKeyboardButtonTypeSwitchInline {
 	readonly "@type": "inlineKeyboardButtonTypeSwitchInline"
 	readonly query: string
 	readonly in_current_chat: boolean
 }
-export interface TLInlineKeyboardButtonTypeBuy extends TLObject {
+export interface TLInlineKeyboardButtonTypeBuy {
 	readonly "@type": "inlineKeyboardButtonTypeBuy"
 }
 export type TLInlineKeyboardButtonType = TLInlineKeyboardButtonTypeUrl | TLInlineKeyboardButtonTypeLoginUrl | TLInlineKeyboardButtonTypeCallback | TLInlineKeyboardButtonTypeCallbackWithPassword | TLInlineKeyboardButtonTypeCallbackGame | TLInlineKeyboardButtonTypeSwitchInline | TLInlineKeyboardButtonTypeBuy
-export interface TLInlineKeyboardButton extends TLObject {
+export interface TLInlineKeyboardButton {
 	readonly "@type": "inlineKeyboardButton"
 	readonly text: string
 	readonly type: TLInlineKeyboardButtonType
 }
-export interface TLReplyMarkupRemoveKeyboard extends TLObject {
+export interface TLReplyMarkupRemoveKeyboard {
 	readonly "@type": "replyMarkupRemoveKeyboard"
 	readonly is_personal: boolean
 }
-export interface TLReplyMarkupForceReply extends TLObject {
+export interface TLReplyMarkupForceReply {
 	readonly "@type": "replyMarkupForceReply"
 	readonly is_personal: boolean
 }
-export interface TLReplyMarkupShowKeyboard extends TLObject {
+export interface TLReplyMarkupShowKeyboard {
 	readonly "@type": "replyMarkupShowKeyboard"
 	readonly rows: ReadonlyArray<ReadonlyArray<TLKeyboardButton>>
 	readonly resize_keyboard: boolean
 	readonly one_time: boolean
 	readonly is_personal: boolean
 }
-export interface TLReplyMarkupInlineKeyboard extends TLObject {
+export interface TLReplyMarkupInlineKeyboard {
 	readonly "@type": "replyMarkupInlineKeyboard"
 	readonly rows: ReadonlyArray<ReadonlyArray<TLInlineKeyboardButton>>
 }
 export type TLReplyMarkup = TLReplyMarkupRemoveKeyboard | TLReplyMarkupForceReply | TLReplyMarkupShowKeyboard | TLReplyMarkupInlineKeyboard
-export interface TLLoginUrlInfoOpen extends TLObject {
+export interface TLLoginUrlInfoOpen {
 	readonly "@type": "loginUrlInfoOpen"
 	readonly url: string
 	readonly skip_confirm: boolean
 }
-export interface TLLoginUrlInfoRequestConfirmation extends TLObject {
+export interface TLLoginUrlInfoRequestConfirmation {
 	readonly "@type": "loginUrlInfoRequestConfirmation"
 	readonly url: string
 	readonly domain: string
@@ -1948,7 +1112,7 @@ export interface TLLoginUrlInfoRequestConfirmation extends TLObject {
 	readonly request_write_access: boolean
 }
 export type TLLoginUrlInfo = TLLoginUrlInfoOpen | TLLoginUrlInfoRequestConfirmation
-export interface TLMessageThreadInfo extends TLObject {
+export interface TLMessageThreadInfo {
 	readonly "@type": "messageThreadInfo"
 	readonly chat_id: number
 	readonly message_thread_id: number
@@ -1956,116 +1120,116 @@ export interface TLMessageThreadInfo extends TLObject {
 	readonly messages: ReadonlyArray<TLMessage>
 	readonly draft_message: TLDraftMessage
 }
-export interface TLRichTextPlain extends TLObject {
+export interface TLRichTextPlain {
 	readonly "@type": "richTextPlain"
 	readonly text: string
 }
-export interface TLRichTextBold extends TLObject {
+export interface TLRichTextBold {
 	readonly "@type": "richTextBold"
 	readonly text: TLRichText
 }
-export interface TLRichTextItalic extends TLObject {
+export interface TLRichTextItalic {
 	readonly "@type": "richTextItalic"
 	readonly text: TLRichText
 }
-export interface TLRichTextUnderline extends TLObject {
+export interface TLRichTextUnderline {
 	readonly "@type": "richTextUnderline"
 	readonly text: TLRichText
 }
-export interface TLRichTextStrikethrough extends TLObject {
+export interface TLRichTextStrikethrough {
 	readonly "@type": "richTextStrikethrough"
 	readonly text: TLRichText
 }
-export interface TLRichTextFixed extends TLObject {
+export interface TLRichTextFixed {
 	readonly "@type": "richTextFixed"
 	readonly text: TLRichText
 }
-export interface TLRichTextUrl extends TLObject {
+export interface TLRichTextUrl {
 	readonly "@type": "richTextUrl"
 	readonly text: TLRichText
 	readonly url: string
 	readonly is_cached: boolean
 }
-export interface TLRichTextEmailAddress extends TLObject {
+export interface TLRichTextEmailAddress {
 	readonly "@type": "richTextEmailAddress"
 	readonly text: TLRichText
 	readonly email_address: string
 }
-export interface TLRichTextSubscript extends TLObject {
+export interface TLRichTextSubscript {
 	readonly "@type": "richTextSubscript"
 	readonly text: TLRichText
 }
-export interface TLRichTextSuperscript extends TLObject {
+export interface TLRichTextSuperscript {
 	readonly "@type": "richTextSuperscript"
 	readonly text: TLRichText
 }
-export interface TLRichTextMarked extends TLObject {
+export interface TLRichTextMarked {
 	readonly "@type": "richTextMarked"
 	readonly text: TLRichText
 }
-export interface TLRichTextPhoneNumber extends TLObject {
+export interface TLRichTextPhoneNumber {
 	readonly "@type": "richTextPhoneNumber"
 	readonly text: TLRichText
 	readonly phone_number: string
 }
-export interface TLRichTextIcon extends TLObject {
+export interface TLRichTextIcon {
 	readonly "@type": "richTextIcon"
 	readonly document: TLDocument
 	readonly width: number
 	readonly height: number
 }
-export interface TLRichTextReference extends TLObject {
+export interface TLRichTextReference {
 	readonly "@type": "richTextReference"
 	readonly text: TLRichText
 	readonly reference_text: TLRichText
 	readonly url: string
 }
-export interface TLRichTextAnchor extends TLObject {
+export interface TLRichTextAnchor {
 	readonly "@type": "richTextAnchor"
 	readonly name: string
 }
-export interface TLRichTextAnchorLink extends TLObject {
+export interface TLRichTextAnchorLink {
 	readonly "@type": "richTextAnchorLink"
 	readonly text: TLRichText
 	readonly name: string
 	readonly url: string
 }
-export interface TLRichTexts extends TLObject {
+export interface TLRichTexts {
 	readonly "@type": "richTexts"
 	readonly texts: ReadonlyArray<TLRichText>
 }
 export type TLRichText = TLRichTextPlain | TLRichTextBold | TLRichTextItalic | TLRichTextUnderline | TLRichTextStrikethrough | TLRichTextFixed | TLRichTextUrl | TLRichTextEmailAddress | TLRichTextSubscript | TLRichTextSuperscript | TLRichTextMarked | TLRichTextPhoneNumber | TLRichTextIcon | TLRichTextReference | TLRichTextAnchor | TLRichTextAnchorLink | TLRichTexts
-export interface TLPageBlockCaption extends TLObject {
+export interface TLPageBlockCaption {
 	readonly "@type": "pageBlockCaption"
 	readonly text: TLRichText
 	readonly credit: TLRichText
 }
-export interface TLPageBlockListItem extends TLObject {
+export interface TLPageBlockListItem {
 	readonly "@type": "pageBlockListItem"
 	readonly label: string
 	readonly page_blocks: ReadonlyArray<TLPageBlock>
 }
-export interface TLPageBlockHorizontalAlignmentLeft extends TLObject {
+export interface TLPageBlockHorizontalAlignmentLeft {
 	readonly "@type": "pageBlockHorizontalAlignmentLeft"
 }
-export interface TLPageBlockHorizontalAlignmentCenter extends TLObject {
+export interface TLPageBlockHorizontalAlignmentCenter {
 	readonly "@type": "pageBlockHorizontalAlignmentCenter"
 }
-export interface TLPageBlockHorizontalAlignmentRight extends TLObject {
+export interface TLPageBlockHorizontalAlignmentRight {
 	readonly "@type": "pageBlockHorizontalAlignmentRight"
 }
 export type TLPageBlockHorizontalAlignment = TLPageBlockHorizontalAlignmentLeft | TLPageBlockHorizontalAlignmentCenter | TLPageBlockHorizontalAlignmentRight
-export interface TLPageBlockVerticalAlignmentTop extends TLObject {
+export interface TLPageBlockVerticalAlignmentTop {
 	readonly "@type": "pageBlockVerticalAlignmentTop"
 }
-export interface TLPageBlockVerticalAlignmentMiddle extends TLObject {
+export interface TLPageBlockVerticalAlignmentMiddle {
 	readonly "@type": "pageBlockVerticalAlignmentMiddle"
 }
-export interface TLPageBlockVerticalAlignmentBottom extends TLObject {
+export interface TLPageBlockVerticalAlignmentBottom {
 	readonly "@type": "pageBlockVerticalAlignmentBottom"
 }
 export type TLPageBlockVerticalAlignment = TLPageBlockVerticalAlignmentTop | TLPageBlockVerticalAlignmentMiddle | TLPageBlockVerticalAlignmentBottom
-export interface TLPageBlockTableCell extends TLObject {
+export interface TLPageBlockTableCell {
 	readonly "@type": "pageBlockTableCell"
 	readonly text: TLRichText
 	readonly is_header: boolean
@@ -2074,7 +1238,7 @@ export interface TLPageBlockTableCell extends TLObject {
 	readonly align: TLPageBlockHorizontalAlignment
 	readonly valign: TLPageBlockVerticalAlignment
 }
-export interface TLPageBlockRelatedArticle extends TLObject {
+export interface TLPageBlockRelatedArticle {
 	readonly "@type": "pageBlockRelatedArticle"
 	readonly url: string
 	readonly title: string
@@ -2083,99 +1247,99 @@ export interface TLPageBlockRelatedArticle extends TLObject {
 	readonly author: string
 	readonly publish_date: number
 }
-export interface TLPageBlockTitle extends TLObject {
+export interface TLPageBlockTitle {
 	readonly "@type": "pageBlockTitle"
 	readonly title: TLRichText
 }
-export interface TLPageBlockSubtitle extends TLObject {
+export interface TLPageBlockSubtitle {
 	readonly "@type": "pageBlockSubtitle"
 	readonly subtitle: TLRichText
 }
-export interface TLPageBlockAuthorDate extends TLObject {
+export interface TLPageBlockAuthorDate {
 	readonly "@type": "pageBlockAuthorDate"
 	readonly author: TLRichText
 	readonly publish_date: number
 }
-export interface TLPageBlockHeader extends TLObject {
+export interface TLPageBlockHeader {
 	readonly "@type": "pageBlockHeader"
 	readonly header: TLRichText
 }
-export interface TLPageBlockSubheader extends TLObject {
+export interface TLPageBlockSubheader {
 	readonly "@type": "pageBlockSubheader"
 	readonly subheader: TLRichText
 }
-export interface TLPageBlockKicker extends TLObject {
+export interface TLPageBlockKicker {
 	readonly "@type": "pageBlockKicker"
 	readonly kicker: TLRichText
 }
-export interface TLPageBlockParagraph extends TLObject {
+export interface TLPageBlockParagraph {
 	readonly "@type": "pageBlockParagraph"
 	readonly text: TLRichText
 }
-export interface TLPageBlockPreformatted extends TLObject {
+export interface TLPageBlockPreformatted {
 	readonly "@type": "pageBlockPreformatted"
 	readonly text: TLRichText
 	readonly language: string
 }
-export interface TLPageBlockFooter extends TLObject {
+export interface TLPageBlockFooter {
 	readonly "@type": "pageBlockFooter"
 	readonly footer: TLRichText
 }
-export interface TLPageBlockDivider extends TLObject {
+export interface TLPageBlockDivider {
 	readonly "@type": "pageBlockDivider"
 }
-export interface TLPageBlockAnchor extends TLObject {
+export interface TLPageBlockAnchor {
 	readonly "@type": "pageBlockAnchor"
 	readonly name: string
 }
-export interface TLPageBlockList extends TLObject {
+export interface TLPageBlockList {
 	readonly "@type": "pageBlockList"
 	readonly items: ReadonlyArray<TLPageBlockListItem>
 }
-export interface TLPageBlockBlockQuote extends TLObject {
+export interface TLPageBlockBlockQuote {
 	readonly "@type": "pageBlockBlockQuote"
 	readonly text: TLRichText
 	readonly credit: TLRichText
 }
-export interface TLPageBlockPullQuote extends TLObject {
+export interface TLPageBlockPullQuote {
 	readonly "@type": "pageBlockPullQuote"
 	readonly text: TLRichText
 	readonly credit: TLRichText
 }
-export interface TLPageBlockAnimation extends TLObject {
+export interface TLPageBlockAnimation {
 	readonly "@type": "pageBlockAnimation"
 	readonly animation: TLAnimation
 	readonly caption: TLPageBlockCaption
 	readonly need_autoplay: boolean
 }
-export interface TLPageBlockAudio extends TLObject {
+export interface TLPageBlockAudio {
 	readonly "@type": "pageBlockAudio"
 	readonly audio: TLAudio
 	readonly caption: TLPageBlockCaption
 }
-export interface TLPageBlockPhoto extends TLObject {
+export interface TLPageBlockPhoto {
 	readonly "@type": "pageBlockPhoto"
 	readonly photo: TLPhoto
 	readonly caption: TLPageBlockCaption
 	readonly url: string
 }
-export interface TLPageBlockVideo extends TLObject {
+export interface TLPageBlockVideo {
 	readonly "@type": "pageBlockVideo"
 	readonly video: TLVideo
 	readonly caption: TLPageBlockCaption
 	readonly need_autoplay: boolean
 	readonly is_looped: boolean
 }
-export interface TLPageBlockVoiceNote extends TLObject {
+export interface TLPageBlockVoiceNote {
 	readonly "@type": "pageBlockVoiceNote"
 	readonly voice_note: TLVoiceNote
 	readonly caption: TLPageBlockCaption
 }
-export interface TLPageBlockCover extends TLObject {
+export interface TLPageBlockCover {
 	readonly "@type": "pageBlockCover"
 	readonly cover: TLPageBlock
 }
-export interface TLPageBlockEmbedded extends TLObject {
+export interface TLPageBlockEmbedded {
 	readonly "@type": "pageBlockEmbedded"
 	readonly url: string
 	readonly html: string
@@ -2186,7 +1350,7 @@ export interface TLPageBlockEmbedded extends TLObject {
 	readonly is_full_width: boolean
 	readonly allow_scrolling: boolean
 }
-export interface TLPageBlockEmbeddedPost extends TLObject {
+export interface TLPageBlockEmbeddedPost {
 	readonly "@type": "pageBlockEmbeddedPost"
 	readonly url: string
 	readonly author: string
@@ -2195,41 +1359,41 @@ export interface TLPageBlockEmbeddedPost extends TLObject {
 	readonly page_blocks: ReadonlyArray<TLPageBlock>
 	readonly caption: TLPageBlockCaption
 }
-export interface TLPageBlockCollage extends TLObject {
+export interface TLPageBlockCollage {
 	readonly "@type": "pageBlockCollage"
 	readonly page_blocks: ReadonlyArray<TLPageBlock>
 	readonly caption: TLPageBlockCaption
 }
-export interface TLPageBlockSlideshow extends TLObject {
+export interface TLPageBlockSlideshow {
 	readonly "@type": "pageBlockSlideshow"
 	readonly page_blocks: ReadonlyArray<TLPageBlock>
 	readonly caption: TLPageBlockCaption
 }
-export interface TLPageBlockChatLink extends TLObject {
+export interface TLPageBlockChatLink {
 	readonly "@type": "pageBlockChatLink"
 	readonly title: string
 	readonly photo: TLChatPhotoInfo
 	readonly username: string
 }
-export interface TLPageBlockTable extends TLObject {
+export interface TLPageBlockTable {
 	readonly "@type": "pageBlockTable"
 	readonly caption: TLRichText
 	readonly cells: ReadonlyArray<ReadonlyArray<TLPageBlockTableCell>>
 	readonly is_bordered: boolean
 	readonly is_striped: boolean
 }
-export interface TLPageBlockDetails extends TLObject {
+export interface TLPageBlockDetails {
 	readonly "@type": "pageBlockDetails"
 	readonly header: TLRichText
 	readonly page_blocks: ReadonlyArray<TLPageBlock>
 	readonly is_open: boolean
 }
-export interface TLPageBlockRelatedArticles extends TLObject {
+export interface TLPageBlockRelatedArticles {
 	readonly "@type": "pageBlockRelatedArticles"
 	readonly header: TLRichText
 	readonly articles: ReadonlyArray<TLPageBlockRelatedArticle>
 }
-export interface TLPageBlockMap extends TLObject {
+export interface TLPageBlockMap {
 	readonly "@type": "pageBlockMap"
 	readonly location: TLLocation
 	readonly zoom: number
@@ -2238,7 +1402,7 @@ export interface TLPageBlockMap extends TLObject {
 	readonly caption: TLPageBlockCaption
 }
 export type TLPageBlock = TLPageBlockTitle | TLPageBlockSubtitle | TLPageBlockAuthorDate | TLPageBlockHeader | TLPageBlockSubheader | TLPageBlockKicker | TLPageBlockParagraph | TLPageBlockPreformatted | TLPageBlockFooter | TLPageBlockDivider | TLPageBlockAnchor | TLPageBlockList | TLPageBlockBlockQuote | TLPageBlockPullQuote | TLPageBlockAnimation | TLPageBlockAudio | TLPageBlockPhoto | TLPageBlockVideo | TLPageBlockVoiceNote | TLPageBlockCover | TLPageBlockEmbedded | TLPageBlockEmbeddedPost | TLPageBlockCollage | TLPageBlockSlideshow | TLPageBlockChatLink | TLPageBlockTable | TLPageBlockDetails | TLPageBlockRelatedArticles | TLPageBlockMap
-export interface TLWebPageInstantView extends TLObject {
+export interface TLWebPageInstantView {
 	readonly "@type": "webPageInstantView"
 	readonly page_blocks: ReadonlyArray<TLPageBlock>
 	readonly view_count: number
@@ -2246,7 +1410,7 @@ export interface TLWebPageInstantView extends TLObject {
 	readonly is_rtl: boolean
 	readonly is_full: boolean
 }
-export interface TLWebPage extends TLObject {
+export interface TLWebPage {
 	readonly "@type": "webPage"
 	readonly url: string
 	readonly display_url: string
@@ -2270,7 +1434,7 @@ export interface TLWebPage extends TLObject {
 	readonly voice_note: TLVoiceNote
 	readonly instant_view_version: number
 }
-export interface TLCountryInfo extends TLObject {
+export interface TLCountryInfo {
 	readonly "@type": "countryInfo"
 	readonly country_code: string
 	readonly name: string
@@ -2278,27 +1442,27 @@ export interface TLCountryInfo extends TLObject {
 	readonly is_hidden: boolean
 	readonly calling_codes: ReadonlyArray<string>
 }
-export interface TLCountries extends TLObject {
+export interface TLCountries {
 	readonly "@type": "countries"
 	readonly countries: ReadonlyArray<TLCountryInfo>
 }
-export interface TLPhoneNumberInfo extends TLObject {
+export interface TLPhoneNumberInfo {
 	readonly "@type": "phoneNumberInfo"
 	readonly country: TLCountryInfo
 	readonly country_calling_code: string
 	readonly formatted_phone_number: string
 }
-export interface TLBankCardActionOpenUrl extends TLObject {
+export interface TLBankCardActionOpenUrl {
 	readonly "@type": "bankCardActionOpenUrl"
 	readonly text: string
 	readonly url: string
 }
-export interface TLBankCardInfo extends TLObject {
+export interface TLBankCardInfo {
 	readonly "@type": "bankCardInfo"
 	readonly title: string
 	readonly actions: ReadonlyArray<TLBankCardActionOpenUrl>
 }
-export interface TLAddress extends TLObject {
+export interface TLAddress {
 	readonly "@type": "address"
 	readonly country_code: string
 	readonly state: string
@@ -2307,12 +1471,12 @@ export interface TLAddress extends TLObject {
 	readonly street_line2: string
 	readonly postal_code: string
 }
-export interface TLLabeledPricePart extends TLObject {
+export interface TLLabeledPricePart {
 	readonly "@type": "labeledPricePart"
 	readonly label: string
 	readonly amount: number
 }
-export interface TLInvoice extends TLObject {
+export interface TLInvoice {
 	readonly "@type": "invoice"
 	readonly currency: string
 	readonly price_parts: ReadonlyArray<TLLabeledPricePart>
@@ -2325,50 +1489,50 @@ export interface TLInvoice extends TLObject {
 	readonly send_email_address_to_provider: boolean
 	readonly is_flexible: boolean
 }
-export interface TLOrderInfo extends TLObject {
+export interface TLOrderInfo {
 	readonly "@type": "orderInfo"
 	readonly name: string
 	readonly phone_number: string
 	readonly email_address: string
 	readonly shipping_address: TLAddress
 }
-export interface TLShippingOption extends TLObject {
+export interface TLShippingOption {
 	readonly "@type": "shippingOption"
 	readonly id: string
 	readonly title: string
 	readonly price_parts: ReadonlyArray<TLLabeledPricePart>
 }
-export interface TLSavedCredentials extends TLObject {
+export interface TLSavedCredentials {
 	readonly "@type": "savedCredentials"
 	readonly id: string
 	readonly title: string
 }
-export interface TLInputCredentialsSaved extends TLObject {
+export interface TLInputCredentialsSaved {
 	readonly "@type": "inputCredentialsSaved"
 	readonly saved_credentials_id: string
 }
-export interface TLInputCredentialsNew extends TLObject {
+export interface TLInputCredentialsNew {
 	readonly "@type": "inputCredentialsNew"
 	readonly data: string
 	readonly allow_save: boolean
 }
-export interface TLInputCredentialsAndroidPay extends TLObject {
+export interface TLInputCredentialsAndroidPay {
 	readonly "@type": "inputCredentialsAndroidPay"
 	readonly data: string
 }
-export interface TLInputCredentialsApplePay extends TLObject {
+export interface TLInputCredentialsApplePay {
 	readonly "@type": "inputCredentialsApplePay"
 	readonly data: string
 }
 export type TLInputCredentials = TLInputCredentialsSaved | TLInputCredentialsNew | TLInputCredentialsAndroidPay | TLInputCredentialsApplePay
-export interface TLPaymentsProviderStripe extends TLObject {
+export interface TLPaymentsProviderStripe {
 	readonly "@type": "paymentsProviderStripe"
 	readonly publishable_key: string
 	readonly need_country: boolean
 	readonly need_postal_code: boolean
 	readonly need_cardholder_name: boolean
 }
-export interface TLPaymentForm extends TLObject {
+export interface TLPaymentForm {
 	readonly "@type": "paymentForm"
 	readonly invoice: TLInvoice
 	readonly url: string
@@ -2378,17 +1542,17 @@ export interface TLPaymentForm extends TLObject {
 	readonly can_save_credentials: boolean
 	readonly need_password: boolean
 }
-export interface TLValidatedOrderInfo extends TLObject {
+export interface TLValidatedOrderInfo {
 	readonly "@type": "validatedOrderInfo"
 	readonly order_info_id: string
 	readonly shipping_options: ReadonlyArray<TLShippingOption>
 }
-export interface TLPaymentResult extends TLObject {
+export interface TLPaymentResult {
 	readonly "@type": "paymentResult"
 	readonly success: boolean
 	readonly verification_url: string
 }
-export interface TLPaymentReceipt extends TLObject {
+export interface TLPaymentReceipt {
 	readonly "@type": "paymentReceipt"
 	readonly date: number
 	readonly payments_provider_user_id: number
@@ -2397,58 +1561,58 @@ export interface TLPaymentReceipt extends TLObject {
 	readonly shipping_option: TLShippingOption
 	readonly credentials_title: string
 }
-export interface TLDatedFile extends TLObject {
+export interface TLDatedFile {
 	readonly "@type": "datedFile"
 	readonly file: TLFile
 	readonly date: number
 }
-export interface TLPassportElementTypePersonalDetails extends TLObject {
+export interface TLPassportElementTypePersonalDetails {
 	readonly "@type": "passportElementTypePersonalDetails"
 }
-export interface TLPassportElementTypePassport extends TLObject {
+export interface TLPassportElementTypePassport {
 	readonly "@type": "passportElementTypePassport"
 }
-export interface TLPassportElementTypeDriverLicense extends TLObject {
+export interface TLPassportElementTypeDriverLicense {
 	readonly "@type": "passportElementTypeDriverLicense"
 }
-export interface TLPassportElementTypeIdentityCard extends TLObject {
+export interface TLPassportElementTypeIdentityCard {
 	readonly "@type": "passportElementTypeIdentityCard"
 }
-export interface TLPassportElementTypeInternalPassport extends TLObject {
+export interface TLPassportElementTypeInternalPassport {
 	readonly "@type": "passportElementTypeInternalPassport"
 }
-export interface TLPassportElementTypeAddress extends TLObject {
+export interface TLPassportElementTypeAddress {
 	readonly "@type": "passportElementTypeAddress"
 }
-export interface TLPassportElementTypeUtilityBill extends TLObject {
+export interface TLPassportElementTypeUtilityBill {
 	readonly "@type": "passportElementTypeUtilityBill"
 }
-export interface TLPassportElementTypeBankStatement extends TLObject {
+export interface TLPassportElementTypeBankStatement {
 	readonly "@type": "passportElementTypeBankStatement"
 }
-export interface TLPassportElementTypeRentalAgreement extends TLObject {
+export interface TLPassportElementTypeRentalAgreement {
 	readonly "@type": "passportElementTypeRentalAgreement"
 }
-export interface TLPassportElementTypePassportRegistration extends TLObject {
+export interface TLPassportElementTypePassportRegistration {
 	readonly "@type": "passportElementTypePassportRegistration"
 }
-export interface TLPassportElementTypeTemporaryRegistration extends TLObject {
+export interface TLPassportElementTypeTemporaryRegistration {
 	readonly "@type": "passportElementTypeTemporaryRegistration"
 }
-export interface TLPassportElementTypePhoneNumber extends TLObject {
+export interface TLPassportElementTypePhoneNumber {
 	readonly "@type": "passportElementTypePhoneNumber"
 }
-export interface TLPassportElementTypeEmailAddress extends TLObject {
+export interface TLPassportElementTypeEmailAddress {
 	readonly "@type": "passportElementTypeEmailAddress"
 }
 export type TLPassportElementType = TLPassportElementTypePersonalDetails | TLPassportElementTypePassport | TLPassportElementTypeDriverLicense | TLPassportElementTypeIdentityCard | TLPassportElementTypeInternalPassport | TLPassportElementTypeAddress | TLPassportElementTypeUtilityBill | TLPassportElementTypeBankStatement | TLPassportElementTypeRentalAgreement | TLPassportElementTypePassportRegistration | TLPassportElementTypeTemporaryRegistration | TLPassportElementTypePhoneNumber | TLPassportElementTypeEmailAddress
-export interface TLDate extends TLObject {
+export interface TLDate {
 	readonly "@type": "date"
 	readonly day: number
 	readonly month: number
 	readonly year: number
 }
-export interface TLPersonalDetails extends TLObject {
+export interface TLPersonalDetails {
 	readonly "@type": "personalDetails"
 	readonly first_name: string
 	readonly middle_name: string
@@ -2461,7 +1625,7 @@ export interface TLPersonalDetails extends TLObject {
 	readonly country_code: string
 	readonly residence_country_code: string
 }
-export interface TLIdentityDocument extends TLObject {
+export interface TLIdentityDocument {
 	readonly "@type": "identityDocument"
 	readonly number: string
 	readonly expiry_date: TLDate
@@ -2470,7 +1634,7 @@ export interface TLIdentityDocument extends TLObject {
 	readonly selfie: TLDatedFile
 	readonly translation: ReadonlyArray<TLDatedFile>
 }
-export interface TLInputIdentityDocument extends TLObject {
+export interface TLInputIdentityDocument {
 	readonly "@type": "inputIdentityDocument"
 	readonly number: string
 	readonly expiry_date: TLDate
@@ -2479,192 +1643,192 @@ export interface TLInputIdentityDocument extends TLObject {
 	readonly selfie: TLInputFile
 	readonly translation: ReadonlyArray<TLInputFile>
 }
-export interface TLPersonalDocument extends TLObject {
+export interface TLPersonalDocument {
 	readonly "@type": "personalDocument"
 	readonly files: ReadonlyArray<TLDatedFile>
 	readonly translation: ReadonlyArray<TLDatedFile>
 }
-export interface TLInputPersonalDocument extends TLObject {
+export interface TLInputPersonalDocument {
 	readonly "@type": "inputPersonalDocument"
 	readonly files: ReadonlyArray<TLInputFile>
 	readonly translation: ReadonlyArray<TLInputFile>
 }
-export interface TLPassportElementPersonalDetails extends TLObject {
+export interface TLPassportElementPersonalDetails {
 	readonly "@type": "passportElementPersonalDetails"
 	readonly personal_details: TLPersonalDetails
 }
-export interface TLPassportElementPassport extends TLObject {
+export interface TLPassportElementPassport {
 	readonly "@type": "passportElementPassport"
 	readonly passport: TLIdentityDocument
 }
-export interface TLPassportElementDriverLicense extends TLObject {
+export interface TLPassportElementDriverLicense {
 	readonly "@type": "passportElementDriverLicense"
 	readonly driver_license: TLIdentityDocument
 }
-export interface TLPassportElementIdentityCard extends TLObject {
+export interface TLPassportElementIdentityCard {
 	readonly "@type": "passportElementIdentityCard"
 	readonly identity_card: TLIdentityDocument
 }
-export interface TLPassportElementInternalPassport extends TLObject {
+export interface TLPassportElementInternalPassport {
 	readonly "@type": "passportElementInternalPassport"
 	readonly internal_passport: TLIdentityDocument
 }
-export interface TLPassportElementAddress extends TLObject {
+export interface TLPassportElementAddress {
 	readonly "@type": "passportElementAddress"
 	readonly address: TLAddress
 }
-export interface TLPassportElementUtilityBill extends TLObject {
+export interface TLPassportElementUtilityBill {
 	readonly "@type": "passportElementUtilityBill"
 	readonly utility_bill: TLPersonalDocument
 }
-export interface TLPassportElementBankStatement extends TLObject {
+export interface TLPassportElementBankStatement {
 	readonly "@type": "passportElementBankStatement"
 	readonly bank_statement: TLPersonalDocument
 }
-export interface TLPassportElementRentalAgreement extends TLObject {
+export interface TLPassportElementRentalAgreement {
 	readonly "@type": "passportElementRentalAgreement"
 	readonly rental_agreement: TLPersonalDocument
 }
-export interface TLPassportElementPassportRegistration extends TLObject {
+export interface TLPassportElementPassportRegistration {
 	readonly "@type": "passportElementPassportRegistration"
 	readonly passport_registration: TLPersonalDocument
 }
-export interface TLPassportElementTemporaryRegistration extends TLObject {
+export interface TLPassportElementTemporaryRegistration {
 	readonly "@type": "passportElementTemporaryRegistration"
 	readonly temporary_registration: TLPersonalDocument
 }
-export interface TLPassportElementPhoneNumber extends TLObject {
+export interface TLPassportElementPhoneNumber {
 	readonly "@type": "passportElementPhoneNumber"
 	readonly phone_number: string
 }
-export interface TLPassportElementEmailAddress extends TLObject {
+export interface TLPassportElementEmailAddress {
 	readonly "@type": "passportElementEmailAddress"
 	readonly email_address: string
 }
 export type TLPassportElement = TLPassportElementPersonalDetails | TLPassportElementPassport | TLPassportElementDriverLicense | TLPassportElementIdentityCard | TLPassportElementInternalPassport | TLPassportElementAddress | TLPassportElementUtilityBill | TLPassportElementBankStatement | TLPassportElementRentalAgreement | TLPassportElementPassportRegistration | TLPassportElementTemporaryRegistration | TLPassportElementPhoneNumber | TLPassportElementEmailAddress
-export interface TLInputPassportElementPersonalDetails extends TLObject {
+export interface TLInputPassportElementPersonalDetails {
 	readonly "@type": "inputPassportElementPersonalDetails"
 	readonly personal_details: TLPersonalDetails
 }
-export interface TLInputPassportElementPassport extends TLObject {
+export interface TLInputPassportElementPassport {
 	readonly "@type": "inputPassportElementPassport"
 	readonly passport: TLInputIdentityDocument
 }
-export interface TLInputPassportElementDriverLicense extends TLObject {
+export interface TLInputPassportElementDriverLicense {
 	readonly "@type": "inputPassportElementDriverLicense"
 	readonly driver_license: TLInputIdentityDocument
 }
-export interface TLInputPassportElementIdentityCard extends TLObject {
+export interface TLInputPassportElementIdentityCard {
 	readonly "@type": "inputPassportElementIdentityCard"
 	readonly identity_card: TLInputIdentityDocument
 }
-export interface TLInputPassportElementInternalPassport extends TLObject {
+export interface TLInputPassportElementInternalPassport {
 	readonly "@type": "inputPassportElementInternalPassport"
 	readonly internal_passport: TLInputIdentityDocument
 }
-export interface TLInputPassportElementAddress extends TLObject {
+export interface TLInputPassportElementAddress {
 	readonly "@type": "inputPassportElementAddress"
 	readonly address: TLAddress
 }
-export interface TLInputPassportElementUtilityBill extends TLObject {
+export interface TLInputPassportElementUtilityBill {
 	readonly "@type": "inputPassportElementUtilityBill"
 	readonly utility_bill: TLInputPersonalDocument
 }
-export interface TLInputPassportElementBankStatement extends TLObject {
+export interface TLInputPassportElementBankStatement {
 	readonly "@type": "inputPassportElementBankStatement"
 	readonly bank_statement: TLInputPersonalDocument
 }
-export interface TLInputPassportElementRentalAgreement extends TLObject {
+export interface TLInputPassportElementRentalAgreement {
 	readonly "@type": "inputPassportElementRentalAgreement"
 	readonly rental_agreement: TLInputPersonalDocument
 }
-export interface TLInputPassportElementPassportRegistration extends TLObject {
+export interface TLInputPassportElementPassportRegistration {
 	readonly "@type": "inputPassportElementPassportRegistration"
 	readonly passport_registration: TLInputPersonalDocument
 }
-export interface TLInputPassportElementTemporaryRegistration extends TLObject {
+export interface TLInputPassportElementTemporaryRegistration {
 	readonly "@type": "inputPassportElementTemporaryRegistration"
 	readonly temporary_registration: TLInputPersonalDocument
 }
-export interface TLInputPassportElementPhoneNumber extends TLObject {
+export interface TLInputPassportElementPhoneNumber {
 	readonly "@type": "inputPassportElementPhoneNumber"
 	readonly phone_number: string
 }
-export interface TLInputPassportElementEmailAddress extends TLObject {
+export interface TLInputPassportElementEmailAddress {
 	readonly "@type": "inputPassportElementEmailAddress"
 	readonly email_address: string
 }
 export type TLInputPassportElement = TLInputPassportElementPersonalDetails | TLInputPassportElementPassport | TLInputPassportElementDriverLicense | TLInputPassportElementIdentityCard | TLInputPassportElementInternalPassport | TLInputPassportElementAddress | TLInputPassportElementUtilityBill | TLInputPassportElementBankStatement | TLInputPassportElementRentalAgreement | TLInputPassportElementPassportRegistration | TLInputPassportElementTemporaryRegistration | TLInputPassportElementPhoneNumber | TLInputPassportElementEmailAddress
-export interface TLPassportElements extends TLObject {
+export interface TLPassportElements {
 	readonly "@type": "passportElements"
 	readonly elements: ReadonlyArray<TLPassportElement>
 }
-export interface TLPassportElementErrorSourceUnspecified extends TLObject {
+export interface TLPassportElementErrorSourceUnspecified {
 	readonly "@type": "passportElementErrorSourceUnspecified"
 }
-export interface TLPassportElementErrorSourceDataField extends TLObject {
+export interface TLPassportElementErrorSourceDataField {
 	readonly "@type": "passportElementErrorSourceDataField"
 	readonly field_name: string
 }
-export interface TLPassportElementErrorSourceFrontSide extends TLObject {
+export interface TLPassportElementErrorSourceFrontSide {
 	readonly "@type": "passportElementErrorSourceFrontSide"
 }
-export interface TLPassportElementErrorSourceReverseSide extends TLObject {
+export interface TLPassportElementErrorSourceReverseSide {
 	readonly "@type": "passportElementErrorSourceReverseSide"
 }
-export interface TLPassportElementErrorSourceSelfie extends TLObject {
+export interface TLPassportElementErrorSourceSelfie {
 	readonly "@type": "passportElementErrorSourceSelfie"
 }
-export interface TLPassportElementErrorSourceTranslationFile extends TLObject {
+export interface TLPassportElementErrorSourceTranslationFile {
 	readonly "@type": "passportElementErrorSourceTranslationFile"
 	readonly file_index: number
 }
-export interface TLPassportElementErrorSourceTranslationFiles extends TLObject {
+export interface TLPassportElementErrorSourceTranslationFiles {
 	readonly "@type": "passportElementErrorSourceTranslationFiles"
 }
-export interface TLPassportElementErrorSourceFile extends TLObject {
+export interface TLPassportElementErrorSourceFile {
 	readonly "@type": "passportElementErrorSourceFile"
 	readonly file_index: number
 }
-export interface TLPassportElementErrorSourceFiles extends TLObject {
+export interface TLPassportElementErrorSourceFiles {
 	readonly "@type": "passportElementErrorSourceFiles"
 }
 export type TLPassportElementErrorSource = TLPassportElementErrorSourceUnspecified | TLPassportElementErrorSourceDataField | TLPassportElementErrorSourceFrontSide | TLPassportElementErrorSourceReverseSide | TLPassportElementErrorSourceSelfie | TLPassportElementErrorSourceTranslationFile | TLPassportElementErrorSourceTranslationFiles | TLPassportElementErrorSourceFile | TLPassportElementErrorSourceFiles
-export interface TLPassportElementError extends TLObject {
+export interface TLPassportElementError {
 	readonly "@type": "passportElementError"
 	readonly type: TLPassportElementType
 	readonly message: string
 	readonly source: TLPassportElementErrorSource
 }
-export interface TLPassportSuitableElement extends TLObject {
+export interface TLPassportSuitableElement {
 	readonly "@type": "passportSuitableElement"
 	readonly type: TLPassportElementType
 	readonly is_selfie_required: boolean
 	readonly is_translation_required: boolean
 	readonly is_native_name_required: boolean
 }
-export interface TLPassportRequiredElement extends TLObject {
+export interface TLPassportRequiredElement {
 	readonly "@type": "passportRequiredElement"
 	readonly suitable_elements: ReadonlyArray<TLPassportSuitableElement>
 }
-export interface TLPassportAuthorizationForm extends TLObject {
+export interface TLPassportAuthorizationForm {
 	readonly "@type": "passportAuthorizationForm"
 	readonly id: number
 	readonly required_elements: ReadonlyArray<TLPassportRequiredElement>
 	readonly privacy_policy_url: string
 }
-export interface TLPassportElementsWithErrors extends TLObject {
+export interface TLPassportElementsWithErrors {
 	readonly "@type": "passportElementsWithErrors"
 	readonly elements: ReadonlyArray<TLPassportElement>
 	readonly errors: ReadonlyArray<TLPassportElementError>
 }
-export interface TLEncryptedCredentials extends TLObject {
+export interface TLEncryptedCredentials {
 	readonly "@type": "encryptedCredentials"
 	readonly data: Uint8Array
 	readonly hash: Uint8Array
 	readonly secret: Uint8Array
 }
-export interface TLEncryptedPassportElement extends TLObject {
+export interface TLEncryptedPassportElement {
 	readonly "@type": "encryptedPassportElement"
 	readonly type: TLPassportElementType
 	readonly data: Uint8Array
@@ -2676,106 +1840,106 @@ export interface TLEncryptedPassportElement extends TLObject {
 	readonly value: string
 	readonly hash: string
 }
-export interface TLInputPassportElementErrorSourceUnspecified extends TLObject {
+export interface TLInputPassportElementErrorSourceUnspecified {
 	readonly "@type": "inputPassportElementErrorSourceUnspecified"
 	readonly element_hash: Uint8Array
 }
-export interface TLInputPassportElementErrorSourceDataField extends TLObject {
+export interface TLInputPassportElementErrorSourceDataField {
 	readonly "@type": "inputPassportElementErrorSourceDataField"
 	readonly field_name: string
 	readonly data_hash: Uint8Array
 }
-export interface TLInputPassportElementErrorSourceFrontSide extends TLObject {
+export interface TLInputPassportElementErrorSourceFrontSide {
 	readonly "@type": "inputPassportElementErrorSourceFrontSide"
 	readonly file_hash: Uint8Array
 }
-export interface TLInputPassportElementErrorSourceReverseSide extends TLObject {
+export interface TLInputPassportElementErrorSourceReverseSide {
 	readonly "@type": "inputPassportElementErrorSourceReverseSide"
 	readonly file_hash: Uint8Array
 }
-export interface TLInputPassportElementErrorSourceSelfie extends TLObject {
+export interface TLInputPassportElementErrorSourceSelfie {
 	readonly "@type": "inputPassportElementErrorSourceSelfie"
 	readonly file_hash: Uint8Array
 }
-export interface TLInputPassportElementErrorSourceTranslationFile extends TLObject {
+export interface TLInputPassportElementErrorSourceTranslationFile {
 	readonly "@type": "inputPassportElementErrorSourceTranslationFile"
 	readonly file_hash: Uint8Array
 }
-export interface TLInputPassportElementErrorSourceTranslationFiles extends TLObject {
+export interface TLInputPassportElementErrorSourceTranslationFiles {
 	readonly "@type": "inputPassportElementErrorSourceTranslationFiles"
 	readonly file_hashes: ReadonlyArray<Uint8Array>
 }
-export interface TLInputPassportElementErrorSourceFile extends TLObject {
+export interface TLInputPassportElementErrorSourceFile {
 	readonly "@type": "inputPassportElementErrorSourceFile"
 	readonly file_hash: Uint8Array
 }
-export interface TLInputPassportElementErrorSourceFiles extends TLObject {
+export interface TLInputPassportElementErrorSourceFiles {
 	readonly "@type": "inputPassportElementErrorSourceFiles"
 	readonly file_hashes: ReadonlyArray<Uint8Array>
 }
 export type TLInputPassportElementErrorSource = TLInputPassportElementErrorSourceUnspecified | TLInputPassportElementErrorSourceDataField | TLInputPassportElementErrorSourceFrontSide | TLInputPassportElementErrorSourceReverseSide | TLInputPassportElementErrorSourceSelfie | TLInputPassportElementErrorSourceTranslationFile | TLInputPassportElementErrorSourceTranslationFiles | TLInputPassportElementErrorSourceFile | TLInputPassportElementErrorSourceFiles
-export interface TLInputPassportElementError extends TLObject {
+export interface TLInputPassportElementError {
 	readonly "@type": "inputPassportElementError"
 	readonly type: TLPassportElementType
 	readonly message: string
 	readonly source: TLInputPassportElementErrorSource
 }
-export interface TLMessageText extends TLObject {
+export interface TLMessageText {
 	readonly "@type": "messageText"
 	readonly text: TLFormattedText
 	readonly web_page: TLWebPage
 }
-export interface TLMessageAnimation extends TLObject {
+export interface TLMessageAnimation {
 	readonly "@type": "messageAnimation"
 	readonly animation: TLAnimation
 	readonly caption: TLFormattedText
 	readonly is_secret: boolean
 }
-export interface TLMessageAudio extends TLObject {
+export interface TLMessageAudio {
 	readonly "@type": "messageAudio"
 	readonly audio: TLAudio
 	readonly caption: TLFormattedText
 }
-export interface TLMessageDocument extends TLObject {
+export interface TLMessageDocument {
 	readonly "@type": "messageDocument"
 	readonly document: TLDocument
 	readonly caption: TLFormattedText
 }
-export interface TLMessagePhoto extends TLObject {
+export interface TLMessagePhoto {
 	readonly "@type": "messagePhoto"
 	readonly photo: TLPhoto
 	readonly caption: TLFormattedText
 	readonly is_secret: boolean
 }
-export interface TLMessageExpiredPhoto extends TLObject {
+export interface TLMessageExpiredPhoto {
 	readonly "@type": "messageExpiredPhoto"
 }
-export interface TLMessageSticker extends TLObject {
+export interface TLMessageSticker {
 	readonly "@type": "messageSticker"
 	readonly sticker: TLSticker
 }
-export interface TLMessageVideo extends TLObject {
+export interface TLMessageVideo {
 	readonly "@type": "messageVideo"
 	readonly video: TLVideo
 	readonly caption: TLFormattedText
 	readonly is_secret: boolean
 }
-export interface TLMessageExpiredVideo extends TLObject {
+export interface TLMessageExpiredVideo {
 	readonly "@type": "messageExpiredVideo"
 }
-export interface TLMessageVideoNote extends TLObject {
+export interface TLMessageVideoNote {
 	readonly "@type": "messageVideoNote"
 	readonly video_note: TLVideoNote
 	readonly is_viewed: boolean
 	readonly is_secret: boolean
 }
-export interface TLMessageVoiceNote extends TLObject {
+export interface TLMessageVoiceNote {
 	readonly "@type": "messageVoiceNote"
 	readonly voice_note: TLVoiceNote
 	readonly caption: TLFormattedText
 	readonly is_listened: boolean
 }
-export interface TLMessageLocation extends TLObject {
+export interface TLMessageLocation {
 	readonly "@type": "messageLocation"
 	readonly location: TLLocation
 	readonly live_period: number
@@ -2783,15 +1947,15 @@ export interface TLMessageLocation extends TLObject {
 	readonly heading: number
 	readonly proximity_alert_radius: number
 }
-export interface TLMessageVenue extends TLObject {
+export interface TLMessageVenue {
 	readonly "@type": "messageVenue"
 	readonly venue: TLVenue
 }
-export interface TLMessageContact extends TLObject {
+export interface TLMessageContact {
 	readonly "@type": "messageContact"
 	readonly contact: TLContact
 }
-export interface TLMessageDice extends TLObject {
+export interface TLMessageDice {
 	readonly "@type": "messageDice"
 	readonly initial_state: TLDiceStickers
 	readonly final_state: TLDiceStickers
@@ -2799,15 +1963,15 @@ export interface TLMessageDice extends TLObject {
 	readonly value: number
 	readonly success_animation_frame_number: number
 }
-export interface TLMessageGame extends TLObject {
+export interface TLMessageGame {
 	readonly "@type": "messageGame"
 	readonly game: TLGame
 }
-export interface TLMessagePoll extends TLObject {
+export interface TLMessagePoll {
 	readonly "@type": "messagePoll"
 	readonly poll: TLPoll
 }
-export interface TLMessageInvoice extends TLObject {
+export interface TLMessageInvoice {
 	readonly "@type": "messageInvoice"
 	readonly title: string
 	readonly description: string
@@ -2819,80 +1983,80 @@ export interface TLMessageInvoice extends TLObject {
 	readonly need_shipping_address: boolean
 	readonly receipt_message_id: number
 }
-export interface TLMessageCall extends TLObject {
+export interface TLMessageCall {
 	readonly "@type": "messageCall"
 	readonly is_video: boolean
 	readonly discard_reason: TLCallDiscardReason
 	readonly duration: number
 }
-export interface TLMessageBasicGroupChatCreate extends TLObject {
+export interface TLMessageBasicGroupChatCreate {
 	readonly "@type": "messageBasicGroupChatCreate"
 	readonly title: string
 	readonly member_user_ids: ReadonlyArray<number>
 }
-export interface TLMessageSupergroupChatCreate extends TLObject {
+export interface TLMessageSupergroupChatCreate {
 	readonly "@type": "messageSupergroupChatCreate"
 	readonly title: string
 }
-export interface TLMessageChatChangeTitle extends TLObject {
+export interface TLMessageChatChangeTitle {
 	readonly "@type": "messageChatChangeTitle"
 	readonly title: string
 }
-export interface TLMessageChatChangePhoto extends TLObject {
+export interface TLMessageChatChangePhoto {
 	readonly "@type": "messageChatChangePhoto"
 	readonly photo: TLChatPhoto
 }
-export interface TLMessageChatDeletePhoto extends TLObject {
+export interface TLMessageChatDeletePhoto {
 	readonly "@type": "messageChatDeletePhoto"
 }
-export interface TLMessageChatAddMembers extends TLObject {
+export interface TLMessageChatAddMembers {
 	readonly "@type": "messageChatAddMembers"
 	readonly member_user_ids: ReadonlyArray<number>
 }
-export interface TLMessageChatJoinByLink extends TLObject {
+export interface TLMessageChatJoinByLink {
 	readonly "@type": "messageChatJoinByLink"
 }
-export interface TLMessageChatDeleteMember extends TLObject {
+export interface TLMessageChatDeleteMember {
 	readonly "@type": "messageChatDeleteMember"
 	readonly user_id: number
 }
-export interface TLMessageChatUpgradeTo extends TLObject {
+export interface TLMessageChatUpgradeTo {
 	readonly "@type": "messageChatUpgradeTo"
 	readonly supergroup_id: number
 }
-export interface TLMessageChatUpgradeFrom extends TLObject {
+export interface TLMessageChatUpgradeFrom {
 	readonly "@type": "messageChatUpgradeFrom"
 	readonly title: string
 	readonly basic_group_id: number
 }
-export interface TLMessagePinMessage extends TLObject {
+export interface TLMessagePinMessage {
 	readonly "@type": "messagePinMessage"
 	readonly message_id: number
 }
-export interface TLMessageScreenshotTaken extends TLObject {
+export interface TLMessageScreenshotTaken {
 	readonly "@type": "messageScreenshotTaken"
 }
-export interface TLMessageChatSetTtl extends TLObject {
+export interface TLMessageChatSetTtl {
 	readonly "@type": "messageChatSetTtl"
 	readonly ttl: number
 }
-export interface TLMessageCustomServiceAction extends TLObject {
+export interface TLMessageCustomServiceAction {
 	readonly "@type": "messageCustomServiceAction"
 	readonly text: string
 }
-export interface TLMessageGameScore extends TLObject {
+export interface TLMessageGameScore {
 	readonly "@type": "messageGameScore"
 	readonly game_message_id: number
 	readonly game_id: string
 	readonly score: number
 }
-export interface TLMessagePaymentSuccessful extends TLObject {
+export interface TLMessagePaymentSuccessful {
 	readonly "@type": "messagePaymentSuccessful"
 	readonly invoice_message_id: number
 	readonly currency: string
 	readonly total_amount: number
 }
-export interface TLMessagePaymentSuccessfulBot extends TLObject {
+export interface TLMessagePaymentSuccessfulBot {
 	readonly "@type": "messagePaymentSuccessfulBot"
 	readonly invoice_message_id: number
 	readonly currency: string
@@ -2903,120 +2067,120 @@ export interface TLMessagePaymentSuccessfulBot extends TLObject {
 	readonly telegram_payment_charge_id: string
 	readonly provider_payment_charge_id: string
 }
-export interface TLMessageContactRegistered extends TLObject {
+export interface TLMessageContactRegistered {
 	readonly "@type": "messageContactRegistered"
 }
-export interface TLMessageWebsiteConnected extends TLObject {
+export interface TLMessageWebsiteConnected {
 	readonly "@type": "messageWebsiteConnected"
 	readonly domain_name: string
 }
-export interface TLMessagePassportDataSent extends TLObject {
+export interface TLMessagePassportDataSent {
 	readonly "@type": "messagePassportDataSent"
 	readonly types: ReadonlyArray<TLPassportElementType>
 }
-export interface TLMessagePassportDataReceived extends TLObject {
+export interface TLMessagePassportDataReceived {
 	readonly "@type": "messagePassportDataReceived"
 	readonly elements: ReadonlyArray<TLEncryptedPassportElement>
 	readonly credentials: TLEncryptedCredentials
 }
-export interface TLMessageProximityAlertTriggered extends TLObject {
+export interface TLMessageProximityAlertTriggered {
 	readonly "@type": "messageProximityAlertTriggered"
 	readonly approacher: TLMessageSender
 	readonly observer: TLMessageSender
 	readonly distance: number
 }
-export interface TLMessageUnsupported extends TLObject {
+export interface TLMessageUnsupported {
 	readonly "@type": "messageUnsupported"
 }
 export type TLMessageContent = TLMessageText | TLMessageAnimation | TLMessageAudio | TLMessageDocument | TLMessagePhoto | TLMessageExpiredPhoto | TLMessageSticker | TLMessageVideo | TLMessageExpiredVideo | TLMessageVideoNote | TLMessageVoiceNote | TLMessageLocation | TLMessageVenue | TLMessageContact | TLMessageDice | TLMessageGame | TLMessagePoll | TLMessageInvoice | TLMessageCall | TLMessageBasicGroupChatCreate | TLMessageSupergroupChatCreate | TLMessageChatChangeTitle | TLMessageChatChangePhoto | TLMessageChatDeletePhoto | TLMessageChatAddMembers | TLMessageChatJoinByLink | TLMessageChatDeleteMember | TLMessageChatUpgradeTo | TLMessageChatUpgradeFrom | TLMessagePinMessage | TLMessageScreenshotTaken | TLMessageChatSetTtl | TLMessageCustomServiceAction | TLMessageGameScore | TLMessagePaymentSuccessful | TLMessagePaymentSuccessfulBot | TLMessageContactRegistered | TLMessageWebsiteConnected | TLMessagePassportDataSent | TLMessagePassportDataReceived | TLMessageProximityAlertTriggered | TLMessageUnsupported
-export interface TLTextEntityTypeMention extends TLObject {
+export interface TLTextEntityTypeMention {
 	readonly "@type": "textEntityTypeMention"
 }
-export interface TLTextEntityTypeHashtag extends TLObject {
+export interface TLTextEntityTypeHashtag {
 	readonly "@type": "textEntityTypeHashtag"
 }
-export interface TLTextEntityTypeCashtag extends TLObject {
+export interface TLTextEntityTypeCashtag {
 	readonly "@type": "textEntityTypeCashtag"
 }
-export interface TLTextEntityTypeBotCommand extends TLObject {
+export interface TLTextEntityTypeBotCommand {
 	readonly "@type": "textEntityTypeBotCommand"
 }
-export interface TLTextEntityTypeUrl extends TLObject {
+export interface TLTextEntityTypeUrl {
 	readonly "@type": "textEntityTypeUrl"
 }
-export interface TLTextEntityTypeEmailAddress extends TLObject {
+export interface TLTextEntityTypeEmailAddress {
 	readonly "@type": "textEntityTypeEmailAddress"
 }
-export interface TLTextEntityTypePhoneNumber extends TLObject {
+export interface TLTextEntityTypePhoneNumber {
 	readonly "@type": "textEntityTypePhoneNumber"
 }
-export interface TLTextEntityTypeBankCardNumber extends TLObject {
+export interface TLTextEntityTypeBankCardNumber {
 	readonly "@type": "textEntityTypeBankCardNumber"
 }
-export interface TLTextEntityTypeBold extends TLObject {
+export interface TLTextEntityTypeBold {
 	readonly "@type": "textEntityTypeBold"
 }
-export interface TLTextEntityTypeItalic extends TLObject {
+export interface TLTextEntityTypeItalic {
 	readonly "@type": "textEntityTypeItalic"
 }
-export interface TLTextEntityTypeUnderline extends TLObject {
+export interface TLTextEntityTypeUnderline {
 	readonly "@type": "textEntityTypeUnderline"
 }
-export interface TLTextEntityTypeStrikethrough extends TLObject {
+export interface TLTextEntityTypeStrikethrough {
 	readonly "@type": "textEntityTypeStrikethrough"
 }
-export interface TLTextEntityTypeCode extends TLObject {
+export interface TLTextEntityTypeCode {
 	readonly "@type": "textEntityTypeCode"
 }
-export interface TLTextEntityTypePre extends TLObject {
+export interface TLTextEntityTypePre {
 	readonly "@type": "textEntityTypePre"
 }
-export interface TLTextEntityTypePreCode extends TLObject {
+export interface TLTextEntityTypePreCode {
 	readonly "@type": "textEntityTypePreCode"
 	readonly language: string
 }
-export interface TLTextEntityTypeTextUrl extends TLObject {
+export interface TLTextEntityTypeTextUrl {
 	readonly "@type": "textEntityTypeTextUrl"
 	readonly url: string
 }
-export interface TLTextEntityTypeMentionName extends TLObject {
+export interface TLTextEntityTypeMentionName {
 	readonly "@type": "textEntityTypeMentionName"
 	readonly user_id: number
 }
 export type TLTextEntityType = TLTextEntityTypeMention | TLTextEntityTypeHashtag | TLTextEntityTypeCashtag | TLTextEntityTypeBotCommand | TLTextEntityTypeUrl | TLTextEntityTypeEmailAddress | TLTextEntityTypePhoneNumber | TLTextEntityTypeBankCardNumber | TLTextEntityTypeBold | TLTextEntityTypeItalic | TLTextEntityTypeUnderline | TLTextEntityTypeStrikethrough | TLTextEntityTypeCode | TLTextEntityTypePre | TLTextEntityTypePreCode | TLTextEntityTypeTextUrl | TLTextEntityTypeMentionName
-export interface TLInputThumbnail extends TLObject {
+export interface TLInputThumbnail {
 	readonly "@type": "inputThumbnail"
 	readonly thumbnail: TLInputFile
 	readonly width: number
 	readonly height: number
 }
-export interface TLMessageSchedulingStateSendAtDate extends TLObject {
+export interface TLMessageSchedulingStateSendAtDate {
 	readonly "@type": "messageSchedulingStateSendAtDate"
 	readonly send_date: number
 }
-export interface TLMessageSchedulingStateSendWhenOnline extends TLObject {
+export interface TLMessageSchedulingStateSendWhenOnline {
 	readonly "@type": "messageSchedulingStateSendWhenOnline"
 }
 export type TLMessageSchedulingState = TLMessageSchedulingStateSendAtDate | TLMessageSchedulingStateSendWhenOnline
-export interface TLMessageSendOptions extends TLObject {
+export interface TLMessageSendOptions {
 	readonly "@type": "messageSendOptions"
 	readonly disable_notification: boolean
 	readonly from_background: boolean
 	readonly scheduling_state: TLMessageSchedulingState
 }
-export interface TLMessageCopyOptions extends TLObject {
+export interface TLMessageCopyOptions {
 	readonly "@type": "messageCopyOptions"
 	readonly send_copy: boolean
 	readonly replace_caption: boolean
 	readonly new_caption: TLFormattedText
 }
-export interface TLInputMessageText extends TLObject {
+export interface TLInputMessageText {
 	readonly "@type": "inputMessageText"
 	readonly text: TLFormattedText
 	readonly disable_web_page_preview: boolean
 	readonly clear_draft: boolean
 }
-export interface TLInputMessageAnimation extends TLObject {
+export interface TLInputMessageAnimation {
 	readonly "@type": "inputMessageAnimation"
 	readonly animation: TLInputFile
 	readonly thumbnail: TLInputThumbnail
@@ -3026,7 +2190,7 @@ export interface TLInputMessageAnimation extends TLObject {
 	readonly height: number
 	readonly caption: TLFormattedText
 }
-export interface TLInputMessageAudio extends TLObject {
+export interface TLInputMessageAudio {
 	readonly "@type": "inputMessageAudio"
 	readonly audio: TLInputFile
 	readonly album_cover_thumbnail: TLInputThumbnail
@@ -3035,14 +2199,14 @@ export interface TLInputMessageAudio extends TLObject {
 	readonly performer: string
 	readonly caption: TLFormattedText
 }
-export interface TLInputMessageDocument extends TLObject {
+export interface TLInputMessageDocument {
 	readonly "@type": "inputMessageDocument"
 	readonly document: TLInputFile
 	readonly thumbnail: TLInputThumbnail
 	readonly disable_content_type_detection: boolean
 	readonly caption: TLFormattedText
 }
-export interface TLInputMessagePhoto extends TLObject {
+export interface TLInputMessagePhoto {
 	readonly "@type": "inputMessagePhoto"
 	readonly photo: TLInputFile
 	readonly thumbnail: TLInputThumbnail
@@ -3052,14 +2216,14 @@ export interface TLInputMessagePhoto extends TLObject {
 	readonly caption: TLFormattedText
 	readonly ttl: number
 }
-export interface TLInputMessageSticker extends TLObject {
+export interface TLInputMessageSticker {
 	readonly "@type": "inputMessageSticker"
 	readonly sticker: TLInputFile
 	readonly thumbnail: TLInputThumbnail
 	readonly width: number
 	readonly height: number
 }
-export interface TLInputMessageVideo extends TLObject {
+export interface TLInputMessageVideo {
 	readonly "@type": "inputMessageVideo"
 	readonly video: TLInputFile
 	readonly thumbnail: TLInputThumbnail
@@ -3071,46 +2235,46 @@ export interface TLInputMessageVideo extends TLObject {
 	readonly caption: TLFormattedText
 	readonly ttl: number
 }
-export interface TLInputMessageVideoNote extends TLObject {
+export interface TLInputMessageVideoNote {
 	readonly "@type": "inputMessageVideoNote"
 	readonly video_note: TLInputFile
 	readonly thumbnail: TLInputThumbnail
 	readonly duration: number
 	readonly length: number
 }
-export interface TLInputMessageVoiceNote extends TLObject {
+export interface TLInputMessageVoiceNote {
 	readonly "@type": "inputMessageVoiceNote"
 	readonly voice_note: TLInputFile
 	readonly duration: number
 	readonly waveform: Uint8Array
 	readonly caption: TLFormattedText
 }
-export interface TLInputMessageLocation extends TLObject {
+export interface TLInputMessageLocation {
 	readonly "@type": "inputMessageLocation"
 	readonly location: TLLocation
 	readonly live_period: number
 	readonly heading: number
 	readonly proximity_alert_radius: number
 }
-export interface TLInputMessageVenue extends TLObject {
+export interface TLInputMessageVenue {
 	readonly "@type": "inputMessageVenue"
 	readonly venue: TLVenue
 }
-export interface TLInputMessageContact extends TLObject {
+export interface TLInputMessageContact {
 	readonly "@type": "inputMessageContact"
 	readonly contact: TLContact
 }
-export interface TLInputMessageDice extends TLObject {
+export interface TLInputMessageDice {
 	readonly "@type": "inputMessageDice"
 	readonly emoji: string
 	readonly clear_draft: boolean
 }
-export interface TLInputMessageGame extends TLObject {
+export interface TLInputMessageGame {
 	readonly "@type": "inputMessageGame"
 	readonly bot_user_id: number
 	readonly game_short_name: string
 }
-export interface TLInputMessageInvoice extends TLObject {
+export interface TLInputMessageInvoice {
 	readonly "@type": "inputMessageInvoice"
 	readonly invoice: TLInvoice
 	readonly title: string
@@ -3124,7 +2288,7 @@ export interface TLInputMessageInvoice extends TLObject {
 	readonly provider_data: string
 	readonly start_parameter: string
 }
-export interface TLInputMessagePoll extends TLObject {
+export interface TLInputMessagePoll {
 	readonly "@type": "inputMessagePoll"
 	readonly question: string
 	readonly options: ReadonlyArray<string>
@@ -3134,7 +2298,7 @@ export interface TLInputMessagePoll extends TLObject {
 	readonly close_date: number
 	readonly is_closed: boolean
 }
-export interface TLInputMessageForwarded extends TLObject {
+export interface TLInputMessageForwarded {
 	readonly "@type": "inputMessageForwarded"
 	readonly from_chat_id: number
 	readonly message_id: number
@@ -3142,136 +2306,136 @@ export interface TLInputMessageForwarded extends TLObject {
 	readonly copy_options: TLMessageCopyOptions
 }
 export type TLInputMessageContent = TLInputMessageText | TLInputMessageAnimation | TLInputMessageAudio | TLInputMessageDocument | TLInputMessagePhoto | TLInputMessageSticker | TLInputMessageVideo | TLInputMessageVideoNote | TLInputMessageVoiceNote | TLInputMessageLocation | TLInputMessageVenue | TLInputMessageContact | TLInputMessageDice | TLInputMessageGame | TLInputMessageInvoice | TLInputMessagePoll | TLInputMessageForwarded
-export interface TLSearchMessagesFilterEmpty extends TLObject {
+export interface TLSearchMessagesFilterEmpty {
 	readonly "@type": "searchMessagesFilterEmpty"
 }
-export interface TLSearchMessagesFilterAnimation extends TLObject {
+export interface TLSearchMessagesFilterAnimation {
 	readonly "@type": "searchMessagesFilterAnimation"
 }
-export interface TLSearchMessagesFilterAudio extends TLObject {
+export interface TLSearchMessagesFilterAudio {
 	readonly "@type": "searchMessagesFilterAudio"
 }
-export interface TLSearchMessagesFilterDocument extends TLObject {
+export interface TLSearchMessagesFilterDocument {
 	readonly "@type": "searchMessagesFilterDocument"
 }
-export interface TLSearchMessagesFilterPhoto extends TLObject {
+export interface TLSearchMessagesFilterPhoto {
 	readonly "@type": "searchMessagesFilterPhoto"
 }
-export interface TLSearchMessagesFilterVideo extends TLObject {
+export interface TLSearchMessagesFilterVideo {
 	readonly "@type": "searchMessagesFilterVideo"
 }
-export interface TLSearchMessagesFilterVoiceNote extends TLObject {
+export interface TLSearchMessagesFilterVoiceNote {
 	readonly "@type": "searchMessagesFilterVoiceNote"
 }
-export interface TLSearchMessagesFilterPhotoAndVideo extends TLObject {
+export interface TLSearchMessagesFilterPhotoAndVideo {
 	readonly "@type": "searchMessagesFilterPhotoAndVideo"
 }
-export interface TLSearchMessagesFilterUrl extends TLObject {
+export interface TLSearchMessagesFilterUrl {
 	readonly "@type": "searchMessagesFilterUrl"
 }
-export interface TLSearchMessagesFilterChatPhoto extends TLObject {
+export interface TLSearchMessagesFilterChatPhoto {
 	readonly "@type": "searchMessagesFilterChatPhoto"
 }
-export interface TLSearchMessagesFilterCall extends TLObject {
+export interface TLSearchMessagesFilterCall {
 	readonly "@type": "searchMessagesFilterCall"
 }
-export interface TLSearchMessagesFilterMissedCall extends TLObject {
+export interface TLSearchMessagesFilterMissedCall {
 	readonly "@type": "searchMessagesFilterMissedCall"
 }
-export interface TLSearchMessagesFilterVideoNote extends TLObject {
+export interface TLSearchMessagesFilterVideoNote {
 	readonly "@type": "searchMessagesFilterVideoNote"
 }
-export interface TLSearchMessagesFilterVoiceAndVideoNote extends TLObject {
+export interface TLSearchMessagesFilterVoiceAndVideoNote {
 	readonly "@type": "searchMessagesFilterVoiceAndVideoNote"
 }
-export interface TLSearchMessagesFilterMention extends TLObject {
+export interface TLSearchMessagesFilterMention {
 	readonly "@type": "searchMessagesFilterMention"
 }
-export interface TLSearchMessagesFilterUnreadMention extends TLObject {
+export interface TLSearchMessagesFilterUnreadMention {
 	readonly "@type": "searchMessagesFilterUnreadMention"
 }
-export interface TLSearchMessagesFilterFailedToSend extends TLObject {
+export interface TLSearchMessagesFilterFailedToSend {
 	readonly "@type": "searchMessagesFilterFailedToSend"
 }
-export interface TLSearchMessagesFilterPinned extends TLObject {
+export interface TLSearchMessagesFilterPinned {
 	readonly "@type": "searchMessagesFilterPinned"
 }
 export type TLSearchMessagesFilter = TLSearchMessagesFilterEmpty | TLSearchMessagesFilterAnimation | TLSearchMessagesFilterAudio | TLSearchMessagesFilterDocument | TLSearchMessagesFilterPhoto | TLSearchMessagesFilterVideo | TLSearchMessagesFilterVoiceNote | TLSearchMessagesFilterPhotoAndVideo | TLSearchMessagesFilterUrl | TLSearchMessagesFilterChatPhoto | TLSearchMessagesFilterCall | TLSearchMessagesFilterMissedCall | TLSearchMessagesFilterVideoNote | TLSearchMessagesFilterVoiceAndVideoNote | TLSearchMessagesFilterMention | TLSearchMessagesFilterUnreadMention | TLSearchMessagesFilterFailedToSend | TLSearchMessagesFilterPinned
-export interface TLChatActionTyping extends TLObject {
+export interface TLChatActionTyping {
 	readonly "@type": "chatActionTyping"
 }
-export interface TLChatActionRecordingVideo extends TLObject {
+export interface TLChatActionRecordingVideo {
 	readonly "@type": "chatActionRecordingVideo"
 }
-export interface TLChatActionUploadingVideo extends TLObject {
+export interface TLChatActionUploadingVideo {
 	readonly "@type": "chatActionUploadingVideo"
 	readonly progress: number
 }
-export interface TLChatActionRecordingVoiceNote extends TLObject {
+export interface TLChatActionRecordingVoiceNote {
 	readonly "@type": "chatActionRecordingVoiceNote"
 }
-export interface TLChatActionUploadingVoiceNote extends TLObject {
+export interface TLChatActionUploadingVoiceNote {
 	readonly "@type": "chatActionUploadingVoiceNote"
 	readonly progress: number
 }
-export interface TLChatActionUploadingPhoto extends TLObject {
+export interface TLChatActionUploadingPhoto {
 	readonly "@type": "chatActionUploadingPhoto"
 	readonly progress: number
 }
-export interface TLChatActionUploadingDocument extends TLObject {
+export interface TLChatActionUploadingDocument {
 	readonly "@type": "chatActionUploadingDocument"
 	readonly progress: number
 }
-export interface TLChatActionChoosingLocation extends TLObject {
+export interface TLChatActionChoosingLocation {
 	readonly "@type": "chatActionChoosingLocation"
 }
-export interface TLChatActionChoosingContact extends TLObject {
+export interface TLChatActionChoosingContact {
 	readonly "@type": "chatActionChoosingContact"
 }
-export interface TLChatActionStartPlayingGame extends TLObject {
+export interface TLChatActionStartPlayingGame {
 	readonly "@type": "chatActionStartPlayingGame"
 }
-export interface TLChatActionRecordingVideoNote extends TLObject {
+export interface TLChatActionRecordingVideoNote {
 	readonly "@type": "chatActionRecordingVideoNote"
 }
-export interface TLChatActionUploadingVideoNote extends TLObject {
+export interface TLChatActionUploadingVideoNote {
 	readonly "@type": "chatActionUploadingVideoNote"
 	readonly progress: number
 }
-export interface TLChatActionCancel extends TLObject {
+export interface TLChatActionCancel {
 	readonly "@type": "chatActionCancel"
 }
 export type TLChatAction = TLChatActionTyping | TLChatActionRecordingVideo | TLChatActionUploadingVideo | TLChatActionRecordingVoiceNote | TLChatActionUploadingVoiceNote | TLChatActionUploadingPhoto | TLChatActionUploadingDocument | TLChatActionChoosingLocation | TLChatActionChoosingContact | TLChatActionStartPlayingGame | TLChatActionRecordingVideoNote | TLChatActionUploadingVideoNote | TLChatActionCancel
-export interface TLUserStatusEmpty extends TLObject {
+export interface TLUserStatusEmpty {
 	readonly "@type": "userStatusEmpty"
 }
-export interface TLUserStatusOnline extends TLObject {
+export interface TLUserStatusOnline {
 	readonly "@type": "userStatusOnline"
 	readonly expires: number
 }
-export interface TLUserStatusOffline extends TLObject {
+export interface TLUserStatusOffline {
 	readonly "@type": "userStatusOffline"
 	readonly was_online: number
 }
-export interface TLUserStatusRecently extends TLObject {
+export interface TLUserStatusRecently {
 	readonly "@type": "userStatusRecently"
 }
-export interface TLUserStatusLastWeek extends TLObject {
+export interface TLUserStatusLastWeek {
 	readonly "@type": "userStatusLastWeek"
 }
-export interface TLUserStatusLastMonth extends TLObject {
+export interface TLUserStatusLastMonth {
 	readonly "@type": "userStatusLastMonth"
 }
 export type TLUserStatus = TLUserStatusEmpty | TLUserStatusOnline | TLUserStatusOffline | TLUserStatusRecently | TLUserStatusLastWeek | TLUserStatusLastMonth
-export interface TLStickers extends TLObject {
+export interface TLStickers {
 	readonly "@type": "stickers"
 	readonly stickers: ReadonlyArray<TLSticker>
 }
-export interface TLEmojis extends TLObject {
+export interface TLEmojis {
 	readonly "@type": "emojis"
 	readonly emojis: ReadonlyArray<string>
 }
-export interface TLStickerSet extends TLObject {
+export interface TLStickerSet {
 	readonly "@type": "stickerSet"
 	readonly id: string
 	readonly title: string
@@ -3286,7 +2450,7 @@ export interface TLStickerSet extends TLObject {
 	readonly stickers: ReadonlyArray<TLSticker>
 	readonly emojis: ReadonlyArray<TLEmojis>
 }
-export interface TLStickerSetInfo extends TLObject {
+export interface TLStickerSetInfo {
 	readonly "@type": "stickerSetInfo"
 	readonly id: string
 	readonly title: string
@@ -3301,28 +2465,28 @@ export interface TLStickerSetInfo extends TLObject {
 	readonly size: number
 	readonly covers: ReadonlyArray<TLSticker>
 }
-export interface TLStickerSets extends TLObject {
+export interface TLStickerSets {
 	readonly "@type": "stickerSets"
 	readonly total_count: number
 	readonly sets: ReadonlyArray<TLStickerSetInfo>
 }
-export interface TLCallDiscardReasonEmpty extends TLObject {
+export interface TLCallDiscardReasonEmpty {
 	readonly "@type": "callDiscardReasonEmpty"
 }
-export interface TLCallDiscardReasonMissed extends TLObject {
+export interface TLCallDiscardReasonMissed {
 	readonly "@type": "callDiscardReasonMissed"
 }
-export interface TLCallDiscardReasonDeclined extends TLObject {
+export interface TLCallDiscardReasonDeclined {
 	readonly "@type": "callDiscardReasonDeclined"
 }
-export interface TLCallDiscardReasonDisconnected extends TLObject {
+export interface TLCallDiscardReasonDisconnected {
 	readonly "@type": "callDiscardReasonDisconnected"
 }
-export interface TLCallDiscardReasonHungUp extends TLObject {
+export interface TLCallDiscardReasonHungUp {
 	readonly "@type": "callDiscardReasonHungUp"
 }
 export type TLCallDiscardReason = TLCallDiscardReasonEmpty | TLCallDiscardReasonMissed | TLCallDiscardReasonDeclined | TLCallDiscardReasonDisconnected | TLCallDiscardReasonHungUp
-export interface TLCallProtocol extends TLObject {
+export interface TLCallProtocol {
 	readonly "@type": "callProtocol"
 	readonly udp_p2p: boolean
 	readonly udp_reflector: boolean
@@ -3330,11 +2494,11 @@ export interface TLCallProtocol extends TLObject {
 	readonly max_layer: number
 	readonly library_versions: ReadonlyArray<string>
 }
-export interface TLCallServerTypeTelegramReflector extends TLObject {
+export interface TLCallServerTypeTelegramReflector {
 	readonly "@type": "callServerTypeTelegramReflector"
 	readonly peer_tag: Uint8Array
 }
-export interface TLCallServerTypeWebrtc extends TLObject {
+export interface TLCallServerTypeWebrtc {
 	readonly "@type": "callServerTypeWebrtc"
 	readonly username: string
 	readonly password: string
@@ -3342,7 +2506,7 @@ export interface TLCallServerTypeWebrtc extends TLObject {
 	readonly supports_stun: boolean
 }
 export type TLCallServerType = TLCallServerTypeTelegramReflector | TLCallServerTypeWebrtc
-export interface TLCallServer extends TLObject {
+export interface TLCallServer {
 	readonly "@type": "callServer"
 	readonly id: string
 	readonly ip_address: string
@@ -3350,19 +2514,19 @@ export interface TLCallServer extends TLObject {
 	readonly port: number
 	readonly type: TLCallServerType
 }
-export interface TLCallId extends TLObject {
+export interface TLCallId {
 	readonly "@type": "callId"
 	readonly id: number
 }
-export interface TLCallStatePending extends TLObject {
+export interface TLCallStatePending {
 	readonly "@type": "callStatePending"
 	readonly is_created: boolean
 	readonly is_received: boolean
 }
-export interface TLCallStateExchangingKeys extends TLObject {
+export interface TLCallStateExchangingKeys {
 	readonly "@type": "callStateExchangingKeys"
 }
-export interface TLCallStateReady extends TLObject {
+export interface TLCallStateReady {
 	readonly "@type": "callStateReady"
 	readonly protocol: TLCallProtocol
 	readonly servers: ReadonlyArray<TLCallServer>
@@ -3371,49 +2535,49 @@ export interface TLCallStateReady extends TLObject {
 	readonly emojis: ReadonlyArray<string>
 	readonly allow_p2p: boolean
 }
-export interface TLCallStateHangingUp extends TLObject {
+export interface TLCallStateHangingUp {
 	readonly "@type": "callStateHangingUp"
 }
-export interface TLCallStateDiscarded extends TLObject {
+export interface TLCallStateDiscarded {
 	readonly "@type": "callStateDiscarded"
 	readonly reason: TLCallDiscardReason
 	readonly need_rating: boolean
 	readonly need_debug_information: boolean
 }
-export interface TLCallStateError extends TLObject {
+export interface TLCallStateError {
 	readonly "@type": "callStateError"
 	readonly error: TLError
 }
 export type TLCallState = TLCallStatePending | TLCallStateExchangingKeys | TLCallStateReady | TLCallStateHangingUp | TLCallStateDiscarded | TLCallStateError
-export interface TLCallProblemEcho extends TLObject {
+export interface TLCallProblemEcho {
 	readonly "@type": "callProblemEcho"
 }
-export interface TLCallProblemNoise extends TLObject {
+export interface TLCallProblemNoise {
 	readonly "@type": "callProblemNoise"
 }
-export interface TLCallProblemInterruptions extends TLObject {
+export interface TLCallProblemInterruptions {
 	readonly "@type": "callProblemInterruptions"
 }
-export interface TLCallProblemDistortedSpeech extends TLObject {
+export interface TLCallProblemDistortedSpeech {
 	readonly "@type": "callProblemDistortedSpeech"
 }
-export interface TLCallProblemSilentLocal extends TLObject {
+export interface TLCallProblemSilentLocal {
 	readonly "@type": "callProblemSilentLocal"
 }
-export interface TLCallProblemSilentRemote extends TLObject {
+export interface TLCallProblemSilentRemote {
 	readonly "@type": "callProblemSilentRemote"
 }
-export interface TLCallProblemDropped extends TLObject {
+export interface TLCallProblemDropped {
 	readonly "@type": "callProblemDropped"
 }
-export interface TLCallProblemDistortedVideo extends TLObject {
+export interface TLCallProblemDistortedVideo {
 	readonly "@type": "callProblemDistortedVideo"
 }
-export interface TLCallProblemPixelatedVideo extends TLObject {
+export interface TLCallProblemPixelatedVideo {
 	readonly "@type": "callProblemPixelatedVideo"
 }
 export type TLCallProblem = TLCallProblemEcho | TLCallProblemNoise | TLCallProblemInterruptions | TLCallProblemDistortedSpeech | TLCallProblemSilentLocal | TLCallProblemSilentRemote | TLCallProblemDropped | TLCallProblemDistortedVideo | TLCallProblemPixelatedVideo
-export interface TLCall extends TLObject {
+export interface TLCall {
 	readonly "@type": "call"
 	readonly id: number
 	readonly user_id: number
@@ -3421,21 +2585,21 @@ export interface TLCall extends TLObject {
 	readonly is_video: boolean
 	readonly state: TLCallState
 }
-export interface TLPhoneNumberAuthenticationSettings extends TLObject {
+export interface TLPhoneNumberAuthenticationSettings {
 	readonly "@type": "phoneNumberAuthenticationSettings"
 	readonly allow_flash_call: boolean
 	readonly is_current_phone_number: boolean
 	readonly allow_sms_retriever_api: boolean
 }
-export interface TLAnimations extends TLObject {
+export interface TLAnimations {
 	readonly "@type": "animations"
 	readonly animations: ReadonlyArray<TLAnimation>
 }
-export interface TLDiceStickersRegular extends TLObject {
+export interface TLDiceStickersRegular {
 	readonly "@type": "diceStickersRegular"
 	readonly sticker: TLSticker
 }
-export interface TLDiceStickersSlotMachine extends TLObject {
+export interface TLDiceStickersSlotMachine {
 	readonly "@type": "diceStickersSlotMachine"
 	readonly background: TLSticker
 	readonly lever: TLSticker
@@ -3444,16 +2608,16 @@ export interface TLDiceStickersSlotMachine extends TLObject {
 	readonly right_reel: TLSticker
 }
 export type TLDiceStickers = TLDiceStickersRegular | TLDiceStickersSlotMachine
-export interface TLImportedContacts extends TLObject {
+export interface TLImportedContacts {
 	readonly "@type": "importedContacts"
 	readonly user_ids: ReadonlyArray<number>
 	readonly importer_count: ReadonlyArray<number>
 }
-export interface TLHttpUrl extends TLObject {
+export interface TLHttpUrl {
 	readonly "@type": "httpUrl"
 	readonly url: string
 }
-export interface TLInputInlineQueryResultAnimation extends TLObject {
+export interface TLInputInlineQueryResultAnimation {
 	readonly "@type": "inputInlineQueryResultAnimation"
 	readonly id: string
 	readonly title: string
@@ -3467,7 +2631,7 @@ export interface TLInputInlineQueryResultAnimation extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultArticle extends TLObject {
+export interface TLInputInlineQueryResultArticle {
 	readonly "@type": "inputInlineQueryResultArticle"
 	readonly id: string
 	readonly url: string
@@ -3480,7 +2644,7 @@ export interface TLInputInlineQueryResultArticle extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultAudio extends TLObject {
+export interface TLInputInlineQueryResultAudio {
 	readonly "@type": "inputInlineQueryResultAudio"
 	readonly id: string
 	readonly title: string
@@ -3490,7 +2654,7 @@ export interface TLInputInlineQueryResultAudio extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultContact extends TLObject {
+export interface TLInputInlineQueryResultContact {
 	readonly "@type": "inputInlineQueryResultContact"
 	readonly id: string
 	readonly contact: TLContact
@@ -3500,7 +2664,7 @@ export interface TLInputInlineQueryResultContact extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultDocument extends TLObject {
+export interface TLInputInlineQueryResultDocument {
 	readonly "@type": "inputInlineQueryResultDocument"
 	readonly id: string
 	readonly title: string
@@ -3513,13 +2677,13 @@ export interface TLInputInlineQueryResultDocument extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultGame extends TLObject {
+export interface TLInputInlineQueryResultGame {
 	readonly "@type": "inputInlineQueryResultGame"
 	readonly id: string
 	readonly game_short_name: string
 	readonly reply_markup: TLReplyMarkup
 }
-export interface TLInputInlineQueryResultLocation extends TLObject {
+export interface TLInputInlineQueryResultLocation {
 	readonly "@type": "inputInlineQueryResultLocation"
 	readonly id: string
 	readonly location: TLLocation
@@ -3531,7 +2695,7 @@ export interface TLInputInlineQueryResultLocation extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultPhoto extends TLObject {
+export interface TLInputInlineQueryResultPhoto {
 	readonly "@type": "inputInlineQueryResultPhoto"
 	readonly id: string
 	readonly title: string
@@ -3543,7 +2707,7 @@ export interface TLInputInlineQueryResultPhoto extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultSticker extends TLObject {
+export interface TLInputInlineQueryResultSticker {
 	readonly "@type": "inputInlineQueryResultSticker"
 	readonly id: string
 	readonly thumbnail_url: string
@@ -3553,7 +2717,7 @@ export interface TLInputInlineQueryResultSticker extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultVenue extends TLObject {
+export interface TLInputInlineQueryResultVenue {
 	readonly "@type": "inputInlineQueryResultVenue"
 	readonly id: string
 	readonly venue: TLVenue
@@ -3563,7 +2727,7 @@ export interface TLInputInlineQueryResultVenue extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultVideo extends TLObject {
+export interface TLInputInlineQueryResultVideo {
 	readonly "@type": "inputInlineQueryResultVideo"
 	readonly id: string
 	readonly title: string
@@ -3577,7 +2741,7 @@ export interface TLInputInlineQueryResultVideo extends TLObject {
 	readonly reply_markup: TLReplyMarkup
 	readonly input_message_content: TLInputMessageContent
 }
-export interface TLInputInlineQueryResultVoiceNote extends TLObject {
+export interface TLInputInlineQueryResultVoiceNote {
 	readonly "@type": "inputInlineQueryResultVoiceNote"
 	readonly id: string
 	readonly title: string
@@ -3587,7 +2751,7 @@ export interface TLInputInlineQueryResultVoiceNote extends TLObject {
 	readonly input_message_content: TLInputMessageContent
 }
 export type TLInputInlineQueryResult = TLInputInlineQueryResultAnimation | TLInputInlineQueryResultArticle | TLInputInlineQueryResultAudio | TLInputInlineQueryResultContact | TLInputInlineQueryResultDocument | TLInputInlineQueryResultGame | TLInputInlineQueryResultLocation | TLInputInlineQueryResultPhoto | TLInputInlineQueryResultSticker | TLInputInlineQueryResultVenue | TLInputInlineQueryResultVideo | TLInputInlineQueryResultVoiceNote
-export interface TLInlineQueryResultArticle extends TLObject {
+export interface TLInlineQueryResultArticle {
 	readonly "@type": "inlineQueryResultArticle"
 	readonly id: string
 	readonly url: string
@@ -3596,75 +2760,75 @@ export interface TLInlineQueryResultArticle extends TLObject {
 	readonly description: string
 	readonly thumbnail: TLThumbnail
 }
-export interface TLInlineQueryResultContact extends TLObject {
+export interface TLInlineQueryResultContact {
 	readonly "@type": "inlineQueryResultContact"
 	readonly id: string
 	readonly contact: TLContact
 	readonly thumbnail: TLThumbnail
 }
-export interface TLInlineQueryResultLocation extends TLObject {
+export interface TLInlineQueryResultLocation {
 	readonly "@type": "inlineQueryResultLocation"
 	readonly id: string
 	readonly location: TLLocation
 	readonly title: string
 	readonly thumbnail: TLThumbnail
 }
-export interface TLInlineQueryResultVenue extends TLObject {
+export interface TLInlineQueryResultVenue {
 	readonly "@type": "inlineQueryResultVenue"
 	readonly id: string
 	readonly venue: TLVenue
 	readonly thumbnail: TLThumbnail
 }
-export interface TLInlineQueryResultGame extends TLObject {
+export interface TLInlineQueryResultGame {
 	readonly "@type": "inlineQueryResultGame"
 	readonly id: string
 	readonly game: TLGame
 }
-export interface TLInlineQueryResultAnimation extends TLObject {
+export interface TLInlineQueryResultAnimation {
 	readonly "@type": "inlineQueryResultAnimation"
 	readonly id: string
 	readonly animation: TLAnimation
 	readonly title: string
 }
-export interface TLInlineQueryResultAudio extends TLObject {
+export interface TLInlineQueryResultAudio {
 	readonly "@type": "inlineQueryResultAudio"
 	readonly id: string
 	readonly audio: TLAudio
 }
-export interface TLInlineQueryResultDocument extends TLObject {
+export interface TLInlineQueryResultDocument {
 	readonly "@type": "inlineQueryResultDocument"
 	readonly id: string
 	readonly document: TLDocument
 	readonly title: string
 	readonly description: string
 }
-export interface TLInlineQueryResultPhoto extends TLObject {
+export interface TLInlineQueryResultPhoto {
 	readonly "@type": "inlineQueryResultPhoto"
 	readonly id: string
 	readonly photo: TLPhoto
 	readonly title: string
 	readonly description: string
 }
-export interface TLInlineQueryResultSticker extends TLObject {
+export interface TLInlineQueryResultSticker {
 	readonly "@type": "inlineQueryResultSticker"
 	readonly id: string
 	readonly sticker: TLSticker
 }
-export interface TLInlineQueryResultVideo extends TLObject {
+export interface TLInlineQueryResultVideo {
 	readonly "@type": "inlineQueryResultVideo"
 	readonly id: string
 	readonly video: TLVideo
 	readonly title: string
 	readonly description: string
 }
-export interface TLInlineQueryResultVoiceNote extends TLObject {
+export interface TLInlineQueryResultVoiceNote {
 	readonly "@type": "inlineQueryResultVoiceNote"
 	readonly id: string
 	readonly voice_note: TLVoiceNote
 	readonly title: string
 }
 export type TLInlineQueryResult = TLInlineQueryResultArticle | TLInlineQueryResultContact | TLInlineQueryResultLocation | TLInlineQueryResultVenue | TLInlineQueryResultGame | TLInlineQueryResultAnimation | TLInlineQueryResultAudio | TLInlineQueryResultDocument | TLInlineQueryResultPhoto | TLInlineQueryResultSticker | TLInlineQueryResultVideo | TLInlineQueryResultVoiceNote
-export interface TLInlineQueryResults extends TLObject {
+export interface TLInlineQueryResults {
 	readonly "@type": "inlineQueryResults"
 	readonly inline_query_id: string
 	readonly next_offset: string
@@ -3672,154 +2836,154 @@ export interface TLInlineQueryResults extends TLObject {
 	readonly switch_pm_text: string
 	readonly switch_pm_parameter: string
 }
-export interface TLCallbackQueryPayloadData extends TLObject {
+export interface TLCallbackQueryPayloadData {
 	readonly "@type": "callbackQueryPayloadData"
 	readonly data: Uint8Array
 }
-export interface TLCallbackQueryPayloadDataWithPassword extends TLObject {
+export interface TLCallbackQueryPayloadDataWithPassword {
 	readonly "@type": "callbackQueryPayloadDataWithPassword"
 	readonly password: string
 	readonly data: Uint8Array
 }
-export interface TLCallbackQueryPayloadGame extends TLObject {
+export interface TLCallbackQueryPayloadGame {
 	readonly "@type": "callbackQueryPayloadGame"
 	readonly game_short_name: string
 }
 export type TLCallbackQueryPayload = TLCallbackQueryPayloadData | TLCallbackQueryPayloadDataWithPassword | TLCallbackQueryPayloadGame
-export interface TLCallbackQueryAnswer extends TLObject {
+export interface TLCallbackQueryAnswer {
 	readonly "@type": "callbackQueryAnswer"
 	readonly text: string
 	readonly show_alert: boolean
 	readonly url: string
 }
-export interface TLCustomRequestResult extends TLObject {
+export interface TLCustomRequestResult {
 	readonly "@type": "customRequestResult"
 	readonly result: string
 }
-export interface TLGameHighScore extends TLObject {
+export interface TLGameHighScore {
 	readonly "@type": "gameHighScore"
 	readonly position: number
 	readonly user_id: number
 	readonly score: number
 }
-export interface TLGameHighScores extends TLObject {
+export interface TLGameHighScores {
 	readonly "@type": "gameHighScores"
 	readonly scores: ReadonlyArray<TLGameHighScore>
 }
-export interface TLChatEventMessageEdited extends TLObject {
+export interface TLChatEventMessageEdited {
 	readonly "@type": "chatEventMessageEdited"
 	readonly old_message: TLMessage
 	readonly new_message: TLMessage
 }
-export interface TLChatEventMessageDeleted extends TLObject {
+export interface TLChatEventMessageDeleted {
 	readonly "@type": "chatEventMessageDeleted"
 	readonly message: TLMessage
 }
-export interface TLChatEventPollStopped extends TLObject {
+export interface TLChatEventPollStopped {
 	readonly "@type": "chatEventPollStopped"
 	readonly message: TLMessage
 }
-export interface TLChatEventMessagePinned extends TLObject {
+export interface TLChatEventMessagePinned {
 	readonly "@type": "chatEventMessagePinned"
 	readonly message: TLMessage
 }
-export interface TLChatEventMessageUnpinned extends TLObject {
+export interface TLChatEventMessageUnpinned {
 	readonly "@type": "chatEventMessageUnpinned"
 	readonly message: TLMessage
 }
-export interface TLChatEventMemberJoined extends TLObject {
+export interface TLChatEventMemberJoined {
 	readonly "@type": "chatEventMemberJoined"
 }
-export interface TLChatEventMemberLeft extends TLObject {
+export interface TLChatEventMemberLeft {
 	readonly "@type": "chatEventMemberLeft"
 }
-export interface TLChatEventMemberInvited extends TLObject {
+export interface TLChatEventMemberInvited {
 	readonly "@type": "chatEventMemberInvited"
 	readonly user_id: number
 	readonly status: TLChatMemberStatus
 }
-export interface TLChatEventMemberPromoted extends TLObject {
+export interface TLChatEventMemberPromoted {
 	readonly "@type": "chatEventMemberPromoted"
 	readonly user_id: number
 	readonly old_status: TLChatMemberStatus
 	readonly new_status: TLChatMemberStatus
 }
-export interface TLChatEventMemberRestricted extends TLObject {
+export interface TLChatEventMemberRestricted {
 	readonly "@type": "chatEventMemberRestricted"
 	readonly user_id: number
 	readonly old_status: TLChatMemberStatus
 	readonly new_status: TLChatMemberStatus
 }
-export interface TLChatEventTitleChanged extends TLObject {
+export interface TLChatEventTitleChanged {
 	readonly "@type": "chatEventTitleChanged"
 	readonly old_title: string
 	readonly new_title: string
 }
-export interface TLChatEventPermissionsChanged extends TLObject {
+export interface TLChatEventPermissionsChanged {
 	readonly "@type": "chatEventPermissionsChanged"
 	readonly old_permissions: TLChatPermissions
 	readonly new_permissions: TLChatPermissions
 }
-export interface TLChatEventDescriptionChanged extends TLObject {
+export interface TLChatEventDescriptionChanged {
 	readonly "@type": "chatEventDescriptionChanged"
 	readonly old_description: string
 	readonly new_description: string
 }
-export interface TLChatEventUsernameChanged extends TLObject {
+export interface TLChatEventUsernameChanged {
 	readonly "@type": "chatEventUsernameChanged"
 	readonly old_username: string
 	readonly new_username: string
 }
-export interface TLChatEventPhotoChanged extends TLObject {
+export interface TLChatEventPhotoChanged {
 	readonly "@type": "chatEventPhotoChanged"
 	readonly old_photo: TLChatPhoto
 	readonly new_photo: TLChatPhoto
 }
-export interface TLChatEventInvitesToggled extends TLObject {
+export interface TLChatEventInvitesToggled {
 	readonly "@type": "chatEventInvitesToggled"
 	readonly can_invite_users: boolean
 }
-export interface TLChatEventLinkedChatChanged extends TLObject {
+export interface TLChatEventLinkedChatChanged {
 	readonly "@type": "chatEventLinkedChatChanged"
 	readonly old_linked_chat_id: number
 	readonly new_linked_chat_id: number
 }
-export interface TLChatEventSlowModeDelayChanged extends TLObject {
+export interface TLChatEventSlowModeDelayChanged {
 	readonly "@type": "chatEventSlowModeDelayChanged"
 	readonly old_slow_mode_delay: number
 	readonly new_slow_mode_delay: number
 }
-export interface TLChatEventSignMessagesToggled extends TLObject {
+export interface TLChatEventSignMessagesToggled {
 	readonly "@type": "chatEventSignMessagesToggled"
 	readonly sign_messages: boolean
 }
-export interface TLChatEventStickerSetChanged extends TLObject {
+export interface TLChatEventStickerSetChanged {
 	readonly "@type": "chatEventStickerSetChanged"
 	readonly old_sticker_set_id: string
 	readonly new_sticker_set_id: string
 }
-export interface TLChatEventLocationChanged extends TLObject {
+export interface TLChatEventLocationChanged {
 	readonly "@type": "chatEventLocationChanged"
 	readonly old_location: TLChatLocation
 	readonly new_location: TLChatLocation
 }
-export interface TLChatEventIsAllHistoryAvailableToggled extends TLObject {
+export interface TLChatEventIsAllHistoryAvailableToggled {
 	readonly "@type": "chatEventIsAllHistoryAvailableToggled"
 	readonly is_all_history_available: boolean
 }
 export type TLChatEventAction = TLChatEventMessageEdited | TLChatEventMessageDeleted | TLChatEventPollStopped | TLChatEventMessagePinned | TLChatEventMessageUnpinned | TLChatEventMemberJoined | TLChatEventMemberLeft | TLChatEventMemberInvited | TLChatEventMemberPromoted | TLChatEventMemberRestricted | TLChatEventTitleChanged | TLChatEventPermissionsChanged | TLChatEventDescriptionChanged | TLChatEventUsernameChanged | TLChatEventPhotoChanged | TLChatEventInvitesToggled | TLChatEventLinkedChatChanged | TLChatEventSlowModeDelayChanged | TLChatEventSignMessagesToggled | TLChatEventStickerSetChanged | TLChatEventLocationChanged | TLChatEventIsAllHistoryAvailableToggled
-export interface TLChatEvent extends TLObject {
+export interface TLChatEvent {
 	readonly "@type": "chatEvent"
 	readonly id: string
 	readonly date: number
 	readonly user_id: number
 	readonly action: TLChatEventAction
 }
-export interface TLChatEvents extends TLObject {
+export interface TLChatEvents {
 	readonly "@type": "chatEvents"
 	readonly events: ReadonlyArray<TLChatEvent>
 }
-export interface TLChatEventLogFilters extends TLObject {
+export interface TLChatEventLogFilters {
 	readonly "@type": "chatEventLogFilters"
 	readonly message_edits: boolean
 	readonly message_deletions: boolean
@@ -3832,11 +2996,11 @@ export interface TLChatEventLogFilters extends TLObject {
 	readonly info_changes: boolean
 	readonly setting_changes: boolean
 }
-export interface TLLanguagePackStringValueOrdinary extends TLObject {
+export interface TLLanguagePackStringValueOrdinary {
 	readonly "@type": "languagePackStringValueOrdinary"
 	readonly value: string
 }
-export interface TLLanguagePackStringValuePluralized extends TLObject {
+export interface TLLanguagePackStringValuePluralized {
 	readonly "@type": "languagePackStringValuePluralized"
 	readonly zero_value: string
 	readonly one_value: string
@@ -3845,20 +3009,20 @@ export interface TLLanguagePackStringValuePluralized extends TLObject {
 	readonly many_value: string
 	readonly other_value: string
 }
-export interface TLLanguagePackStringValueDeleted extends TLObject {
+export interface TLLanguagePackStringValueDeleted {
 	readonly "@type": "languagePackStringValueDeleted"
 }
 export type TLLanguagePackStringValue = TLLanguagePackStringValueOrdinary | TLLanguagePackStringValuePluralized | TLLanguagePackStringValueDeleted
-export interface TLLanguagePackString extends TLObject {
+export interface TLLanguagePackString {
 	readonly "@type": "languagePackString"
 	readonly key: string
 	readonly value: TLLanguagePackStringValue
 }
-export interface TLLanguagePackStrings extends TLObject {
+export interface TLLanguagePackStrings {
 	readonly "@type": "languagePackStrings"
 	readonly strings: ReadonlyArray<TLLanguagePackString>
 }
-export interface TLLanguagePackInfo extends TLObject {
+export interface TLLanguagePackInfo {
 	readonly "@type": "languagePackInfo"
 	readonly id: string
 	readonly base_language_pack_id: string
@@ -3874,93 +3038,93 @@ export interface TLLanguagePackInfo extends TLObject {
 	readonly local_string_count: number
 	readonly translation_url: string
 }
-export interface TLLocalizationTargetInfo extends TLObject {
+export interface TLLocalizationTargetInfo {
 	readonly "@type": "localizationTargetInfo"
 	readonly language_packs: ReadonlyArray<TLLanguagePackInfo>
 }
-export interface TLDeviceTokenFirebaseCloudMessaging extends TLObject {
+export interface TLDeviceTokenFirebaseCloudMessaging {
 	readonly "@type": "deviceTokenFirebaseCloudMessaging"
 	readonly token: string
 	readonly encrypt: boolean
 }
-export interface TLDeviceTokenApplePush extends TLObject {
+export interface TLDeviceTokenApplePush {
 	readonly "@type": "deviceTokenApplePush"
 	readonly device_token: string
 	readonly is_app_sandbox: boolean
 }
-export interface TLDeviceTokenApplePushVoIP extends TLObject {
+export interface TLDeviceTokenApplePushVoIP {
 	readonly "@type": "deviceTokenApplePushVoIP"
 	readonly device_token: string
 	readonly is_app_sandbox: boolean
 	readonly encrypt: boolean
 }
-export interface TLDeviceTokenWindowsPush extends TLObject {
+export interface TLDeviceTokenWindowsPush {
 	readonly "@type": "deviceTokenWindowsPush"
 	readonly access_token: string
 }
-export interface TLDeviceTokenMicrosoftPush extends TLObject {
+export interface TLDeviceTokenMicrosoftPush {
 	readonly "@type": "deviceTokenMicrosoftPush"
 	readonly channel_uri: string
 }
-export interface TLDeviceTokenMicrosoftPushVoIP extends TLObject {
+export interface TLDeviceTokenMicrosoftPushVoIP {
 	readonly "@type": "deviceTokenMicrosoftPushVoIP"
 	readonly channel_uri: string
 }
-export interface TLDeviceTokenWebPush extends TLObject {
+export interface TLDeviceTokenWebPush {
 	readonly "@type": "deviceTokenWebPush"
 	readonly endpoint: string
 	readonly p256dh_base64url: string
 	readonly auth_base64url: string
 }
-export interface TLDeviceTokenSimplePush extends TLObject {
+export interface TLDeviceTokenSimplePush {
 	readonly "@type": "deviceTokenSimplePush"
 	readonly endpoint: string
 }
-export interface TLDeviceTokenUbuntuPush extends TLObject {
+export interface TLDeviceTokenUbuntuPush {
 	readonly "@type": "deviceTokenUbuntuPush"
 	readonly token: string
 }
-export interface TLDeviceTokenBlackBerryPush extends TLObject {
+export interface TLDeviceTokenBlackBerryPush {
 	readonly "@type": "deviceTokenBlackBerryPush"
 	readonly token: string
 }
-export interface TLDeviceTokenTizenPush extends TLObject {
+export interface TLDeviceTokenTizenPush {
 	readonly "@type": "deviceTokenTizenPush"
 	readonly reg_id: string
 }
 export type TLDeviceToken = TLDeviceTokenFirebaseCloudMessaging | TLDeviceTokenApplePush | TLDeviceTokenApplePushVoIP | TLDeviceTokenWindowsPush | TLDeviceTokenMicrosoftPush | TLDeviceTokenMicrosoftPushVoIP | TLDeviceTokenWebPush | TLDeviceTokenSimplePush | TLDeviceTokenUbuntuPush | TLDeviceTokenBlackBerryPush | TLDeviceTokenTizenPush
-export interface TLPushReceiverId extends TLObject {
+export interface TLPushReceiverId {
 	readonly "@type": "pushReceiverId"
 	readonly id: string
 }
-export interface TLBackgroundFillSolid extends TLObject {
+export interface TLBackgroundFillSolid {
 	readonly "@type": "backgroundFillSolid"
 	readonly color: number
 }
-export interface TLBackgroundFillGradient extends TLObject {
+export interface TLBackgroundFillGradient {
 	readonly "@type": "backgroundFillGradient"
 	readonly top_color: number
 	readonly bottom_color: number
 	readonly rotation_angle: number
 }
 export type TLBackgroundFill = TLBackgroundFillSolid | TLBackgroundFillGradient
-export interface TLBackgroundTypeWallpaper extends TLObject {
+export interface TLBackgroundTypeWallpaper {
 	readonly "@type": "backgroundTypeWallpaper"
 	readonly is_blurred: boolean
 	readonly is_moving: boolean
 }
-export interface TLBackgroundTypePattern extends TLObject {
+export interface TLBackgroundTypePattern {
 	readonly "@type": "backgroundTypePattern"
 	readonly fill: TLBackgroundFill
 	readonly intensity: number
 	readonly is_moving: boolean
 }
-export interface TLBackgroundTypeFill extends TLObject {
+export interface TLBackgroundTypeFill {
 	readonly "@type": "backgroundTypeFill"
 	readonly fill: TLBackgroundFill
 }
 export type TLBackgroundType = TLBackgroundTypeWallpaper | TLBackgroundTypePattern | TLBackgroundTypeFill
-export interface TLBackground extends TLObject {
+export interface TLBackground {
 	readonly "@type": "background"
 	readonly id: string
 	readonly is_default: boolean
@@ -3969,177 +3133,177 @@ export interface TLBackground extends TLObject {
 	readonly document: TLDocument
 	readonly type: TLBackgroundType
 }
-export interface TLBackgrounds extends TLObject {
+export interface TLBackgrounds {
 	readonly "@type": "backgrounds"
 	readonly backgrounds: ReadonlyArray<TLBackground>
 }
-export interface TLInputBackgroundLocal extends TLObject {
+export interface TLInputBackgroundLocal {
 	readonly "@type": "inputBackgroundLocal"
 	readonly background: TLInputFile
 }
-export interface TLInputBackgroundRemote extends TLObject {
+export interface TLInputBackgroundRemote {
 	readonly "@type": "inputBackgroundRemote"
 	readonly background_id: string
 }
 export type TLInputBackground = TLInputBackgroundLocal | TLInputBackgroundRemote
-export interface TLHashtags extends TLObject {
+export interface TLHashtags {
 	readonly "@type": "hashtags"
 	readonly hashtags: ReadonlyArray<string>
 }
-export interface TLCanTransferOwnershipResultOk extends TLObject {
+export interface TLCanTransferOwnershipResultOk {
 	readonly "@type": "canTransferOwnershipResultOk"
 }
-export interface TLCanTransferOwnershipResultPasswordNeeded extends TLObject {
+export interface TLCanTransferOwnershipResultPasswordNeeded {
 	readonly "@type": "canTransferOwnershipResultPasswordNeeded"
 }
-export interface TLCanTransferOwnershipResultPasswordTooFresh extends TLObject {
+export interface TLCanTransferOwnershipResultPasswordTooFresh {
 	readonly "@type": "canTransferOwnershipResultPasswordTooFresh"
 	readonly retry_after: number
 }
-export interface TLCanTransferOwnershipResultSessionTooFresh extends TLObject {
+export interface TLCanTransferOwnershipResultSessionTooFresh {
 	readonly "@type": "canTransferOwnershipResultSessionTooFresh"
 	readonly retry_after: number
 }
 export type TLCanTransferOwnershipResult = TLCanTransferOwnershipResultOk | TLCanTransferOwnershipResultPasswordNeeded | TLCanTransferOwnershipResultPasswordTooFresh | TLCanTransferOwnershipResultSessionTooFresh
-export interface TLCheckChatUsernameResultOk extends TLObject {
+export interface TLCheckChatUsernameResultOk {
 	readonly "@type": "checkChatUsernameResultOk"
 }
-export interface TLCheckChatUsernameResultUsernameInvalid extends TLObject {
+export interface TLCheckChatUsernameResultUsernameInvalid {
 	readonly "@type": "checkChatUsernameResultUsernameInvalid"
 }
-export interface TLCheckChatUsernameResultUsernameOccupied extends TLObject {
+export interface TLCheckChatUsernameResultUsernameOccupied {
 	readonly "@type": "checkChatUsernameResultUsernameOccupied"
 }
-export interface TLCheckChatUsernameResultPublicChatsTooMuch extends TLObject {
+export interface TLCheckChatUsernameResultPublicChatsTooMuch {
 	readonly "@type": "checkChatUsernameResultPublicChatsTooMuch"
 }
-export interface TLCheckChatUsernameResultPublicGroupsUnavailable extends TLObject {
+export interface TLCheckChatUsernameResultPublicGroupsUnavailable {
 	readonly "@type": "checkChatUsernameResultPublicGroupsUnavailable"
 }
 export type TLCheckChatUsernameResult = TLCheckChatUsernameResultOk | TLCheckChatUsernameResultUsernameInvalid | TLCheckChatUsernameResultUsernameOccupied | TLCheckChatUsernameResultPublicChatsTooMuch | TLCheckChatUsernameResultPublicGroupsUnavailable
-export interface TLPushMessageContentHidden extends TLObject {
+export interface TLPushMessageContentHidden {
 	readonly "@type": "pushMessageContentHidden"
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentAnimation extends TLObject {
+export interface TLPushMessageContentAnimation {
 	readonly "@type": "pushMessageContentAnimation"
 	readonly animation: TLAnimation
 	readonly caption: string
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentAudio extends TLObject {
+export interface TLPushMessageContentAudio {
 	readonly "@type": "pushMessageContentAudio"
 	readonly audio: TLAudio
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentContact extends TLObject {
+export interface TLPushMessageContentContact {
 	readonly "@type": "pushMessageContentContact"
 	readonly name: string
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentContactRegistered extends TLObject {
+export interface TLPushMessageContentContactRegistered {
 	readonly "@type": "pushMessageContentContactRegistered"
 }
-export interface TLPushMessageContentDocument extends TLObject {
+export interface TLPushMessageContentDocument {
 	readonly "@type": "pushMessageContentDocument"
 	readonly document: TLDocument
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentGame extends TLObject {
+export interface TLPushMessageContentGame {
 	readonly "@type": "pushMessageContentGame"
 	readonly title: string
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentGameScore extends TLObject {
+export interface TLPushMessageContentGameScore {
 	readonly "@type": "pushMessageContentGameScore"
 	readonly title: string
 	readonly score: number
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentInvoice extends TLObject {
+export interface TLPushMessageContentInvoice {
 	readonly "@type": "pushMessageContentInvoice"
 	readonly price: string
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentLocation extends TLObject {
+export interface TLPushMessageContentLocation {
 	readonly "@type": "pushMessageContentLocation"
 	readonly is_live: boolean
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentPhoto extends TLObject {
+export interface TLPushMessageContentPhoto {
 	readonly "@type": "pushMessageContentPhoto"
 	readonly photo: TLPhoto
 	readonly caption: string
 	readonly is_secret: boolean
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentPoll extends TLObject {
+export interface TLPushMessageContentPoll {
 	readonly "@type": "pushMessageContentPoll"
 	readonly question: string
 	readonly is_regular: boolean
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentScreenshotTaken extends TLObject {
+export interface TLPushMessageContentScreenshotTaken {
 	readonly "@type": "pushMessageContentScreenshotTaken"
 }
-export interface TLPushMessageContentSticker extends TLObject {
+export interface TLPushMessageContentSticker {
 	readonly "@type": "pushMessageContentSticker"
 	readonly sticker: TLSticker
 	readonly emoji: string
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentText extends TLObject {
+export interface TLPushMessageContentText {
 	readonly "@type": "pushMessageContentText"
 	readonly text: string
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentVideo extends TLObject {
+export interface TLPushMessageContentVideo {
 	readonly "@type": "pushMessageContentVideo"
 	readonly video: TLVideo
 	readonly caption: string
 	readonly is_secret: boolean
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentVideoNote extends TLObject {
+export interface TLPushMessageContentVideoNote {
 	readonly "@type": "pushMessageContentVideoNote"
 	readonly video_note: TLVideoNote
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentVoiceNote extends TLObject {
+export interface TLPushMessageContentVoiceNote {
 	readonly "@type": "pushMessageContentVoiceNote"
 	readonly voice_note: TLVoiceNote
 	readonly is_pinned: boolean
 }
-export interface TLPushMessageContentBasicGroupChatCreate extends TLObject {
+export interface TLPushMessageContentBasicGroupChatCreate {
 	readonly "@type": "pushMessageContentBasicGroupChatCreate"
 }
-export interface TLPushMessageContentChatAddMembers extends TLObject {
+export interface TLPushMessageContentChatAddMembers {
 	readonly "@type": "pushMessageContentChatAddMembers"
 	readonly member_name: string
 	readonly is_current_user: boolean
 	readonly is_returned: boolean
 }
-export interface TLPushMessageContentChatChangePhoto extends TLObject {
+export interface TLPushMessageContentChatChangePhoto {
 	readonly "@type": "pushMessageContentChatChangePhoto"
 }
-export interface TLPushMessageContentChatChangeTitle extends TLObject {
+export interface TLPushMessageContentChatChangeTitle {
 	readonly "@type": "pushMessageContentChatChangeTitle"
 	readonly title: string
 }
-export interface TLPushMessageContentChatDeleteMember extends TLObject {
+export interface TLPushMessageContentChatDeleteMember {
 	readonly "@type": "pushMessageContentChatDeleteMember"
 	readonly member_name: string
 	readonly is_current_user: boolean
 	readonly is_left: boolean
 }
-export interface TLPushMessageContentChatJoinByLink extends TLObject {
+export interface TLPushMessageContentChatJoinByLink {
 	readonly "@type": "pushMessageContentChatJoinByLink"
 }
-export interface TLPushMessageContentMessageForwards extends TLObject {
+export interface TLPushMessageContentMessageForwards {
 	readonly "@type": "pushMessageContentMessageForwards"
 	readonly total_count: number
 }
-export interface TLPushMessageContentMediaAlbum extends TLObject {
+export interface TLPushMessageContentMediaAlbum {
 	readonly "@type": "pushMessageContentMediaAlbum"
 	readonly total_count: number
 	readonly has_photos: boolean
@@ -4148,18 +3312,18 @@ export interface TLPushMessageContentMediaAlbum extends TLObject {
 	readonly has_documents: boolean
 }
 export type TLPushMessageContent = TLPushMessageContentHidden | TLPushMessageContentAnimation | TLPushMessageContentAudio | TLPushMessageContentContact | TLPushMessageContentContactRegistered | TLPushMessageContentDocument | TLPushMessageContentGame | TLPushMessageContentGameScore | TLPushMessageContentInvoice | TLPushMessageContentLocation | TLPushMessageContentPhoto | TLPushMessageContentPoll | TLPushMessageContentScreenshotTaken | TLPushMessageContentSticker | TLPushMessageContentText | TLPushMessageContentVideo | TLPushMessageContentVideoNote | TLPushMessageContentVoiceNote | TLPushMessageContentBasicGroupChatCreate | TLPushMessageContentChatAddMembers | TLPushMessageContentChatChangePhoto | TLPushMessageContentChatChangeTitle | TLPushMessageContentChatDeleteMember | TLPushMessageContentChatJoinByLink | TLPushMessageContentMessageForwards | TLPushMessageContentMediaAlbum
-export interface TLNotificationTypeNewMessage extends TLObject {
+export interface TLNotificationTypeNewMessage {
 	readonly "@type": "notificationTypeNewMessage"
 	readonly message: TLMessage
 }
-export interface TLNotificationTypeNewSecretChat extends TLObject {
+export interface TLNotificationTypeNewSecretChat {
 	readonly "@type": "notificationTypeNewSecretChat"
 }
-export interface TLNotificationTypeNewCall extends TLObject {
+export interface TLNotificationTypeNewCall {
 	readonly "@type": "notificationTypeNewCall"
 	readonly call_id: number
 }
-export interface TLNotificationTypeNewPushMessage extends TLObject {
+export interface TLNotificationTypeNewPushMessage {
 	readonly "@type": "notificationTypeNewPushMessage"
 	readonly message_id: number
 	readonly sender: TLMessageSender
@@ -4168,27 +3332,27 @@ export interface TLNotificationTypeNewPushMessage extends TLObject {
 	readonly content: TLPushMessageContent
 }
 export type TLNotificationType = TLNotificationTypeNewMessage | TLNotificationTypeNewSecretChat | TLNotificationTypeNewCall | TLNotificationTypeNewPushMessage
-export interface TLNotificationGroupTypeMessages extends TLObject {
+export interface TLNotificationGroupTypeMessages {
 	readonly "@type": "notificationGroupTypeMessages"
 }
-export interface TLNotificationGroupTypeMentions extends TLObject {
+export interface TLNotificationGroupTypeMentions {
 	readonly "@type": "notificationGroupTypeMentions"
 }
-export interface TLNotificationGroupTypeSecretChat extends TLObject {
+export interface TLNotificationGroupTypeSecretChat {
 	readonly "@type": "notificationGroupTypeSecretChat"
 }
-export interface TLNotificationGroupTypeCalls extends TLObject {
+export interface TLNotificationGroupTypeCalls {
 	readonly "@type": "notificationGroupTypeCalls"
 }
 export type TLNotificationGroupType = TLNotificationGroupTypeMessages | TLNotificationGroupTypeMentions | TLNotificationGroupTypeSecretChat | TLNotificationGroupTypeCalls
-export interface TLNotification extends TLObject {
+export interface TLNotification {
 	readonly "@type": "notification"
 	readonly id: number
 	readonly date: number
 	readonly is_silent: boolean
 	readonly type: TLNotificationType
 }
-export interface TLNotificationGroup extends TLObject {
+export interface TLNotificationGroup {
 	readonly "@type": "notificationGroup"
 	readonly id: number
 	readonly type: TLNotificationGroupType
@@ -4196,114 +3360,114 @@ export interface TLNotificationGroup extends TLObject {
 	readonly total_count: number
 	readonly notifications: ReadonlyArray<TLNotification>
 }
-export interface TLOptionValueBoolean extends TLObject {
+export interface TLOptionValueBoolean {
 	readonly "@type": "optionValueBoolean"
 	readonly value: boolean
 }
-export interface TLOptionValueEmpty extends TLObject {
+export interface TLOptionValueEmpty {
 	readonly "@type": "optionValueEmpty"
 }
-export interface TLOptionValueInteger extends TLObject {
+export interface TLOptionValueInteger {
 	readonly "@type": "optionValueInteger"
 	readonly value: string
 }
-export interface TLOptionValueString extends TLObject {
+export interface TLOptionValueString {
 	readonly "@type": "optionValueString"
 	readonly value: string
 }
 export type TLOptionValue = TLOptionValueBoolean | TLOptionValueEmpty | TLOptionValueInteger | TLOptionValueString
-export interface TLJsonObjectMember extends TLObject {
+export interface TLJsonObjectMember {
 	readonly "@type": "jsonObjectMember"
 	readonly key: string
 	readonly value: TLJsonValue
 }
-export interface TLJsonValueNull extends TLObject {
+export interface TLJsonValueNull {
 	readonly "@type": "jsonValueNull"
 }
-export interface TLJsonValueBoolean extends TLObject {
+export interface TLJsonValueBoolean {
 	readonly "@type": "jsonValueBoolean"
 	readonly value: boolean
 }
-export interface TLJsonValueNumber extends TLObject {
+export interface TLJsonValueNumber {
 	readonly "@type": "jsonValueNumber"
 	readonly value: number
 }
-export interface TLJsonValueString extends TLObject {
+export interface TLJsonValueString {
 	readonly "@type": "jsonValueString"
 	readonly value: string
 }
-export interface TLJsonValueArray extends TLObject {
+export interface TLJsonValueArray {
 	readonly "@type": "jsonValueArray"
 	readonly values: ReadonlyArray<TLJsonValue>
 }
-export interface TLJsonValueObject extends TLObject {
+export interface TLJsonValueObject {
 	readonly "@type": "jsonValueObject"
 	readonly members: ReadonlyArray<TLJsonObjectMember>
 }
 export type TLJsonValue = TLJsonValueNull | TLJsonValueBoolean | TLJsonValueNumber | TLJsonValueString | TLJsonValueArray | TLJsonValueObject
-export interface TLUserPrivacySettingRuleAllowAll extends TLObject {
+export interface TLUserPrivacySettingRuleAllowAll {
 	readonly "@type": "userPrivacySettingRuleAllowAll"
 }
-export interface TLUserPrivacySettingRuleAllowContacts extends TLObject {
+export interface TLUserPrivacySettingRuleAllowContacts {
 	readonly "@type": "userPrivacySettingRuleAllowContacts"
 }
-export interface TLUserPrivacySettingRuleAllowUsers extends TLObject {
+export interface TLUserPrivacySettingRuleAllowUsers {
 	readonly "@type": "userPrivacySettingRuleAllowUsers"
 	readonly user_ids: ReadonlyArray<number>
 }
-export interface TLUserPrivacySettingRuleAllowChatMembers extends TLObject {
+export interface TLUserPrivacySettingRuleAllowChatMembers {
 	readonly "@type": "userPrivacySettingRuleAllowChatMembers"
 	readonly chat_ids: ReadonlyArray<number>
 }
-export interface TLUserPrivacySettingRuleRestrictAll extends TLObject {
+export interface TLUserPrivacySettingRuleRestrictAll {
 	readonly "@type": "userPrivacySettingRuleRestrictAll"
 }
-export interface TLUserPrivacySettingRuleRestrictContacts extends TLObject {
+export interface TLUserPrivacySettingRuleRestrictContacts {
 	readonly "@type": "userPrivacySettingRuleRestrictContacts"
 }
-export interface TLUserPrivacySettingRuleRestrictUsers extends TLObject {
+export interface TLUserPrivacySettingRuleRestrictUsers {
 	readonly "@type": "userPrivacySettingRuleRestrictUsers"
 	readonly user_ids: ReadonlyArray<number>
 }
-export interface TLUserPrivacySettingRuleRestrictChatMembers extends TLObject {
+export interface TLUserPrivacySettingRuleRestrictChatMembers {
 	readonly "@type": "userPrivacySettingRuleRestrictChatMembers"
 	readonly chat_ids: ReadonlyArray<number>
 }
 export type TLUserPrivacySettingRule = TLUserPrivacySettingRuleAllowAll | TLUserPrivacySettingRuleAllowContacts | TLUserPrivacySettingRuleAllowUsers | TLUserPrivacySettingRuleAllowChatMembers | TLUserPrivacySettingRuleRestrictAll | TLUserPrivacySettingRuleRestrictContacts | TLUserPrivacySettingRuleRestrictUsers | TLUserPrivacySettingRuleRestrictChatMembers
-export interface TLUserPrivacySettingRules extends TLObject {
+export interface TLUserPrivacySettingRules {
 	readonly "@type": "userPrivacySettingRules"
 	readonly rules: ReadonlyArray<TLUserPrivacySettingRule>
 }
-export interface TLUserPrivacySettingShowStatus extends TLObject {
+export interface TLUserPrivacySettingShowStatus {
 	readonly "@type": "userPrivacySettingShowStatus"
 }
-export interface TLUserPrivacySettingShowProfilePhoto extends TLObject {
+export interface TLUserPrivacySettingShowProfilePhoto {
 	readonly "@type": "userPrivacySettingShowProfilePhoto"
 }
-export interface TLUserPrivacySettingShowLinkInForwardedMessages extends TLObject {
+export interface TLUserPrivacySettingShowLinkInForwardedMessages {
 	readonly "@type": "userPrivacySettingShowLinkInForwardedMessages"
 }
-export interface TLUserPrivacySettingShowPhoneNumber extends TLObject {
+export interface TLUserPrivacySettingShowPhoneNumber {
 	readonly "@type": "userPrivacySettingShowPhoneNumber"
 }
-export interface TLUserPrivacySettingAllowChatInvites extends TLObject {
+export interface TLUserPrivacySettingAllowChatInvites {
 	readonly "@type": "userPrivacySettingAllowChatInvites"
 }
-export interface TLUserPrivacySettingAllowCalls extends TLObject {
+export interface TLUserPrivacySettingAllowCalls {
 	readonly "@type": "userPrivacySettingAllowCalls"
 }
-export interface TLUserPrivacySettingAllowPeerToPeerCalls extends TLObject {
+export interface TLUserPrivacySettingAllowPeerToPeerCalls {
 	readonly "@type": "userPrivacySettingAllowPeerToPeerCalls"
 }
-export interface TLUserPrivacySettingAllowFindingByPhoneNumber extends TLObject {
+export interface TLUserPrivacySettingAllowFindingByPhoneNumber {
 	readonly "@type": "userPrivacySettingAllowFindingByPhoneNumber"
 }
 export type TLUserPrivacySetting = TLUserPrivacySettingShowStatus | TLUserPrivacySettingShowProfilePhoto | TLUserPrivacySettingShowLinkInForwardedMessages | TLUserPrivacySettingShowPhoneNumber | TLUserPrivacySettingAllowChatInvites | TLUserPrivacySettingAllowCalls | TLUserPrivacySettingAllowPeerToPeerCalls | TLUserPrivacySettingAllowFindingByPhoneNumber
-export interface TLAccountTtl extends TLObject {
+export interface TLAccountTtl {
 	readonly "@type": "accountTtl"
 	readonly days: number
 }
-export interface TLSession extends TLObject {
+export interface TLSession {
 	readonly "@type": "session"
 	readonly id: string
 	readonly is_current: boolean
@@ -4321,11 +3485,11 @@ export interface TLSession extends TLObject {
 	readonly country: string
 	readonly region: string
 }
-export interface TLSessions extends TLObject {
+export interface TLSessions {
 	readonly "@type": "sessions"
 	readonly sessions: ReadonlyArray<TLSession>
 }
-export interface TLConnectedWebsite extends TLObject {
+export interface TLConnectedWebsite {
 	readonly "@type": "connectedWebsite"
 	readonly id: string
 	readonly domain_name: string
@@ -4337,39 +3501,39 @@ export interface TLConnectedWebsite extends TLObject {
 	readonly ip: string
 	readonly location: string
 }
-export interface TLConnectedWebsites extends TLObject {
+export interface TLConnectedWebsites {
 	readonly "@type": "connectedWebsites"
 	readonly websites: ReadonlyArray<TLConnectedWebsite>
 }
-export interface TLChatReportReasonSpam extends TLObject {
+export interface TLChatReportReasonSpam {
 	readonly "@type": "chatReportReasonSpam"
 }
-export interface TLChatReportReasonViolence extends TLObject {
+export interface TLChatReportReasonViolence {
 	readonly "@type": "chatReportReasonViolence"
 }
-export interface TLChatReportReasonPornography extends TLObject {
+export interface TLChatReportReasonPornography {
 	readonly "@type": "chatReportReasonPornography"
 }
-export interface TLChatReportReasonChildAbuse extends TLObject {
+export interface TLChatReportReasonChildAbuse {
 	readonly "@type": "chatReportReasonChildAbuse"
 }
-export interface TLChatReportReasonCopyright extends TLObject {
+export interface TLChatReportReasonCopyright {
 	readonly "@type": "chatReportReasonCopyright"
 }
-export interface TLChatReportReasonUnrelatedLocation extends TLObject {
+export interface TLChatReportReasonUnrelatedLocation {
 	readonly "@type": "chatReportReasonUnrelatedLocation"
 }
-export interface TLChatReportReasonCustom extends TLObject {
+export interface TLChatReportReasonCustom {
 	readonly "@type": "chatReportReasonCustom"
 	readonly text: string
 }
 export type TLChatReportReason = TLChatReportReasonSpam | TLChatReportReasonViolence | TLChatReportReasonPornography | TLChatReportReasonChildAbuse | TLChatReportReasonCopyright | TLChatReportReasonUnrelatedLocation | TLChatReportReasonCustom
-export interface TLMessageLink extends TLObject {
+export interface TLMessageLink {
 	readonly "@type": "messageLink"
 	readonly link: string
 	readonly is_public: boolean
 }
-export interface TLMessageLinkInfo extends TLObject {
+export interface TLMessageLinkInfo {
 	readonly "@type": "messageLinkInfo"
 	readonly is_public: boolean
 	readonly chat_id: number
@@ -4377,79 +3541,79 @@ export interface TLMessageLinkInfo extends TLObject {
 	readonly for_album: boolean
 	readonly for_comment: boolean
 }
-export interface TLFilePart extends TLObject {
+export interface TLFilePart {
 	readonly "@type": "filePart"
 	readonly data: Uint8Array
 }
-export interface TLFileTypeNone extends TLObject {
+export interface TLFileTypeNone {
 	readonly "@type": "fileTypeNone"
 }
-export interface TLFileTypeAnimation extends TLObject {
+export interface TLFileTypeAnimation {
 	readonly "@type": "fileTypeAnimation"
 }
-export interface TLFileTypeAudio extends TLObject {
+export interface TLFileTypeAudio {
 	readonly "@type": "fileTypeAudio"
 }
-export interface TLFileTypeDocument extends TLObject {
+export interface TLFileTypeDocument {
 	readonly "@type": "fileTypeDocument"
 }
-export interface TLFileTypePhoto extends TLObject {
+export interface TLFileTypePhoto {
 	readonly "@type": "fileTypePhoto"
 }
-export interface TLFileTypeProfilePhoto extends TLObject {
+export interface TLFileTypeProfilePhoto {
 	readonly "@type": "fileTypeProfilePhoto"
 }
-export interface TLFileTypeSecret extends TLObject {
+export interface TLFileTypeSecret {
 	readonly "@type": "fileTypeSecret"
 }
-export interface TLFileTypeSecretThumbnail extends TLObject {
+export interface TLFileTypeSecretThumbnail {
 	readonly "@type": "fileTypeSecretThumbnail"
 }
-export interface TLFileTypeSecure extends TLObject {
+export interface TLFileTypeSecure {
 	readonly "@type": "fileTypeSecure"
 }
-export interface TLFileTypeSticker extends TLObject {
+export interface TLFileTypeSticker {
 	readonly "@type": "fileTypeSticker"
 }
-export interface TLFileTypeThumbnail extends TLObject {
+export interface TLFileTypeThumbnail {
 	readonly "@type": "fileTypeThumbnail"
 }
-export interface TLFileTypeUnknown extends TLObject {
+export interface TLFileTypeUnknown {
 	readonly "@type": "fileTypeUnknown"
 }
-export interface TLFileTypeVideo extends TLObject {
+export interface TLFileTypeVideo {
 	readonly "@type": "fileTypeVideo"
 }
-export interface TLFileTypeVideoNote extends TLObject {
+export interface TLFileTypeVideoNote {
 	readonly "@type": "fileTypeVideoNote"
 }
-export interface TLFileTypeVoiceNote extends TLObject {
+export interface TLFileTypeVoiceNote {
 	readonly "@type": "fileTypeVoiceNote"
 }
-export interface TLFileTypeWallpaper extends TLObject {
+export interface TLFileTypeWallpaper {
 	readonly "@type": "fileTypeWallpaper"
 }
 export type TLFileType = TLFileTypeNone | TLFileTypeAnimation | TLFileTypeAudio | TLFileTypeDocument | TLFileTypePhoto | TLFileTypeProfilePhoto | TLFileTypeSecret | TLFileTypeSecretThumbnail | TLFileTypeSecure | TLFileTypeSticker | TLFileTypeThumbnail | TLFileTypeUnknown | TLFileTypeVideo | TLFileTypeVideoNote | TLFileTypeVoiceNote | TLFileTypeWallpaper
-export interface TLStorageStatisticsByFileType extends TLObject {
+export interface TLStorageStatisticsByFileType {
 	readonly "@type": "storageStatisticsByFileType"
 	readonly file_type: TLFileType
 	readonly size: number
 	readonly count: number
 }
-export interface TLStorageStatisticsByChat extends TLObject {
+export interface TLStorageStatisticsByChat {
 	readonly "@type": "storageStatisticsByChat"
 	readonly chat_id: number
 	readonly size: number
 	readonly count: number
 	readonly by_file_type: ReadonlyArray<TLStorageStatisticsByFileType>
 }
-export interface TLStorageStatistics extends TLObject {
+export interface TLStorageStatistics {
 	readonly "@type": "storageStatistics"
 	readonly size: number
 	readonly count: number
 	readonly by_chat: ReadonlyArray<TLStorageStatisticsByChat>
 }
-export interface TLStorageStatisticsFast extends TLObject {
+export interface TLStorageStatisticsFast {
 	readonly "@type": "storageStatisticsFast"
 	readonly files_size: number
 	readonly file_count: number
@@ -4457,34 +3621,34 @@ export interface TLStorageStatisticsFast extends TLObject {
 	readonly language_pack_database_size: number
 	readonly log_size: number
 }
-export interface TLDatabaseStatistics extends TLObject {
+export interface TLDatabaseStatistics {
 	readonly "@type": "databaseStatistics"
 	readonly statistics: string
 }
-export interface TLNetworkTypeNone extends TLObject {
+export interface TLNetworkTypeNone {
 	readonly "@type": "networkTypeNone"
 }
-export interface TLNetworkTypeMobile extends TLObject {
+export interface TLNetworkTypeMobile {
 	readonly "@type": "networkTypeMobile"
 }
-export interface TLNetworkTypeMobileRoaming extends TLObject {
+export interface TLNetworkTypeMobileRoaming {
 	readonly "@type": "networkTypeMobileRoaming"
 }
-export interface TLNetworkTypeWiFi extends TLObject {
+export interface TLNetworkTypeWiFi {
 	readonly "@type": "networkTypeWiFi"
 }
-export interface TLNetworkTypeOther extends TLObject {
+export interface TLNetworkTypeOther {
 	readonly "@type": "networkTypeOther"
 }
 export type TLNetworkType = TLNetworkTypeNone | TLNetworkTypeMobile | TLNetworkTypeMobileRoaming | TLNetworkTypeWiFi | TLNetworkTypeOther
-export interface TLNetworkStatisticsEntryFile extends TLObject {
+export interface TLNetworkStatisticsEntryFile {
 	readonly "@type": "networkStatisticsEntryFile"
 	readonly file_type: TLFileType
 	readonly network_type: TLNetworkType
 	readonly sent_bytes: number
 	readonly received_bytes: number
 }
-export interface TLNetworkStatisticsEntryCall extends TLObject {
+export interface TLNetworkStatisticsEntryCall {
 	readonly "@type": "networkStatisticsEntryCall"
 	readonly network_type: TLNetworkType
 	readonly sent_bytes: number
@@ -4492,12 +3656,12 @@ export interface TLNetworkStatisticsEntryCall extends TLObject {
 	readonly duration: number
 }
 export type TLNetworkStatisticsEntry = TLNetworkStatisticsEntryFile | TLNetworkStatisticsEntryCall
-export interface TLNetworkStatistics extends TLObject {
+export interface TLNetworkStatistics {
 	readonly "@type": "networkStatistics"
 	readonly since_date: number
 	readonly entries: ReadonlyArray<TLNetworkStatisticsEntry>
 }
-export interface TLAutoDownloadSettings extends TLObject {
+export interface TLAutoDownloadSettings {
 	readonly "@type": "autoDownloadSettings"
 	readonly is_auto_download_enabled: boolean
 	readonly max_photo_file_size: number
@@ -4508,125 +3672,125 @@ export interface TLAutoDownloadSettings extends TLObject {
 	readonly preload_next_audio: boolean
 	readonly use_less_data_for_calls: boolean
 }
-export interface TLAutoDownloadSettingsPresets extends TLObject {
+export interface TLAutoDownloadSettingsPresets {
 	readonly "@type": "autoDownloadSettingsPresets"
 	readonly low: TLAutoDownloadSettings
 	readonly medium: TLAutoDownloadSettings
 	readonly high: TLAutoDownloadSettings
 }
-export interface TLConnectionStateWaitingForNetwork extends TLObject {
+export interface TLConnectionStateWaitingForNetwork {
 	readonly "@type": "connectionStateWaitingForNetwork"
 }
-export interface TLConnectionStateConnectingToProxy extends TLObject {
+export interface TLConnectionStateConnectingToProxy {
 	readonly "@type": "connectionStateConnectingToProxy"
 }
-export interface TLConnectionStateConnecting extends TLObject {
+export interface TLConnectionStateConnecting {
 	readonly "@type": "connectionStateConnecting"
 }
-export interface TLConnectionStateUpdating extends TLObject {
+export interface TLConnectionStateUpdating {
 	readonly "@type": "connectionStateUpdating"
 }
-export interface TLConnectionStateReady extends TLObject {
+export interface TLConnectionStateReady {
 	readonly "@type": "connectionStateReady"
 }
 export type TLConnectionState = TLConnectionStateWaitingForNetwork | TLConnectionStateConnectingToProxy | TLConnectionStateConnecting | TLConnectionStateUpdating | TLConnectionStateReady
-export interface TLTopChatCategoryUsers extends TLObject {
+export interface TLTopChatCategoryUsers {
 	readonly "@type": "topChatCategoryUsers"
 }
-export interface TLTopChatCategoryBots extends TLObject {
+export interface TLTopChatCategoryBots {
 	readonly "@type": "topChatCategoryBots"
 }
-export interface TLTopChatCategoryGroups extends TLObject {
+export interface TLTopChatCategoryGroups {
 	readonly "@type": "topChatCategoryGroups"
 }
-export interface TLTopChatCategoryChannels extends TLObject {
+export interface TLTopChatCategoryChannels {
 	readonly "@type": "topChatCategoryChannels"
 }
-export interface TLTopChatCategoryInlineBots extends TLObject {
+export interface TLTopChatCategoryInlineBots {
 	readonly "@type": "topChatCategoryInlineBots"
 }
-export interface TLTopChatCategoryCalls extends TLObject {
+export interface TLTopChatCategoryCalls {
 	readonly "@type": "topChatCategoryCalls"
 }
-export interface TLTopChatCategoryForwardChats extends TLObject {
+export interface TLTopChatCategoryForwardChats {
 	readonly "@type": "topChatCategoryForwardChats"
 }
 export type TLTopChatCategory = TLTopChatCategoryUsers | TLTopChatCategoryBots | TLTopChatCategoryGroups | TLTopChatCategoryChannels | TLTopChatCategoryInlineBots | TLTopChatCategoryCalls | TLTopChatCategoryForwardChats
-export interface TLTMeUrlTypeUser extends TLObject {
+export interface TLTMeUrlTypeUser {
 	readonly "@type": "tMeUrlTypeUser"
 	readonly user_id: number
 }
-export interface TLTMeUrlTypeSupergroup extends TLObject {
+export interface TLTMeUrlTypeSupergroup {
 	readonly "@type": "tMeUrlTypeSupergroup"
 	readonly supergroup_id: number
 }
-export interface TLTMeUrlTypeChatInvite extends TLObject {
+export interface TLTMeUrlTypeChatInvite {
 	readonly "@type": "tMeUrlTypeChatInvite"
 	readonly info: TLChatInviteLinkInfo
 }
-export interface TLTMeUrlTypeStickerSet extends TLObject {
+export interface TLTMeUrlTypeStickerSet {
 	readonly "@type": "tMeUrlTypeStickerSet"
 	readonly sticker_set_id: string
 }
 export type TLTMeUrlType = TLTMeUrlTypeUser | TLTMeUrlTypeSupergroup | TLTMeUrlTypeChatInvite | TLTMeUrlTypeStickerSet
-export interface TLTMeUrl extends TLObject {
+export interface TLTMeUrl {
 	readonly "@type": "tMeUrl"
 	readonly url: string
 	readonly type: TLTMeUrlType
 }
-export interface TLTMeUrls extends TLObject {
+export interface TLTMeUrls {
 	readonly "@type": "tMeUrls"
 	readonly urls: ReadonlyArray<TLTMeUrl>
 }
-export interface TLSuggestedActionEnableArchiveAndMuteNewChats extends TLObject {
+export interface TLSuggestedActionEnableArchiveAndMuteNewChats {
 	readonly "@type": "suggestedActionEnableArchiveAndMuteNewChats"
 }
-export interface TLSuggestedActionCheckPhoneNumber extends TLObject {
+export interface TLSuggestedActionCheckPhoneNumber {
 	readonly "@type": "suggestedActionCheckPhoneNumber"
 }
 export type TLSuggestedAction = TLSuggestedActionEnableArchiveAndMuteNewChats | TLSuggestedActionCheckPhoneNumber
-export interface TLCount extends TLObject {
+export interface TLCount {
 	readonly "@type": "count"
 	readonly count: number
 }
-export interface TLText extends TLObject {
+export interface TLText {
 	readonly "@type": "text"
 	readonly text: string
 }
-export interface TLSeconds extends TLObject {
+export interface TLSeconds {
 	readonly "@type": "seconds"
 	readonly seconds: number
 }
-export interface TLDeepLinkInfo extends TLObject {
+export interface TLDeepLinkInfo {
 	readonly "@type": "deepLinkInfo"
 	readonly text: TLFormattedText
 	readonly need_update_application: boolean
 }
-export interface TLTextParseModeMarkdown extends TLObject {
+export interface TLTextParseModeMarkdown {
 	readonly "@type": "textParseModeMarkdown"
 	readonly version: number
 }
-export interface TLTextParseModeHTML extends TLObject {
+export interface TLTextParseModeHTML {
 	readonly "@type": "textParseModeHTML"
 }
 export type TLTextParseMode = TLTextParseModeMarkdown | TLTextParseModeHTML
-export interface TLProxyTypeSocks5 extends TLObject {
+export interface TLProxyTypeSocks5 {
 	readonly "@type": "proxyTypeSocks5"
 	readonly username: string
 	readonly password: string
 }
-export interface TLProxyTypeHttp extends TLObject {
+export interface TLProxyTypeHttp {
 	readonly "@type": "proxyTypeHttp"
 	readonly username: string
 	readonly password: string
 	readonly http_only: boolean
 }
-export interface TLProxyTypeMtproto extends TLObject {
+export interface TLProxyTypeMtproto {
 	readonly "@type": "proxyTypeMtproto"
 	readonly secret: string
 }
 export type TLProxyType = TLProxyTypeSocks5 | TLProxyTypeHttp | TLProxyTypeMtproto
-export interface TLProxy extends TLObject {
+export interface TLProxy {
 	readonly "@type": "proxy"
 	readonly id: number
 	readonly server: string
@@ -4635,72 +3799,72 @@ export interface TLProxy extends TLObject {
 	readonly is_enabled: boolean
 	readonly type: TLProxyType
 }
-export interface TLProxies extends TLObject {
+export interface TLProxies {
 	readonly "@type": "proxies"
 	readonly proxies: ReadonlyArray<TLProxy>
 }
-export interface TLInputStickerStatic extends TLObject {
+export interface TLInputStickerStatic {
 	readonly "@type": "inputStickerStatic"
 	readonly sticker: TLInputFile
 	readonly emojis: string
 	readonly mask_position: TLMaskPosition
 }
-export interface TLInputStickerAnimated extends TLObject {
+export interface TLInputStickerAnimated {
 	readonly "@type": "inputStickerAnimated"
 	readonly sticker: TLInputFile
 	readonly emojis: string
 }
 export type TLInputSticker = TLInputStickerStatic | TLInputStickerAnimated
-export interface TLDateRange extends TLObject {
+export interface TLDateRange {
 	readonly "@type": "dateRange"
 	readonly start_date: number
 	readonly end_date: number
 }
-export interface TLStatisticsValue extends TLObject {
+export interface TLStatisticsValue {
 	readonly "@type": "statisticsValue"
 	readonly value: number
 	readonly previous_value: number
 	readonly growth_rate_percentage: number
 }
-export interface TLStatisticsGraphData extends TLObject {
+export interface TLStatisticsGraphData {
 	readonly "@type": "statisticsGraphData"
 	readonly json_data: string
 	readonly zoom_token: string
 }
-export interface TLStatisticsGraphAsync extends TLObject {
+export interface TLStatisticsGraphAsync {
 	readonly "@type": "statisticsGraphAsync"
 	readonly token: string
 }
-export interface TLStatisticsGraphError extends TLObject {
+export interface TLStatisticsGraphError {
 	readonly "@type": "statisticsGraphError"
 	readonly error_message: string
 }
 export type TLStatisticsGraph = TLStatisticsGraphData | TLStatisticsGraphAsync | TLStatisticsGraphError
-export interface TLChatStatisticsMessageInteractionInfo extends TLObject {
+export interface TLChatStatisticsMessageInteractionInfo {
 	readonly "@type": "chatStatisticsMessageInteractionInfo"
 	readonly message_id: number
 	readonly view_count: number
 	readonly forward_count: number
 }
-export interface TLChatStatisticsMessageSenderInfo extends TLObject {
+export interface TLChatStatisticsMessageSenderInfo {
 	readonly "@type": "chatStatisticsMessageSenderInfo"
 	readonly user_id: number
 	readonly sent_message_count: number
 	readonly average_character_count: number
 }
-export interface TLChatStatisticsAdministratorActionsInfo extends TLObject {
+export interface TLChatStatisticsAdministratorActionsInfo {
 	readonly "@type": "chatStatisticsAdministratorActionsInfo"
 	readonly user_id: number
 	readonly deleted_message_count: number
 	readonly banned_user_count: number
 	readonly restricted_user_count: number
 }
-export interface TLChatStatisticsInviterInfo extends TLObject {
+export interface TLChatStatisticsInviterInfo {
 	readonly "@type": "chatStatisticsInviterInfo"
 	readonly user_id: number
 	readonly added_member_count: number
 }
-export interface TLChatStatisticsSupergroup extends TLObject {
+export interface TLChatStatisticsSupergroup {
 	readonly "@type": "chatStatisticsSupergroup"
 	readonly period: TLDateRange
 	readonly member_count: TLStatisticsValue
@@ -4719,7 +3883,7 @@ export interface TLChatStatisticsSupergroup extends TLObject {
 	readonly top_administrators: ReadonlyArray<TLChatStatisticsAdministratorActionsInfo>
 	readonly top_inviters: ReadonlyArray<TLChatStatisticsInviterInfo>
 }
-export interface TLChatStatisticsChannel extends TLObject {
+export interface TLChatStatisticsChannel {
 	readonly "@type": "chatStatisticsChannel"
 	readonly period: TLDateRange
 	readonly member_count: TLStatisticsValue
@@ -4738,183 +3902,183 @@ export interface TLChatStatisticsChannel extends TLObject {
 	readonly recent_message_interactions: ReadonlyArray<TLChatStatisticsMessageInteractionInfo>
 }
 export type TLChatStatistics = TLChatStatisticsSupergroup | TLChatStatisticsChannel
-export interface TLMessageStatistics extends TLObject {
+export interface TLMessageStatistics {
 	readonly "@type": "messageStatistics"
 	readonly message_interaction_graph: TLStatisticsGraph
 }
-export interface TLUpdateAuthorizationState extends TLObject {
+export interface TLUpdateAuthorizationState {
 	readonly "@type": "updateAuthorizationState"
 	readonly authorization_state: TLAuthorizationState
 }
-export interface TLUpdateNewMessage extends TLObject {
+export interface TLUpdateNewMessage {
 	readonly "@type": "updateNewMessage"
 	readonly message: TLMessage
 }
-export interface TLUpdateMessageSendAcknowledged extends TLObject {
+export interface TLUpdateMessageSendAcknowledged {
 	readonly "@type": "updateMessageSendAcknowledged"
 	readonly chat_id: number
 	readonly message_id: number
 }
-export interface TLUpdateMessageSendSucceeded extends TLObject {
+export interface TLUpdateMessageSendSucceeded {
 	readonly "@type": "updateMessageSendSucceeded"
 	readonly message: TLMessage
 	readonly old_message_id: number
 }
-export interface TLUpdateMessageSendFailed extends TLObject {
+export interface TLUpdateMessageSendFailed {
 	readonly "@type": "updateMessageSendFailed"
 	readonly message: TLMessage
 	readonly old_message_id: number
 	readonly error_code: number
 	readonly error_message: string
 }
-export interface TLUpdateMessageContent extends TLObject {
+export interface TLUpdateMessageContent {
 	readonly "@type": "updateMessageContent"
 	readonly chat_id: number
 	readonly message_id: number
 	readonly new_content: TLMessageContent
 }
-export interface TLUpdateMessageEdited extends TLObject {
+export interface TLUpdateMessageEdited {
 	readonly "@type": "updateMessageEdited"
 	readonly chat_id: number
 	readonly message_id: number
 	readonly edit_date: number
 	readonly reply_markup: TLReplyMarkup
 }
-export interface TLUpdateMessageIsPinned extends TLObject {
+export interface TLUpdateMessageIsPinned {
 	readonly "@type": "updateMessageIsPinned"
 	readonly chat_id: number
 	readonly message_id: number
 	readonly is_pinned: boolean
 }
-export interface TLUpdateMessageInteractionInfo extends TLObject {
+export interface TLUpdateMessageInteractionInfo {
 	readonly "@type": "updateMessageInteractionInfo"
 	readonly chat_id: number
 	readonly message_id: number
 	readonly interaction_info: TLMessageInteractionInfo
 }
-export interface TLUpdateMessageContentOpened extends TLObject {
+export interface TLUpdateMessageContentOpened {
 	readonly "@type": "updateMessageContentOpened"
 	readonly chat_id: number
 	readonly message_id: number
 }
-export interface TLUpdateMessageMentionRead extends TLObject {
+export interface TLUpdateMessageMentionRead {
 	readonly "@type": "updateMessageMentionRead"
 	readonly chat_id: number
 	readonly message_id: number
 	readonly unread_mention_count: number
 }
-export interface TLUpdateMessageLiveLocationViewed extends TLObject {
+export interface TLUpdateMessageLiveLocationViewed {
 	readonly "@type": "updateMessageLiveLocationViewed"
 	readonly chat_id: number
 	readonly message_id: number
 }
-export interface TLUpdateNewChat extends TLObject {
+export interface TLUpdateNewChat {
 	readonly "@type": "updateNewChat"
 	readonly chat: TLChat
 }
-export interface TLUpdateChatTitle extends TLObject {
+export interface TLUpdateChatTitle {
 	readonly "@type": "updateChatTitle"
 	readonly chat_id: number
 	readonly title: string
 }
-export interface TLUpdateChatPhoto extends TLObject {
+export interface TLUpdateChatPhoto {
 	readonly "@type": "updateChatPhoto"
 	readonly chat_id: number
 	readonly photo: TLChatPhotoInfo
 }
-export interface TLUpdateChatPermissions extends TLObject {
+export interface TLUpdateChatPermissions {
 	readonly "@type": "updateChatPermissions"
 	readonly chat_id: number
 	readonly permissions: TLChatPermissions
 }
-export interface TLUpdateChatLastMessage extends TLObject {
+export interface TLUpdateChatLastMessage {
 	readonly "@type": "updateChatLastMessage"
 	readonly chat_id: number
 	readonly last_message: TLMessage
 	readonly positions: ReadonlyArray<TLChatPosition>
 }
-export interface TLUpdateChatPosition extends TLObject {
+export interface TLUpdateChatPosition {
 	readonly "@type": "updateChatPosition"
 	readonly chat_id: number
 	readonly position: TLChatPosition
 }
-export interface TLUpdateChatIsMarkedAsUnread extends TLObject {
+export interface TLUpdateChatIsMarkedAsUnread {
 	readonly "@type": "updateChatIsMarkedAsUnread"
 	readonly chat_id: number
 	readonly is_marked_as_unread: boolean
 }
-export interface TLUpdateChatIsBlocked extends TLObject {
+export interface TLUpdateChatIsBlocked {
 	readonly "@type": "updateChatIsBlocked"
 	readonly chat_id: number
 	readonly is_blocked: boolean
 }
-export interface TLUpdateChatHasScheduledMessages extends TLObject {
+export interface TLUpdateChatHasScheduledMessages {
 	readonly "@type": "updateChatHasScheduledMessages"
 	readonly chat_id: number
 	readonly has_scheduled_messages: boolean
 }
-export interface TLUpdateChatDefaultDisableNotification extends TLObject {
+export interface TLUpdateChatDefaultDisableNotification {
 	readonly "@type": "updateChatDefaultDisableNotification"
 	readonly chat_id: number
 	readonly default_disable_notification: boolean
 }
-export interface TLUpdateChatReadInbox extends TLObject {
+export interface TLUpdateChatReadInbox {
 	readonly "@type": "updateChatReadInbox"
 	readonly chat_id: number
 	readonly last_read_inbox_message_id: number
 	readonly unread_count: number
 }
-export interface TLUpdateChatReadOutbox extends TLObject {
+export interface TLUpdateChatReadOutbox {
 	readonly "@type": "updateChatReadOutbox"
 	readonly chat_id: number
 	readonly last_read_outbox_message_id: number
 }
-export interface TLUpdateChatUnreadMentionCount extends TLObject {
+export interface TLUpdateChatUnreadMentionCount {
 	readonly "@type": "updateChatUnreadMentionCount"
 	readonly chat_id: number
 	readonly unread_mention_count: number
 }
-export interface TLUpdateChatNotificationSettings extends TLObject {
+export interface TLUpdateChatNotificationSettings {
 	readonly "@type": "updateChatNotificationSettings"
 	readonly chat_id: number
 	readonly notification_settings: TLChatNotificationSettings
 }
-export interface TLUpdateScopeNotificationSettings extends TLObject {
+export interface TLUpdateScopeNotificationSettings {
 	readonly "@type": "updateScopeNotificationSettings"
 	readonly scope: TLNotificationSettingsScope
 	readonly notification_settings: TLScopeNotificationSettings
 }
-export interface TLUpdateChatActionBar extends TLObject {
+export interface TLUpdateChatActionBar {
 	readonly "@type": "updateChatActionBar"
 	readonly chat_id: number
 	readonly action_bar: TLChatActionBar
 }
-export interface TLUpdateChatReplyMarkup extends TLObject {
+export interface TLUpdateChatReplyMarkup {
 	readonly "@type": "updateChatReplyMarkup"
 	readonly chat_id: number
 	readonly reply_markup_message_id: number
 }
-export interface TLUpdateChatDraftMessage extends TLObject {
+export interface TLUpdateChatDraftMessage {
 	readonly "@type": "updateChatDraftMessage"
 	readonly chat_id: number
 	readonly draft_message: TLDraftMessage
 	readonly positions: ReadonlyArray<TLChatPosition>
 }
-export interface TLUpdateChatFilters extends TLObject {
+export interface TLUpdateChatFilters {
 	readonly "@type": "updateChatFilters"
 	readonly chat_filters: ReadonlyArray<TLChatFilterInfo>
 }
-export interface TLUpdateChatOnlineMemberCount extends TLObject {
+export interface TLUpdateChatOnlineMemberCount {
 	readonly "@type": "updateChatOnlineMemberCount"
 	readonly chat_id: number
 	readonly online_member_count: number
 }
-export interface TLUpdateNotification extends TLObject {
+export interface TLUpdateNotification {
 	readonly "@type": "updateNotification"
 	readonly notification_group_id: number
 	readonly notification: TLNotification
 }
-export interface TLUpdateNotificationGroup extends TLObject {
+export interface TLUpdateNotificationGroup {
 	readonly "@type": "updateNotificationGroup"
 	readonly notification_group_id: number
 	readonly type: TLNotificationGroupType
@@ -4925,106 +4089,106 @@ export interface TLUpdateNotificationGroup extends TLObject {
 	readonly added_notifications: ReadonlyArray<TLNotification>
 	readonly removed_notification_ids: ReadonlyArray<number>
 }
-export interface TLUpdateActiveNotifications extends TLObject {
+export interface TLUpdateActiveNotifications {
 	readonly "@type": "updateActiveNotifications"
 	readonly groups: ReadonlyArray<TLNotificationGroup>
 }
-export interface TLUpdateHavePendingNotifications extends TLObject {
+export interface TLUpdateHavePendingNotifications {
 	readonly "@type": "updateHavePendingNotifications"
 	readonly have_delayed_notifications: boolean
 	readonly have_unreceived_notifications: boolean
 }
-export interface TLUpdateDeleteMessages extends TLObject {
+export interface TLUpdateDeleteMessages {
 	readonly "@type": "updateDeleteMessages"
 	readonly chat_id: number
 	readonly message_ids: ReadonlyArray<number>
 	readonly is_permanent: boolean
 	readonly from_cache: boolean
 }
-export interface TLUpdateUserChatAction extends TLObject {
+export interface TLUpdateUserChatAction {
 	readonly "@type": "updateUserChatAction"
 	readonly chat_id: number
 	readonly message_thread_id: number
 	readonly user_id: number
 	readonly action: TLChatAction
 }
-export interface TLUpdateUserStatus extends TLObject {
+export interface TLUpdateUserStatus {
 	readonly "@type": "updateUserStatus"
 	readonly user_id: number
 	readonly status: TLUserStatus
 }
-export interface TLUpdateUser extends TLObject {
+export interface TLUpdateUser {
 	readonly "@type": "updateUser"
 	readonly user: TLUser
 }
-export interface TLUpdateBasicGroup extends TLObject {
+export interface TLUpdateBasicGroup {
 	readonly "@type": "updateBasicGroup"
 	readonly basic_group: TLBasicGroup
 }
-export interface TLUpdateSupergroup extends TLObject {
+export interface TLUpdateSupergroup {
 	readonly "@type": "updateSupergroup"
 	readonly supergroup: TLSupergroup
 }
-export interface TLUpdateSecretChat extends TLObject {
+export interface TLUpdateSecretChat {
 	readonly "@type": "updateSecretChat"
 	readonly secret_chat: TLSecretChat
 }
-export interface TLUpdateUserFullInfo extends TLObject {
+export interface TLUpdateUserFullInfo {
 	readonly "@type": "updateUserFullInfo"
 	readonly user_id: number
 	readonly user_full_info: TLUserFullInfo
 }
-export interface TLUpdateBasicGroupFullInfo extends TLObject {
+export interface TLUpdateBasicGroupFullInfo {
 	readonly "@type": "updateBasicGroupFullInfo"
 	readonly basic_group_id: number
 	readonly basic_group_full_info: TLBasicGroupFullInfo
 }
-export interface TLUpdateSupergroupFullInfo extends TLObject {
+export interface TLUpdateSupergroupFullInfo {
 	readonly "@type": "updateSupergroupFullInfo"
 	readonly supergroup_id: number
 	readonly supergroup_full_info: TLSupergroupFullInfo
 }
-export interface TLUpdateServiceNotification extends TLObject {
+export interface TLUpdateServiceNotification {
 	readonly "@type": "updateServiceNotification"
 	readonly type: string
 	readonly content: TLMessageContent
 }
-export interface TLUpdateFile extends TLObject {
+export interface TLUpdateFile {
 	readonly "@type": "updateFile"
 	readonly file: TLFile
 }
-export interface TLUpdateFileGenerationStart extends TLObject {
+export interface TLUpdateFileGenerationStart {
 	readonly "@type": "updateFileGenerationStart"
 	readonly generation_id: string
 	readonly original_path: string
 	readonly destination_path: string
 	readonly conversion: string
 }
-export interface TLUpdateFileGenerationStop extends TLObject {
+export interface TLUpdateFileGenerationStop {
 	readonly "@type": "updateFileGenerationStop"
 	readonly generation_id: string
 }
-export interface TLUpdateCall extends TLObject {
+export interface TLUpdateCall {
 	readonly "@type": "updateCall"
 	readonly call: TLCall
 }
-export interface TLUpdateNewCallSignalingData extends TLObject {
+export interface TLUpdateNewCallSignalingData {
 	readonly "@type": "updateNewCallSignalingData"
 	readonly call_id: number
 	readonly data: Uint8Array
 }
-export interface TLUpdateUserPrivacySettingRules extends TLObject {
+export interface TLUpdateUserPrivacySettingRules {
 	readonly "@type": "updateUserPrivacySettingRules"
 	readonly setting: TLUserPrivacySetting
 	readonly rules: TLUserPrivacySettingRules
 }
-export interface TLUpdateUnreadMessageCount extends TLObject {
+export interface TLUpdateUnreadMessageCount {
 	readonly "@type": "updateUnreadMessageCount"
 	readonly chat_list: TLChatList
 	readonly unread_count: number
 	readonly unread_unmuted_count: number
 }
-export interface TLUpdateUnreadChatCount extends TLObject {
+export interface TLUpdateUnreadChatCount {
 	readonly "@type": "updateUnreadChatCount"
 	readonly chat_list: TLChatList
 	readonly total_count: number
@@ -5033,76 +4197,76 @@ export interface TLUpdateUnreadChatCount extends TLObject {
 	readonly marked_as_unread_count: number
 	readonly marked_as_unread_unmuted_count: number
 }
-export interface TLUpdateOption extends TLObject {
+export interface TLUpdateOption {
 	readonly "@type": "updateOption"
 	readonly name: string
 	readonly value: TLOptionValue
 }
-export interface TLUpdateStickerSet extends TLObject {
+export interface TLUpdateStickerSet {
 	readonly "@type": "updateStickerSet"
 	readonly sticker_set: TLStickerSet
 }
-export interface TLUpdateInstalledStickerSets extends TLObject {
+export interface TLUpdateInstalledStickerSets {
 	readonly "@type": "updateInstalledStickerSets"
 	readonly is_masks: boolean
 	readonly sticker_set_ids: ReadonlyArray<string>
 }
-export interface TLUpdateTrendingStickerSets extends TLObject {
+export interface TLUpdateTrendingStickerSets {
 	readonly "@type": "updateTrendingStickerSets"
 	readonly sticker_sets: TLStickerSets
 }
-export interface TLUpdateRecentStickers extends TLObject {
+export interface TLUpdateRecentStickers {
 	readonly "@type": "updateRecentStickers"
 	readonly is_attached: boolean
 	readonly sticker_ids: ReadonlyArray<number>
 }
-export interface TLUpdateFavoriteStickers extends TLObject {
+export interface TLUpdateFavoriteStickers {
 	readonly "@type": "updateFavoriteStickers"
 	readonly sticker_ids: ReadonlyArray<number>
 }
-export interface TLUpdateSavedAnimations extends TLObject {
+export interface TLUpdateSavedAnimations {
 	readonly "@type": "updateSavedAnimations"
 	readonly animation_ids: ReadonlyArray<number>
 }
-export interface TLUpdateSelectedBackground extends TLObject {
+export interface TLUpdateSelectedBackground {
 	readonly "@type": "updateSelectedBackground"
 	readonly for_dark_theme: boolean
 	readonly background: TLBackground
 }
-export interface TLUpdateLanguagePackStrings extends TLObject {
+export interface TLUpdateLanguagePackStrings {
 	readonly "@type": "updateLanguagePackStrings"
 	readonly localization_target: string
 	readonly language_pack_id: string
 	readonly strings: ReadonlyArray<TLLanguagePackString>
 }
-export interface TLUpdateConnectionState extends TLObject {
+export interface TLUpdateConnectionState {
 	readonly "@type": "updateConnectionState"
 	readonly state: TLConnectionState
 }
-export interface TLUpdateTermsOfService extends TLObject {
+export interface TLUpdateTermsOfService {
 	readonly "@type": "updateTermsOfService"
 	readonly terms_of_service_id: string
 	readonly terms_of_service: TLTermsOfService
 }
-export interface TLUpdateUsersNearby extends TLObject {
+export interface TLUpdateUsersNearby {
 	readonly "@type": "updateUsersNearby"
 	readonly users_nearby: ReadonlyArray<TLChatNearby>
 }
-export interface TLUpdateDiceEmojis extends TLObject {
+export interface TLUpdateDiceEmojis {
 	readonly "@type": "updateDiceEmojis"
 	readonly emojis: ReadonlyArray<string>
 }
-export interface TLUpdateAnimationSearchParameters extends TLObject {
+export interface TLUpdateAnimationSearchParameters {
 	readonly "@type": "updateAnimationSearchParameters"
 	readonly provider: string
 	readonly emojis: ReadonlyArray<string>
 }
-export interface TLUpdateSuggestedActions extends TLObject {
+export interface TLUpdateSuggestedActions {
 	readonly "@type": "updateSuggestedActions"
 	readonly added_actions: ReadonlyArray<TLSuggestedAction>
 	readonly removed_actions: ReadonlyArray<TLSuggestedAction>
 }
-export interface TLUpdateNewInlineQuery extends TLObject {
+export interface TLUpdateNewInlineQuery {
 	readonly "@type": "updateNewInlineQuery"
 	readonly id: string
 	readonly sender_user_id: number
@@ -5110,7 +4274,7 @@ export interface TLUpdateNewInlineQuery extends TLObject {
 	readonly query: string
 	readonly offset: string
 }
-export interface TLUpdateNewChosenInlineResult extends TLObject {
+export interface TLUpdateNewChosenInlineResult {
 	readonly "@type": "updateNewChosenInlineResult"
 	readonly sender_user_id: number
 	readonly user_location: TLLocation
@@ -5118,7 +4282,7 @@ export interface TLUpdateNewChosenInlineResult extends TLObject {
 	readonly result_id: string
 	readonly inline_message_id: string
 }
-export interface TLUpdateNewCallbackQuery extends TLObject {
+export interface TLUpdateNewCallbackQuery {
 	readonly "@type": "updateNewCallbackQuery"
 	readonly id: string
 	readonly sender_user_id: number
@@ -5127,7 +4291,7 @@ export interface TLUpdateNewCallbackQuery extends TLObject {
 	readonly chat_instance: string
 	readonly payload: TLCallbackQueryPayload
 }
-export interface TLUpdateNewInlineCallbackQuery extends TLObject {
+export interface TLUpdateNewInlineCallbackQuery {
 	readonly "@type": "updateNewInlineCallbackQuery"
 	readonly id: string
 	readonly sender_user_id: number
@@ -5135,14 +4299,14 @@ export interface TLUpdateNewInlineCallbackQuery extends TLObject {
 	readonly chat_instance: string
 	readonly payload: TLCallbackQueryPayload
 }
-export interface TLUpdateNewShippingQuery extends TLObject {
+export interface TLUpdateNewShippingQuery {
 	readonly "@type": "updateNewShippingQuery"
 	readonly id: string
 	readonly sender_user_id: number
 	readonly invoice_payload: string
 	readonly shipping_address: TLAddress
 }
-export interface TLUpdateNewPreCheckoutQuery extends TLObject {
+export interface TLUpdateNewPreCheckoutQuery {
 	readonly "@type": "updateNewPreCheckoutQuery"
 	readonly id: string
 	readonly sender_user_id: number
@@ -5152,77 +4316,77 @@ export interface TLUpdateNewPreCheckoutQuery extends TLObject {
 	readonly shipping_option_id: string
 	readonly order_info: TLOrderInfo
 }
-export interface TLUpdateNewCustomEvent extends TLObject {
+export interface TLUpdateNewCustomEvent {
 	readonly "@type": "updateNewCustomEvent"
 	readonly event: string
 }
-export interface TLUpdateNewCustomQuery extends TLObject {
+export interface TLUpdateNewCustomQuery {
 	readonly "@type": "updateNewCustomQuery"
 	readonly id: string
 	readonly data: string
 	readonly timeout: number
 }
-export interface TLUpdatePoll extends TLObject {
+export interface TLUpdatePoll {
 	readonly "@type": "updatePoll"
 	readonly poll: TLPoll
 }
-export interface TLUpdatePollAnswer extends TLObject {
+export interface TLUpdatePollAnswer {
 	readonly "@type": "updatePollAnswer"
 	readonly poll_id: string
 	readonly user_id: number
 	readonly option_ids: ReadonlyArray<number>
 }
 export type TLUpdate = TLUpdateAuthorizationState | TLUpdateNewMessage | TLUpdateMessageSendAcknowledged | TLUpdateMessageSendSucceeded | TLUpdateMessageSendFailed | TLUpdateMessageContent | TLUpdateMessageEdited | TLUpdateMessageIsPinned | TLUpdateMessageInteractionInfo | TLUpdateMessageContentOpened | TLUpdateMessageMentionRead | TLUpdateMessageLiveLocationViewed | TLUpdateNewChat | TLUpdateChatTitle | TLUpdateChatPhoto | TLUpdateChatPermissions | TLUpdateChatLastMessage | TLUpdateChatPosition | TLUpdateChatIsMarkedAsUnread | TLUpdateChatIsBlocked | TLUpdateChatHasScheduledMessages | TLUpdateChatDefaultDisableNotification | TLUpdateChatReadInbox | TLUpdateChatReadOutbox | TLUpdateChatUnreadMentionCount | TLUpdateChatNotificationSettings | TLUpdateScopeNotificationSettings | TLUpdateChatActionBar | TLUpdateChatReplyMarkup | TLUpdateChatDraftMessage | TLUpdateChatFilters | TLUpdateChatOnlineMemberCount | TLUpdateNotification | TLUpdateNotificationGroup | TLUpdateActiveNotifications | TLUpdateHavePendingNotifications | TLUpdateDeleteMessages | TLUpdateUserChatAction | TLUpdateUserStatus | TLUpdateUser | TLUpdateBasicGroup | TLUpdateSupergroup | TLUpdateSecretChat | TLUpdateUserFullInfo | TLUpdateBasicGroupFullInfo | TLUpdateSupergroupFullInfo | TLUpdateServiceNotification | TLUpdateFile | TLUpdateFileGenerationStart | TLUpdateFileGenerationStop | TLUpdateCall | TLUpdateNewCallSignalingData | TLUpdateUserPrivacySettingRules | TLUpdateUnreadMessageCount | TLUpdateUnreadChatCount | TLUpdateOption | TLUpdateStickerSet | TLUpdateInstalledStickerSets | TLUpdateTrendingStickerSets | TLUpdateRecentStickers | TLUpdateFavoriteStickers | TLUpdateSavedAnimations | TLUpdateSelectedBackground | TLUpdateLanguagePackStrings | TLUpdateConnectionState | TLUpdateTermsOfService | TLUpdateUsersNearby | TLUpdateDiceEmojis | TLUpdateAnimationSearchParameters | TLUpdateSuggestedActions | TLUpdateNewInlineQuery | TLUpdateNewChosenInlineResult | TLUpdateNewCallbackQuery | TLUpdateNewInlineCallbackQuery | TLUpdateNewShippingQuery | TLUpdateNewPreCheckoutQuery | TLUpdateNewCustomEvent | TLUpdateNewCustomQuery | TLUpdatePoll | TLUpdatePollAnswer
-export interface TLUpdates extends TLObject {
+export interface TLUpdates {
 	readonly "@type": "updates"
 	readonly updates: ReadonlyArray<TLUpdate>
 }
-export interface TLLogStreamDefault extends TLObject {
+export interface TLLogStreamDefault {
 	readonly "@type": "logStreamDefault"
 }
-export interface TLLogStreamFile extends TLObject {
+export interface TLLogStreamFile {
 	readonly "@type": "logStreamFile"
 	readonly path: string
 	readonly max_file_size: number
 	readonly redirect_stderr: boolean
 }
-export interface TLLogStreamEmpty extends TLObject {
+export interface TLLogStreamEmpty {
 	readonly "@type": "logStreamEmpty"
 }
 export type TLLogStream = TLLogStreamDefault | TLLogStreamFile | TLLogStreamEmpty
-export interface TLLogVerbosityLevel extends TLObject {
+export interface TLLogVerbosityLevel {
 	readonly "@type": "logVerbosityLevel"
 	readonly verbosity_level: number
 }
-export interface TLLogTags extends TLObject {
+export interface TLLogTags {
 	readonly "@type": "logTags"
 	readonly tags: ReadonlyArray<string>
 }
-export interface TLTestInt extends TLObject {
+export interface TLTestInt {
 	readonly "@type": "testInt"
 	readonly value: number
 }
-export interface TLTestString extends TLObject {
+export interface TLTestString {
 	readonly "@type": "testString"
 	readonly value: string
 }
-export interface TLTestBytes extends TLObject {
+export interface TLTestBytes {
 	readonly "@type": "testBytes"
 	readonly value: Uint8Array
 }
-export interface TLTestVectorInt extends TLObject {
+export interface TLTestVectorInt {
 	readonly "@type": "testVectorInt"
 	readonly value: ReadonlyArray<number>
 }
-export interface TLTestVectorIntObject extends TLObject {
+export interface TLTestVectorIntObject {
 	readonly "@type": "testVectorIntObject"
 	readonly value: ReadonlyArray<TLTestInt>
 }
-export interface TLTestVectorString extends TLObject {
+export interface TLTestVectorString {
 	readonly "@type": "testVectorString"
 	readonly value: ReadonlyArray<string>
 }
-export interface TLTestVectorStringObject extends TLObject {
+export interface TLTestVectorStringObject {
 	readonly "@type": "testVectorStringObject"
 	readonly value: ReadonlyArray<TLTestString>
 }
@@ -8282,3 +7446,838 @@ export class TD {
 		} as any as TdObject)) as any as TLError
 	}
 }
+
+export type TLObject = TLError
+                       | TLOk
+                       | TLTdlibParameters
+                       | TLAuthenticationCodeTypeTelegramMessage
+                       | TLAuthenticationCodeTypeSms
+                       | TLAuthenticationCodeTypeCall
+                       | TLAuthenticationCodeTypeFlashCall
+                       | TLAuthenticationCodeInfo
+                       | TLEmailAddressAuthenticationCodeInfo
+                       | TLTextEntity
+                       | TLTextEntities
+                       | TLFormattedText
+                       | TLTermsOfService
+                       | TLAuthorizationStateWaitTdlibParameters
+                       | TLAuthorizationStateWaitEncryptionKey
+                       | TLAuthorizationStateWaitPhoneNumber
+                       | TLAuthorizationStateWaitCode
+                       | TLAuthorizationStateWaitOtherDeviceConfirmation
+                       | TLAuthorizationStateWaitRegistration
+                       | TLAuthorizationStateWaitPassword
+                       | TLAuthorizationStateReady
+                       | TLAuthorizationStateLoggingOut
+                       | TLAuthorizationStateClosing
+                       | TLAuthorizationStateClosed
+                       | TLPasswordState
+                       | TLRecoveryEmailAddress
+                       | TLTemporaryPasswordState
+                       | TLLocalFile
+                       | TLRemoteFile
+                       | TLFile
+                       | TLInputFileId
+                       | TLInputFileRemote
+                       | TLInputFileLocal
+                       | TLInputFileGenerated
+                       | TLPhotoSize
+                       | TLMinithumbnail
+                       | TLThumbnailFormatJpeg
+                       | TLThumbnailFormatPng
+                       | TLThumbnailFormatWebp
+                       | TLThumbnailFormatGif
+                       | TLThumbnailFormatTgs
+                       | TLThumbnailFormatMpeg4
+                       | TLThumbnail
+                       | TLMaskPointForehead
+                       | TLMaskPointEyes
+                       | TLMaskPointMouth
+                       | TLMaskPointChin
+                       | TLMaskPosition
+                       | TLPollOption
+                       | TLPollTypeRegular
+                       | TLPollTypeQuiz
+                       | TLAnimation
+                       | TLAudio
+                       | TLDocument
+                       | TLPhoto
+                       | TLSticker
+                       | TLVideo
+                       | TLVideoNote
+                       | TLVoiceNote
+                       | TLContact
+                       | TLLocation
+                       | TLVenue
+                       | TLGame
+                       | TLPoll
+                       | TLProfilePhoto
+                       | TLChatPhotoInfo
+                       | TLUserTypeRegular
+                       | TLUserTypeDeleted
+                       | TLUserTypeBot
+                       | TLUserTypeUnknown
+                       | TLBotCommand
+                       | TLBotInfo
+                       | TLChatLocation
+                       | TLAnimatedChatPhoto
+                       | TLChatPhoto
+                       | TLChatPhotos
+                       | TLInputChatPhotoPrevious
+                       | TLInputChatPhotoStatic
+                       | TLInputChatPhotoAnimation
+                       | TLUser
+                       | TLUserFullInfo
+                       | TLUsers
+                       | TLChatAdministrator
+                       | TLChatAdministrators
+                       | TLChatPermissions
+                       | TLChatMemberStatusCreator
+                       | TLChatMemberStatusAdministrator
+                       | TLChatMemberStatusMember
+                       | TLChatMemberStatusRestricted
+                       | TLChatMemberStatusLeft
+                       | TLChatMemberStatusBanned
+                       | TLChatMember
+                       | TLChatMembers
+                       | TLChatMembersFilterContacts
+                       | TLChatMembersFilterAdministrators
+                       | TLChatMembersFilterMembers
+                       | TLChatMembersFilterMention
+                       | TLChatMembersFilterRestricted
+                       | TLChatMembersFilterBanned
+                       | TLChatMembersFilterBots
+                       | TLSupergroupMembersFilterRecent
+                       | TLSupergroupMembersFilterContacts
+                       | TLSupergroupMembersFilterAdministrators
+                       | TLSupergroupMembersFilterSearch
+                       | TLSupergroupMembersFilterRestricted
+                       | TLSupergroupMembersFilterBanned
+                       | TLSupergroupMembersFilterMention
+                       | TLSupergroupMembersFilterBots
+                       | TLBasicGroup
+                       | TLBasicGroupFullInfo
+                       | TLSupergroup
+                       | TLSupergroupFullInfo
+                       | TLSecretChatStatePending
+                       | TLSecretChatStateReady
+                       | TLSecretChatStateClosed
+                       | TLSecretChat
+                       | TLMessageSenderUser
+                       | TLMessageSenderChat
+                       | TLMessageSenders
+                       | TLMessageForwardOriginUser
+                       | TLMessageForwardOriginChat
+                       | TLMessageForwardOriginHiddenUser
+                       | TLMessageForwardOriginChannel
+                       | TLMessageForwardInfo
+                       | TLMessageReplyInfo
+                       | TLMessageInteractionInfo
+                       | TLMessageSendingStatePending
+                       | TLMessageSendingStateFailed
+                       | TLMessage
+                       | TLMessages
+                       | TLFoundMessages
+                       | TLNotificationSettingsScopePrivateChats
+                       | TLNotificationSettingsScopeGroupChats
+                       | TLNotificationSettingsScopeChannelChats
+                       | TLChatNotificationSettings
+                       | TLScopeNotificationSettings
+                       | TLDraftMessage
+                       | TLChatTypePrivate
+                       | TLChatTypeBasicGroup
+                       | TLChatTypeSupergroup
+                       | TLChatTypeSecret
+                       | TLChatFilter
+                       | TLChatFilterInfo
+                       | TLRecommendedChatFilter
+                       | TLRecommendedChatFilters
+                       | TLChatListMain
+                       | TLChatListArchive
+                       | TLChatListFilter
+                       | TLChatLists
+                       | TLChatSourceMtprotoProxy
+                       | TLChatSourcePublicServiceAnnouncement
+                       | TLChatPosition
+                       | TLChat
+                       | TLChats
+                       | TLChatNearby
+                       | TLChatsNearby
+                       | TLChatInviteLink
+                       | TLChatInviteLinkInfo
+                       | TLPublicChatTypeHasUsername
+                       | TLPublicChatTypeIsLocationBased
+                       | TLChatActionBarReportSpam
+                       | TLChatActionBarReportUnrelatedLocation
+                       | TLChatActionBarReportAddBlock
+                       | TLChatActionBarAddContact
+                       | TLChatActionBarSharePhoneNumber
+                       | TLKeyboardButtonTypeText
+                       | TLKeyboardButtonTypeRequestPhoneNumber
+                       | TLKeyboardButtonTypeRequestLocation
+                       | TLKeyboardButtonTypeRequestPoll
+                       | TLKeyboardButton
+                       | TLInlineKeyboardButtonTypeUrl
+                       | TLInlineKeyboardButtonTypeLoginUrl
+                       | TLInlineKeyboardButtonTypeCallback
+                       | TLInlineKeyboardButtonTypeCallbackWithPassword
+                       | TLInlineKeyboardButtonTypeCallbackGame
+                       | TLInlineKeyboardButtonTypeSwitchInline
+                       | TLInlineKeyboardButtonTypeBuy
+                       | TLInlineKeyboardButton
+                       | TLReplyMarkupRemoveKeyboard
+                       | TLReplyMarkupForceReply
+                       | TLReplyMarkupShowKeyboard
+                       | TLReplyMarkupInlineKeyboard
+                       | TLLoginUrlInfoOpen
+                       | TLLoginUrlInfoRequestConfirmation
+                       | TLMessageThreadInfo
+                       | TLRichTextPlain
+                       | TLRichTextBold
+                       | TLRichTextItalic
+                       | TLRichTextUnderline
+                       | TLRichTextStrikethrough
+                       | TLRichTextFixed
+                       | TLRichTextUrl
+                       | TLRichTextEmailAddress
+                       | TLRichTextSubscript
+                       | TLRichTextSuperscript
+                       | TLRichTextMarked
+                       | TLRichTextPhoneNumber
+                       | TLRichTextIcon
+                       | TLRichTextReference
+                       | TLRichTextAnchor
+                       | TLRichTextAnchorLink
+                       | TLRichTexts
+                       | TLPageBlockCaption
+                       | TLPageBlockListItem
+                       | TLPageBlockHorizontalAlignmentLeft
+                       | TLPageBlockHorizontalAlignmentCenter
+                       | TLPageBlockHorizontalAlignmentRight
+                       | TLPageBlockVerticalAlignmentTop
+                       | TLPageBlockVerticalAlignmentMiddle
+                       | TLPageBlockVerticalAlignmentBottom
+                       | TLPageBlockTableCell
+                       | TLPageBlockRelatedArticle
+                       | TLPageBlockTitle
+                       | TLPageBlockSubtitle
+                       | TLPageBlockAuthorDate
+                       | TLPageBlockHeader
+                       | TLPageBlockSubheader
+                       | TLPageBlockKicker
+                       | TLPageBlockParagraph
+                       | TLPageBlockPreformatted
+                       | TLPageBlockFooter
+                       | TLPageBlockDivider
+                       | TLPageBlockAnchor
+                       | TLPageBlockList
+                       | TLPageBlockBlockQuote
+                       | TLPageBlockPullQuote
+                       | TLPageBlockAnimation
+                       | TLPageBlockAudio
+                       | TLPageBlockPhoto
+                       | TLPageBlockVideo
+                       | TLPageBlockVoiceNote
+                       | TLPageBlockCover
+                       | TLPageBlockEmbedded
+                       | TLPageBlockEmbeddedPost
+                       | TLPageBlockCollage
+                       | TLPageBlockSlideshow
+                       | TLPageBlockChatLink
+                       | TLPageBlockTable
+                       | TLPageBlockDetails
+                       | TLPageBlockRelatedArticles
+                       | TLPageBlockMap
+                       | TLWebPageInstantView
+                       | TLWebPage
+                       | TLCountryInfo
+                       | TLCountries
+                       | TLPhoneNumberInfo
+                       | TLBankCardActionOpenUrl
+                       | TLBankCardInfo
+                       | TLAddress
+                       | TLLabeledPricePart
+                       | TLInvoice
+                       | TLOrderInfo
+                       | TLShippingOption
+                       | TLSavedCredentials
+                       | TLInputCredentialsSaved
+                       | TLInputCredentialsNew
+                       | TLInputCredentialsAndroidPay
+                       | TLInputCredentialsApplePay
+                       | TLPaymentsProviderStripe
+                       | TLPaymentForm
+                       | TLValidatedOrderInfo
+                       | TLPaymentResult
+                       | TLPaymentReceipt
+                       | TLDatedFile
+                       | TLPassportElementTypePersonalDetails
+                       | TLPassportElementTypePassport
+                       | TLPassportElementTypeDriverLicense
+                       | TLPassportElementTypeIdentityCard
+                       | TLPassportElementTypeInternalPassport
+                       | TLPassportElementTypeAddress
+                       | TLPassportElementTypeUtilityBill
+                       | TLPassportElementTypeBankStatement
+                       | TLPassportElementTypeRentalAgreement
+                       | TLPassportElementTypePassportRegistration
+                       | TLPassportElementTypeTemporaryRegistration
+                       | TLPassportElementTypePhoneNumber
+                       | TLPassportElementTypeEmailAddress
+                       | TLDate
+                       | TLPersonalDetails
+                       | TLIdentityDocument
+                       | TLInputIdentityDocument
+                       | TLPersonalDocument
+                       | TLInputPersonalDocument
+                       | TLPassportElementPersonalDetails
+                       | TLPassportElementPassport
+                       | TLPassportElementDriverLicense
+                       | TLPassportElementIdentityCard
+                       | TLPassportElementInternalPassport
+                       | TLPassportElementAddress
+                       | TLPassportElementUtilityBill
+                       | TLPassportElementBankStatement
+                       | TLPassportElementRentalAgreement
+                       | TLPassportElementPassportRegistration
+                       | TLPassportElementTemporaryRegistration
+                       | TLPassportElementPhoneNumber
+                       | TLPassportElementEmailAddress
+                       | TLInputPassportElementPersonalDetails
+                       | TLInputPassportElementPassport
+                       | TLInputPassportElementDriverLicense
+                       | TLInputPassportElementIdentityCard
+                       | TLInputPassportElementInternalPassport
+                       | TLInputPassportElementAddress
+                       | TLInputPassportElementUtilityBill
+                       | TLInputPassportElementBankStatement
+                       | TLInputPassportElementRentalAgreement
+                       | TLInputPassportElementPassportRegistration
+                       | TLInputPassportElementTemporaryRegistration
+                       | TLInputPassportElementPhoneNumber
+                       | TLInputPassportElementEmailAddress
+                       | TLPassportElements
+                       | TLPassportElementErrorSourceUnspecified
+                       | TLPassportElementErrorSourceDataField
+                       | TLPassportElementErrorSourceFrontSide
+                       | TLPassportElementErrorSourceReverseSide
+                       | TLPassportElementErrorSourceSelfie
+                       | TLPassportElementErrorSourceTranslationFile
+                       | TLPassportElementErrorSourceTranslationFiles
+                       | TLPassportElementErrorSourceFile
+                       | TLPassportElementErrorSourceFiles
+                       | TLPassportElementError
+                       | TLPassportSuitableElement
+                       | TLPassportRequiredElement
+                       | TLPassportAuthorizationForm
+                       | TLPassportElementsWithErrors
+                       | TLEncryptedCredentials
+                       | TLEncryptedPassportElement
+                       | TLInputPassportElementErrorSourceUnspecified
+                       | TLInputPassportElementErrorSourceDataField
+                       | TLInputPassportElementErrorSourceFrontSide
+                       | TLInputPassportElementErrorSourceReverseSide
+                       | TLInputPassportElementErrorSourceSelfie
+                       | TLInputPassportElementErrorSourceTranslationFile
+                       | TLInputPassportElementErrorSourceTranslationFiles
+                       | TLInputPassportElementErrorSourceFile
+                       | TLInputPassportElementErrorSourceFiles
+                       | TLInputPassportElementError
+                       | TLMessageText
+                       | TLMessageAnimation
+                       | TLMessageAudio
+                       | TLMessageDocument
+                       | TLMessagePhoto
+                       | TLMessageExpiredPhoto
+                       | TLMessageSticker
+                       | TLMessageVideo
+                       | TLMessageExpiredVideo
+                       | TLMessageVideoNote
+                       | TLMessageVoiceNote
+                       | TLMessageLocation
+                       | TLMessageVenue
+                       | TLMessageContact
+                       | TLMessageDice
+                       | TLMessageGame
+                       | TLMessagePoll
+                       | TLMessageInvoice
+                       | TLMessageCall
+                       | TLMessageBasicGroupChatCreate
+                       | TLMessageSupergroupChatCreate
+                       | TLMessageChatChangeTitle
+                       | TLMessageChatChangePhoto
+                       | TLMessageChatDeletePhoto
+                       | TLMessageChatAddMembers
+                       | TLMessageChatJoinByLink
+                       | TLMessageChatDeleteMember
+                       | TLMessageChatUpgradeTo
+                       | TLMessageChatUpgradeFrom
+                       | TLMessagePinMessage
+                       | TLMessageScreenshotTaken
+                       | TLMessageChatSetTtl
+                       | TLMessageCustomServiceAction
+                       | TLMessageGameScore
+                       | TLMessagePaymentSuccessful
+                       | TLMessagePaymentSuccessfulBot
+                       | TLMessageContactRegistered
+                       | TLMessageWebsiteConnected
+                       | TLMessagePassportDataSent
+                       | TLMessagePassportDataReceived
+                       | TLMessageProximityAlertTriggered
+                       | TLMessageUnsupported
+                       | TLTextEntityTypeMention
+                       | TLTextEntityTypeHashtag
+                       | TLTextEntityTypeCashtag
+                       | TLTextEntityTypeBotCommand
+                       | TLTextEntityTypeUrl
+                       | TLTextEntityTypeEmailAddress
+                       | TLTextEntityTypePhoneNumber
+                       | TLTextEntityTypeBankCardNumber
+                       | TLTextEntityTypeBold
+                       | TLTextEntityTypeItalic
+                       | TLTextEntityTypeUnderline
+                       | TLTextEntityTypeStrikethrough
+                       | TLTextEntityTypeCode
+                       | TLTextEntityTypePre
+                       | TLTextEntityTypePreCode
+                       | TLTextEntityTypeTextUrl
+                       | TLTextEntityTypeMentionName
+                       | TLInputThumbnail
+                       | TLMessageSchedulingStateSendAtDate
+                       | TLMessageSchedulingStateSendWhenOnline
+                       | TLMessageSendOptions
+                       | TLMessageCopyOptions
+                       | TLInputMessageText
+                       | TLInputMessageAnimation
+                       | TLInputMessageAudio
+                       | TLInputMessageDocument
+                       | TLInputMessagePhoto
+                       | TLInputMessageSticker
+                       | TLInputMessageVideo
+                       | TLInputMessageVideoNote
+                       | TLInputMessageVoiceNote
+                       | TLInputMessageLocation
+                       | TLInputMessageVenue
+                       | TLInputMessageContact
+                       | TLInputMessageDice
+                       | TLInputMessageGame
+                       | TLInputMessageInvoice
+                       | TLInputMessagePoll
+                       | TLInputMessageForwarded
+                       | TLSearchMessagesFilterEmpty
+                       | TLSearchMessagesFilterAnimation
+                       | TLSearchMessagesFilterAudio
+                       | TLSearchMessagesFilterDocument
+                       | TLSearchMessagesFilterPhoto
+                       | TLSearchMessagesFilterVideo
+                       | TLSearchMessagesFilterVoiceNote
+                       | TLSearchMessagesFilterPhotoAndVideo
+                       | TLSearchMessagesFilterUrl
+                       | TLSearchMessagesFilterChatPhoto
+                       | TLSearchMessagesFilterCall
+                       | TLSearchMessagesFilterMissedCall
+                       | TLSearchMessagesFilterVideoNote
+                       | TLSearchMessagesFilterVoiceAndVideoNote
+                       | TLSearchMessagesFilterMention
+                       | TLSearchMessagesFilterUnreadMention
+                       | TLSearchMessagesFilterFailedToSend
+                       | TLSearchMessagesFilterPinned
+                       | TLChatActionTyping
+                       | TLChatActionRecordingVideo
+                       | TLChatActionUploadingVideo
+                       | TLChatActionRecordingVoiceNote
+                       | TLChatActionUploadingVoiceNote
+                       | TLChatActionUploadingPhoto
+                       | TLChatActionUploadingDocument
+                       | TLChatActionChoosingLocation
+                       | TLChatActionChoosingContact
+                       | TLChatActionStartPlayingGame
+                       | TLChatActionRecordingVideoNote
+                       | TLChatActionUploadingVideoNote
+                       | TLChatActionCancel
+                       | TLUserStatusEmpty
+                       | TLUserStatusOnline
+                       | TLUserStatusOffline
+                       | TLUserStatusRecently
+                       | TLUserStatusLastWeek
+                       | TLUserStatusLastMonth
+                       | TLStickers
+                       | TLEmojis
+                       | TLStickerSet
+                       | TLStickerSetInfo
+                       | TLStickerSets
+                       | TLCallDiscardReasonEmpty
+                       | TLCallDiscardReasonMissed
+                       | TLCallDiscardReasonDeclined
+                       | TLCallDiscardReasonDisconnected
+                       | TLCallDiscardReasonHungUp
+                       | TLCallProtocol
+                       | TLCallServerTypeTelegramReflector
+                       | TLCallServerTypeWebrtc
+                       | TLCallServer
+                       | TLCallId
+                       | TLCallStatePending
+                       | TLCallStateExchangingKeys
+                       | TLCallStateReady
+                       | TLCallStateHangingUp
+                       | TLCallStateDiscarded
+                       | TLCallStateError
+                       | TLCallProblemEcho
+                       | TLCallProblemNoise
+                       | TLCallProblemInterruptions
+                       | TLCallProblemDistortedSpeech
+                       | TLCallProblemSilentLocal
+                       | TLCallProblemSilentRemote
+                       | TLCallProblemDropped
+                       | TLCallProblemDistortedVideo
+                       | TLCallProblemPixelatedVideo
+                       | TLCall
+                       | TLPhoneNumberAuthenticationSettings
+                       | TLAnimations
+                       | TLDiceStickersRegular
+                       | TLDiceStickersSlotMachine
+                       | TLImportedContacts
+                       | TLHttpUrl
+                       | TLInputInlineQueryResultAnimation
+                       | TLInputInlineQueryResultArticle
+                       | TLInputInlineQueryResultAudio
+                       | TLInputInlineQueryResultContact
+                       | TLInputInlineQueryResultDocument
+                       | TLInputInlineQueryResultGame
+                       | TLInputInlineQueryResultLocation
+                       | TLInputInlineQueryResultPhoto
+                       | TLInputInlineQueryResultSticker
+                       | TLInputInlineQueryResultVenue
+                       | TLInputInlineQueryResultVideo
+                       | TLInputInlineQueryResultVoiceNote
+                       | TLInlineQueryResultArticle
+                       | TLInlineQueryResultContact
+                       | TLInlineQueryResultLocation
+                       | TLInlineQueryResultVenue
+                       | TLInlineQueryResultGame
+                       | TLInlineQueryResultAnimation
+                       | TLInlineQueryResultAudio
+                       | TLInlineQueryResultDocument
+                       | TLInlineQueryResultPhoto
+                       | TLInlineQueryResultSticker
+                       | TLInlineQueryResultVideo
+                       | TLInlineQueryResultVoiceNote
+                       | TLInlineQueryResults
+                       | TLCallbackQueryPayloadData
+                       | TLCallbackQueryPayloadDataWithPassword
+                       | TLCallbackQueryPayloadGame
+                       | TLCallbackQueryAnswer
+                       | TLCustomRequestResult
+                       | TLGameHighScore
+                       | TLGameHighScores
+                       | TLChatEventMessageEdited
+                       | TLChatEventMessageDeleted
+                       | TLChatEventPollStopped
+                       | TLChatEventMessagePinned
+                       | TLChatEventMessageUnpinned
+                       | TLChatEventMemberJoined
+                       | TLChatEventMemberLeft
+                       | TLChatEventMemberInvited
+                       | TLChatEventMemberPromoted
+                       | TLChatEventMemberRestricted
+                       | TLChatEventTitleChanged
+                       | TLChatEventPermissionsChanged
+                       | TLChatEventDescriptionChanged
+                       | TLChatEventUsernameChanged
+                       | TLChatEventPhotoChanged
+                       | TLChatEventInvitesToggled
+                       | TLChatEventLinkedChatChanged
+                       | TLChatEventSlowModeDelayChanged
+                       | TLChatEventSignMessagesToggled
+                       | TLChatEventStickerSetChanged
+                       | TLChatEventLocationChanged
+                       | TLChatEventIsAllHistoryAvailableToggled
+                       | TLChatEvent
+                       | TLChatEvents
+                       | TLChatEventLogFilters
+                       | TLLanguagePackStringValueOrdinary
+                       | TLLanguagePackStringValuePluralized
+                       | TLLanguagePackStringValueDeleted
+                       | TLLanguagePackString
+                       | TLLanguagePackStrings
+                       | TLLanguagePackInfo
+                       | TLLocalizationTargetInfo
+                       | TLDeviceTokenFirebaseCloudMessaging
+                       | TLDeviceTokenApplePush
+                       | TLDeviceTokenApplePushVoIP
+                       | TLDeviceTokenWindowsPush
+                       | TLDeviceTokenMicrosoftPush
+                       | TLDeviceTokenMicrosoftPushVoIP
+                       | TLDeviceTokenWebPush
+                       | TLDeviceTokenSimplePush
+                       | TLDeviceTokenUbuntuPush
+                       | TLDeviceTokenBlackBerryPush
+                       | TLDeviceTokenTizenPush
+                       | TLPushReceiverId
+                       | TLBackgroundFillSolid
+                       | TLBackgroundFillGradient
+                       | TLBackgroundTypeWallpaper
+                       | TLBackgroundTypePattern
+                       | TLBackgroundTypeFill
+                       | TLBackground
+                       | TLBackgrounds
+                       | TLInputBackgroundLocal
+                       | TLInputBackgroundRemote
+                       | TLHashtags
+                       | TLCanTransferOwnershipResultOk
+                       | TLCanTransferOwnershipResultPasswordNeeded
+                       | TLCanTransferOwnershipResultPasswordTooFresh
+                       | TLCanTransferOwnershipResultSessionTooFresh
+                       | TLCheckChatUsernameResultOk
+                       | TLCheckChatUsernameResultUsernameInvalid
+                       | TLCheckChatUsernameResultUsernameOccupied
+                       | TLCheckChatUsernameResultPublicChatsTooMuch
+                       | TLCheckChatUsernameResultPublicGroupsUnavailable
+                       | TLPushMessageContentHidden
+                       | TLPushMessageContentAnimation
+                       | TLPushMessageContentAudio
+                       | TLPushMessageContentContact
+                       | TLPushMessageContentContactRegistered
+                       | TLPushMessageContentDocument
+                       | TLPushMessageContentGame
+                       | TLPushMessageContentGameScore
+                       | TLPushMessageContentInvoice
+                       | TLPushMessageContentLocation
+                       | TLPushMessageContentPhoto
+                       | TLPushMessageContentPoll
+                       | TLPushMessageContentScreenshotTaken
+                       | TLPushMessageContentSticker
+                       | TLPushMessageContentText
+                       | TLPushMessageContentVideo
+                       | TLPushMessageContentVideoNote
+                       | TLPushMessageContentVoiceNote
+                       | TLPushMessageContentBasicGroupChatCreate
+                       | TLPushMessageContentChatAddMembers
+                       | TLPushMessageContentChatChangePhoto
+                       | TLPushMessageContentChatChangeTitle
+                       | TLPushMessageContentChatDeleteMember
+                       | TLPushMessageContentChatJoinByLink
+                       | TLPushMessageContentMessageForwards
+                       | TLPushMessageContentMediaAlbum
+                       | TLNotificationTypeNewMessage
+                       | TLNotificationTypeNewSecretChat
+                       | TLNotificationTypeNewCall
+                       | TLNotificationTypeNewPushMessage
+                       | TLNotificationGroupTypeMessages
+                       | TLNotificationGroupTypeMentions
+                       | TLNotificationGroupTypeSecretChat
+                       | TLNotificationGroupTypeCalls
+                       | TLNotification
+                       | TLNotificationGroup
+                       | TLOptionValueBoolean
+                       | TLOptionValueEmpty
+                       | TLOptionValueInteger
+                       | TLOptionValueString
+                       | TLJsonObjectMember
+                       | TLJsonValueNull
+                       | TLJsonValueBoolean
+                       | TLJsonValueNumber
+                       | TLJsonValueString
+                       | TLJsonValueArray
+                       | TLJsonValueObject
+                       | TLUserPrivacySettingRuleAllowAll
+                       | TLUserPrivacySettingRuleAllowContacts
+                       | TLUserPrivacySettingRuleAllowUsers
+                       | TLUserPrivacySettingRuleAllowChatMembers
+                       | TLUserPrivacySettingRuleRestrictAll
+                       | TLUserPrivacySettingRuleRestrictContacts
+                       | TLUserPrivacySettingRuleRestrictUsers
+                       | TLUserPrivacySettingRuleRestrictChatMembers
+                       | TLUserPrivacySettingRules
+                       | TLUserPrivacySettingShowStatus
+                       | TLUserPrivacySettingShowProfilePhoto
+                       | TLUserPrivacySettingShowLinkInForwardedMessages
+                       | TLUserPrivacySettingShowPhoneNumber
+                       | TLUserPrivacySettingAllowChatInvites
+                       | TLUserPrivacySettingAllowCalls
+                       | TLUserPrivacySettingAllowPeerToPeerCalls
+                       | TLUserPrivacySettingAllowFindingByPhoneNumber
+                       | TLAccountTtl
+                       | TLSession
+                       | TLSessions
+                       | TLConnectedWebsite
+                       | TLConnectedWebsites
+                       | TLChatReportReasonSpam
+                       | TLChatReportReasonViolence
+                       | TLChatReportReasonPornography
+                       | TLChatReportReasonChildAbuse
+                       | TLChatReportReasonCopyright
+                       | TLChatReportReasonUnrelatedLocation
+                       | TLChatReportReasonCustom
+                       | TLMessageLink
+                       | TLMessageLinkInfo
+                       | TLFilePart
+                       | TLFileTypeNone
+                       | TLFileTypeAnimation
+                       | TLFileTypeAudio
+                       | TLFileTypeDocument
+                       | TLFileTypePhoto
+                       | TLFileTypeProfilePhoto
+                       | TLFileTypeSecret
+                       | TLFileTypeSecretThumbnail
+                       | TLFileTypeSecure
+                       | TLFileTypeSticker
+                       | TLFileTypeThumbnail
+                       | TLFileTypeUnknown
+                       | TLFileTypeVideo
+                       | TLFileTypeVideoNote
+                       | TLFileTypeVoiceNote
+                       | TLFileTypeWallpaper
+                       | TLStorageStatisticsByFileType
+                       | TLStorageStatisticsByChat
+                       | TLStorageStatistics
+                       | TLStorageStatisticsFast
+                       | TLDatabaseStatistics
+                       | TLNetworkTypeNone
+                       | TLNetworkTypeMobile
+                       | TLNetworkTypeMobileRoaming
+                       | TLNetworkTypeWiFi
+                       | TLNetworkTypeOther
+                       | TLNetworkStatisticsEntryFile
+                       | TLNetworkStatisticsEntryCall
+                       | TLNetworkStatistics
+                       | TLAutoDownloadSettings
+                       | TLAutoDownloadSettingsPresets
+                       | TLConnectionStateWaitingForNetwork
+                       | TLConnectionStateConnectingToProxy
+                       | TLConnectionStateConnecting
+                       | TLConnectionStateUpdating
+                       | TLConnectionStateReady
+                       | TLTopChatCategoryUsers
+                       | TLTopChatCategoryBots
+                       | TLTopChatCategoryGroups
+                       | TLTopChatCategoryChannels
+                       | TLTopChatCategoryInlineBots
+                       | TLTopChatCategoryCalls
+                       | TLTopChatCategoryForwardChats
+                       | TLTMeUrlTypeUser
+                       | TLTMeUrlTypeSupergroup
+                       | TLTMeUrlTypeChatInvite
+                       | TLTMeUrlTypeStickerSet
+                       | TLTMeUrl
+                       | TLTMeUrls
+                       | TLSuggestedActionEnableArchiveAndMuteNewChats
+                       | TLSuggestedActionCheckPhoneNumber
+                       | TLCount
+                       | TLText
+                       | TLSeconds
+                       | TLDeepLinkInfo
+                       | TLTextParseModeMarkdown
+                       | TLTextParseModeHTML
+                       | TLProxyTypeSocks5
+                       | TLProxyTypeHttp
+                       | TLProxyTypeMtproto
+                       | TLProxy
+                       | TLProxies
+                       | TLInputStickerStatic
+                       | TLInputStickerAnimated
+                       | TLDateRange
+                       | TLStatisticsValue
+                       | TLStatisticsGraphData
+                       | TLStatisticsGraphAsync
+                       | TLStatisticsGraphError
+                       | TLChatStatisticsMessageInteractionInfo
+                       | TLChatStatisticsMessageSenderInfo
+                       | TLChatStatisticsAdministratorActionsInfo
+                       | TLChatStatisticsInviterInfo
+                       | TLChatStatisticsSupergroup
+                       | TLChatStatisticsChannel
+                       | TLMessageStatistics
+                       | TLUpdateAuthorizationState
+                       | TLUpdateNewMessage
+                       | TLUpdateMessageSendAcknowledged
+                       | TLUpdateMessageSendSucceeded
+                       | TLUpdateMessageSendFailed
+                       | TLUpdateMessageContent
+                       | TLUpdateMessageEdited
+                       | TLUpdateMessageIsPinned
+                       | TLUpdateMessageInteractionInfo
+                       | TLUpdateMessageContentOpened
+                       | TLUpdateMessageMentionRead
+                       | TLUpdateMessageLiveLocationViewed
+                       | TLUpdateNewChat
+                       | TLUpdateChatTitle
+                       | TLUpdateChatPhoto
+                       | TLUpdateChatPermissions
+                       | TLUpdateChatLastMessage
+                       | TLUpdateChatPosition
+                       | TLUpdateChatIsMarkedAsUnread
+                       | TLUpdateChatIsBlocked
+                       | TLUpdateChatHasScheduledMessages
+                       | TLUpdateChatDefaultDisableNotification
+                       | TLUpdateChatReadInbox
+                       | TLUpdateChatReadOutbox
+                       | TLUpdateChatUnreadMentionCount
+                       | TLUpdateChatNotificationSettings
+                       | TLUpdateScopeNotificationSettings
+                       | TLUpdateChatActionBar
+                       | TLUpdateChatReplyMarkup
+                       | TLUpdateChatDraftMessage
+                       | TLUpdateChatFilters
+                       | TLUpdateChatOnlineMemberCount
+                       | TLUpdateNotification
+                       | TLUpdateNotificationGroup
+                       | TLUpdateActiveNotifications
+                       | TLUpdateHavePendingNotifications
+                       | TLUpdateDeleteMessages
+                       | TLUpdateUserChatAction
+                       | TLUpdateUserStatus
+                       | TLUpdateUser
+                       | TLUpdateBasicGroup
+                       | TLUpdateSupergroup
+                       | TLUpdateSecretChat
+                       | TLUpdateUserFullInfo
+                       | TLUpdateBasicGroupFullInfo
+                       | TLUpdateSupergroupFullInfo
+                       | TLUpdateServiceNotification
+                       | TLUpdateFile
+                       | TLUpdateFileGenerationStart
+                       | TLUpdateFileGenerationStop
+                       | TLUpdateCall
+                       | TLUpdateNewCallSignalingData
+                       | TLUpdateUserPrivacySettingRules
+                       | TLUpdateUnreadMessageCount
+                       | TLUpdateUnreadChatCount
+                       | TLUpdateOption
+                       | TLUpdateStickerSet
+                       | TLUpdateInstalledStickerSets
+                       | TLUpdateTrendingStickerSets
+                       | TLUpdateRecentStickers
+                       | TLUpdateFavoriteStickers
+                       | TLUpdateSavedAnimations
+                       | TLUpdateSelectedBackground
+                       | TLUpdateLanguagePackStrings
+                       | TLUpdateConnectionState
+                       | TLUpdateTermsOfService
+                       | TLUpdateUsersNearby
+                       | TLUpdateDiceEmojis
+                       | TLUpdateAnimationSearchParameters
+                       | TLUpdateSuggestedActions
+                       | TLUpdateNewInlineQuery
+                       | TLUpdateNewChosenInlineResult
+                       | TLUpdateNewCallbackQuery
+                       | TLUpdateNewInlineCallbackQuery
+                       | TLUpdateNewShippingQuery
+                       | TLUpdateNewPreCheckoutQuery
+                       | TLUpdateNewCustomEvent
+                       | TLUpdateNewCustomQuery
+                       | TLUpdatePoll
+                       | TLUpdatePollAnswer
+                       | TLUpdates
+                       | TLLogStreamDefault
+                       | TLLogStreamFile
+                       | TLLogStreamEmpty
+                       | TLLogVerbosityLevel
+                       | TLLogTags
+                       | TLTestInt
+                       | TLTestString
+                       | TLTestBytes
+                       | TLTestVectorInt
+                       | TLTestVectorIntObject
+                       | TLTestVectorString
+                       | TLTestVectorStringObject

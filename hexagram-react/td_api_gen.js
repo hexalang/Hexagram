@@ -106,7 +106,7 @@ while (lines.length > 0) {
 	enums.push('TL' + namedTitle)
 
 	typesAll.push(named)
-	out.push(`export interface TL${namedTitle} extends TLObject {`)
+	out.push(`export interface TL${namedTitle} {`)
 	out.push(`\treadonly "@type": "${named}"`)
 
 	for (const param of params) {
@@ -170,9 +170,7 @@ while (lines.length > 0) {
 
 out.push(`}\n`)
 
-out.unshift('}')
-out.unshift(`	readonly "@type": "${typesAll.join('" |\n\t"')}"`)
-out.unshift('export interface TLObject {')
+out.push(`export type TLObject = ${typesAll.map(named => `TL` + toTitleCase(named)).join('\n                       | ')}\n`)
 
 fs.writeFileSync('./hexagram-react/src/tdlib/tdapi.ts', header + out.join('\n'))
 console.log(typesAll.length, 'types')
