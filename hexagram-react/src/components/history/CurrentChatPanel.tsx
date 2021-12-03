@@ -291,13 +291,13 @@ const History = observer(() => {
 
 		const mergeDestination = () => {
 			if (lastSender === state.myId)
-				messages.push(<MessageSameSender key={lastMessageId}>{destination}</MessageSameSender>)
+				messages.push(<MessageSameSender key={lastMessageId + '~my'}>{destination}</MessageSameSender>)
 			else if (lastSender === -1) // System message
-				messages.push(<>{destination}</>)
+				messages.push(destination)
 			// Note: for channels and auto-forward from channels `lastSender == 0`!
 			else messages.push(<MessageSameSenderTheirs
 				senderUserId={lastSender}
-				key={'~' + lastSender + '~' + state.currentChatId + '~' + lastMessageId}>
+				key={lastSender + '~' + state.currentChatId + '~' + lastMessageId}>
 				{destination}
 			</MessageSameSenderTheirs>
 			)
