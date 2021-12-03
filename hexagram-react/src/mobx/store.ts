@@ -80,14 +80,16 @@ export class State {
 		this.showSideBar = false
 		this.myId = 0
 		this.currentChatId = 0
-		this.chats = {}
-		this.users = {}
-		this.messages = {}
-		this.supergroups = {}
+		this.chats = observable({} as { readonly [chatId: number]: Chat })
+		this.users = observable({} as { readonly [userId: number]: User }) // TODO observable!!!!!!!!!
+		this.messages = observable({} as {
+			[chatId: number]: { [messageId: number]: Message }
+		})
+		this.supergroups = observable({} as { [supergroupId: number]: Supergroup }) // TODO observable
 		this.files = {}
 		this.filesQueue = []
 		this.hint = ''
-		this.history = {}
+		this.history = observable({} as { [chatId: number]: number[] })
 
 		dispatchTelegramEventHandler.handle = (updates: TL.TLObject[]) => this.mergeAll(updates)
 	}
@@ -111,7 +113,9 @@ export class State {
 			return messages
 		}
 
-		const result = {}
+		const result =  observable({} as {
+			[message_id: number]: Message
+		})
 		this.messages[chatId] = result
 		return result
 	}
@@ -297,6 +301,11 @@ export class State {
 						}
 					}
 					chat.lastMessage = message.id
+
+					const history = this.getOrCreateHistory(chat_id)
+					if (history.length === 0) {
+						history.unshift(message.id)
+					}
 				}
 				break
 
