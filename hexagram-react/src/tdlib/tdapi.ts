@@ -139,7 +139,7 @@ export interface TLPasswordState {
 	readonly password_hint: string
 	readonly has_recovery_email_address: boolean
 	readonly has_passport_data: boolean
-	readonly recovery_email_address_code_info: TLEmailAddressAuthenticationCodeInfo
+	readonly recovery_email_address_code_info: TLEmailAddressAuthenticationCodeInfo | null
 }
 export interface TLRecoveryEmailAddress {
 	readonly "@type": "recoveryEmailAddress"
@@ -291,7 +291,7 @@ export interface TLAudio {
 	readonly duration: number
 	readonly title: string
 	readonly performer: string
-	readonly file_name: string
+	readonly file_name: string | null
 	readonly mime_type: string
 	readonly album_cover_minithumbnail: TLMinithumbnail
 	readonly album_cover_thumbnail: TLThumbnail
@@ -316,7 +316,7 @@ export interface TLSticker {
 	readonly set_id: string
 	readonly width: number
 	readonly height: number
-	readonly emoji: string
+	readonly emoji: string | null
 	readonly is_animated: boolean
 	readonly is_mask: boolean
 	readonly mask_position: TLMaskPosition
@@ -331,7 +331,7 @@ export interface TLVideo {
 	readonly file_name: string
 	readonly mime_type: string
 	readonly has_stickers: boolean
-	readonly supports_streaming: boolean
+	readonly supports_streaming: boolean | null
 	readonly minithumbnail: TLMinithumbnail
 	readonly thumbnail: TLThumbnail
 	readonly video: TLFile
@@ -339,7 +339,7 @@ export interface TLVideo {
 export interface TLVideoNote {
 	readonly "@type": "videoNote"
 	readonly duration: number
-	readonly length: number
+	readonly length: number | null
 	readonly minithumbnail: TLMinithumbnail
 	readonly thumbnail: TLThumbnail
 	readonly video: TLFile
@@ -453,9 +453,9 @@ export interface TLChatPhoto {
 	readonly "@type": "chatPhoto"
 	readonly id: string
 	readonly added_date: number
-	readonly minithumbnail: TLMinithumbnail
+	readonly minithumbnail: TLMinithumbnail | null
 	readonly sizes: ReadonlyArray<TLPhotoSize>
-	readonly animation: TLAnimatedChatPhoto
+	readonly animation: TLAnimatedChatPhoto | null
 }
 export interface TLChatPhotos {
 	readonly "@type": "chatPhotos"
@@ -484,7 +484,7 @@ export interface TLUser {
 	readonly username: string
 	readonly phone_number: string
 	readonly status: TLUserStatus
-	readonly profile_photo: TLProfilePhoto
+	readonly profile_photo: TLProfilePhoto | null
 	readonly is_contact: boolean
 	readonly is_mutual_contact: boolean
 	readonly is_verified: boolean
@@ -497,7 +497,7 @@ export interface TLUser {
 }
 export interface TLUserFullInfo {
 	readonly "@type": "userFullInfo"
-	readonly photo: TLChatPhoto
+	readonly photo: TLChatPhoto | null
 	readonly is_blocked: boolean
 	readonly can_be_called: boolean
 	readonly supports_video_calls: boolean
@@ -506,7 +506,7 @@ export interface TLUserFullInfo {
 	readonly bio: string
 	readonly share_text: string
 	readonly group_in_common_count: number
-	readonly bot_info: TLBotInfo
+	readonly bot_info: TLBotInfo | null
 }
 export interface TLUsers {
 	readonly "@type": "users"
@@ -648,7 +648,7 @@ export interface TLBasicGroup {
 }
 export interface TLBasicGroupFullInfo {
 	readonly "@type": "basicGroupFullInfo"
-	readonly photo: TLChatPhoto
+	readonly photo: TLChatPhoto | null
 	readonly description: string
 	readonly creator_user_id: number
 	readonly members: ReadonlyArray<TLChatMember>
@@ -672,7 +672,7 @@ export interface TLSupergroup {
 }
 export interface TLSupergroupFullInfo {
 	readonly "@type": "supergroupFullInfo"
-	readonly photo: TLChatPhoto
+	readonly photo: TLChatPhoto | null
 	readonly description: string
 	readonly member_count: number
 	readonly administrator_count: number
@@ -688,7 +688,7 @@ export interface TLSupergroupFullInfo {
 	readonly can_get_statistics: boolean
 	readonly is_all_history_available: boolean
 	readonly sticker_set_id: string
-	readonly location: TLChatLocation
+	readonly location: TLChatLocation | null
 	readonly invite_link: string
 	readonly upgraded_from_basic_group_id: number
 	readonly upgraded_from_max_message_id: number
@@ -785,8 +785,8 @@ export interface TLMessage {
 	readonly id: number
 	readonly sender: TLMessageSender
 	readonly chat_id: number
-	readonly sending_state: TLMessageSendingState
-	readonly scheduling_state: TLMessageSchedulingState
+	readonly sending_state: TLMessageSendingState | null
+	readonly scheduling_state: TLMessageSchedulingState | null
 	readonly is_outgoing: boolean
 	readonly is_pinned: boolean
 	readonly can_be_edited: boolean
@@ -799,8 +799,8 @@ export interface TLMessage {
 	readonly contains_unread_mention: boolean
 	readonly date: number
 	readonly edit_date: number
-	readonly forward_info: TLMessageForwardInfo
-	readonly interaction_info: TLMessageInteractionInfo
+	readonly forward_info: TLMessageForwardInfo | null
+	readonly interaction_info: TLMessageInteractionInfo | null
 	readonly reply_in_chat_id: number
 	readonly reply_to_message_id: number
 	readonly message_thread_id: number
@@ -811,7 +811,7 @@ export interface TLMessage {
 	readonly media_album_id: string
 	readonly restriction_reason: string
 	readonly content: TLMessageContent
-	readonly reply_markup: TLReplyMarkup
+	readonly reply_markup: TLReplyMarkup | null
 }
 export interface TLMessages {
 	readonly "@type": "messages"
@@ -940,16 +940,16 @@ export interface TLChatPosition {
 	readonly list: TLChatList
 	readonly order: string
 	readonly is_pinned: boolean
-	readonly source: TLChatSource
+	readonly source: TLChatSource | null
 }
 export interface TLChat {
 	readonly "@type": "chat"
 	readonly id: number
 	readonly type: TLChatType
 	readonly title: string
-	readonly photo: TLChatPhotoInfo
+	readonly photo: TLChatPhotoInfo | null
 	readonly permissions: TLChatPermissions
-	readonly last_message: TLMessage
+	readonly last_message: TLMessage | null
 	readonly positions: ReadonlyArray<TLChatPosition>
 	readonly is_marked_as_unread: boolean
 	readonly is_blocked: boolean
@@ -963,9 +963,9 @@ export interface TLChat {
 	readonly last_read_outbox_message_id: number
 	readonly unread_mention_count: number
 	readonly notification_settings: TLChatNotificationSettings
-	readonly action_bar: TLChatActionBar
+	readonly action_bar: TLChatActionBar | null
 	readonly reply_markup_message_id: number
-	readonly draft_message: TLDraftMessage
+	readonly draft_message: TLDraftMessage | null
 	readonly client_data: string
 }
 export interface TLChats {
@@ -993,7 +993,7 @@ export interface TLChatInviteLinkInfo {
 	readonly accessible_for: number
 	readonly type: TLChatType
 	readonly title: string
-	readonly photo: TLChatPhotoInfo
+	readonly photo: TLChatPhotoInfo | null
 	readonly member_count: number
 	readonly member_user_ids: ReadonlyArray<number>
 	readonly is_public: boolean
@@ -1118,7 +1118,7 @@ export interface TLMessageThreadInfo {
 	readonly message_thread_id: number
 	readonly reply_info: TLMessageReplyInfo
 	readonly messages: ReadonlyArray<TLMessage>
-	readonly draft_message: TLDraftMessage
+	readonly draft_message: TLDraftMessage | null
 }
 export interface TLRichTextPlain {
 	readonly "@type": "richTextPlain"
@@ -1418,20 +1418,20 @@ export interface TLWebPage {
 	readonly site_name: string
 	readonly title: string
 	readonly description: TLFormattedText
-	readonly photo: TLPhoto
+	readonly photo: TLPhoto | null
 	readonly embed_url: string
 	readonly embed_type: string
 	readonly embed_width: number
 	readonly embed_height: number
 	readonly duration: number
 	readonly author: string
-	readonly animation: TLAnimation
-	readonly audio: TLAudio
-	readonly document: TLDocument
-	readonly sticker: TLSticker
-	readonly video: TLVideo
-	readonly video_note: TLVideoNote
-	readonly voice_note: TLVoiceNote
+	readonly animation: TLAnimation | null
+	readonly audio: TLAudio | null
+	readonly document: TLDocument | null
+	readonly sticker: TLSticker | null
+	readonly video: TLVideo | null
+	readonly video_note: TLVideoNote | null
+	readonly voice_note: TLVoiceNote | null
 	readonly instant_view_version: number
 }
 export interface TLCountryInfo {
@@ -1448,7 +1448,7 @@ export interface TLCountries {
 }
 export interface TLPhoneNumberInfo {
 	readonly "@type": "phoneNumberInfo"
-	readonly country: TLCountryInfo
+	readonly country: TLCountryInfo | null
 	readonly country_calling_code: string
 	readonly formatted_phone_number: string
 }
@@ -2060,7 +2060,7 @@ export interface TLMessagePaymentSuccessfulBot {
 	readonly "@type": "messagePaymentSuccessfulBot"
 	readonly invoice_message_id: number
 	readonly currency: string
-	readonly total_amount: number
+	readonly total_amount: number | null
 	readonly invoice_payload: Uint8Array
 	readonly shipping_option_id: string
 	readonly order_info: TLOrderInfo
@@ -2452,7 +2452,7 @@ export interface TLStickerSet {
 }
 export interface TLStickerSetInfo {
 	readonly "@type": "stickerSetInfo"
-	readonly id: string
+	readonly id: string | null
 	readonly title: string
 	readonly name: string
 	readonly thumbnail: TLThumbnail
@@ -3537,7 +3537,7 @@ export interface TLMessageLinkInfo {
 	readonly "@type": "messageLinkInfo"
 	readonly is_public: boolean
 	readonly chat_id: number
-	readonly message: TLMessage
+	readonly message: TLMessage | null
 	readonly for_album: boolean
 	readonly for_comment: boolean
 }
@@ -3807,7 +3807,7 @@ export interface TLInputStickerStatic {
 	readonly "@type": "inputStickerStatic"
 	readonly sticker: TLInputFile
 	readonly emojis: string
-	readonly mask_position: TLMaskPosition
+	readonly mask_position: TLMaskPosition | null
 }
 export interface TLInputStickerAnimated {
 	readonly "@type": "inputStickerAnimated"
@@ -4312,7 +4312,7 @@ export interface TLUpdateNewPreCheckoutQuery {
 	readonly sender_user_id: number
 	readonly currency: string
 	readonly total_amount: number
-	readonly invoice_payload: Uint8Array
+	readonly invoice_payload: Uint8Array | null
 	readonly shipping_option_id: string
 	readonly order_info: TLOrderInfo
 }

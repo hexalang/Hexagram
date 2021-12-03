@@ -14,7 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const header =
-`// Hexagram
+	`// Hexagram
 // Copyright (C) 2020  Oleg Petrenko
 //
 // This program is free software: you can redistribute it and/or modify
@@ -67,28 +67,38 @@ function toTitleCase(named) {
 }
 
 function toType(typea) {
-	if (typea === 'string')           return `string`;
-	if (typea === 'Bool')             return `boolean`
-	if (typea === 'int32')            return `number`
-	if (typea === 'int53')            return `number`
-	if (typea === 'int64')            return `string`
-	if (typea === 'bytes')            return `Uint8Array`
-	if (typea === 'vector<int32>')    return `ReadonlyArray<number>`
-	if (typea === 'vector<int53>')    return `ReadonlyArray<number>`
-	if (typea === 'vector<int64>')    return `ReadonlyArray<string>`
-	if (typea === 'vector<string>')   return `ReadonlyArray<string>`
-	if (typea === 'vector<bytes>')   return `ReadonlyArray<Uint8Array>`
-	if (typea === 'double')           return `number`
+	if (typea === 'string') return `string`;
+	if (typea === 'Bool') return `boolean`
+	if (typea === 'int32') return `number`
+	if (typea === 'int53') return `number`
+	if (typea === 'int64') return `string`
+	if (typea === 'bytes') return `Uint8Array`
+	if (typea === 'vector<int32>') return `ReadonlyArray<number>`
+	if (typea === 'vector<int53>') return `ReadonlyArray<number>`
+	if (typea === 'vector<int64>') return `ReadonlyArray<string>`
+	if (typea === 'vector<string>') return `ReadonlyArray<string>`
+	if (typea === 'vector<bytes>') return `ReadonlyArray<Uint8Array>`
+	if (typea === 'double') return `number`
 	if (typea.startsWith('vector<vector<')) return 'ReadonlyArray<ReadonlyArray<TL' + toTitleCase(typea.split('<')[2].split('>')[0]) + '>>'
 	if (typea.startsWith('vector<')) return 'ReadonlyArray<TL' + toTitleCase(typea.split('<')[1].split('>')[0]) + '>'
 	return 'TL' + toTitleCase(typea)
 }
 
 // Objects
+const nulledArgs = new Map()
 while (lines.length > 0) {
 	const line = lines.shift()
 	if (line === '---functions---') break
-	if (line.startsWith('//')) continue
+	if (line.startsWith('//')) {
+		if (line.startsWith('//@')) {
+			const isArgNull = line.trim().endsWith('; may be null')
+			if (isArgNull) {
+				const argName = line.substr(3).split(' ')[0]
+				nulledArgs.set(argName, true)
+			}
+		}
+		continue
+	}
 
 	let lined = line.split(' = ')
 	let params = lined[0].split(' ')
@@ -114,12 +124,16 @@ while (lines.length > 0) {
 		const typea = param.split(':')[1]
 		let arg = `\treadonly ${namea}: `
 		arg += toType(typea)
+		if (nulledArgs.get(namea.trim())) {
+			arg += ' | null'
+		}
 		out.push(arg)
 	}
 
 	out.push(`}`)
+	nulledArgs.clear()
 
-	if(!typed) {console.log(line);break;}
+	if (!typed) { console.log(line); break; }
 
 	if (line.startsWith('//@description ')) {
 		out.push(line.substring())
