@@ -1,5 +1,4 @@
 body {
-	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 		sans-serif;
@@ -12,7 +11,7 @@ code {
 		monospace;
 }
 
-* {
+body, div, span, input, img, p, a {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
@@ -26,15 +25,11 @@ code {
 }
 
 @media (prefers-reduced-motion: reduce) {
-	* {
+	div, span {
 		transition: unset !important;
 	}
 }
 
-*::-webkit-scrollbar {
-	display: none;
-}
-
-[contenteditable]:focus {
+input:focus, a:focus {
 	outline: 0px solid transparent;
 }

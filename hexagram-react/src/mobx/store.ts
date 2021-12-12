@@ -48,6 +48,7 @@ export class State {
 	@observable hint: string
 	@observable myId: number
 	@observable currentChatId: number
+	@observable search: string = ''
 
 	// Opened dialogs
 	@observable readonly chats: { readonly [chatId: number]: Chat }
@@ -113,7 +114,7 @@ export class State {
 			return messages
 		}
 
-		const result =  observable({} as {
+		const result = observable({} as {
 			[message_id: number]: Message
 		})
 		this.messages[chatId] = result

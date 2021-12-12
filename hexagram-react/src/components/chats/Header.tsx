@@ -15,6 +15,7 @@
 
 import { observer } from "mobx-react-lite"
 import styled, { css } from 'styled-components'
+import { state } from '../../mobx/store'
 
 const HeaderStyled = styled.div`
 	height: 54px;
@@ -55,7 +56,23 @@ const Search = styled.div`
 	// TODO flex-grow: 1;
 `
 
+const SearchInput = styled.input`
+	font-size: 11pt;
+	background-color: unset;
+	height: 32px;
+	width: 152px;
+	cursor: text;
+	margin-left: 14px;
+	color: #999999;
+
+	::placeholder {
+		color: #999999;
+	}
+`
+
 export const Header = observer(({ showSidePanel }: { showSidePanel: (event: unknown) => void }) => {
+	// TODO clear Search on Escape
+
 	return (
 		<HeaderStyled>
 			<Burger onClick={showSidePanel}>
@@ -63,7 +80,19 @@ export const Header = observer(({ showSidePanel }: { showSidePanel: (event: unkn
 				<div></div>
 				<div></div>
 			</Burger>
-			<Search title="Not yet implemented"><span>Search</span></Search>
+			<Search title="Filter over chats" onClick={e => e.currentTarget.querySelector('input')?.focus()}>
+				<SearchInput
+					placeholder="Search"
+					type="text"
+					className="editor"
+					id="textName"
+					maxLength={90}
+					value={state.search}
+					onChange={e => state.search = e.target.value}
+					required
+					autoComplete="off"
+				/>
+			</Search>
 		</HeaderStyled>
 	) // TODO Search, etc
 })
