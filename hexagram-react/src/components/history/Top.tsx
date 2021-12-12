@@ -73,8 +73,8 @@ const Summary = styled.div`
 `
 
 export const Top = observer(() => {
-	const chat = state.chats[state.currentChatId]
-	const savedMessages = state.myId === chat.id
+	const chat = state.chats.get(state.currentChatId)
+	const savedMessages = state.myId === chat?.id
 	let larger = savedMessages
 
 	let name = chat ? (savedMessages ? 'Saved Messages' : chat.meta.title) : ''
@@ -83,24 +83,23 @@ export const Top = observer(() => {
 	if (
 		chat &&
 		chat.type['@type'] === 'chatTypeSupergroup' &&
-		state.supergroups[chat.type.supergroup_id]
+		state.supergroups.get(chat.type.supergroup_id)
 	) {
-		const supergroup = state.supergroups[chat.type.supergroup_id]
-		const memberCount = supergroup.memberCount
-		if (supergroup.isChannel === false) {
+		const supergroup = state.supergroups.get(chat.type.supergroup_id)
+		const memberCount = supergroup?.memberCount
+		if (supergroup?.isChannel === false) {
 			summary = '' + memberCount + ' members' // TODO 1 member/ N members
 			if (chat.onlineMemberCount > 1) summary += ', ' + chat.onlineMemberCount + ' online'
 		}
-		if (supergroup.isChannel === true) summary = '' + memberCount + ' subscribers'
+		if (supergroup?.isChannel === true) summary = '' + memberCount + ' subscribers'
 	}
 
 	const bot = (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		state.users[chat.type.user_id] &&
 		// TODO TL.userTypeBot(...) != null
 		// ^ or better isUserTypeBot
-		state.users[chat.type.user_id].type['@type'] === 'userTypeBot'
+		state.users.get(chat.type.user_id)?.type['@type'] === 'userTypeBot'
 	)
 
 	if (bot) summary = 'bot'
@@ -108,27 +107,24 @@ export const Top = observer(() => {
 	if (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		state.users[chat.type.user_id] &&
-		state.users[chat.type.user_id].type['@type'] === 'userTypeDeleted'
+		state.users.get(chat.type.user_id)?.type['@type'] === 'userTypeDeleted'
 	) {
 		name = 'Deleted Account'
 		larger = true
 	}
 
-	else
-
+	else {
 		if (
 			savedMessages === false &&
 			chat &&
 			chat.type['@type'] === 'chatTypePrivate' &&
-			state.users[chat.type.user_id] &&
-			state.users[chat.type.user_id].type['@type'] === 'userTypeRegular'
+			state.users.get(chat.type.user_id)?.type['@type'] === 'userTypeRegular'
 		) {
-			const user = state.users[chat.type.user_id]
-			name = (user.firstName + ' ' + user.lastName).trim()
-			if (user.status['@type'] === 'userStatusEmpty') summary = 'service notifications'
-			if (user.status['@type'] === 'userStatusOnline') summary = 'online'
-			if (user.status['@type'] === 'userStatusOffline') {
+			const user = state.users.get(chat.type.user_id)
+			name = (user?.firstName + ' ' + user?.lastName).trim()
+			if (user?.status['@type'] === 'userStatusEmpty') summary = 'service notifications'
+			if (user?.status['@type'] === 'userStatusOnline') summary = 'online'
+			if (user?.status['@type'] === 'userStatusOffline') {
 				const was_online: number = user.status.was_online * 1000
 				const second = 1
 				const minute = 60 * second
@@ -149,10 +145,11 @@ export const Top = observer(() => {
 				else if (diff < month * 2) summary = 'last seen a month ago'
 				else summary = 'last seen a long time ago'
 			}
-			if (user.status['@type'] === 'userStatusRecently') summary = 'last seen recently'
-			if (user.status['@type'] === 'userStatusLastWeek') summary = 'last seen within a week'
-			if (user.status['@type'] === 'userStatusLastMonth') summary = 'last seen within a month'
+			if (user?.status['@type'] === 'userStatusRecently') summary = 'last seen recently'
+			if (user?.status['@type'] === 'userStatusLastWeek') summary = 'last seen within a week'
+			if (user?.status['@type'] === 'userStatusLastMonth') summary = 'last seen within a month'
 		}
+	}
 
 	return (
 		<Panel>

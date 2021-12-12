@@ -123,7 +123,7 @@ export const Input = observer(() => {
 	})
 
 	useEffect(() => {
-		const chat = state.chats[state.currentChatId]
+		const chat = state.chats.get(state.currentChatId)
 		// Get draft
 		const draft = chat && chat.draft
 		if (
@@ -173,24 +173,23 @@ export const Input = observer(() => {
 		}
 	}
 
-	const chat = state.chats[state.currentChatId]
+	const chat = state.chats.get(state.currentChatId)
 
 	if (chat == null) return null
 
 	if (
-		chat.type['@type'] === 'chatTypePrivate' &&
-		state.users[chat.type.user_id] &&
-		state.users[chat.type.user_id].type['@type'] === 'userTypeDeleted'
+		chat.type['@type'] === 'chatTypePrivate'
 	) {
-		return null
+		const user = state.users.get(chat.type.user_id)
+		if (user && user.type['@type'] === 'userTypeDeleted') return null
 	}
 
 	if (
 		chat.type['@type'] === 'chatTypeSupergroup' &&
-		state.supergroups[chat.type.supergroup_id]
+		state.supergroups.get(chat.type.supergroup_id)
 	) {
-		const supergroup = state.supergroups[chat.type.supergroup_id]
-		if (supergroup.isChannel === true) return null
+		const supergroup = state.supergroups.get(chat.type.supergroup_id)
+		if (supergroup && supergroup.isChannel === true) return null
 	}
 
 	return (

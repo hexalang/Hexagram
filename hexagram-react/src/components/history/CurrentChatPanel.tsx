@@ -152,7 +152,7 @@ class UI extends Store {
 
 	readonly reposition = () => {
 		this.sliderMaxY = this.chatListScrollBar.current != null ? (this.chatListScrollBar.current as any).offsetHeight : 0
-		const count = state.history[state.currentChatId] ? state.history[state.currentChatId].length : 1
+		const count = state.history.get(state.currentChatId)?.length ?? 1
 		this.sliderHeight = Math.round(this.sliderMaxY * (this.sliderMaxY / (100 * count)))
 		this.sliderY = Math.min(Math.max(this.position.top, 0), this.sliderMaxY - this.sliderHeight)
 		const progress = Math.min(this.sliderY / (this.sliderMaxY - this.sliderHeight), 1.0)
@@ -185,7 +185,7 @@ class UI extends Store {
 		let from = 0
 		let date = Date.now()
 
-		const history = state.history[state.currentChatId]
+		const history = state.history.get(state.currentChatId)
 
 		if (!history) return
 		if (this.loadsMore) return
@@ -193,9 +193,9 @@ class UI extends Store {
 		this.loadsMore = true
 
 		history.forEach(messageId => {
-			const messageState = state.messages[currentChatId][messageId]
+			const messageState = state.messages.get(currentChatId)?.get(messageId)
 
-			if (messageState.date < date) {
+			if (messageState && messageState.date < date) {
 				date = messageState.date
 				from = messageState.id
 			}
@@ -263,7 +263,7 @@ class UI extends Store {
 		}
 
 		const howMuch = 25
-		const count = state.history[state.currentChatId] ? state.history[state.currentChatId].length : 1
+		const count = state.history.get(state.currentChatId)?.length ?? 1
 
 		// e.deltaY is -100 ... 100
 		this.position = {
@@ -357,12 +357,13 @@ const History = observer(() => {
 	}, [state.currentChatId])
 
 	const messages: React.ReactNode[] = []
-	const chat = state.chats[state.currentChatId]
+	const chat = state.chats.get(state.currentChatId)
 
 	useEffect(() => {
+		const currentChatHistory = state.history.get(state.currentChatId)
 		if (
 			chat &&
-			(state.history[state.currentChatId] == null || state.history[state.currentChatId].length < 10)
+			(currentChatHistory == null || currentChatHistory.length < 10)
 		) {
 			// Fix race condition
 			const currentChatId = state.currentChatId
@@ -390,10 +391,11 @@ const History = observer(() => {
 		}
 	}, [state.currentChatId])
 
+	const currentChatHistory = state.history.get(state.currentChatId)
 	if (
 		chat &&
-		state.history[state.currentChatId] &&
-		state.history[state.currentChatId].length > 0
+		currentChatHistory &&
+		currentChatHistory.length > 0
 	) {
 		let destination = messages
 		let lastSender = 0
@@ -426,8 +428,9 @@ const History = observer(() => {
 			}
 		}
 
-		for (const messageId of [...state.history[state.currentChatId].slice().reverse()/*, chat.lastMessage*/]) {
-			const messageState = state.messages[chat.id][messageId]
+		// TODO sort by date
+		for (const messageId of [...currentChatHistory.slice().reverse()/*, chat.lastMessage*/]) {
+			const messageState = state.messages.get(chat.id)?.get(messageId)
 			if (messageState == null) continue
 			const key = messageState.id
 			lastMessageId = key
@@ -446,8 +449,9 @@ const History = observer(() => {
 					{
 						updateDestination(-1)
 						let messageChatJoinByLink = messageState.content
-						const senderName = state.users[messageState.senderUserId] ?
-							(state.users[messageState.senderUserId].firstName + ' ' + state.users[messageState.senderUserId].lastName).trim()
+						const sender = state.users.get(messageState.senderUserId)
+						const senderName = sender ?
+							(sender.firstName + ' ' + sender.lastName).trim()
 							: 'User'
 						const text = `${senderName} joined the group via invite link`
 						destination.push(<CenterSystemMessage key={key} text={text} />)
@@ -462,7 +466,8 @@ const History = observer(() => {
 						const text = caption.text !== "" ? [<div className="text">{caption.text}</div>] : []
 						const sized: TL.TLFile = photo.sizes.reduce((prev, curr) => prev.height > curr.height ? prev : curr).photo
 						updateDestination(messageState.senderUserId)
-						const senderName = destination.length === 0 && state.users[messageState.senderUserId] ? state.users[messageState.senderUserId].firstName : null
+						const sender = state.users.get(messageState.senderUserId)
+						const senderName = destination.length === 0 && sender ? sender.firstName : null
 						destination.push(<MessagePhotoTheirs key={key} sized={sized} author={senderName} text={text} time={time} date={messageState.date} />)
 					}
 					break
@@ -489,7 +494,8 @@ const History = observer(() => {
 					updateDestination(messageState.senderUserId)
 
 					// TODO no sender name for private chats
-					const senderName = destination.length === 0 && state.users[messageState.senderUserId] ? state.users[messageState.senderUserId].firstName : null
+					const sender = state.users.get(messageState.senderUserId)
+					const senderName = destination.length === 0 && sender ? sender.firstName : null
 					let lines = messageState.content.text.text//.trim()
 					let text = [<div key="lines" className="text">{lines}</div>]
 
@@ -634,12 +640,14 @@ const History = observer(() => {
 					}
 
 					const reactions = []
-					for (const messageId of state.history[chat.id]) {
-						const message = state.messages[chat.id][messageId]
-						if (message.replyToMessageId === messageState.id && message.content['@type'] === "messageSticker") {
+					const messages = state.messages.get(chat.id)
+					for (const messageId of state.history.get(chat.id) ?? []) {
+						const message = messages?.get(messageId)
+						if (message && message.replyToMessageId === messageState.id && message.content['@type'] === "messageSticker") {
 							const messageSticker = message.content
 							const sticker: TL.TLFile = messageSticker.sticker.thumbnail.file
-							const senderName = state.users[message.senderUserId] ? state.users[message.senderUserId].firstName : 'Someone'
+							const sender = state.users.get(message.senderUserId)
+							const senderName = sender ? sender.firstName : 'Someone'
 
 							reactions.push(<StickerOnMessage senderName={senderName} key={reactions.length} sticker={sticker} />)
 						}
@@ -711,7 +719,7 @@ const PleaseSelectChat = styled.div`
 `
 
 export const CurrentChatPanel = observer(() => {
-	const chatSelected = state.chats[state.currentChatId] && state.chatIds.includes(state.currentChatId)
+	const chatSelected = state.chats.get(state.currentChatId) && state.chatIds.includes(state.currentChatId)
 
 	return (
 		<>

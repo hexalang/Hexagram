@@ -16,7 +16,7 @@
 import * as TL from '../tdlib/tdapi'
 import { Chat, User, Message, Supergroup, File } from './types'
 import { StoreEvent, listeners, Store } from './wrap'
-import { action, computed, keys, observable } from "mobx"
+import { action, computed, keys, observable, toJS, ObservableMap } from "mobx"
 import { tg, dispatchTelegramEventHandler } from '../tdlib/tdlib'
 
 export enum LoginState {
@@ -28,15 +28,17 @@ export enum LoginState {
 	Ready
 }
 
-const createIfNone = <T>(map: { [id: number]: T }, id: number, Type: { new(id: number): T }): T => {
-	const value = map[id]
+const noDeep = { deep: false } as const
+
+const createIfNone = <T>(map: ObservableMap<number, T>, id: number, Type: { new(id: number): T }): T => {
+	const value = map.get(id)
 
 	if (value) {
 		return value
 	}
 
 	const stub = new Type(id)
-	map[id] = stub
+	map.set(id, stub)
 	return stub
 }
 
@@ -51,24 +53,21 @@ export class State {
 	@observable search: string = ''
 
 	// Opened dialogs
-	@observable readonly chats: { readonly [chatId: number]: Chat }
-	readonly users: { readonly [userId: number]: User }
-	readonly messages: {
-		[chatId: number]: { [messageId: number]: Message }
-	}
-	readonly supergroups: { [supergroupId: number]: Supergroup }
-	readonly history: { [chatId: number]: number[] }
+	readonly chats = observable.map<number, Chat>({}, noDeep)
+	readonly users = observable.map<number, User>({}, noDeep)
+	readonly messages = observable.map<number, ObservableMap<number, Message>>({}, noDeep)
+	readonly supergroups = observable.map<number, Supergroup>({}, noDeep)
+	readonly history = observable.map<number, number[]>({}, noDeep)
 
 	// Files
-	readonly files: { [fileId: number]: File }
+	readonly files = observable.map<number, File>({}, noDeep)
 	readonly filesQueue: number[]
 	filesQueueBusy = false
 
 	@computed get chatIds(): number[] {
 		const result: number[] = []
 
-		for (const key of keys(this.chats)) {
-			const chat = this.chats[key as any as number]
+		for (const chat of this.chats.values()) {
 			if (chat.order) result.push(chat.id)
 		}
 
@@ -81,16 +80,8 @@ export class State {
 		this.showSideBar = false
 		this.myId = 0
 		this.currentChatId = 0
-		this.chats = observable({} as { readonly [chatId: number]: Chat })
-		this.users = observable({} as { readonly [userId: number]: User }) // TODO observable!!!!!!!!!
-		this.messages = observable({} as {
-			[chatId: number]: { [messageId: number]: Message }
-		})
-		this.supergroups = observable({} as { [supergroupId: number]: Supergroup }) // TODO observable
-		this.files = {}
 		this.filesQueue = []
 		this.hint = ''
-		this.history = observable({} as { [chatId: number]: number[] })
 
 		dispatchTelegramEventHandler.handle = (updates: TL.TLObject[]) => this.mergeAll(updates)
 	}
@@ -106,18 +97,14 @@ export class State {
 		listeners.forEach(this.dispatcher)
 	}
 
-	getOrCreateMessages(chatId: number): {
-		[message_id: number]: Message
-	} {
-		const messages = this.messages[chatId]
+	getOrCreateMessages(chatId: number): ObservableMap<number, Message> {
+		const messages = this.messages.get(chatId)
 		if (messages) {
 			return messages
 		}
 
-		const result = observable({} as {
-			[message_id: number]: Message
-		})
-		this.messages[chatId] = result
+		const result = observable.map<number, Message>({}, noDeep)
+		this.messages.set(chatId, result)
 		return result
 	}
 
@@ -127,24 +114,29 @@ export class State {
 	}
 
 	getOrCreateHistory(chatId: number): number[] {
-		const history = this.history[chatId]
+		const history = this.history.get(chatId)
 		if (history) {
 			return history
 		}
 
 		const result = observable([] as number[])
-		this.history[chatId] = result
+		this.history.set(chatId, result)
 		return result
 	}
 
 	saveChatHistory(chatId: number, posts: ReadonlyArray<TL.TLMessage>) {
+		const history = this.getOrCreateHistory(chatId)
 		const messages = this.getOrCreateMessages(chatId)
 
 		for (const post of posts) {
 			createIfNone(messages, post.id, Message).merge(post)
 		}
 
-		this.history[chatId] = observable(posts.map(message => message.id))
+		posts.forEach(message => {
+			const id = message.id
+			if (history.includes(id)) return
+			history.push(id)
+		})
 	}
 
 	selectChat(chatId: number): void {
@@ -293,7 +285,7 @@ export class State {
 					const chat_id = updateChatLastMessage.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					const messages = this.getOrCreateMessages(chat_id)
-					messages[message.id] = message
+					messages.set(message.id, message)
 					for (const position of updateChatLastMessage.positions) {
 						if (position.list['@type'] === 'chatListMain') {
 							chat.order = position.order
@@ -352,7 +344,7 @@ export class State {
 					const chat_id = updateNewMessage.message.chat_id
 					const chat = createIfNone(this.chats, chat_id, Chat)
 					const messages = this.getOrCreateMessages(chat_id)
-					messages[message.id] = message
+					messages.set(message.id, message)
 					const history = this.getOrCreateHistory(chat_id)
 					history.unshift(message.id)
 					chat.lastMessage = message.id
@@ -366,7 +358,7 @@ export class State {
 					if (updateDeleteMessages.from_cache === true) break
 					const chat_id = updateDeleteMessages.chat_id
 					const history = this.getOrCreateHistory(chat_id)
-					this.history[chat_id] = observable(history.filter(id => updateDeleteMessages.message_ids.indexOf(id) === -1))
+					this.history.set(chat_id, observable(history.filter(id => updateDeleteMessages.message_ids.indexOf(id) === -1)))
 					// TODO optimization: just mark message as deleted = true
 				}
 				break

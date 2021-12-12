@@ -301,7 +301,6 @@ const MessageTheirsStyled = styled.div<{
 		text-align: left;
 		font-size: 11pt;
 		color: #16b4ef;
-		font-weight: bold;
 		cursor: pointer;
 	}
 
@@ -407,10 +406,10 @@ const MessageAvatarPlaceholder = styled.span<{
 export const MessageSameSenderTheirs = observer(({ children, senderUserId }: {
 	senderUserId: number, children: React.ReactNode
 }) => {
-	const user = state.users[senderUserId]
-	const chat = state.chats[state.currentChatId]
+	const user = state.users.get(senderUserId)
+	const chat = state.chats.get(state.currentChatId)
 
-	const srcAva: string | null =
+	const srcAva =
 		user ?
 			(user && user.photo && state.fileURL(user.photo.small))
 			:

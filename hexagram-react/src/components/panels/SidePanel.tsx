@@ -96,7 +96,7 @@ const Button = styled.div`
 `
 
 export const SidePanel = observer(() => {
-	const user = state.users[state.myId]
+	const user = state.users.get(state.myId)
 
 	const hideSidePanel = (e: unknown) => {
 		state.showSideBar = false

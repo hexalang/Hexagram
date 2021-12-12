@@ -210,7 +210,6 @@ class LoginFormState extends Store {
 	}
 
 	listen(e: StoreEvent) {
-		console.log({ StoreEvent: e })
 	}
 }
 

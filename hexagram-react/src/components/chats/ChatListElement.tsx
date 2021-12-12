@@ -343,20 +343,19 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	const messages = state.messages
 
 	const current = currentChatId === chatId //false
-	const chat = chats[chatId]
+	const chat = chats.get(chatId)
 
 	// TODO 'SM.png' to constant somewhere?
-	const srcAva: string | null = (chatId === myId && 'SM.png') || (chat && chat.photo && state.fileURL(chat.photo.small))
+	const srcAva = (chatId === myId && 'SM.png') || (chat && chat.photo && state.fileURL(chat.photo.small))
 
 	if (
 		chat &&
 		// TODO if(let TL.chatTypeSupergroup(chat.type)) i.e. func does @type check or ret null
 		chat.type['@type'] === 'chatTypeSupergroup' &&
-		supergroups[chat.type.supergroup_id] &&
-		supergroups[chat.type.supergroup_id].chatMemberStatus['@type'] === 'chatMemberStatusLeft'
+		supergroups.get(chat.type.supergroup_id)?.chatMemberStatus['@type'] === 'chatMemberStatusLeft'
 	) return null
 
-	const message = (messages[chat.id] ?? {})[chat.lastMessage] ?? null
+	const message = messages.get(chat?.id ?? 0)?.get(chat?.lastMessage ?? 0)
 
 	// Ignore inactive chats
 	// TODO they may have drafts!
@@ -367,8 +366,7 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	if (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		users[chat.type.user_id] &&
-		users[chat.type.user_id].type['@type'] === 'userTypeDeleted'
+		users.get(chat.type.user_id)?.type['@type'] === 'userTypeDeleted'
 	) name = 'Deleted Account'
 
 	const unread = chat ? chat.unreadCount : 0
@@ -398,7 +396,7 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 			}
 			else
 				if (chat.type['@type'] === 'chatTypeSupergroup' && chat.type.is_channel === false) {
-					const sender = users[message.senderUserId]
+					const sender = users.get(message.senderUserId)
 					if (sender) who = sender.firstName + ': '
 					if (sender && sender.type['@type'] === 'userTypeDeleted') who = 'Deleted: '
 					// If senderUserId == 0 then it's a channel
@@ -410,16 +408,14 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	const verified = (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		users[chat.type.user_id] &&
-		users[chat.type.user_id].verified
+		users.get(chat.type.user_id)?.verified === true
 	)
 	const channel = (chat && chat.type['@type'] === 'chatTypeSupergroup' && chat.type.is_channel === true)
 	const supergroup = (chat && chat.type['@type'] === 'chatTypeSupergroup' && channel === false)
 	const bot = (
 		chat &&
 		chat.type['@type'] === 'chatTypePrivate' &&
-		users[chat.type.user_id] &&
-		users[chat.type.user_id].type['@type'] === 'userTypeBot'
+		users.get(chat.type.user_id)?.type['@type'] === 'userTypeBot'
 	)
 
 	const active = current ? "chatListElement chatListElement__active" : "chatListElement"

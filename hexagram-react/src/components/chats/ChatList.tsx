@@ -233,12 +233,12 @@ export const ChatList = observer(({ selectChat }: { selectChat: (id: number) => 
 	const search = state.search.toLowerCase()
 
 	const sortedChats: number[] = [...state.chatIds].sort((a: number, b: number): number => {
-		const ordera: BigInt = BigInt(chats[a].order ?? '0')
-		const orderb: BigInt = BigInt(chats[b].order ?? '0')
-		if (ordera > orderb) return -1
-		if (ordera < orderb) return +1
+		const orderA: BigInt = BigInt(chats.get(a)?.order ?? '0')
+		const orderB: BigInt = BigInt(chats.get(b)?.order ?? '0')
+		if (orderA > orderB) return -1
+		if (orderA < orderB) return +1
 		return 0
-	}).filter(chatId => chats[chatId].meta.title.toLowerCase().includes(search))
+	}).filter(chatId => (chats.get(chatId)?.meta.title ?? '').toLowerCase().includes(search))
 
 	return (
 		<Chats key="chats" onWheel={ui.onWheel}>
