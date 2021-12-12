@@ -116,14 +116,18 @@ const Next = styled.div<NextProps>`
 	width: 360px;
 	line-height: 50px;
 	cursor: pointer;
-	transition: background-color 0.2s ease-in-out;
+
+	transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+	transform: scale(1.0);
 
 	&:hover:active {
 		background-color: #418BD0;
+		transform: scale(0.95);
 	}
 
 	&:hover {
 		background-color: #4797E2;
+		transform: scale(1.05);
 	}
 
 	${({ error }) => error && css`
