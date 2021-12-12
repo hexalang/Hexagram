@@ -16,6 +16,61 @@
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
+import styled, { css } from 'styled-components'
+
+const ThinVerticalLine = styled.div`
+	width: 1px;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: rgba(0, 0, 0, 0.1); //rgb(235, 235, 235);
+	position: absolute;
+	left: 0px;
+	top: 0px;
+`
+
+const Panel = styled.div`
+	height: 54px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: center;
+	align-items: center;
+	background-color: white;
+	cursor: pointer;
+	flex-grow: 0;
+	flex-shrink: 0;
+	position: relative;
+	width: 100%;
+`
+
+const About = styled.div`
+	height: 40px;
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-left: 8px;
+`
+
+interface NameProps {
+	readonly larger: boolean
+}
+
+const Name = styled.div<NameProps>`
+	font-size: 10pt;
+	font-weight: 500;
+
+	${({ larger }) => larger && css`
+		font-size: 11pt;
+		margin-top: 5px;
+	`}
+`
+
+const Summary = styled.div`
+	font-size: 10pt;
+	color: #919191;
+`
 
 export const Top = observer(() => {
 	const chat = state.chats[state.currentChatId]
@@ -100,13 +155,13 @@ export const Top = observer(() => {
 		}
 
 	return (
-		<div className={css.top}>
-			<div className={css.about}>
-				<div className={larger ? css.bold + " " + css.larger : css.bold}>{name}</div>
-				<div className={css.light}>{summary}</div>
-			</div>
+		<Panel>
+			<About>
+				<Name larger={larger}>{name}</Name>
+				<Summary>{summary}</Summary>
+			</About>
 
-			<div className={css.thinVerticalLine} />
-		</div>
+			<ThinVerticalLine />
+		</Panel>
 	)
 })

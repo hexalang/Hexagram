@@ -13,12 +13,270 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import * as TL from '../../tdlib/tdapi'
 import { state } from '../../mobx/store'
 import { formatTime } from '../../utils/Time'
 import { nameToInitials } from '../../utils/UserInfo'
 import { observer } from "mobx-react-lite"
 import { Message } from '../../mobx/types'
+import styled, { css } from 'styled-components'
+
+const ChatListElementStyled = styled.div<{
+	readonly active: boolean
+}>`
+	width: 260px;
+	height: 62px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-direction: row;
+
+	background-color: rgba(0, 0, 0, 0);
+	transition: background-color 0.15s ease-in-out;
+
+	:hover {
+		background-color: #f1f1f1;
+	}
+
+	:hover:active {
+		background-color: #e5e5e5;
+	}
+
+	${({ active }) => active && css`
+		background-color: #419fd9;
+		color: white !important;
+
+		* {
+			color: white !important;
+		}
+
+		* .unread div {
+			color: #419fd9 !important;
+		}
+
+		:hover {
+			background-color: #419fd9;
+		}
+
+		:hover:active {
+			background-color: #2095d0;
+		}
+	`}
+
+	img.avatar {
+		width: 46px;
+		height: 46px;
+		background-color: gray;
+		border-radius: 100%;
+		flex-shrink: 0;
+		margin-right: 12px;
+	}
+
+	div.avatarEmpty {
+		width: 46px;
+		height: 46px;
+		background-color: #7bc862;
+		border-radius: 100%;
+		flex-shrink: 0;
+		margin-right: 12px;
+		font-size: 18px;
+		color: white;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
+
+	span {
+		font-size: 11pt;
+		white-space: nowrap;
+		display: inline-flex;
+	}
+
+	span.bold {
+		color: black;
+		font-weight: 500;
+
+		text-overflow: ellipsis;
+	}
+
+	span.light {
+		color: #919191;
+	}
+
+	span.date {
+		align-self: flex-end;
+		flex-shrink: 0;
+	}
+
+	span.name {
+		flex-shrink: 1;
+		position: relative;
+	}
+
+	.counter {
+		display: inline-flex;
+		flex-shrink: 0;
+	}
+
+	.textcounter {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.textcounter .text {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		display: inline-flex;
+
+		justify-content: flex-end;
+		flex-direction: row;
+		align-items: flex-end;
+	}
+
+	.textcounter .text div {
+		display: inline-block;
+		font-size: 11pt;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	.textcounter .text div.who {
+		color: #16a0e7;
+		margin-right: 4px;
+		text-overflow: unset;
+		flex-shrink: 0;
+	}
+
+	.textcounter .text div.draft {
+		color: #dd4b39;
+		margin-right: 4px;
+		text-overflow: unset;
+		flex-shrink: 0;
+	}
+
+	.textcounter .unread {
+		background-color: #bbbbbb;
+		flex-shrink: 0;
+		color: white;
+		font-size: 11pt;
+		border-radius: 8px;
+		padding: 0px 4px;
+		margin-left: 4px;
+		height: 17px;
+		max-height: 17px;
+	}
+
+	.textcounter .unread div {
+		display: inline-block;
+		font-size: 10pt;
+		white-space: nowrap;
+		text-align: center;
+		min-width: 10px;
+	}
+
+	.textcounter .mentioned {
+		flex-shrink: 0;
+		display: flex;
+		background-color: #dd4b39;
+		width: 17px;
+		height: 17px;
+		border-radius: 100%;
+		margin: 0;
+		flex-direction: column;
+		align-content: center;
+		align-items: center;
+		justify-content: center;
+		margin-left: 4px;
+
+		& div {
+			font-size: 10pt;
+			display: flex;
+			color: white;
+			flex-shrink: 0;
+			width: 12px;
+			height: 18.5px;
+		}
+	}
+
+	.textcounter .pinned {
+		flex-shrink: 0;
+	}
+
+	.textcounter .pinned img {
+		-webkit-filter: invert(1);
+		filter: invert(1);
+		opacity: 0.5;
+		flex-shrink: 0;
+	}
+
+	span.name div {
+		display: inline-block;
+		font-size: 11pt;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	span.name img {
+		-webkit-filter: invert(1);
+		filter: invert(1);
+		opacity: 0.6;
+		position: relative;
+
+		&.verified {
+			margin-left: 4px;
+			width: 14px;
+			height: 14px;
+			top: 2px;
+			flex-shrink: 0;
+		}
+
+		&.channel {
+			width: 12px;
+			height: 11px;
+			top: 3px;
+			margin-right: 4px;
+			flex-shrink: 0;
+		}
+
+		&.supergroup {
+			width: 16px;
+			height: 11px;
+			top: 4px;
+			margin-right: 4px;
+			flex-shrink: 0;
+		}
+
+		&.bot {
+			width: 16px;
+			height: 11px;
+			top: 3px;
+			margin-right: 4px;
+			flex-shrink: 0;
+		}
+	}
+
+	.wrap {
+		margin: 10px;
+		height: 46px;
+		display: flex;
+		flex-grow: 1;
+		align-self: center;
+	}
+
+	.namedate {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.namedatetext {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		flex-direction: column;
+		align-content: space-between;
+	}
+`
 
 const messageContentToPreview = (message: Message, chatId: number): { textPreview: string, systemPreview?: string } => {
 	const content = message.content
@@ -49,7 +307,8 @@ const messageContentToPreview = (message: Message, chatId: number): { textPrevie
 			const messagePinMessage = content.message_id
 			const preview = messageContentToPreview(state.getOrCreateMessage(chatId, messagePinMessage), chatId)
 			// TODO elipsis: via , systemNested: + no '\n'
-			return { textPreview: '', systemPreview: "pinned «" + (preview.textPreview || preview.systemPreview) + "»" }
+			const previewText = (preview.textPreview || preview.systemPreview || '...').split('\n')[0]
+			return { textPreview: '', systemPreview: "pinned «" + previewText + "»" }
 
 		case "messageCall":
 			const messageCall = content
@@ -67,7 +326,7 @@ const messageContentToPreview = (message: Message, chatId: number): { textPrevie
 
 		case "messageSticker":
 			const messageSticker = content
-			return { textPreview: messageSticker.sticker.emoji, systemPreview: "Sticker " }
+			return { textPreview: messageSticker.sticker.emoji ?? '🙃', systemPreview: "Sticker " }
 
 		default:
 			console.warn(`Unsupported message type ${content['@type']}`, content)
@@ -120,8 +379,12 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	const preview = message ? messageContentToPreview(message, chatId) : null
 
 	// TODO hexa switch (chat, message, user) case null, null, null:
-
-	const text = preview ? preview.textPreview : ''
+	const linkPreview = (message.content['@type'] === "messageText" && message.content.web_page) ? (
+		`\n\nThis message contains a link:\n\n${message.content.web_page.site_name
+		}\n${message.content.web_page.title
+		}`
+	) : ''
+	const text = preview ? preview.textPreview + linkPreview : ''
 	const system = preview ? preview.systemPreview : null
 
 	let who = ''
@@ -186,7 +449,7 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	}
 
 	return (
-		<div className={active} onClick={e => selectChat(chatId)}>
+		<ChatListElementStyled active={current} className={active} onClick={e => selectChat(chatId)}>
 			<div className="wrap">
 
 				{srcAva ? <img title={'Click to show user picture (TODO)'} className="avatar" src={srcAva || 'blur.jpg'} alt="Avatar" /> : <div className="avatarEmpty">{
@@ -225,6 +488,6 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 					</div>
 				</div>
 			</div>
-		</div>
+		</ChatListElementStyled>
 	)
 })

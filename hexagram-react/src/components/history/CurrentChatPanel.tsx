@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { useEffect, useRef, RefObject } from 'react'
+import React, { useEffect, useRef, RefObject, Var } from 'react'
 import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
@@ -24,6 +24,87 @@ import { Top } from './Top'
 import { observer } from 'mobx-react-lite'
 import { observable } from "mobx"
 import { Store, useStore, StoreEvent } from '../../mobx/wrap'
+import styled, { css } from 'styled-components'
+
+const sliderTransition = `background-color 0.5s ease, opacity 0.5s ease`
+
+const HistoryStyled = styled.div`
+	height: calc(100vh - 54px);
+	width: 100%;
+	position: relative;
+`
+
+interface PaneProps {
+	readonly dragging: boolean | null
+}
+
+const Pane = styled.div<PaneProps>`
+	position: relative;
+	height: auto;
+	will-change: top;
+
+	width: 100%;
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: column;
+	padding-top: 34px;
+
+	top: var(--top, 0px);
+
+	${({ dragging }) => !dragging && css`
+		transition: top 0.4s ease;
+	`}
+`
+
+const ScrollBar = styled.div`
+	display: block;
+	width: 4px;
+	background-color: rgba(0, 0, 0, 0.1);
+	height: calc(100% - 6px);
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	border-radius: 4px;
+	transition: background-color 0.5s ease, opacity 0.5s ease;
+	opacity: 0;
+
+	${HistoryStyled}:hover & {
+		opacity: 1;
+	}
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.25);
+	}
+`
+
+const Slider = styled.div<PaneProps>`
+	content: '';
+	display: block;
+	width: 4px;
+	background-color: rgba(0, 0, 0, 0.1);
+	position: absolute;
+	right: 3px;
+	height: var(--height, 100px);
+	border-radius: 4px;
+	transition: ${sliderTransition};
+	opacity: 0;
+	will-change: top;
+	top: var(--top, 0px);
+
+	${HistoryStyled}:hover & {
+		opacity: 1;
+	}
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.4);
+	}
+
+	${({ dragging }) => dragging ? css`
+		opacity: 1;
+	` : css`
+		transition: ${sliderTransition}, top 0.4s ease;
+	`}
+`
 
 interface Position {
 	left: number, top: number
@@ -79,12 +160,12 @@ class UI extends Store {
 		this.paneY = -Math.round(progress * (paneH - this.sliderMaxY))
 
 		if (this.chatListScrollPane.current) {
-			this.chatListScrollPane.current.style.top = this.paneY + 'px'
+			this.chatListScrollPane.current.style.setProperty('--top', this.paneY + 'px')
 		}
 
 		if (this.chatListScrollSlider.current) {
-			this.chatListScrollSlider.current.style.top = this.sliderY + 3 + 'px'
-			this.chatListScrollSlider.current.style.height = this.sliderHeight + 'px'
+			this.chatListScrollSlider.current.style.setProperty('--top', this.sliderY + 3 + 'px')
+			this.chatListScrollSlider.current.style.setProperty('--height', this.sliderHeight + 'px')
 		}
 
 		if (this.sliderY < 2) {
@@ -229,6 +310,37 @@ class UI extends Store {
 
 	}
 }
+
+const TextEntityTypeBold = styled.div`
+	font-weight: 600;
+`
+
+const TextEntityTypeItalic = styled.div`
+	font-style: italic;
+	padding-right: 2px; // Fix overflowing
+`
+
+const TextEntityTypeCode = styled.div`
+	//font-variant-numeric: tabular-nums;
+	font-family: monospace, monospace;
+`
+
+const TextEntityTypeStrikethrough = styled.div`
+	text-decoration: line-through;
+`
+
+const TextEntityTypeUnderline = styled.div`
+	text-decoration: underline;
+`
+
+const TextEntityTypeUrl = styled.div`
+	cursor: pointer !important;
+	color: #168acd !important;
+
+	:hover {
+		text-decoration: underline;
+	}
+`
 
 const History = observer(() => {
 	const chatListScrollBar = useRef<HTMLDivElement>(null)
@@ -378,8 +490,8 @@ const History = observer(() => {
 
 					// TODO no sender name for private chats
 					const senderName = destination.length === 0 && state.users[messageState.senderUserId] ? state.users[messageState.senderUserId].firstName : null
-					let text = [<div className="text">{lines}</div>]
 					let lines = messageState.content.text.text//.trim()
+					let text = [<div key="lines" className="text">{lines}</div>]
 
 					if (lines.includes('\n')) {
 						text = []
@@ -402,13 +514,16 @@ const History = observer(() => {
 					}
 
 					if (messageState.content.text.entities.length > 0) {
+						let keyof = 9900
 						let lastOffset = 0
 						let lastLength = 0
 						text = []
 						for (const entity of messageState.content.text.entities) {
+							keyof++
+
 							if (entity.offset > lastOffset + lastLength) {
 								const string = lines.substr(lastOffset + lastLength, entity.offset - (lastOffset + lastLength))
-								const what = <div key={lastOffset} className="text">{'' + string + ''}</div>
+								const what = <div key={keyof} className="text">{'' + string + ''}</div>
 								text.push(what)
 							}
 
@@ -418,94 +533,94 @@ const History = observer(() => {
 
 							switch (entity.type['@type']) {
 								case 'textEntityTypeBold': {
-									const what = <div key={lastOffset} className="text textEntityTypeBold">{'' + string + ''}</div>
+									const what = <TextEntityTypeBold key={'textEntityTypeBold' + keyof} className="text">{'' + string + ''}</TextEntityTypeBold>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeItalic': {
-									const what = <div key={lastOffset} className="text textEntityTypeItalic">{'' + string + ''}</div>
+									const what = <TextEntityTypeItalic key={'textEntityTypeItalic' + keyof} className="text">{'' + string + ''}</TextEntityTypeItalic>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeCode': {
-									const what = <div key={lastOffset} className="text textEntityTypeCode">{'' + string + ''}</div>
+									const what = <TextEntityTypeCode key={'textEntityTypeCode' + keyof} className="text">{'' + string + ''}</TextEntityTypeCode>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeStrikethrough': {
-									const what = <div key={lastOffset} className="text textEntityTypeStrikethrough">{'' + string + ''}</div>
+									const what = <TextEntityTypeStrikethrough key={'textEntityTypeStrikethrough' + keyof} className="text">{'' + string + ''}</TextEntityTypeStrikethrough>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeUnderline': {
-									const what = <div key={lastOffset} className="text textEntityTypeUnderline">{'' + string + ''}</div>
+									const what = <TextEntityTypeUnderline key={'textEntityTypeUnderline' + keyof} className="text">{'' + string + ''}</TextEntityTypeUnderline>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeUrl': {
 									const href = string
-									const what = <div onClick={_ => window.open(href, '_blank')} title={href} key={lastOffset} className="text textEntityTypeUrl">{'' + string + ''}</div>
+									const what = <TextEntityTypeUrl onClick={_ => window.open(href, '_blank')} title={href} key={'textEntityTypeUrl' + keyof} className="text">{'' + string + ''}</TextEntityTypeUrl>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeTextUrl': {
-									const textEntityTypeTextUrl = (entity.type as TL.TLTextEntityTypeTextUrl)
+									const textEntityTypeTextUrl = entity.type
 									const href = textEntityTypeTextUrl.url
-									const what = <div onClick={_ => window.open(href, '_blank')} title={href} key={lastOffset} className="text textEntityTypeUrl">{'' + string + ''}</div>
+									const what = <TextEntityTypeUrl onClick={_ => window.open(href, '_blank')} title={href} key={'textEntityTypeTextUrl' + keyof} className="text">{'' + string + ''}</TextEntityTypeUrl>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeMention': {
 									const href = 'https://t.me/' + string.substr(1)
-									const what = <div onClick={_ => window.open(href, '_blank')} title={href} key={lastOffset} className="text textEntityTypeUrl">{'' + string + ''}</div>
+									const what = <TextEntityTypeUrl onClick={_ => window.open(href, '_blank')} title={href} key={'textEntityTypeMention' + keyof} className="text">{'' + string + ''}</TextEntityTypeUrl>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeHashtag': {
 									const href = 'https://t.me/TODO_' + string // TODO
-									const what = <div onClick={_ => window.open(href, '_blank')} title={href} key={lastOffset} className="text textEntityTypeUrl">{'' + string + ''}</div>
+									const what = <TextEntityTypeUrl onClick={_ => window.open(href, '_blank')} title={href} key={'textEntityTypeHashtag' + keyof} className="text">{'' + string + ''}</TextEntityTypeUrl>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeCashtag': {
 									const href = 'https://t.me/TODO_' + string // TODO
-									const what = <div onClick={_ => window.open(href, '_blank')} title={href} key={lastOffset} className="text textEntityTypeUrl">{'' + string + ''}</div>
+									const what = <TextEntityTypeUrl onClick={_ => window.open(href, '_blank')} title={href} key={keyof} className="text">{'' + string + ''}</TextEntityTypeUrl>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeBotCommand': {
 									const href = 'https://t.me/TODO_' + string // TODO
-									const what = <div onClick={_ => window.open(href, '_blank')} title={href} key={lastOffset} className="text textEntityTypeUrl">{'' + string + ''}</div>
+									const what = <TextEntityTypeUrl onClick={_ => window.open(href, '_blank')} title={href} key={keyof} className="text">{'' + string + ''}</TextEntityTypeUrl>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypeEmailAddress': {
 									const href = 'mailto:' + string
-									const what = <div onClick={_ => window.open(href, '_blank')} title={href} key={lastOffset} className="text textEntityTypeUrl">{'' + string + ''}</div>
+									const what = <TextEntityTypeUrl onClick={_ => window.open(href, '_blank')} title={href} key={'textEntityTypeEmailAddress' + keyof} className="text">{'' + string + ''}</TextEntityTypeUrl>
 									text.push(what)
 									break
 								}
 
 								case 'textEntityTypePhoneNumber': {
 									const href = 'tel:' + string
-									const what = <div onClick={_ => window.open(href, '_blank')} title={href} key={lastOffset} className="text textEntityTypeUrl">{'' + string + ''}</div>
+									const what = <TextEntityTypeUrl onClick={_ => window.open(href, '_blank')} title={href} key={'textEntityTypePhoneNumber' + keyof} className="text">{'' + string + ''}</TextEntityTypeUrl>
 									text.push(what)
 									break
 								}
 
 								default: {
-									const what = <div className="text">{'(?' + entity.type["@type"] + '=' + string + '?)'}</div>
+									const what = <div className="text" key={'text' + keyof}>{'(?' + entity.type['@type'] + '=' + string + '?)'}</div>
 									text.push(what)
 								}
 							}
@@ -526,7 +641,7 @@ const History = observer(() => {
 							const sticker: TL.TLFile = messageSticker.sticker.thumbnail.file
 							const senderName = state.users[message.senderUserId] ? state.users[message.senderUserId].firstName : 'Someone'
 
-							reactions.push(<StickerOnMessage senderName={senderName} key={key} sticker={sticker} />)
+							reactions.push(<StickerOnMessage senderName={senderName} key={reactions.length} sticker={sticker} />)
 						}
 					}
 
@@ -549,27 +664,58 @@ const History = observer(() => {
 		if (destination !== messages && destination.length > 0) mergeDestination()
 	}
 
-	const slider = ui.dragging ? css.slider + ' ' + css.opacity : css.slider + ' ' + css.sliderSmooth
-	const pane = ui.dragging ? css.pane : css.pane + ' ' + css.transition
+	const sliderStyle = { '--top': ui.sliderY + 3 + 'px', '--height': ui.sliderHeight + 'px' } as Var
 
 	// TODO use return (<>) everywhere
 	return (
-		<div className={css.history} key={state.currentChatId}>
-			<div className={pane} onWheel={ui.onWheel} key={state.currentChatId} ref={chatListScrollPane} style={{ top: ui.paneY + 'px' }}>
+		<HistoryStyled key={state.currentChatId}>
+			<Pane dragging={ui.dragging} onWheel={ui.onWheel} key={state.currentChatId} ref={chatListScrollPane} style={{ '--top': ui.paneY + 'px' } as Var}>
 				{messages}
-			</div>
-			<div className={css.scrollBar} onWheel={ui.onWheel} onMouseDown={ui.onMouseClick} ref={chatListScrollBar}></div>
-			<div className={slider} onWheel={ui.onWheel} onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={{ top: ui.sliderY + 3 + 'px', height: ui.sliderHeight + 'px' }}></div>
-		</div>
+			</Pane>
+			<ScrollBar onWheel={ui.onWheel} onMouseDown={ui.onMouseClick} ref={chatListScrollBar}></ScrollBar>
+			<Slider dragging={ui.dragging} onWheel={ui.onWheel} onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={sliderStyle}></Slider>
+		</HistoryStyled>
 	)
 })
+
+const Blow = styled.div`
+	background-color: gray;
+	background-image: url(${flowers});
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100vh;
+`
+
+const PleaseSelectChat = styled.div`
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	& > div,
+	& > a {
+		display: flex;
+		color: white;
+		font-size: 10.5pt;
+		background-color: rgba(0, 0, 0, 0.2);
+		border-radius: 12px;
+		padding: 4px 12px;
+		flex-grow: 0;
+		text-decoration: none;
+	}
+`
 
 export const CurrentChatPanel = observer(() => {
 	const chatSelected = state.chats[state.currentChatId] && state.chatIds.includes(state.currentChatId)
 
 	return (
 		<>
-			<div className="blow center">
+			<Blow>
 				{
 					// TODO handle status . left the group
 					chatSelected ?
@@ -580,11 +726,11 @@ export const CurrentChatPanel = observer(() => {
 						</>
 						:
 						<>
-							<div className="pleaseSelectChat "><div>Please select a chat to start messaging</div></div>
-							<div className="pleaseSelectChat "><a href="https://www.patreon.com/PeyTy">Made for you by PeyTy</a></div>
+							<PleaseSelectChat><div>Select a chat to start messaging</div></PleaseSelectChat>
+							<PleaseSelectChat><a href="https://www.patreon.com/PeyTy">Made for you by PeyTy</a></PleaseSelectChat>
 						</>
 				}
-			</div>
+			</Blow>
 		</>
 	)
 })

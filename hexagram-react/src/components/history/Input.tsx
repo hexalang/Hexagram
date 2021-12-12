@@ -14,10 +14,85 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { observer } from 'mobx-react-lite'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, RefObject } from 'react'
 import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
+import { autorun, observable, reaction } from "mobx"
+import styled, { css } from 'styled-components'
+
+const ThinVerticalLine = styled.div`
+	width: 1px;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: rgba(0, 0, 0, 0.1); //rgb(235, 235, 235);
+	position: absolute;
+	left: 0px;
+	top: 0px;
+`
+
+const Placeholder = styled.div`
+	position: absolute;
+	pointer-events: none;
+	color: #bbbbbb;
+	font-size: 11pt;
+	font-weight: lighter;
+	left: 16px;
+	top: 34%;
+`
+
+const InputField = styled.div`
+	display: flex;
+	cursor: text;
+	margin-left: 16px;
+
+	& .editor {
+		width: 2048px; // TODO
+		text-align: left;
+		outline: none !important;
+
+		& *,
+		& > *,
+		&,
+		& *[style],
+		& > *[style],
+		& > a[style],
+		& a[style] {
+			color: black !important;
+			user-select: auto !important;
+			font-size: 11pt !important;
+			cursor: text !important;
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+				'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+				'Helvetica Neue', sans-serif !important;
+			text-decoration: none !important;
+			font-weight: lighter !important;
+			background-color: transparent !important;
+			text-align: left !important;
+			display: inline;
+		}
+
+		& img,
+		& > img {
+			display: none !important;
+		}
+	}
+`
+
+const Bottom = styled.div`
+	width: 100%;
+	height: 46px;
+	display: flex;
+	flex-grow: 0;
+	flex-shrink: 0;
+	background-color: white;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: center;
+	align-items: center;
+	position: relative;
+`
 
 const replaceCaret = (el: HTMLElement) => {
 	// Place the caret at the end of the element
@@ -119,16 +194,27 @@ export const Input = observer(() => {
 	}
 
 	return (
-		<div className="bottom">
-			<div className="input">
-				{(value === '') && false && <div className="placeholder">Write a message...</div>}
+		<Bottom>
+			<InputField>
+				{(ui.value === '') && false && <Placeholder>Write a message...</Placeholder>}
 				{false &&
 					<div ref={messagesEndRef} className="editor" contentEditable={true} onKeyDown={onKeyDown} onInput={e => updateValue((e.target as any).innerHTML)} dangerouslySetInnerHTML={{ __html: value }}></div>
 				}
-				<input type="text" className="editor" id="textName" maxLength={90} placeholder="Write a message..." onKeyDown={onKeyDown} value={value} onChange={e => updateValue(e.target.value)} required />
-			</div>
+				<input
+					type="text"
+					className="editor"
+					id="textName"
+					maxLength={90}
+					placeholder="Write a message..."
+					onKeyDown={onKeyDown}
+					value={ui.value}
+					onChange={e => updateValue(e.target.value)}
+					required
+					autoComplete="off"
+				/>
+			</InputField>
 
-			<div className="thinVerticalLine" />
-		</div>
+			<ThinVerticalLine />
+		</Bottom>
 	)
 })

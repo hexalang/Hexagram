@@ -18,6 +18,17 @@ import { Header } from './Header'
 import { ChatList } from './ChatList'
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
+import styled, { css } from 'styled-components'
+
+const ChatsPanelStyled = styled.div`
+	width: 260px;
+	height: 100vh;
+	background-color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	position: relative;
+`
 
 export const ChatsPanel = observer(() => {
 	const selectChat = (id: number): void => {
@@ -29,10 +40,10 @@ export const ChatsPanel = observer(() => {
 	}
 
 	return (
-		<div className="chatList">
+		<ChatsPanelStyled>
 			<Header showSidePanel={showSidePanel} />
 			<ChatList selectChat={selectChat} />
 			<Footer />
-		</div>
+		</ChatsPanelStyled>
 	)
 })

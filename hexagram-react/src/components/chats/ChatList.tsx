@@ -13,11 +13,86 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { useState, useEffect, useRef, RefObject } from 'react'
+import { useState, useEffect, useRef, RefObject, Var } from 'react'
 import { ChatListElement } from './ChatListElement'
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
 import { observable } from "mobx"
+import styled, { css } from 'styled-components'
+
+const sliderTransition = `background-color 0.5s ease, opacity 0.5s ease`
+
+const Chats = styled.div`
+	height: calc(100vh - 54px);
+	width: 260px;
+	position: relative;
+`
+
+interface PaneProps {
+	readonly dragging: boolean | null
+}
+
+const Pane = styled.div<PaneProps>`
+	position: relative;
+	height: auto;
+	will-change: top;
+
+	top: var(--top, 0px);
+
+	${({ dragging }) => !dragging && css`
+		transition: top 0.4s ease;
+	`}
+`
+
+const ScrollBar = styled.div`
+	display: block;
+	width: 4px;
+	background-color: rgba(0, 0, 0, 0.1);
+	height: calc(100% - 6px);
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	border-radius: 4px;
+	transition: background-color 0.5s ease, opacity 0.5s ease;
+	opacity: 0;
+
+	${Chats}:hover & {
+		opacity: 1;
+	}
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.25);
+	}
+`
+
+const Slider = styled.div<PaneProps>`
+	content: '';
+	display: block;
+	width: 4px;
+	background-color: rgba(0, 0, 0, 0.1);
+	position: absolute;
+	right: 3px;
+	height: var(--height, 100px);
+	border-radius: 4px;
+	transition: ${sliderTransition};
+	opacity: 0;
+	will-change: top;
+	top: var(--top, 0px);
+
+	${Chats}:hover & {
+		opacity: 1;
+	}
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.4);
+	}
+
+	${({ dragging }) => dragging ? css`
+		opacity: 1;
+	` : css`
+		transition: ${sliderTransition}, top 0.4s ease;
+	`}
+`
 
 interface Position {
 	left: number, top: number
@@ -163,18 +238,15 @@ export const ChatList = observer(({ selectChat }: { selectChat: (id: number) => 
 		return 0
 	})
 
-	const slider = ui.dragging ? css.slider + ' ' + css.opacity : css.slider + ' ' + css.sliderSmooth
-	const pane = ui.dragging ? css.pane : css.pane + ' ' + css.transition
-
 	return (
-		<div key="chats" className={css.chats} onWheel={ui.onWheel}>
-			<div key="chatListScrollPane" className={pane} ref={chatListScrollPane} style={{ top: ui.paneY + 'px' }}>
+		<Chats key="chats" onWheel={ui.onWheel}>
+			<Pane dragging={ui.dragging} key="chatListScrollPane" ref={chatListScrollPane} style={{ '--top': ui.paneY + 'px' } as Var}>
 				{
 					sortedChats.map(chatId => <ChatListElement key={chatId} chatId={chatId} selectChat={selectChat} />)
 				}
-			</div>
-			<div key="chatListScrollBar" className={css.scrollBar} onMouseDown={ui.onMouseClick} ref={chatListScrollBar}></div>
-			<div key="chatListScrollBarSlider" className={slider} onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={{ top: ui.sliderY + 3 + 'px', height: ui.sliderHeight + 'px' }}></div>
-		</div>
+			</Pane>
+			<ScrollBar key="chatListScrollBar" onMouseDown={ui.onMouseClick} ref={chatListScrollBar}></ScrollBar>
+			<Slider dragging={ui.dragging} key="chatListScrollBarSlider" onMouseDown={ui.onMouseDown} ref={chatListScrollSlider} style={{ '--top': ui.sliderY + 3 + 'px', '--height': ui.sliderHeight + 'px' } as Var}></Slider>
+		</Chats>
 	)
 })

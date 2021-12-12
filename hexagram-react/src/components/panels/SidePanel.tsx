@@ -15,6 +15,85 @@
 
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
+import styled from 'styled-components'
+
+const SidePanelStyled = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	flex-direction: row;
+`
+
+const Fade = styled.div`
+	display: flex;
+	background-color: rgba(0, 0, 0, 0.3);
+	flex-grow: 1;
+`
+
+const SideInfoName = styled.div`
+	display: flex;
+	color: white;
+	font-size: 11pt;
+	text-shadow: 0px 0px 5px #000000;
+	padding: 8px;
+`
+
+const SideBar = styled.div`
+	display: flex;
+	flex-grow: 0;
+	background-color: white;
+	width: 260px;
+	flex-direction: column;
+`
+
+const SideInfo = styled.div`
+	width: 260px;
+	height: 134px;
+	margin-bottom: 13px;
+
+	background-color: gray;
+	background-image: url(flowers.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+`
+
+const Button = styled.div`
+	font-size: 11pt;
+	color: black;
+	width: 260px;
+	height: 44px;
+	text-align: left;
+	padding-left: 24px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	span {
+		font-size: 11pt;
+	}
+
+	:hover {
+		background-color: #f1f1f1;
+	}
+
+	:hover:active {
+		background-color: #e5e5e5;
+	}
+
+	&.patreon {
+		color: #f96854;
+	}
+`
 
 export const SidePanel = observer(() => {
 	const user = state.users[state.myId]
@@ -33,18 +112,18 @@ export const SidePanel = observer(() => {
 	}
 
 	return (
-		<div className="sidePanel">
-			<div className="sideBar">
-				<div className="sideInfo">
-					<div className="sideInfoName">{name}</div>
-					<div className="sideInfoName">{phone}</div>
-				</div>
-				<div className="button" onClick={_ => askLogout()}><span>Log out</span></div>
-				<div className="button patreon" onClick={_ => window.open('https://www.patreon.com/PeyTy', '_blank')}><span>Donate on Patreon</span></div>
-				<div className="button github" onClick={_ => window.open('https://github.com/hexalang/hexagram', '_blank')}><span>Source code on GitHub</span></div>
-			</div>
-			<div className="fade" onClick={hideSidePanel}>
-			</div>
-		</div>
+		<SidePanelStyled>
+			<SideBar>
+				<SideInfo>
+					<SideInfoName>{name}</SideInfoName>
+					<SideInfoName>{phone}</SideInfoName>
+				</SideInfo>
+				<Button onClick={_ => askLogout()}><span>Log out</span></Button>
+				<Button className="patreon" onClick={_ => window.open('https://www.patreon.com/PeyTy', '_blank')}><span>Donate on Patreon</span></Button>
+				<Button className="github" onClick={_ => window.open('https://github.com/hexalang/hexagram', '_blank')}><span>Source code on GitHub</span></Button>
+			</SideBar>
+			<Fade onClick={hideSidePanel}>
+			</Fade>
+		</SidePanelStyled>
 	)
 })

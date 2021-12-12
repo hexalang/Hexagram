@@ -19,6 +19,161 @@ import { tg } from '../../tdlib/tdlib'
 import { observer } from 'mobx-react-lite'
 import { observable } from 'mobx'
 import { Store, useStore, StoreEvent } from '../../mobx/wrap'
+import styled, { css } from 'styled-components'
+
+const CenterBackgroundBefore = styled.div`
+	content: '';
+	background-color: #27443a;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: -2;
+`
+
+const CenterBackground = styled.div`
+	z-index: -1;
+	transition: filter 1s ease, transform 1s ease;
+	position: absolute;
+	left: 0%;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	background-image: url(dark-fog-forest-haze-6992.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	transform: scale(1.1);
+`
+
+const Hint = styled.div`
+	font-size: 16px;
+	margin-top: 24px;
+	color: #8D969C;
+
+	color: rgba(255, 255, 255, 0.6);
+`
+
+const Sign = styled.div`
+	color: black;
+	font-size: 34px;
+	font-weight: 600;
+	margin-top: 30px;
+
+	text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	padding-bottom: 5px;
+	padding-top: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+	color: rgb(240, 240, 240);
+`
+
+const Title = styled.div`
+	color: #2FA7E3;
+	font-size: 40px;
+	font-weight: 600;
+	margin-top: 40px;
+
+	text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+	padding-top: 0px;
+	padding-bottom: 10px;
+	padding-left: 35px;
+	padding-right: 35px;
+`
+
+const Form = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+
+	& > * {
+		flex-shrink: 0;
+	}
+`
+
+const Logo = styled.img`
+	pointer-events: none;
+	width: 13vw;
+	height: 13vw;
+`
+
+interface NextProps {
+	readonly error: boolean
+}
+
+const Next = styled.div<NextProps>`
+	margin-top: 24px;
+	color: white;
+	font-size: 20px;
+	background-color: #4EA4F6;
+	border-radius: 10px;
+	height: 54px;
+	width: 360px;
+	line-height: 50px;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+
+	&:hover:active {
+		background-color: #418BD0;
+	}
+
+	&:hover {
+		background-color: #4797E2;
+	}
+
+	${({ error }) => error && css`
+		background-color: #7aacdb;
+	`}
+`
+
+const Input = styled.input`
+	padding-left: 20px;
+	outline-width: 0;
+	color: black;
+	font-size: 20px;
+	height: 52px;
+	width: 358px;
+	transition: color 0.3s ease-in-out;
+
+	background-color: rgba(255,255,255,0.4);
+	color: white;
+
+	&.error {
+		color: rgba(255, 155, 155, 0.9);
+	}
+`
+
+const Phone = styled.div`
+	margin-top: 24px;
+	border-radius: 10px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #4797E2;
+	width: 360px;
+	height: 54px;
+	line-height: 50px;
+	display: inline-block;
+	text-align: left;
+	padding: 1px;
+
+	transition: border-color 0.4s ease-in-out;
+	border-width: 2px;
+	border-color: rgba(71, 151, 226, 0.0);
+	padding: 0px;
+
+	&:hover {
+		border-color: rgba(71, 151, 226, 1.0);
+	}
+`
+
+const Code = styled(Phone)``
+
+const Secret = styled(Phone)``
 
 const cleanPhoneNumber = (text: string): string => {
 	text = text.trim()
@@ -113,16 +268,16 @@ export const LoginForm = observer(() => {
 	const blur = (loginState !== LoginState.WaitPhoneNumber) || (ui.phone !== '')
 
 	return <>
-		<div className="centerBackgroundBefore"></div>
-		<div className="centerBackground" style={blur ? { filter: 'blur(30px)', transform: 'scale(1.1)' } : { filter: 'blur(10px)', transform: 'scale(1.0)' }}></div>
-		<div className="loginForm">
-			<img src="logo.svg" alt="Logo" />
-			<div className="title">Hexagram</div>
-			<div className="sign">Sign in to Telegram</div>
+		<CenterBackgroundBefore></CenterBackgroundBefore>
+		<CenterBackground style={blur ? { filter: 'blur(30px)', transform: 'scale(1.1)' } : { filter: 'blur(10px)', transform: 'scale(1.0)' }}></CenterBackground>
+		<Form>
+			<Logo src="logo.svg" alt="Logo" />
+			<Title>Hexagram</Title>
+			<Sign>Sign in to Telegram</Sign>
 
 			{loginState === LoginState.WaitPhoneNumber && <>
-				<div className="hint">Enter your phone number to log in</div>
-				<div className="phone"><input
+				<Hint>Enter your phone number to log in</Hint>
+				<Phone><Input
 					className={isCorrectPhoneNumber(ui.phone) && !ui.error ? '' : 'error'}
 					value={ui.phone} onChange={e => {
 						ui.error = false
@@ -130,47 +285,47 @@ export const LoginForm = observer(() => {
 					}}
 					type="tel" name="phoneInput" id="phoneInput"
 					placeholder="Your phone number"
-				/></div>
+				/></Phone>
 			</>}
 
 			{loginState === LoginState.WaitCode && <>
-				<div className="hint">Enter authentication code to log in</div>
-				<div className="code"><input
+				<Hint>Enter authentication code to log in</Hint>
+				<Code><Input
 					className={isCorrectPhoneNumber(ui.code) && !ui.error ? '' : 'error'}
 					value={ui.code} onChange={e => {
 						ui.error = false
 						ui.code = e.target.value
 					}}
 					type="tel" name="codeInput" id="codeInput"
-					placeholder="Code from SMS or message" /></div>
+					placeholder="Code from SMS or message" /></Code>
 			</>}
 
 			{loginState === LoginState.WaitRegistration /* TODO > show TOS */ && <>
-				<div className="hint">Registration is not yet implemented, sorry</div>
+				<Hint>Registration is not yet implemented, sorry</Hint>
 			</>}
 
 			{loginState === LoginState.WaitPassword && <>
-				<div className="hint">Enter your phone 2FA password to log in</div>
-				<div className="secret"><input
+				<Hint>Enter your phone 2FA password to log in</Hint>
+				<Secret><Input
 					className={ui.error ? 'error' : ''}
 					value={ui.secret} onChange={e => {
 						ui.error = false
 						ui.secret = e.target.value
 					}}
 					type="password" name="secretInput" id="secretInput"
-					placeholder={state.hint ? state.hint : "Your password"} /></div>
+					placeholder={state.hint ? state.hint : "Your password"} /></Secret>
 			</>}
 
-			<div className={ui.error ? 'next error' : 'next'} onClick={next}>NEXT</div>
+			<Next error={ui.error} onClick={next}>NEXT</Next>
 
-			{!ui.error && loginState === LoginState.WaitPhoneNumber && <div className="hint">You will receive SMS</div>}
-			{!ui.error && loginState === LoginState.WaitCode && <div className="hint">Check your SMS inbox or other devices</div>}
-			{!ui.error && loginState === LoginState.WaitRegistration && <div className="hint">You accept Telegram terms of service</div>}
-			{!ui.error && loginState === LoginState.WaitPassword && <div className="hint">You have set 2FA in your profile</div>}
+			{!ui.error && loginState === LoginState.WaitPhoneNumber && <Hint>You will receive SMS</Hint>}
+			{!ui.error && loginState === LoginState.WaitCode && <Hint>Check your SMS inbox or other devices</Hint>}
+			{!ui.error && loginState === LoginState.WaitRegistration && <Hint>You accept Telegram terms of service</Hint>}
+			{!ui.error && loginState === LoginState.WaitPassword && <Hint>You have set 2FA in your profile</Hint>}
 
-			{ui.error && loginState === LoginState.WaitPhoneNumber && <div className="hint">Wrong phone number</div>}
-			{ui.error && loginState === LoginState.WaitCode && <div className="hint">Wrong secret code</div>}
-			{ui.error && loginState === LoginState.WaitPassword && <div className="hint">Wrong 2FA password</div>}
-		</div>
+			{ui.error && loginState === LoginState.WaitPhoneNumber && <Hint>Wrong phone number</Hint>}
+			{ui.error && loginState === LoginState.WaitCode && <Hint>Wrong secret code</Hint>}
+			{ui.error && loginState === LoginState.WaitPassword && <Hint>Wrong 2FA password</Hint>}
+		</Form>
 	</>
 })

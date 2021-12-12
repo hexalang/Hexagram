@@ -20,26 +20,56 @@ import { LoginState, state } from '../mobx/store'
 import { LoginForm } from '../components/login/LoginForm'
 import preview from './preview.svg'
 import { observer } from 'mobx-react-lite'
+import styled, { css } from 'styled-components'
+
+const App = styled.div`
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	height: 100vh;
+`
+
+const Loading = styled.div`
+	background-color: #4c5463;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-image: url(${preview});
+
+	div {
+		text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+		color: white;
+		font-size: calc(20px + 2vmin);
+		padding: 20px;
+		margin-top: 80vh;
+	}
+`
 
 export default observer(() => {
 	const loaded = state.loaded
 	const loginState = state.loginState
 	const showSideBar = state.showSideBar
 
-	if (loaded === false) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Loading Hexagram...</div></div>
-	if (loginState === LoginState.WaitTDLib) return <div className="App-header" style={{ backgroundImage: 'url(' + preview + ')' }}><div>Logging in...</div></div>
+	if (loaded === false) return <Loading><div>Loading Hexagram...</div></Loading>
+	if (loginState === LoginState.WaitTDLib) return <Loading><div>Logging in...</div></Loading>
 
 	if (loginState === LoginState.Ready) return (
-		<div className="App">
+		<App>
 			<ChatsPanel />
 			<CurrentChatPanel />
 			{showSideBar && <SidePanel />}
-		</div>
+		</App>
 	)
 
 	return (
-		<div className="App">
+		<App>
 			<LoginForm />
-		</div>
+		</App>
 	)
 })
