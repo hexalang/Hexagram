@@ -15,7 +15,6 @@
 
 import * as TL from '../../tdlib/tdapi'
 import { nameToInitials } from '../../utils/UserInfo'
-import './MessageTypes.scss'
 import { state } from '../../mobx/store'
 import { inflate } from 'pako'
 import Lottie from 'react-lottie'

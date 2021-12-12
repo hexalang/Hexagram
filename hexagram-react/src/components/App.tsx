@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import './App.scss'
 import { CurrentChatPanel } from '../components/history/CurrentChatPanel'
 import { ChatsPanel } from '../components/chats/ChatsPanel'
 import { SidePanel } from '../components/panels/SidePanel'

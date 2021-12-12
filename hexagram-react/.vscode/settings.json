@@ -4,5 +4,6 @@
         "supergroups",
         "Tizen",
         "Webrtc"
-    ]
+    ],
+    "editor.formatOnSave": true
 }

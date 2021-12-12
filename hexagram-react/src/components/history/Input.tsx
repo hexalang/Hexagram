@@ -18,7 +18,6 @@ import { useState, useEffect, useRef } from 'react'
 import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
 import { tg } from '../../tdlib/tdlib'
-import './Input.scss'
 
 const replaceCaret = (el: HTMLElement) => {
 	// Place the caret at the end of the element

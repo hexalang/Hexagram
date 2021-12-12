@@ -15,7 +15,6 @@
 
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
-import './SidePanel.scss'
 
 export const SidePanel = observer(() => {
 	const user = state.users[state.myId]

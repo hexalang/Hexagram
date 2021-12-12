@@ -16,7 +16,6 @@
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { ChatList } from './ChatList'
-import './ChatsPanel.scss'
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
 

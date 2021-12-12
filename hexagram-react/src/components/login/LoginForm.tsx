@@ -13,8 +13,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { useState } from 'react'
-import './LoginForm.scss'
 import { LoginState } from '../../mobx/store'
 import { state } from '../../mobx/store'
 import { tg } from '../../tdlib/tdlib'

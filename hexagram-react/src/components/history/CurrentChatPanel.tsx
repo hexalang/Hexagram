@@ -21,9 +21,7 @@ import { MessageSameSender, MessageSameSenderTheirs, CenterSystemMessage, Messag
 import { StickerMy, StickerOnMessage, MessageMy, MessageTheirs, LottieSticker } from '../messages/MessageTypes'
 import { Input } from './Input'
 import { Top } from './Top'
-import './CurrentChatPanel.scss'
 import { observer } from 'mobx-react-lite'
-import css from './CurrentChatPanel.module.scss'
 import { observable } from "mobx"
 import { Store, useStore, StoreEvent } from '../../mobx/wrap'
 

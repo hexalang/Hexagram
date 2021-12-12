@@ -16,7 +16,6 @@
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
 import * as TL from '../../tdlib/tdapi'
-import css from './Top.module.scss'
 
 export const Top = observer(() => {
 	const chat = state.chats[state.currentChatId]

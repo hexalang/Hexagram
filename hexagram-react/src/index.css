@@ -24,3 +24,17 @@ code {
 		sans-serif;
 	box-sizing: border-box;
 }
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: unset !important;
+	}
+}
+
+*::-webkit-scrollbar {
+	display: none;
+}
+
+[contenteditable]:focus {
+	outline: 0px solid transparent;
+}

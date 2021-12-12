@@ -18,7 +18,6 @@ import { ChatListElement } from './ChatListElement'
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
 import { observable } from "mobx"
-import css from './ChatList.module.scss'
 
 interface Position {
 	left: number, top: number
