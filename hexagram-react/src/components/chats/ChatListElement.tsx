@@ -19,6 +19,7 @@ import { nameToInitials } from '../../utils/UserInfo'
 import { observer } from "mobx-react-lite"
 import { Message } from '../../mobx/types'
 import styled, { css } from 'styled-components'
+import { useEffect, useRef } from 'react'
 
 const ChatListElementStyled = styled.div<{
 	readonly active: boolean
@@ -457,11 +458,27 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 			draftText = chat.draft['@type']
 	}
 
+	const avatarRef = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		const avatar = avatarRef.current
+		if (avatar) {
+			avatar.addEventListener('mouseenter', () => {
+				state.floatingCirclePreview = srcAva
+			})
+			avatar.addEventListener('mouseleave', () => {
+				state.floatingCirclePreview = null
+			})
+			return () => {
+				// TODO
+			}
+		}
+	})
+
 	return (
 		<ChatListElementStyled active={current} className={active} onClick={e => selectChat(chatId)}>
 			<div className="wrap">
-
-				<div title={'Click to show user picture (TODO)!'} className="avatar" style={srcAva ? {
+				<div ref={avatarRef} title={'Hover to show larger picture'} className="avatar" style={srcAva ? {
 					backgroundImage: 'url(' + srcAva + ')',
 					color: 'transparent'
 				} : {}} >{

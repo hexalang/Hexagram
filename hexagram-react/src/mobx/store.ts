@@ -52,6 +52,10 @@ export class State {
 	@observable currentChatId: number
 	@observable search: string = ''
 
+	@observable mouseX: number = 0
+	@observable mouseY: number = 0
+	@observable floatingCirclePreview: string | null | undefined = null
+
 	// Opened dialogs
 	readonly chats = observable.map<number, Chat>({}, noDeep)
 	readonly users = observable.map<number, User>({}, noDeep)
@@ -84,6 +88,13 @@ export class State {
 		this.hint = ''
 
 		dispatchTelegramEventHandler.handle = (updates: TL.TLObject[]) => this.mergeAll(updates)
+
+		document.addEventListener('mousemove', this.mousemove)
+	}
+
+	private mousemove = (e: MouseEvent) => {
+		this.mouseX = e.clientX
+		this.mouseY = e.clientY
 	}
 
 	private dispatched: StoreEvent = null as unknown as StoreEvent

@@ -19,10 +19,13 @@ import { SidePanel } from '../components/panels/SidePanel'
 import { LoginState, state } from '../mobx/store'
 import { LoginForm } from '../components/login/LoginForm'
 import preview from './preview.svg'
+import floating from './floating.png'
 import { observer } from 'mobx-react-lite'
 import styled, { css } from 'styled-components'
+import { Var } from 'react'
 
 const App = styled.div`
+	position: relative;
 	text-align: center;
 	display: flex;
 	flex-direction: row;
@@ -51,6 +54,34 @@ const Loading = styled.div`
 	}
 `
 
+const FloatingCirclePreview = styled.div`
+	width: 256px;
+	height: 256px;
+	left: 266px;
+	top: var(--top, 6px);
+	position: absolute;
+	border-radius: 100%;
+	border-color: white;
+	border-style: solid;
+	border-width: 4px;
+	box-shadow: 0px 0px 24px gray;
+	will-change: top, transform, opacity;
+	transform: rotate(20deg);
+	opacity: 0;
+
+	transition:
+		background-image 0.333s ease-in-out,
+		top 0.111s ease-out,
+		transform 0.333s ease-out,
+		opacity 0.333s ease-out;
+
+	background-color: while;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-image: url(${floating});
+`
+
 export default observer(() => {
 	const loaded = state.loaded
 	const loginState = state.loginState
@@ -59,11 +90,20 @@ export default observer(() => {
 	if (loaded === false) return <Loading><div>Loading Hexagram...</div></Loading>
 	if (loginState === LoginState.WaitTDLib) return <Loading><div>Logging in...</div></Loading>
 
+	// TODO load better quality chat pic (in separate bg element with transparent->png transition)
+	const floatingTop = {
+		'--top': Math.min(document.body.clientHeight - 266, Math.max(6, state.mouseY - 128)) + 'px',
+		backgroundImage: state.floatingCirclePreview ? 'url(' + state.floatingCirclePreview + ')' : undefined,
+		opacity: state.floatingCirclePreview ? 1 : undefined,
+		transform: state.floatingCirclePreview ? 'rotate(0deg)' : undefined,
+	} as Var
+
 	if (loginState === LoginState.Ready) return (
 		<App>
 			<ChatsPanel />
 			<CurrentChatPanel />
 			{showSideBar && <SidePanel />}
+			<FloatingCirclePreview style={floatingTop} />
 		</App>
 	)
 
