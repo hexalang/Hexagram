@@ -274,7 +274,11 @@ const ChatListElementStyled = styled.div<{
 	}
 `
 
-const messageContentToPreview = (message: Message, chatId: number): { textPreview: string, systemPreview?: string } => {
+const messageContentToPreview = (message: Message, chatId: number): {
+	textPreview: string,
+	colon?: boolean,
+	systemPreview?: string
+} => {
 	const content = message.content
 
 	// TODO pre-load messages, also proper nullability
@@ -295,9 +299,11 @@ const messageContentToPreview = (message: Message, chatId: number): { textPrevie
 			}
 			return { textPreview: caption, systemPreview: caption === '' ? "Photo" : "Photo, " }
 
+		case "messageChatAddMembers":
+			return { textPreview: '', systemPreview: "joined the group", colon: false }
+
 		case "messageChatJoinByLink":
-			// TODO should not have "Sender:"
-			return { textPreview: '', systemPreview: "joined the group via invite link" }
+			return { textPreview: '', systemPreview: "joined the group via invite link", colon: false }
 
 		case "messagePinMessage":
 			const messagePinMessage = content.message_id
@@ -329,6 +335,16 @@ const messageContentToPreview = (message: Message, chatId: number): { textPrevie
 			return { textPreview: `Unsupported message type ${content['@type']}` }
 	}
 }
+
+const PreviewSystem = styled.div<{
+	readonly ellipsis: boolean
+}>`
+	text-overflow: ellipsis;
+	color: #16a0e7;
+	margin-right: 4px;
+	text-overflow: unset;
+	flex-shrink: ${props => props.ellipsis ? 1 : 0};
+`
 
 export const ChatListElement = observer(({ chatId, selectChat }: { chatId: number, selectChat: (id: number) => void }) => {
 	const currentChatId = state.currentChatId
@@ -380,12 +396,13 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 	) : ''
 	const text = preview ? preview.textPreview + linkPreview : ''
 	const system = preview ? preview.systemPreview : null
+	const colon = preview?.colon ?? true
 
 	let who = ''
 
 	if (chat && message) {
 		// Works for any chat type
-		if (myId === message.senderUserId) who = 'You: '
+		if (myId === message.senderUserId) who = 'You'
 		else
 			if (chat.type['@type'] === 'chatTypePrivate') {
 				// Just empty
@@ -393,8 +410,8 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 			else
 				if (chat.type['@type'] === 'chatTypeSupergroup' && chat.type.is_channel === false) {
 					const sender = users.get(message.senderUserId)
-					if (sender) who = sender.firstName + ': '
-					if (sender && sender.type['@type'] === 'userTypeDeleted') who = 'Deleted: '
+					if (sender) who = (sender.firstName + ' ' + sender.lastName).trim()
+					if (sender && sender.type['@type'] === 'userTypeDeleted') who = 'Deleted'
 					// If senderUserId == 0 then it's a channel
 					// If sender == null then it's service messages
 				}
@@ -465,8 +482,8 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 						{
 							draft == null ?
 								<span className="light text">
-									{who && <div className="who" title={who}>{who}</div>}
-									{system && <div className="who" title={text ? system + text : system}>{system}</div>}
+									{who && <div className="who" title={who}>{who}{colon && ': '}</div>}
+									{system && <PreviewSystem ellipsis={!text} title={text ? system + text : system}>{system}</PreviewSystem>}
 									<div title={text}>{text}</div>
 								</span>
 								:
