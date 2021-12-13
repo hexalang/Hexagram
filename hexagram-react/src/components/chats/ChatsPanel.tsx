@@ -23,7 +23,7 @@ import styled, { css } from 'styled-components'
 const ChatsPanelStyled = styled.div`
 	width: 260px;
 	height: 100vh;
-	background-color: #ffffff;
+	background-color: var(--background-primary);
 	display: flex;
 	flex-direction: column;
 	flex-shrink: 0;

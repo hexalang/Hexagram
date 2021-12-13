@@ -18,6 +18,7 @@ import { Chat, User, Message, Supergroup, File } from './types'
 import { StoreEvent, listeners, Store } from './wrap'
 import { action, computed, keys, observable, toJS, ObservableMap } from "mobx"
 import { tg, dispatchTelegramEventHandler } from '../tdlib/tdlib'
+import { setTheme } from '../utils/Theme'
 
 export enum LoginState {
 	WaitTDLib,
@@ -51,6 +52,8 @@ export class State {
 	@observable myId: number
 	@observable currentChatId: number
 	@observable search: string = ''
+
+	@observable dark: boolean = false
 
 	@observable mouseX: number = 0
 	@observable mouseY: number = 0
@@ -90,6 +93,8 @@ export class State {
 		dispatchTelegramEventHandler.handle = (updates: TL.TLObject[]) => this.mergeAll(updates)
 
 		document.addEventListener('mousemove', this.mousemove)
+
+		setTheme(this.dark)
 	}
 
 	private mousemove = (e: MouseEvent) => {
