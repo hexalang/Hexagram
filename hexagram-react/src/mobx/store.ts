@@ -18,7 +18,7 @@ import { Chat, User, Message, Supergroup, File } from './types'
 import { StoreEvent, listeners, Store } from './wrap'
 import { action, computed, keys, observable, toJS, ObservableMap } from "mobx"
 import { tg, dispatchTelegramEventHandler } from '../tdlib/tdlib'
-import { setTheme } from '../utils/Theme'
+import { querySystemTheme, setTheme } from '../utils/Theme'
 
 export enum LoginState {
 	WaitTDLib,
@@ -53,7 +53,7 @@ export class State {
 	@observable currentChatId: number
 	@observable search: string = ''
 
-	@observable dark: boolean = false
+	@observable dark: boolean = querySystemTheme() === 'dark'
 
 	@observable mouseX: number = 0
 	@observable mouseY: number = 0

@@ -41,7 +41,7 @@ const Burger = styled.div`
 
 const Search = styled.div`
 	width: 152px;
-	background-color: #f1f1f1;
+	background-color: var(--header-search);
 	height: 32px;
 	border-radius: 4px;
 	display: flex;

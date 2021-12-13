@@ -36,15 +36,15 @@ const ChatListElementStyled = styled.div<{
 	transition: background-color 0.15s ease-in-out;
 
 	:hover {
-		background-color: #f1f1f1;
+		background-color: var(--chat-hover-bg);
 	}
 
 	:hover:active {
-		background-color: #e5e5e5;
+		background-color: var(--chat-pressed-bg);
 	}
 
 	${({ active }) => active && css`
-		background-color: #419fd9;
+		background-color: var(--chat-active-bg);
 		color: white !important;
 
 		* {
@@ -56,11 +56,11 @@ const ChatListElementStyled = styled.div<{
 		}
 
 		:hover {
-			background-color: #419fd9;
+			background-color: var(--chat-active-hover-bg);
 		}
 
 		:hover:active {
-			background-color: #2095d0;
+			background-color: var(--chat-active-pressed-bg);
 		}
 	`}
 
@@ -108,6 +108,8 @@ const ChatListElementStyled = styled.div<{
 	span.name {
 		flex-shrink: 1;
 		position: relative;
+		color: var(--chat-title);
+		font-weight: var(--chat-title-weight);
 	}
 
 	.counter {
@@ -153,7 +155,7 @@ const ChatListElementStyled = styled.div<{
 	}
 
 	.textcounter .unread {
-		background-color: #bbbbbb;
+		background-color: var(--chat-counter-bg);
 		flex-shrink: 0;
 		color: white;
 		font-size: 11pt;
@@ -201,8 +203,8 @@ const ChatListElementStyled = styled.div<{
 	}
 
 	.textcounter .pinned img {
-		-webkit-filter: invert(1);
-		filter: invert(1);
+		-webkit-filter: var(--chat-filter);
+		filter: var(--chat-filter);
 		opacity: 0.5;
 		flex-shrink: 0;
 	}
@@ -215,8 +217,8 @@ const ChatListElementStyled = styled.div<{
 	}
 
 	span.name img {
-		-webkit-filter: invert(1);
-		filter: invert(1);
+		-webkit-filter: var(--chat-filter);
+		filter: var(--chat-filter);
 		opacity: 0.6;
 		position: relative;
 

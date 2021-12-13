@@ -717,6 +717,7 @@ const PleaseSelectChat = styled.div`
 		padding: 4px 12px;
 		flex-grow: 0;
 		text-decoration: none;
+		backdrop-filter: blur(10px);
 	}
 `
 
