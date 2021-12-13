@@ -63,22 +63,18 @@ const ChatListElementStyled = styled.div<{
 		}
 	`}
 
-	img.avatar {
+	.avatar {
 		width: 46px;
 		height: 46px;
-		background-color: gray;
 		border-radius: 100%;
 		flex-shrink: 0;
 		margin-right: 12px;
-	}
+		background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+		transition: background-image 0.333s ease-in-out, color 0.333s ease-in-out;
+		background-size: 46px 46px;
 
-	div.avatarEmpty {
-		width: 46px;
-		height: 46px;
+		// Fallback
 		background-color: #7bc862;
-		border-radius: 100%;
-		flex-shrink: 0;
-		margin-right: 12px;
 		font-size: 18px;
 		color: white;
 		display: flex;
@@ -448,9 +444,12 @@ export const ChatListElement = observer(({ chatId, selectChat }: { chatId: numbe
 		<ChatListElementStyled active={current} className={active} onClick={e => selectChat(chatId)}>
 			<div className="wrap">
 
-				{srcAva ? <img title={'Click to show user picture (TODO)'} className="avatar" src={srcAva || 'blur.jpg'} alt="Avatar" /> : <div className="avatarEmpty">{
-					nameToInitials(name)
-				}</div>}
+				<div title={'Click to show user picture (TODO)!'} className="avatar" style={srcAva ? {
+					backgroundImage: 'url(' + srcAva + ')',
+					color: 'transparent'
+				} : {}} >{
+						nameToInitials(name)
+					}</div>
 				<div className="namedatetext">
 					<div className="namedate">
 						<span className="bold name">
