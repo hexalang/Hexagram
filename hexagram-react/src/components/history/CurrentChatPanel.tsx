@@ -25,6 +25,7 @@ import { observer } from 'mobx-react-lite'
 import { observable } from "mobx"
 import { Store, useStore, StoreEvent } from '../../mobx/wrap'
 import styled, { css } from 'styled-components'
+import flowers from '../panels/flowers.jpg'
 
 const sliderTransition = `background-color 0.5s ease, opacity 0.5s ease`
 
@@ -464,11 +465,12 @@ const History = observer(() => {
 						const photo = messagePhoto.photo
 						const caption: TL.TLFormattedText = messagePhoto.caption
 						const text = caption.text !== "" ? [<div className="text">{caption.text}</div>] : []
-						const sized: TL.TLFile = photo.sizes.reduce((prev, curr) => prev.height > curr.height ? prev : curr).photo
+						const photoSize = photo.sizes.reduce((prev, curr) => prev.height > curr.height ? prev : curr)
+						const sized: TL.TLFile = photoSize.photo
 						updateDestination(messageState.senderUserId)
 						const sender = state.users.get(messageState.senderUserId)
 						const senderName = destination.length === 0 && sender ? sender.firstName : null
-						destination.push(<MessagePhotoTheirs key={key} sized={sized} author={senderName} text={text} time={time} date={messageState.date} />)
+						destination.push(<MessagePhotoTheirs key={key} photoSize={photoSize} sized={sized} author={senderName} text={text} time={time} date={messageState.date} />)
 					}
 					break
 

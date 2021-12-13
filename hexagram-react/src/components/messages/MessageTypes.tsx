@@ -165,8 +165,8 @@ const CenterSystemMessageGroupPicStyled = styled.div<{
 
 const CenterSystemMessageGroupPic = ({ src }: { src: string }) => {
 	return (
-			<div style={{ backgroundImage: 'url(' + src + ')' }}>{' '}</div>
 		<CenterSystemMessageGroupPicStyled>
+			<div style={{ backgroundImage: 'url(' + src + ')' }}>{' '}</div>
 		</CenterSystemMessageGroupPicStyled>
 	)
 }
@@ -439,20 +439,31 @@ export const MessageSameSenderTheirs = observer(({ children, senderUserId }: {
 	)
 })
 
+const photoMaxWidth = 430
+const photoMaxHeight = 240
+
 const MessagePhoto = styled.div<{
 }>`
 	flex-basis: 100%;
-	max-width: 430px;
-	max-height: 240px;
+	max-width: ${photoMaxWidth}px;
+	max-height: ${photoMaxHeight}px;
+	cursor: pointer;
 
 	background-image: url(bg_initial.jpg);
 	background-repeat: repeat;
+	transition: background-image 0.333s ease-in-out;
+	background-position: center;
 
-	& img {
-		height: auto;
-		width: auto;
-		max-width: 430px;
-		max-height: 240px;
+	div {
+		transition: background-image 0.333s ease-in-out;
+		background-image: url(bg_initial.jpg);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: var(--width) var(--height);
+		height: var(--height);
+		width: var(--width);
+		width: ${photoMaxWidth}px;
+		backdrop-filter: blur(10px);
 	}
 `
 
@@ -508,7 +519,8 @@ const MessagePhotoTheirsStyled = styled(MessageTheirsStyled) <{
 	`}
 `
 
-export const MessagePhotoTheirs = observer(({ sized, text, time, date, author, views }: {
+export const MessagePhotoTheirs = observer(({ photoSize, sized, text, time, date, author, views }: {
+	photoSize: TL.TLPhotoSize,
 	sized: TL.TLFile, text: React.ReactNode[], time: string | null, date: number, author: string | null, views?: string
 }) => {
 	const file: TL.TLFile = sized
@@ -521,11 +533,21 @@ export const MessagePhotoTheirs = observer(({ sized, text, time, date, author, v
 	dateTemp.setTime(date * 1000)
 	const timeTitle = dateTemp.toLocaleString(navigator.language, dateOptions)
 
+	const scale = Math.min(
+		photoMaxWidth / photoSize.width,
+		photoMaxHeight / photoSize.height
+	)
+	const style = {
+		backgroundImage: 'url(' + (srcAva || 'bg_initial.jpg') + ')',
+		'--width': photoSize.width * scale + 'px',
+		'--height': photoSize.height * scale + 'px',
+	} as Var
+
 	return (
 		<div>
 			<MessagePhotoTheirsStyled noCaption={text.length === 0}>
 				{author && <div className="author">{author}</div>}
-				<MessagePhoto><img className="" src={srcAva || 'blur.jpg'} alt="Avatar" /></MessagePhoto>
+				<MessagePhoto style={{ backgroundImage: 'url(' + (srcAva || 'bg_initial.jpg') + ')' }} ><div style={style}></div></MessagePhoto>
 				{text}
 				<div className="text">&nbsp;&nbsp;&nbsp;</div>
 				<div className="right">
