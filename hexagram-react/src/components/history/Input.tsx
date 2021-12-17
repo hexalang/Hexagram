@@ -47,6 +47,14 @@ const InputField = styled.div`
 	cursor: text;
 	margin-left: 16px;
 
+	input::placeholder {
+		color: #999999;
+	}
+
+	input {
+		color: var(--chat-title);
+	}
+
 	& .editor {
 		width: 2048px; // TODO
 		text-align: left;
@@ -59,7 +67,7 @@ const InputField = styled.div`
 		& > *[style],
 		& > a[style],
 		& a[style] {
-			color: black !important;
+			color: var(--chat-title) !important;
 			user-select: auto !important;
 			font-size: 11pt !important;
 			cursor: text !important;
@@ -86,7 +94,7 @@ const Bottom = styled.div`
 	display: flex;
 	flex-grow: 0;
 	flex-shrink: 0;
-	background-color: white;
+	background-color: var(--background-primary-bg);
 	flex-direction: row;
 	justify-content: flex-start;
 	align-content: center;

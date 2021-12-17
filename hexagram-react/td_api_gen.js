@@ -138,8 +138,6 @@ while (lines.length > 0) {
 	if (line.startsWith('//@description ')) {
 		out.push(line.substring())
 	}
-
-	// TODO ; may be null
 }
 
 // Functions

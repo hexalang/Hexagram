@@ -192,7 +192,7 @@ export const StickerMy = observer(({
 const MessageMyStyled = styled.div<{
 }>`
 	display: flex;
-	background-color: #effdde;
+	background-color: var(--message-my-bg);
 	border-radius: 6px;
 	max-width: 430px;
 	min-height: 33px;
@@ -207,7 +207,7 @@ const MessageMyStyled = styled.div<{
 	& div.time {
 		display: flex;
 		font-size: 11pt;
-		color: #6cc264;
+		color: var(--message-my-time);
 		white-space: nowrap;
 		align-self: flex-end;
 		flex-grow: 0;
@@ -217,7 +217,7 @@ const MessageMyStyled = styled.div<{
 	& div.text {
 		font-size: 11pt;
 		display: flex;
-		color: black;
+		color: var(--message-text);
 		white-space: normal;
 		cursor: text;
 		white-space: normal;
@@ -260,7 +260,7 @@ const MessageAvatar = styled.img<{
 const MessageTheirsStyled = styled.div<{
 }>`
 	display: flex;
-	background-color: white;
+	background-color: var(--message-theirs-bg);
 	border-radius: 6px;
 	max-width: 430px;
 	min-height: 33px;
@@ -307,7 +307,7 @@ const MessageTheirsStyled = styled.div<{
 	& div.text {
 		font-size: 11pt;
 		display: flex;
-		color: black;
+		color: var(--message-text);
 		white-space: normal;
 		cursor: text;
 		white-space: normal;

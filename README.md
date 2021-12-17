@@ -11,9 +11,6 @@ Also check [Greentea OS](https://github.com/GreenteaOS) :arrow_upper_right: and 
 ![GUI](screenshots/login.jpg?raw=true)
 
 
-![GUI](screenshots/gui.jpg?raw=true)
-
-
 ## How to build
 
 Set your [API keys](https://core.telegram.org/api/obtaining_api_id) in `hexagram-react\src\tdlib\tdlib.ts`

@@ -16,6 +16,8 @@
 import { observer } from 'mobx-react-lite'
 import { state } from '../../mobx/store'
 import styled from 'styled-components'
+import preview from '../preview.svg'
+import { setTheme } from '../../utils/Theme'
 
 const SidePanelStyled = styled.div`
 	position: absolute;
@@ -28,9 +30,14 @@ const SidePanelStyled = styled.div`
 `
 
 const Fade = styled.div`
+	position: absolute;
+	left: 0;
+	top: 0;
 	display: flex;
-	background-color: rgba(0, 0, 0, 0.3);
-	flex-grow: 1;
+	background-color: transparent;
+	width: 100vw;
+	height: 100vh;
+	transition: background-color 0.222s ease-in-out;
 `
 
 const SideInfoName = styled.div`
@@ -44,9 +51,11 @@ const SideInfoName = styled.div`
 const SideBar = styled.div`
 	display: flex;
 	flex-grow: 0;
-	background-color: white;
+	background-color: var(--background-primary-bg);
 	width: 260px;
 	flex-direction: column;
+	transform: translateX(-260px);
+	transition: transform 0.222s ease-out, background-color 0.222s ease-in-out;
 `
 
 const SideInfo = styled.div`
@@ -55,7 +64,7 @@ const SideInfo = styled.div`
 	margin-bottom: 13px;
 
 	background-color: gray;
-	background-image: url(flowers.jpg);
+	background-image: url(${preview});
 	background-repeat: no-repeat;
 	background-size: cover;
 
@@ -68,11 +77,14 @@ const SideInfo = styled.div`
 
 const Button = styled.div`
 	font-size: 11pt;
-	color: black;
+	color: var(--chat-title);
 	width: 260px;
 	height: 44px;
 	text-align: left;
 	padding-left: 24px;
+	padding-right: 24px;
+	transition: background-color 0.33s ease-in-out, color 0.33s ease-in-out;;
+	cursor: pointer;
 
 	display: flex;
 	flex-direction: column;
@@ -80,14 +92,45 @@ const Button = styled.div`
 
 	span {
 		font-size: 11pt;
+		flex-shrink: 0;
+	}
+
+	svg {
+		flex-shrink: 0;
+		height: 22px;
+		width: 38px;
+
+		> circle {
+			stroke-width: 1.5px;
+			stroke: #276899;
+			stroke: var(--chat-counter-bg);
+			fill: var(--background-primary-bg);
+			transition: transform 0.33s ease-in-out, fill 0.33s ease-in-out;
+			transform: translate(calc(var(--dark) * 16px), 0px);
+		}
+
+		> path {
+			fill: #276899;
+			fill: var(--chat-counter-bg);
+		}
+	}
+
+	> div {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+
+		span {
+			padding-top: 2px;
+		}
 	}
 
 	:hover {
-		background-color: #f1f1f1;
+		background-color: var(--chat-hover-bg);
 	}
 
 	:hover:active {
-		background-color: #e5e5e5;
+		background-color: var(--chat-pressed-bg);
 	}
 
 	&.patreon {
@@ -95,8 +138,28 @@ const Button = styled.div`
 	}
 `
 
+const Checkbox = styled.svg`
+	display: flex;
+`
+
+export const ThemeCheckbox = observer(() => {
+	const x = 10
+	const y = 3
+	const w = 20
+	const h = 0
+	const r = 8
+
+	return (
+		<Checkbox>
+			<path d={`M${x},${y} h${w} a${r},${r} 0 0 1 ${r},${r} v${h} a${r},${r} 0 0 1 -${r},${r} h-${w} a${r},${r} 0 0 1 -${r},-${r} v-${h} a${r},${r} 0 0 1 ${r},-${r} z`} />
+			<circle cx={'11px'} cy={'11px'} r={'10px'} />
+		</Checkbox>
+	)
+})
+
 export const SidePanel = observer(() => {
 	const user = state.users.get(state.myId)
+	const showSideBar = state.showSideBar
 
 	const hideSidePanel = (e: unknown) => {
 		state.showSideBar = false
@@ -112,8 +175,12 @@ export const SidePanel = observer(() => {
 	}
 
 	return (
-		<SidePanelStyled>
-			<SideBar>
+		<SidePanelStyled style={{ pointerEvents: showSideBar ? undefined : `none` }}>
+			<Fade onClick={hideSidePanel} style={{ backgroundColor: showSideBar ? `rgba(0, 0, 0, 0.3)` : undefined }} />
+			<SideBar style={{
+				transform: showSideBar ? `translateX(0px)` : undefined,
+				boxShadow: showSideBar ? `0px 0 22px 0px rgba(0, 0, 0, 0.4)` : undefined
+			}}>
 				<SideInfo>
 					<SideInfoName>{name}</SideInfoName>
 					<SideInfoName>{phone}</SideInfoName>
@@ -121,9 +188,16 @@ export const SidePanel = observer(() => {
 				<Button onClick={_ => askLogout()}><span>Log out</span></Button>
 				<Button className="patreon" onClick={_ => window.open('https://www.patreon.com/PeyTy', '_blank')}><span>Donate on Patreon</span></Button>
 				<Button className="github" onClick={_ => window.open('https://github.com/hexalang/hexagram', '_blank')}><span>Source code on GitHub</span></Button>
+				<Button onClick={_ => {
+					state.dark = !state.dark
+					setTheme(state.dark)
+				}}>
+					<div>
+						<span>Night Mode</span>
+						<ThemeCheckbox />
+					</div>
+				</Button>
 			</SideBar>
-			<Fade onClick={hideSidePanel}>
-			</Fade>
-		</SidePanelStyled>
+		</SidePanelStyled >
 	)
 })

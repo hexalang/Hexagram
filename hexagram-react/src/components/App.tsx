@@ -68,6 +68,7 @@ const FloatingCirclePreview = styled.div`
 	will-change: top, transform, opacity;
 	transform: rotate(20deg);
 	opacity: 0;
+	pointer-events: none;
 
 	transition:
 		background-image 0.333s ease-in-out,
@@ -102,7 +103,7 @@ export default observer(() => {
 		<App>
 			<ChatsPanel />
 			<CurrentChatPanel />
-			{showSideBar && <SidePanel />}
+			<SidePanel />
 			<FloatingCirclePreview style={floatingTop} />
 		</App>
 	)

@@ -33,7 +33,11 @@ const ChatListElementStyled = styled.div<{
 	flex-direction: row;
 
 	background-color: rgba(0, 0, 0, 0);
-	transition: background-color 0.15s ease-in-out;
+	transition:
+		background-color 0.15s ease-in-out,
+		transform 0.15s ease-in-out,
+		border-radius 0.15s ease-in-out
+	;
 
 	:hover {
 		background-color: var(--chat-hover-bg);
@@ -41,18 +45,24 @@ const ChatListElementStyled = styled.div<{
 
 	:hover:active {
 		background-color: var(--chat-pressed-bg);
+		transform: scale(0.95);
+		border-radius: 8px;
 	}
 
 	${({ active }) => active && css`
 		background-color: var(--chat-active-bg);
 		color: white !important;
 
-		* {
+		div, span {
 			color: white !important;
 		}
 
-		* .unread div {
-			color: #419fd9 !important;
+		.unread div {
+			color: var(--chat-active-bg) !important;
+		}
+
+		.unread {
+			background-color: var(--chat-active-counter-bg) !important;
 		}
 
 		:hover {

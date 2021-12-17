@@ -36,10 +36,17 @@ export const setTheme = (dark: boolean): void => {
     style.setProperty('--chat-active-bg', dark ? '#2B5278' : '#419fd9')
     style.setProperty('--chat-active-hover-bg', dark ? '#2B5278' : '#419fd9')
     style.setProperty('--chat-active-pressed-bg', dark ? '#315A80' : '#2095d0')
+    style.setProperty('--chat-active-counter-bg', dark ? '#7AA3CA' : '#419fd9')
 
     style.setProperty('--chat-title', dark ? '#FFFFFF' : 'black')
     style.setProperty('--chat-title-weight', dark ? '100' : null)
     style.setProperty('--chat-filter', dark ? 'invert(0)' : 'invert(1)')
 
+    style.setProperty('--message-my-bg', dark ? '#2B5278' : '#effdde')
+    style.setProperty('--message-theirs-bg', dark ? '#182533' : 'white')
+    style.setProperty('--message-my-time', dark ? '#7DA8D3' : '#6cc264')
+    style.setProperty('--message-text', dark ? 'white' : 'black')
+
     style.setProperty('--header-search', dark ? '#242F3D' : '#f1f1f1')
+    style.setProperty('--dark', dark ? '1' : '0')
 }

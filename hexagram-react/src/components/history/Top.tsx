@@ -36,7 +36,7 @@ const Panel = styled.div`
 	justify-content: flex-start;
 	align-content: center;
 	align-items: center;
-	background-color: white;
+	background-color: var(--background-primary-bg);
 	cursor: pointer;
 	flex-grow: 0;
 	flex-shrink: 0;
@@ -51,6 +51,7 @@ const About = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	margin-left: 8px;
+	color: var(--chat-title);
 `
 
 interface NameProps {

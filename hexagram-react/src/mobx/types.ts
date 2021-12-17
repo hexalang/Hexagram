@@ -114,6 +114,11 @@ export class Chat {
 		this.mentions = tl.unread_mention_count
 		this.photo = tl.photo
 		this.lastMessage = 0
+
+		if (tl.last_message) {
+			this.lastMessage = tl.last_message.id
+		}
+
 		this.onlineMemberCount = 0
 		this.replyToMessageIdDraft = tl.draft_message ? tl.draft_message.reply_to_message_id : 0
 		this.draft = tl.draft_message ? tl.draft_message.input_message_text : null

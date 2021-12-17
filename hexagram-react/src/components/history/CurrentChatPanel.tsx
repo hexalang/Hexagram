@@ -25,7 +25,8 @@ import { observer } from 'mobx-react-lite'
 import { observable } from "mobx"
 import { Store, useStore, StoreEvent } from '../../mobx/wrap'
 import styled, { css } from 'styled-components'
-import flowers from '../panels/flowers.jpg'
+import bg_initial from '../messages/bg_initial.jpg'
+import bg_initial_dark from '../messages/bg_initial_dark.jpg'
 
 const sliderTransition = `background-color 0.5s ease, opacity 0.5s ease`
 
@@ -392,6 +393,9 @@ const History = observer(() => {
 		}
 	}, [state.currentChatId])
 
+	// eslint-disable-next-line
+	useEffect(ui.scrollToBottom, [chatListScrollPane.current, state.currentChatId, messages.length, chat && chat.lastMessage])
+
 	const currentChatHistory = state.history.get(state.currentChatId)
 	if (
 		chat &&
@@ -502,11 +506,13 @@ const History = observer(() => {
 					let text = [<div key="lines" className="text">{lines}</div>]
 
 					if (lines.includes('\n')) {
+						let keyof = 8800
 						text = []
 						const parts = lines.split('\n')
 
 						for (let line of parts) {
 							let className = "text"
+							keyof++
 
 							if (text.length !== (parts.length - 1)) {
 								className = "text textLine"
@@ -516,7 +522,7 @@ const History = observer(() => {
 								line = <>&nbsp;</> as any
 							}
 
-							const what = <div className={className}>{line}</div>
+							const what = <div key={keyof} className={className}>{line}</div>
 							text.push(what)
 						}
 					}
@@ -636,7 +642,7 @@ const History = observer(() => {
 
 						if (lastOffset + lastLength !== lines.length) {
 							const string = lines.substr(lastOffset + lastLength)
-							const what = <div key={lastOffset} className="text">{'' + string + ''}</div>
+							const what = <div key={100000 + keyof} className="text">{'' + string + ''}</div>
 							text.push(what)
 						}
 					}
@@ -688,11 +694,12 @@ const History = observer(() => {
 	)
 })
 
-const Blow = styled.div`
+const Blow = styled.div<{
+	readonly dark: boolean
+}>`
 	background-color: gray;
-	background-image: url(${flowers});
-	background-repeat: no-repeat;
-	background-size: cover;
+	background-image: url(${props => props.dark ? bg_initial_dark : bg_initial});
+	background-repeat: repeat;
 
 	display: flex;
 	flex-direction: column;
@@ -726,7 +733,7 @@ export const CurrentChatPanel = observer(() => {
 
 	return (
 		<>
-			<Blow>
+			<Blow dark={!!state.dark}>
 				{
 					// TODO handle status . left the group
 					chatSelected ?
