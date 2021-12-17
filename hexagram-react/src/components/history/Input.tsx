@@ -121,9 +121,27 @@ const replaceCaret = (el: HTMLElement) => {
 	}
 }
 
+class UI {
+	// GUI
+	@observable value: string = ''
+
+	messagesEndRef: RefObject<HTMLDivElement>
+
+	constructor(
+		messagesEndRef: RefObject<HTMLDivElement>
+	) {
+		this.messagesEndRef = messagesEndRef
+
+		autorun(() => {
+			const current = messagesEndRef.current
+			if (current) replaceCaret(current)
+		})
+	}
+}
+
 export const Input = observer(() => {
-	const [value, setValue] = useState('')
-	const messagesEndRef = useRef(null)
+	const messagesEndRef = useRef<HTMLDivElement>(null)
+	const [ui] = useState(() => new UI(messagesEndRef))
 
 	useEffect(() => {
 		const current = messagesEndRef.current
@@ -139,20 +157,24 @@ export const Input = observer(() => {
 			draft['@type'] === 'inputMessageText' &&
 			draft.text['@type'] === 'formattedText'
 		) {
-			setValue(draftText.trim())
-		} else setValue('')
+			// TODO every Chat has own input value
 			const draftText: string = draft.text.text
+			ui.value = draftText.trim()
+		} else {
+			ui.value = ''
+		}
 
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [state.currentChatId])
 
 	const updateValue = (text: string) => {
-		setValue(text)
+		ui.value = text
 	}
 
 	const onKeyDown = (e: any) => {
 		if (e.key === 'Enter') {
 			tg.parseTextEntities(
-				value,
+				ui.value,
 				{ '@type': 'textParseModeMarkdown', version: 1 }
 			).then(text => {
 				tg.sendMessage(
@@ -175,7 +197,7 @@ export const Input = observer(() => {
 				)
 			})
 
-			setValue('')
+			ui.value = ''
 			e.preventDefault()
 			return false
 		}
@@ -205,7 +227,7 @@ export const Input = observer(() => {
 			<InputField>
 				{(ui.value === '') && false && <Placeholder>Write a message...</Placeholder>}
 				{false &&
-					<div ref={messagesEndRef} className="editor" contentEditable={true} onKeyDown={onKeyDown} onInput={e => updateValue((e.target as any).innerHTML)} dangerouslySetInnerHTML={{ __html: value }}></div>
+					<div ref={messagesEndRef} className="editor" contentEditable={true} onKeyDown={onKeyDown} onInput={e => updateValue((e.target as any).innerHTML)} dangerouslySetInnerHTML={{ __html: ui.value }}></div>
 				}
 				<input
 					type="text"
