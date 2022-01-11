@@ -3,7 +3,7 @@ updates:
 - package-ecosystem: npm
   directory: "/hexagram-react"
   schedule:
-    interval: weekly
+    interval: monthly
   labels:
     - "npm"
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 3
