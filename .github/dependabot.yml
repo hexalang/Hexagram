@@ -6,4 +6,4 @@ updates:
     interval: monthly
   labels:
     - "npm"
-  open-pull-requests-limit: 3
+  open-pull-requests-limit: 1
